@@ -1,6 +1,6 @@
 import { ArrowRight, Check } from "lucide-react";
 import { Icon } from "./icon";
-import { storeOwner, company, storeSignageNote } from "@/lib/site-data";
+import { storeOwner, company, storeSignageNote, storeInstall } from "@/lib/site-data";
 
 export function StoreOwner() {
   return (
@@ -86,6 +86,26 @@ export function StoreOwner() {
           </div>
         </div>
 
+        {/* サイネージ導入費（申込ベース） */}
+        <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-7">
+          <h3 className="text-base font-bold text-white">{storeInstall.title}</h3>
+          <p className="mt-2 text-sm leading-relaxed text-white/70">{storeInstall.lead}</p>
+          <div className="mt-5 grid gap-4 sm:grid-cols-2">
+            {storeInstall.free.map((f) => (
+              <div key={f.label} className="rounded-xl border border-sky-300/25 bg-sky-300/10 p-5">
+                <div className="flex items-center gap-2">
+                  <span className="rounded-md bg-sky-300 px-2 py-0.5 text-xs font-extrabold text-ink">
+                    {f.badge}
+                  </span>
+                  <span className="text-sm font-bold text-white">{f.label}</span>
+                </div>
+                <p className="mt-2 text-xs leading-relaxed text-white/70">{f.body}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-4 text-xs leading-relaxed text-white/55">{storeInstall.paid}</p>
+        </div>
+
         {/* 導入の流れ */}
         <div className="mt-12">
           <h3 className="mb-5 text-center text-lg font-bold text-white">加盟店になるまでの流れ</h3>
@@ -105,11 +125,11 @@ export function StoreOwner() {
             href={`mailto:${company.email}?subject=${encodeURIComponent("店舗へのサイネージ設置について")}`}
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-6 py-3.5 text-[15px] font-bold text-white shadow-lg shadow-brand/25 transition-all hover:bg-brand-dark active:translate-y-px"
           >
-            店舗導入を無料で相談する
+            店舗導入を相談・お申込みする
             <ArrowRight className="size-5" />
           </a>
           <p className="mt-3 text-xs text-white/55">
-            初期費用・運用負担ゼロ／設置・配信・保守・動画制作はすべて当社が負担します。
+            運用・配信・保守・動画制作はすべて当社負担。本体導入費は無料キャンペーン／20店舗以上のチェーンで0円、個人店の通常導入は¥55,000／台（税別・お申込みベース）。
           </p>
         </div>
       </div>
