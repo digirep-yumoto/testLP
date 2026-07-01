@@ -42,6 +42,26 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false, // X-Powered-By を隠す
+  // 旧WordPressサイトのURL → 新サイトへの301リダイレクト（検索結果の旧リンク対策）
+  async redirects() {
+    return [
+      { source: "/advertising-chain", destination: "/#chains", permanent: true },
+      { source: "/advertising-chain/:path*", destination: "/#chains", permanent: true },
+      { source: "/advertiser", destination: "/#toilet", permanent: true },
+      { source: "/advertisers", destination: "/#toilet", permanent: true },
+      { source: "/store", destination: "/#store", permanent: true },
+      { source: "/shop", destination: "/#store", permanent: true },
+      { source: "/download", destination: "/#docs", permanent: true },
+      { source: "/documents", destination: "/#docs", permanent: true },
+      { source: "/document", destination: "/#docs", permanent: true },
+      { source: "/apply", destination: "/apply-form.html", permanent: true },
+      { source: "/contact", destination: "/#request", permanent: true },
+      { source: "/company", destination: "/#company", permanent: true },
+      { source: "/about", destination: "/#company", permanent: true },
+      { source: "/privacy-policy", destination: "/privacy", permanent: true },
+      { source: "/faq", destination: "/#faq", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

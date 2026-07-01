@@ -61,7 +61,7 @@ export async function POST(request: Request) {
   const payload = { company, name, email, tel, media, message, at: new Date().toISOString() };
 
   const resendKey = process.env.RESEND_API_KEY;
-  const to = process.env.LEAD_TO_EMAIL;
+  const to = process.env.LEAD_TO_EMAIL || "digirep.yumoto@gmail.com";
   if (resendKey && to) {
     try {
       const res = await fetch("https://api.resend.com/emails", {

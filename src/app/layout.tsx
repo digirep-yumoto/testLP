@@ -20,7 +20,7 @@ const lexend = Lexend({
 export const metadata: Metadata = {
   metadataBase: new URL(company.url),
   title: {
-    default: `${company.brand}（デジレップ）｜${company.tagline}`,
+    default: "DigiRep（デジレップ）｜トイレ＆ランドリー×サイネージ広告",
     template: `%s｜${company.brand}`,
   },
   description: company.description,
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ja_JP",
     siteName: company.brand,
-    title: `${company.brand}（デジレップ）｜${company.tagline}`,
+    title: "DigiRep（デジレップ）｜トイレ＆ランドリー×サイネージ広告",
     description: company.description,
     url: company.url,
   },
