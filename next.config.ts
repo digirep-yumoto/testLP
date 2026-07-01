@@ -45,19 +45,20 @@ const nextConfig: NextConfig = {
   // 旧WordPressサイトのURL → 新サイトへの301リダイレクト（検索結果の旧リンク対策）
   async redirects() {
     return [
+      // 旧サイトの実URL（確認済み）
+      { source: "/advertising", destination: "/", permanent: true },
+      { source: "/advertising/:path*", destination: "/", permanent: true },
+      { source: "/signage", destination: "/#store", permanent: true },
+      { source: "/signage/:path*", destination: "/#store", permanent: true },
+      { source: "/download", destination: "/#docs", permanent: true },
+      { source: "/download/:path*", destination: "/#docs", permanent: true },
+      { source: "/application", destination: "/apply-form.html", permanent: true },
+      { source: "/application/:path*", destination: "/apply-form.html", permanent: true },
       { source: "/advertising-chain", destination: "/#chains", permanent: true },
       { source: "/advertising-chain/:path*", destination: "/#chains", permanent: true },
-      { source: "/advertiser", destination: "/#toilet", permanent: true },
-      { source: "/advertisers", destination: "/#toilet", permanent: true },
-      { source: "/store", destination: "/#store", permanent: true },
-      { source: "/shop", destination: "/#store", permanent: true },
-      { source: "/download", destination: "/#docs", permanent: true },
-      { source: "/documents", destination: "/#docs", permanent: true },
-      { source: "/document", destination: "/#docs", permanent: true },
-      { source: "/apply", destination: "/apply-form.html", permanent: true },
+      // 予備（推測）
       { source: "/contact", destination: "/#request", permanent: true },
       { source: "/company", destination: "/#company", permanent: true },
-      { source: "/about", destination: "/#company", permanent: true },
       { source: "/privacy-policy", destination: "/privacy", permanent: true },
       { source: "/faq", destination: "/#faq", permanent: true },
     ];
