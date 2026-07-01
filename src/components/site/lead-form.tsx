@@ -5,12 +5,18 @@ import { CheckCircle2, Send, Loader2 } from "lucide-react";
 import { SectionHeading } from "./section-heading";
 import { cn } from "@/lib/utils";
 
-const mediaOptions = ["個室トイレサイネージ", "コインランドリーサイネージ", "両方・未定", "店舗設置（加盟店）"];
+const purposeOptions = [
+  "まずはミーティング・相談したい（内容未定でOK）",
+  "資料がほしい（資料請求）",
+  "料金・見積りを知りたい",
+  "その他のお問い合わせ",
+];
+const mediaOptions = ["未定・相談したい", "個室トイレサイネージ", "コインランドリーサイネージ", "両方", "店舗設置（加盟店）"];
 
 export function LeadForm() {
   const [state, setState] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [err, setErr] = useState("");
-  const [f, setF] = useState({ company: "", name: "", email: "", tel: "", media: mediaOptions[0], message: "" });
+  const [f, setF] = useState({ purpose: purposeOptions[0], company: "", name: "", email: "", tel: "", media: mediaOptions[0], message: "" });
 
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setF((p) => ({ ...p, [k]: e.target.value }));
@@ -38,9 +44,9 @@ export function LeadForm() {
     <section id="request" className="bg-paper py-20 sm:py-28">
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
         <SectionHeading
-          eyebrow="Download / Contact"
-          title="資料請求・お問い合わせ"
-          lead="媒体資料の送付・ご相談を承ります。1営業日以内に担当よりご連絡します。まずはお気軽にどうぞ。"
+          eyebrow="Contact"
+          title="お問い合わせ・無料相談"
+          lead="「まだ内容は決まっていないが、まずは話を聞きたい」も大歓迎です。資料請求・ミーティングのご希望など、お気軽にどうぞ。1営業日以内に担当よりご連絡します。"
         />
 
         <div className="mt-10 rounded-3xl border border-border bg-card p-6 shadow-sm sm:p-9">
@@ -54,6 +60,13 @@ export function LeadForm() {
             </div>
           ) : (
             <form onSubmit={submit} className="grid gap-5">
+              <Field label="ご用件" required htmlFor="lf-purpose">
+                <select id="lf-purpose" value={f.purpose} onChange={set("purpose")} className={input}>
+                  {purposeOptions.map((o) => (
+                    <option key={o}>{o}</option>
+                  ))}
+                </select>
+              </Field>
               <div className="grid gap-5 sm:grid-cols-2">
                 <Field label="会社名" htmlFor="lf-company">
                   <input id="lf-company" value={f.company} onChange={set("company")} className={input} placeholder="株式会社◯◯" />

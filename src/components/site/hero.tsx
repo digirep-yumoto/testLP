@@ -76,6 +76,16 @@ export function Hero() {
             </a>
           </div>
 
+          <p className="mt-4 text-sm text-white/60">
+            まだ内容が決まっていない方は{" "}
+            <a
+              href="#request"
+              className="font-bold text-sky-300 underline underline-offset-4 transition-colors hover:text-sky-200"
+            >
+              無料相談・お問い合わせ →
+            </a>
+          </p>
+
           <div className="mt-8 flex flex-wrap gap-2.5">
             {mediaList.map((m) => (
               <a

@@ -47,6 +47,7 @@ export async function POST(request: Request) {
   }
 
   const s = (v: unknown, max = 200) => (typeof v === "string" ? v.trim().slice(0, max) : "");
+  const purpose = s(body.purpose, 60);
   const company = s(body.company);
   const name = s(body.name);
   const email = s(body.email);
@@ -58,7 +59,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "お名前と正しいメールアドレスをご入力ください。" }, { status: 400 });
   }
 
-  const payload = { company, name, email, tel, media, message, at: new Date().toISOString() };
+  const payload = { purpose, company, name, email, tel, media, message, at: new Date().toISOString() };
 
   const resendKey = process.env.RESEND_API_KEY;
   const to = process.env.LEAD_TO_EMAIL || "digirep.yumoto@gmail.com";
@@ -71,8 +72,8 @@ export async function POST(request: Request) {
           from: process.env.LEAD_FROM_EMAIL || "DigiRep <onboarding@resend.dev>",
           to: [to],
           reply_to: email,
-          subject: `【資料請求/お問い合わせ】${company || name} 様`,
-          text: `会社名: ${company}\n氏名: ${name}\nメール: ${email}\n電話: ${tel}\n興味のある媒体: ${media}\n\n${message}`,
+          subject: `【お問い合わせ】${purpose || "お問い合わせ"}／${company || name} 様`,
+          text: `ご用件: ${purpose}\n会社名: ${company}\n氏名: ${name}\nメール: ${email}\n電話: ${tel}\n興味のある媒体: ${media}\n\n${message}`,
         }),
       });
       if (!res.ok) throw new Error("resend failed");
