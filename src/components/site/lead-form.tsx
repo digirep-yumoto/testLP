@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle2, Send, Loader2 } from "lucide-react";
+import { CheckCircle2, Send, Loader2, CalendarDays } from "lucide-react";
 import { SectionHeading } from "./section-heading";
 import { cn } from "@/lib/utils";
+
+// TimeRex 予約ページURL（Vercelの環境変数 NEXT_PUBLIC_TIMEREX_URL に設定）
+const TIMEREX_URL = process.env.NEXT_PUBLIC_TIMEREX_URL || "";
 
 const purposeOptions = [
   "まずはミーティング・相談したい（内容未定でOK）",
@@ -67,6 +70,37 @@ export function LeadForm() {
                   ))}
                 </select>
               </Field>
+
+              {f.purpose.startsWith("まずはミーティング") && (
+                <div className="rounded-xl border border-brand/30 bg-brand/5 p-4">
+                  <p className="flex items-center gap-1.5 text-sm font-bold text-ink">
+                    <CalendarDays className="size-4 text-brand" />
+                    日程をその場で予約できます
+                  </p>
+                  <p className="mt-1 text-xs leading-relaxed text-ink-soft">
+                    オンライン打ち合わせのご都合の良い日時を、カレンダーから今すぐご予約いただけます。
+                  </p>
+                  {TIMEREX_URL ? (
+                    <a
+                      href={TIMEREX_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-3 inline-flex items-center gap-2 rounded-lg bg-brand px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-brand-dark"
+                    >
+                      <CalendarDays className="size-4" />
+                      日程を選んで予約する
+                    </a>
+                  ) : (
+                    <p className="mt-2 text-xs text-muted-foreground">
+                      ※ 予約カレンダーは準備中です。下記フォーム送信でも担当より日程を調整いたします。
+                    </p>
+                  )}
+                  <p className="mt-2 text-xs text-ink-soft">
+                    ご予約が難しい場合は、下記フォーム送信でも承ります。
+                  </p>
+                </div>
+              )}
+
               <div className="grid gap-5 sm:grid-cols-2">
                 <Field label="会社名" htmlFor="lf-company">
                   <input id="lf-company" value={f.company} onChange={set("company")} className={input} placeholder="株式会社◯◯" />

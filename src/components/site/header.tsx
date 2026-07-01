@@ -48,10 +48,16 @@ export function Header() {
             </a>
           ))}
           <a
+            href="#request"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-brand/40 px-4 py-2 text-sm font-bold text-brand transition-colors hover:bg-brand/5"
+          >
+            お問い合わせ・無料相談
+          </a>
+          <a
             href="#contact"
             className="inline-flex items-center gap-1.5 rounded-lg bg-brand px-4 py-2 text-sm font-bold text-white shadow-sm transition-all hover:bg-brand-dark active:translate-y-px"
           >
-            お申込み・ご相談
+            お申込み・試算
             <ArrowRight className="size-4" />
           </a>
         </nav>
@@ -81,11 +87,18 @@ export function Header() {
               </a>
             ))}
             <a
+              href="#request"
+              onClick={() => setOpen(false)}
+              className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-lg border border-brand/40 px-4 py-3 text-sm font-bold text-brand"
+            >
+              お問い合わせ・無料相談
+            </a>
+            <a
               href="#contact"
               onClick={() => setOpen(false)}
               className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-lg bg-brand px-4 py-3 text-sm font-bold text-white"
             >
-              お申込み・ご相談
+              お申込み・試算
               <ArrowRight className="size-4" />
             </a>
           </nav>
