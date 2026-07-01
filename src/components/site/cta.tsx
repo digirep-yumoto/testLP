@@ -1,4 +1,4 @@
-import { ArrowRight, Calculator, Mail, CreditCard } from "lucide-react";
+import { ArrowRight, Calculator, Mail, FileText } from "lucide-react";
 import { company } from "@/lib/site-data";
 
 export function Cta() {
@@ -45,9 +45,9 @@ export function Cta() {
             </div>
 
             <div className="mt-8 flex items-start gap-2.5 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/70">
-              <CreditCard className="mt-0.5 size-4 shrink-0 text-sky-300" />
+              <FileText className="mt-0.5 size-4 shrink-0 text-sky-300" />
               <span>
-                お申込み後、確認のうえ Stripe による決済（クレジットカード等）のご案内をお送りします。請求書払いにも対応します。表示金額はすべて税別です。
+                シミュレーションの金額はあくまで目安です。お申込み後、担当より内容確認のうえ、ご提案・お見積り・お支払い（請求書）のご案内をお送りします。表示金額はすべて税別です。
               </span>
             </div>
           </div>

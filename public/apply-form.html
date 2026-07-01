@@ -349,7 +349,7 @@
             <button type="button" class="btn btn-soft" id="contractBtn" style="flex:1;">契約書を見る</button>
           </div>
           <button type="submit" class="btn btn-primary" id="submitBtn" style="margin-top:10px;">この内容でお申込み</button>
-          <div class="side-foot">お申込み後、確認のうえ請求・お支払い手続きのご案内（Stripe決済リンク）をお送りします。</div>
+          <div class="side-foot">表示金額はシミュレーションの目安です。お申込み後、担当より内容確認のうえ、ご提案・お見積り・お支払い（請求書）のご案内をお送りします。</div>
         </div>
       </div>
     </div>
@@ -362,10 +362,9 @@
     <h2>お申込みを受け付けました</h2>
     <p id="doneMsg"></p>
     <div class="btn-row" style="justify-content:center;">
-      <button type="button" class="btn btn-soft" id="payBtn">お支払いへ進む（Stripe）</button>
+      <button type="button" class="btn btn-ghost" id="quoteBtn2">見積書を見る</button>
+      <button type="button" class="btn btn-ghost" id="contractBtn2">契約書を見る</button>
       <button type="button" class="btn btn-ghost" id="dlJsonBtn">申込データ(JSON)を保存</button>
-      <button type="button" class="btn btn-ghost" id="quoteBtn2">見積書</button>
-      <button type="button" class="btn btn-ghost" id="contractBtn2">契約書</button>
     </div>
     <div class="info-line" id="payNote" style="margin-top:14px;"></div>
   </div>
@@ -728,18 +727,8 @@ $('form').onsubmit=e=>{
   // 完了画面へ
   $('form').style.display='none';
   $('doneCard').classList.add('show');
-  $('doneMsg').innerHTML = `${lastData.advertiser.company} 様のお申込みを受け付けました。<br>お申込み金額：<b>${yen(lastData.order.total)}（税別）</b> ／ ${lastData.order.termLabel}`;
-  // Stripe Payment Link（運用時はここに実URLを設定。金額・申込番号をクエリで付与可能）
-  const STRIPE_PAYMENT_LINK = ''; // 例：'https://buy.stripe.com/xxxxxxxx'
-  if(STRIPE_PAYMENT_LINK){
-    $('payNote').innerHTML='お支払いボタンからStripeの決済ページに進めます。';
-  } else {
-    $('payNote').innerHTML='※ 現在はデモ環境です。運用時はStripeのPayment Link（決済URL）を設定すると、このボタンから自動決済に進めます。';
-  }
-  $('payBtn').onclick=()=>{
-    if(STRIPE_PAYMENT_LINK){ window.open(STRIPE_PAYMENT_LINK+`?client_reference_id=${encodeURIComponent(lastData.advertiser.company)}`,'_blank'); }
-    else { toast('Stripe決済リンクが未設定です（運用時に設定）'); }
-  };
+  $('doneMsg').innerHTML = `${lastData.advertiser.company} 様、お申込みありがとうございます。<br>担当より1営業日以内に、ご提案・お見積り・お支払いのご案内をご連絡します。<br><span style="font-size:12px;color:#8a98ad;">参考金額（シミュレーション・税別）：<b>${yen(lastData.order.total)}</b> ／ ${lastData.order.termLabel}</span>`;
+  $('payNote').innerHTML='※ 表示金額はシミュレーションの目安です。正式なお見積り・お支払い方法（請求書等）は担当よりご案内します。';
   window.scrollTo({top:0,behavior:'smooth'});
   toast('お申込みを受け付けました','ok');
 };
@@ -770,49 +759,5 @@ $('goods').addEventListener('input',renderRec);
 renderMediaPick(); renderTermPick(); toggleFields(); compute();
 </script>
 
-<!-- ===== DigiRep セキュア決済連携（サーバー側で金額再計算・改ざん防止） ===== -->
-<script>
-(function(){
-  function latestApp(){
-    try { var a = JSON.parse(localStorage.getItem('digirep_applications')||'[]'); return a[a.length-1]||null; }
-    catch(e){ return null; }
-  }
-  // 申込データ → サーバーが検証できる構造化注文（金額そのものは送らない）
-  function toOrder(app){
-    if(!app || !app.order) return null;
-    var o = app.order, d = o.detail || {};
-    if (d.type === 'toilet') return { media:'toilet', stores:d.stores, visitors:d.visitors, months:o.months };
-    if (d.type === 'laundry') return { media:'laundry', pkg:d.pkg, sec:String(d.sec), stores:d.stores, months:o.months };
-    return null; // ホテル等は個別見積（オンライン決済対象外）
-  }
-  // payBtn のクリックを document の capture フェーズで先取りし、Stripe Checkout へ
-  document.addEventListener('click', function(ev){
-    var t = ev.target;
-    var btn = t && t.closest ? t.closest('#payBtn') : null;
-    if (!btn) return;
-    var app = latestApp();
-    var order = toOrder(app);
-    if (!order) return; // 構造化できない場合は既定動作に委ねる
-    ev.preventDefault(); ev.stopPropagation();
-    var label = btn.textContent;
-    btn.disabled = true; btn.textContent = '決済ページへ接続中…';
-    fetch('/api/checkout', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        order: order,
-        email: app && app.contact ? app.contact.email : undefined,
-        reference: app && app.advertiser ? app.advertiser.company : undefined
-      })
-    })
-    .then(function(r){ return r.json().then(function(j){ return { ok:r.ok, j:j }; }); })
-    .then(function(res){
-      if (res.ok && res.j && res.j.url) { window.location.href = res.j.url; }
-      else { alert((res.j && res.j.error) || '決済を開始できませんでした。'); btn.disabled=false; btn.textContent=label; }
-    })
-    .catch(function(){ alert('通信に失敗しました。時間をおいて再度お試しください。'); btn.disabled=false; btn.textContent=label; });
-  }, true);
-})();
-</script>
 </body>
 </html>

@@ -39,9 +39,9 @@ export default function PrivacyPage() {
               </p>
             </section>
             <section>
-              <h2 className="text-lg font-bold text-ink">4. 決済情報</h2>
+              <h2 className="text-lg font-bold text-ink">4. お支払いについて</h2>
               <p className="mt-2">
-                クレジットカード決済には Stripe を利用します。カード番号等の決済情報は Stripe が安全に処理し、当社がカード情報を保持することはありません。
+                お支払いは原則として、ご契約後の請求書によるお振込みです。将来クレジットカード等の電子決済を導入する場合、カード番号等の決済情報は決済代行事業者が安全に処理し、当社がカード情報を保持することはありません。
               </p>
             </section>
             <section>
