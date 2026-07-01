@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DigiRep サイネージ 広告主お申込みフォーム</title>
+<style>
+  :root{
+    --ink:#16243d; --ink-soft:#44557a; --ink-faint:#8a98ad;
+    --brand:#2f6df0; --brand-d:#1b4fcb; --sky:#eaf1ff; --sky2:#dce8ff;
+    --paper:#f5f8fd; --paper2:#eef3fb; --line:#dbe5f2; --card:#fff;
+    --teal:#0fa3a3; --amber:#e8923b; --green:#1f9d6b; --danger:#d8453a;
+    --r:14px; --r-sm:9px; --shadow:0 8px 30px rgba(22,42,77,.10); --shadow-sm:0 2px 10px rgba(22,42,77,.06);
+    --round:'Hiragino Kaku Gothic ProN','Hiragino Sans','Noto Sans JP',sans-serif;
+    --body:'Hiragino Kaku Gothic ProN','Hiragino Sans','Noto Sans JP',sans-serif;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ font-family:var(--body); background:var(--paper); color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased; }
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 20px 80px; }
+
+  /* ヘッダー */
+  header{ background:var(--ink); color:#fff; padding:18px 0; position:sticky; top:0; z-index:20; box-shadow:0 2px 16px rgba(0,0,0,.18); }
+  .head-in{ max-width:1080px; margin:0 auto; padding:0 20px; display:flex; align-items:center; gap:14px; }
+  .logo{ display:flex; align-items:center; gap:10px; }
+  .logo .mark{ width:38px; height:38px; border-radius:10px; background:var(--brand); display:grid; place-items:center; font-weight:800; font-size:20px; }
+  .logo b{ font-size:17px; letter-spacing:.04em; }
+  .logo span{ font-size:11.5px; color:#9fb0cc; display:block; margin-top:-3px; }
+  .head-tag{ margin-left:auto; font-size:12px; color:#9fb0cc; }
+
+  /* ヒーロー */
+  .hero{ background:linear-gradient(135deg,var(--ink) 0%,#1d335a 100%); color:#fff; padding:38px 0 88px; position:relative; overflow:hidden; }
+  .hero::after{ content:''; position:absolute; right:-80px; top:-60px; width:320px; height:320px; border-radius:50%; background:rgba(47,109,240,.22); }
+  .hero-in{ max-width:1080px; margin:0 auto; padding:0 20px; position:relative; z-index:1; }
+  .hero h1{ font-size:30px; font-weight:800; letter-spacing:.01em; }
+  .hero p{ margin-top:10px; color:#c8d6f2; max-width:620px; font-size:14.5px; }
+  .hero .pills{ margin-top:18px; display:flex; gap:10px; flex-wrap:wrap; }
+  .hero .pill{ background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); border-radius:30px; padding:6px 14px; font-size:12.5px; }
+
+  /* レイアウト */
+  .layout{ display:grid; grid-template-columns:1fr 340px; gap:24px; margin-top:-56px; position:relative; z-index:5; align-items:start; }
+  @media(max-width:880px){ .layout{ grid-template-columns:1fr; } }
+
+  /* カード/セクション */
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow-sm); padding:22px; margin-bottom:18px; }
+  .card.lead{ box-shadow:var(--shadow); }
+  .sec-head{ display:flex; align-items:center; gap:11px; margin-bottom:16px; padding-bottom:13px; border-bottom:1px solid var(--line); }
+  .sec-num{ width:30px; height:30px; border-radius:8px; background:var(--sky); color:var(--brand); font-weight:800; display:grid; place-items:center; font-size:14px; flex:0 0 auto; }
+  .sec-head h2{ font-size:16.5px; font-weight:800; }
+  .sec-head p{ font-size:11.5px; color:var(--ink-faint); margin-top:1px; }
+
+  /* フォーム要素 */
+  .field{ margin-bottom:15px; }
+  .field:last-child{ margin-bottom:0; }
+  .row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media(max-width:600px){ .row{ grid-template-columns:1fr; } }
+  label{ display:block; font-size:12.5px; font-weight:700; color:var(--ink-soft); margin-bottom:5px; }
+  .req{ color:var(--danger); font-size:11px; margin-left:5px; font-weight:700; }
+  .opt{ color:var(--ink-faint); font-size:10.5px; margin-left:5px; font-weight:600; }
+  .hint{ font-size:11px; color:var(--ink-faint); font-weight:400; margin-left:6px; }
+  input[type=text],input[type=email],input[type=tel],input[type=number],input[type=month],select,textarea{
+    width:100%; padding:10px 12px; border:1.5px solid var(--line); border-radius:var(--r-sm); font-size:14px; font-family:inherit; color:var(--ink); background:#fff; transition:border .15s, box-shadow .15s; }
+  input:focus,select:focus,textarea:focus{ outline:none; border-color:var(--brand); box-shadow:0 0 0 3px rgba(47,109,240,.13); }
+  textarea{ resize:vertical; min-height:74px; }
+  input.bad,select.bad{ border-color:var(--danger); }
+  .err{ display:none; color:var(--danger); font-size:11.5px; margin-top:4px; }
+  .err.show{ display:block; }
+  .with-sfx{ position:relative; }
+  .with-sfx .sfx{ position:absolute; right:12px; top:50%; transform:translateY(-50%); font-size:12.5px; color:var(--ink-faint); pointer-events:none; }
+
+  /* 媒体選択カード */
+  .media-pick{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  @media(max-width:600px){ .media-pick{ grid-template-columns:1fr; } }
+  .media-opt{ border:1.5px solid var(--line); border-radius:var(--r-sm); padding:13px; cursor:pointer; transition:.15s; background:#fff; text-align:center; }
+  .media-opt:hover{ border-color:var(--brand); }
+  .media-opt.on{ border-color:var(--brand); background:var(--sky); box-shadow:0 0 0 3px rgba(47,109,240,.1); }
+  .media-opt .ic{ font-size:24px; }
+  .media-opt .nm{ font-weight:800; font-size:14px; margin-top:4px; }
+  .media-opt .ds{ font-size:10.5px; color:var(--ink-faint); margin-top:2px; }
+
+  /* 掲載期間プラン */
+  .term-pick{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  @media(max-width:600px){ .term-pick{ grid-template-columns:1fr; } }
+  .term-opt{ border:1.5px solid var(--line); border-radius:var(--r-sm); padding:14px 13px; cursor:pointer; transition:.15s; background:#fff; position:relative; }
+  .term-opt:hover{ border-color:var(--brand); }
+  .term-opt.on{ border-color:var(--brand); background:var(--sky); box-shadow:0 0 0 3px rgba(47,109,240,.1); }
+  .term-opt .tnm{ font-weight:800; font-size:15px; }
+  .term-opt .tds{ font-size:11px; color:var(--ink-soft); margin-top:3px; }
+  .term-opt .tdisc{ font-size:11.5px; color:var(--brand); font-weight:800; margin-top:6px; }
+  .term-opt .tbadge{ position:absolute; top:-9px; right:10px; background:var(--brand); color:#fff; font-size:10px; font-weight:700; border-radius:20px; padding:2px 10px; }
+
+  /* サイドバー（申込金額） */
+  .side{ position:sticky; top:96px; }
+  .side .card{ padding:0; overflow:hidden; }
+  .side-head{ background:var(--ink); color:#fff; padding:16px 18px; }
+  .side-head h3{ font-size:14px; font-weight:700; }
+  .side-head .amt{ font-size:30px; font-weight:800; margin-top:6px; letter-spacing:.01em; }
+  .side-head .amt small{ font-size:13px; font-weight:600; color:#9fb0cc; }
+  .side-head .note{ font-size:11px; color:#9fb0cc; margin-top:2px; }
+  .side-body{ padding:16px 18px; }
+  .side-row{ display:flex; justify-content:space-between; gap:10px; font-size:12.5px; padding:7px 0; border-bottom:1px dashed var(--line); }
+  .side-row:last-of-type{ border-bottom:none; }
+  .side-row .k{ color:var(--ink-soft); }
+  .side-row .v{ font-weight:700; }
+  .side-total{ display:flex; justify-content:space-between; align-items:center; margin-top:12px; padding-top:12px; border-top:2px solid var(--line); }
+  .side-total .k{ font-weight:700; }
+  .side-total .v{ font-size:22px; font-weight:800; color:var(--brand); }
+  .side-foot{ font-size:10.5px; color:var(--ink-faint); margin-top:8px; line-height:1.5; }
+
+  /* 規約 */
+  .terms-box{ background:var(--paper); border:1px solid var(--line); border-radius:var(--r-sm); padding:15px 16px; max-height:230px; overflow-y:auto; font-size:12px; color:var(--ink-soft); line-height:1.7; }
+  .terms-box h4{ font-size:12.5px; color:var(--ink); margin:12px 0 5px; }
+  .terms-box h4:first-child{ margin-top:0; }
+  .check-row{ display:flex; align-items:flex-start; gap:9px; margin-top:13px; }
+  .check-row input{ width:18px; height:18px; margin-top:2px; flex:0 0 auto; accent-color:var(--brand); cursor:pointer; }
+  .check-row label{ margin:0; font-size:13px; color:var(--ink); font-weight:600; cursor:pointer; }
+  .check-row a{ color:var(--brand); }
+
+  /* ボタン */
+  .btn{ border:none; border-radius:var(--r-sm); font-family:inherit; font-weight:700; cursor:pointer; transition:.15s; display:inline-flex; align-items:center; justify-content:center; gap:8px; }
+  .btn-primary{ background:var(--brand); color:#fff; padding:14px 20px; font-size:15px; width:100%; }
+  .btn-primary:hover{ background:var(--brand-d); }
+  .btn-primary:disabled{ background:#a9bbd8; cursor:not-allowed; }
+  .btn-ghost{ background:#fff; color:var(--ink-soft); border:1.5px solid var(--line); padding:11px 16px; font-size:13px; }
+  .btn-ghost:hover{ border-color:var(--brand); color:var(--brand); }
+  .btn-soft{ background:var(--sky); color:var(--brand-d); padding:11px 16px; font-size:13px; }
+  .btn-soft:hover{ background:var(--sky2); }
+  .btn-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+
+  /* 計算明細ストリップ */
+  .calc-note{ background:var(--paper2); border-radius:var(--r-sm); padding:11px 13px; font-size:12px; color:var(--ink-soft); margin-top:13px; line-height:1.6; }
+  .calc-note b{ color:var(--brand-d); }
+
+  /* モーダル（契約書/見積プレビュー） */
+  .modal-bg{ display:none; position:fixed; inset:0; background:rgba(16,24,44,.55); z-index:50; align-items:flex-start; justify-content:center; padding:34px 16px; overflow-y:auto; }
+  .modal-bg.open{ display:flex; }
+  .modal{ background:#fff; border-radius:var(--r); max-width:780px; width:100%; box-shadow:var(--shadow); }
+  .modal-h{ display:flex; align-items:center; justify-content:space-between; padding:18px 22px; border-bottom:1px solid var(--line); position:sticky; top:0; background:#fff; border-radius:var(--r) var(--r) 0 0; }
+  .modal-h h3{ font-size:16px; }
+  .modal-x{ background:none; border:none; font-size:24px; cursor:pointer; color:var(--ink-faint); line-height:1; }
+  .modal-b{ padding:22px; }
+  .modal-f{ padding:14px 22px; border-top:1px solid var(--line); display:flex; gap:10px; justify-content:flex-end; }
+
+  /* ドキュメント（契約書/見積） */
+  .doc{ font-size:12.5px; color:var(--ink); line-height:1.8; }
+  .doc h2{ text-align:center; font-size:18px; margin-bottom:6px; }
+  .doc .doc-meta{ text-align:right; font-size:11.5px; color:var(--ink-soft); margin-bottom:14px; }
+  .doc table{ width:100%; border-collapse:collapse; margin:12px 0; font-size:12.5px; }
+  .doc th,.doc td{ border:1px solid var(--line); padding:8px 10px; text-align:left; }
+  .doc th{ background:var(--paper); font-weight:700; width:34%; }
+  .doc .doc-total td{ background:var(--sky); font-weight:800; color:var(--brand-d); }
+  .doc .doc-sec{ font-weight:800; margin:16px 0 6px; color:var(--ink); border-left:3px solid var(--brand); padding-left:9px; }
+  .doc ol{ padding-left:20px; } .doc ol li{ margin-bottom:5px; }
+  .doc .sign{ margin-top:22px; display:flex; justify-content:space-between; gap:20px; }
+  .doc .sign .box{ flex:1; border-top:1px solid var(--ink); padding-top:6px; font-size:11.5px; }
+
+  /* トースト */
+  .toast{ position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(80px); background:var(--ink); color:#fff; padding:13px 22px; border-radius:30px; font-size:13.5px; font-weight:600; box-shadow:var(--shadow); opacity:0; transition:.3s; z-index:80; }
+  .toast.show{ transform:translateX(-50%) translateY(0); opacity:1; }
+  .toast.ok{ background:var(--green); }
+
+  /* 完了画面 */
+  .done{ display:none; text-align:center; padding:40px 20px; }
+  .done.show{ display:block; }
+  .done .big{ font-size:54px; }
+  .done h2{ font-size:22px; margin-top:10px; }
+  .done p{ color:var(--ink-soft); margin-top:8px; }
+
+  .badge{ display:inline-block; font-size:11px; font-weight:700; padding:2px 9px; border-radius:20px; background:var(--sky); color:var(--brand-d); }
+  .info-line{ font-size:11.5px; color:var(--ink-faint); margin-top:6px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-in">
+    <div class="logo">
+      <div class="mark">D</div>
+      <div><b>DigiRep</b><span>サイネージ広告メディア</span></div>
+    </div>
+    <div class="head-tag">広告主さま お申込みフォーム</div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-in">
+    <h1>サイネージ広告 お申込み</h1>
+    <p>飲食店の個室トイレをはじめとした滞在型サイネージへの広告出稿のお申込みです。媒体・掲載期間・配信規模をお選びいただくと、お申込み金額がその場で計算されます。</p>
+    <div class="pills">
+      <span class="pill">🚻 個室トイレ｜1対1・強制視聴</span>
+      <span class="pill">📅 1〜3ヶ月プラン</span>
+      <span class="pill">📄 契約書・見積をその場で確認</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <form id="form" novalidate>
+  <div class="layout">
+    <!-- ===== 左：入力 ===== -->
+    <div>
+      <!-- 申込内容 -->
+      <div class="card lead">
+        <div class="sec-head"><div class="sec-num">1</div><div><h2>お申込み内容</h2><p>媒体・掲載期間・配信規模を選ぶと、右側に金額が表示されます</p></div></div>
+
+        <div class="field">
+          <label>配信メディア<span class="req">必須</span></label>
+          <div class="media-pick" id="mediaPick"></div>
+        </div>
+
+        <div class="field">
+          <label>掲載期間プラン<span class="req">必須</span><span class="hint">長期ほど月額がおトクになります</span></label>
+          <div class="term-pick" id="termPick"></div>
+        </div>
+
+        <div class="row" id="toiletFields">
+          <div class="field">
+            <label>配信店舗数<span class="req">必須</span><span class="hint">広告を流す店舗の数</span></label>
+            <div class="with-sfx"><input type="number" id="stores" min="1" value="10"><span class="sfx">店</span></div>
+          </div>
+          <div class="field">
+            <label>1店あたり 個室数<span class="hint">参考情報（料金には影響しません）</span></label>
+            <div class="with-sfx"><input type="number" id="booths" min="1" value="2"><span class="sfx">室</span></div>
+          </div>
+          <div class="field">
+            <label>1店あたり 月間来客数<span class="req">必須</span><span class="hint">視聴数の算定に使用</span></label>
+            <div class="with-sfx"><input type="number" id="visitors" min="0" step="100" value="3000"><span class="sfx">人</span></div>
+          </div>
+          <div class="field">
+            <label>お支払い条件<span class="req">必須</span></label>
+          </div>
+        </div>
+
+        <!-- ランドリー用（月額パッケージ・BlueSky LAUNDRY TV） -->
+        <div id="laundryFields" style="display:none;">
+          <div class="row">
+            <div class="field"><label>配信プラン<span class="req">必須</span></label><select id="pkgL">
+              <option value="spot" selected>スポットパック（15秒¥8,800／30秒¥13,200・店月｜最小10店〜）</option>
+              <option value="area">エリアパック（15秒¥7,600／30秒¥11,300・店月）</option>
+              <option value="national">全国一括パック（15秒¥6,300／30秒¥9,500・店月）</option>
+            </select></div>
+            <div class="field"><label>放映尺<span class="req">必須</span><span class="hint">30秒は1.5倍</span></label><select id="secL">
+              <option value="15" selected>15秒（基本料金）</option>
+              <option value="30">30秒（15秒の1.5倍）</option>
+            </select></div>
+          </div>
+          <div class="row">
+            <div class="field"><label>配信店舗数<span class="req">必須</span></label><div class="with-sfx"><input type="number" id="storesL" min="1" value="20"><span class="sfx">店</span></div></div>
+            <div class="field"><label>1店あたり 月間利用人数<span class="hint">参考リーチ指標・平均1,124人</span></label><div class="with-sfx"><input type="number" id="visitorsL" min="0" step="50" value="1124"><span class="sfx">人</span></div></div>
+          </div>
+          <div class="row">
+            <div class="field"><label>付帯メニュー<span class="hint">LP・動画・X連携の有無</span></label><select id="addonL">
+              <option value="" selected>なし</option>
+              <option value="1">あり（LP・動画・X連携）</option>
+            </select></div>
+          </div>
+          <div class="calc-note">🧺 コインランドリーは<b>月額固定パッケージ（従量課金は廃止）</b>です。月額＝パッケージ単価×配信店舗数（全店合計は万円単位に切上げ）。15秒 スポット¥8,800／エリア¥7,600／全国¥6,300（1店・月・税別）、<b>30秒は1.5倍</b>。想定配信回数＝17時間×15回×30日×店舗数（30秒は2枠占有で半分）。配信回数・リーチは入力に連動して自動計算します。</div>
+        </div>
+
+        <div class="field">
+          <label>配信したい商材・サービス<span class="opt">任意</span><span class="hint">推奨ターゲットの判定に使います</span></label>
+          <input type="text" id="goods" placeholder="例：AGA / 育毛 / マッチングアプリ / 美容医療 など">
+        </div>
+        <div id="recBox"></div>
+
+        <div class="field">
+          <label>配信開始 希望月<span class="opt">任意</span></label>
+          <input type="month" id="startMonth">
+        </div>
+        <div class="field">
+          <label>備考・ご要望<span class="opt">任意</span></label>
+          <textarea id="memo" placeholder="クリエイティブ制作の相談、希望エリア、ターゲットなど"></textarea>
+        </div>
+      </div>
+
+      <!-- 広告主情報 -->
+      <div class="card">
+        <div class="sec-head"><div class="sec-num">2</div><div><h2>広告主さま情報</h2><p>ご契約者となる企業・ご担当者の情報</p></div></div>
+        <div class="field"><label>会社名<span class="req">必須</span></label><input type="text" id="company" placeholder="株式会社○○"><div class="err" id="companyErr">会社名を入力してください</div></div>
+        <div class="field"><label>会社名（フリガナ）<span class="opt">任意</span></label><input type="text" id="companyKana" placeholder="カブシキガイシャ○○"></div>
+        <div class="row">
+          <div class="field"><label>代表者 氏名<span class="opt">任意</span></label><input type="text" id="rep" placeholder="山田 太郎"></div>
+          <div class="field"><label>法人番号<span class="opt">任意</span></label><input type="text" id="corpNo" placeholder="13桁"></div>
+        </div>
+        <div class="field"><label>所在地<span class="req">必須</span></label><input type="text" id="addr" placeholder="東京都千代田区…"><div class="err" id="addrErr">所在地を入力してください</div></div>
+        <div class="field"><label>業種<span class="opt">任意</span></label><input type="text" id="industry" placeholder="例：美容・医療、人材、金融 など"></div>
+      </div>
+
+      <!-- 担当者情報 -->
+      <div class="card">
+        <div class="sec-head"><div class="sec-num">3</div><div><h2>ご担当者情報</h2><p>お申込み・ご連絡の窓口となる方</p></div></div>
+        <div class="row">
+          <div class="field"><label>担当者 氏名<span class="req">必須</span></label><input type="text" id="pic" placeholder="鈴木 花子"><div class="err" id="picErr">担当者名を入力してください</div></div>
+          <div class="field"><label>担当者 氏名（フリガナ）<span class="opt">任意</span></label><input type="text" id="picKana" placeholder="スズキ ハナコ"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label>電話番号<span class="req">必須</span></label><input type="tel" id="tel" placeholder="03-1234-5678"><div class="err" id="telErr">電話番号を入力してください</div></div>
+          <div class="field"><label>メールアドレス<span class="req">必須</span></label><input type="email" id="email" placeholder="example@company.co.jp"><div class="err" id="emailErr">正しいメールアドレスを入力してください</div></div>
+        </div>
+        <div class="field"><label>メールアドレス（確認）<span class="req">必須</span></label><input type="email" id="email2" placeholder="もう一度入力"><div class="err" id="email2Err">メールアドレスが一致しません</div></div>
+      </div>
+
+      <!-- 請求情報 -->
+      <div class="card">
+        <div class="sec-head"><div class="sec-num">4</div><div><h2>ご請求情報</h2><p>請求書の宛名・送付先</p></div></div>
+        <div class="row">
+          <div class="field"><label>請求書宛名<span class="opt">任意</span><span class="hint">未入力なら会社名</span></label><input type="text" id="billName" placeholder="株式会社○○ 御中"></div>
+          <div class="field"><label>請求書送付先メール<span class="opt">任意</span><span class="hint">未入力なら担当者メール</span></label><input type="email" id="billEmail" placeholder="keiri@company.co.jp"></div>
+        </div>
+      </div>
+
+      <!-- 規約同意 -->
+      <div class="card">
+        <div class="sec-head"><div class="sec-num">5</div><div><h2>ご確認・同意</h2><p>お申込み条件と各種ポリシー</p></div></div>
+        <div class="terms-box" id="termsBox">
+          <h4>広告掲載に関する申込条件</h4>
+          本申込は、DigiRepサイネージ・ネットワークへの広告出稿に関する申込です。広告枠は媒体規定の尺（個室トイレは30秒）で配信し、サイネージ全体のループ構成は媒体社にて設定します。
+          <h4>掲載期間・更新・解約</h4>
+          掲載期間は選択されたプラン（1ヶ月／2ヶ月／3ヶ月）を基本とし、個室トイレ媒体では長期プランに月額の割引が適用されます（コインランドリー媒体は月額固定パッケージのため期間割引は適用されません）。掲載終了の申告がない場合は、申込内容と同条件で更新される場合があります。途中解約の場合は、残期間の取扱いを別途協議します。
+          <h4>料金・お支払い</h4>
+          個室トイレ媒体の広告掲載費は、来店規模に応じた固定月額ティア（Sプラン¥30,000／Mプラン¥30,000／Lプラン¥41,000／XLプラン¥54,600・いずれも1店あたり月額・税別）で算定します。各ティアは視聴数×25円を基準に設計し、最低保証フロア¥30,000を下限としています。視聴数は「来客数 × 70%（トイレ利用率）× 78%（個室トイレ利用率）」で算定します（いずれも自社アンケート調査 n=1,001 の実測値）。チェーン店・個人店を問わず同一の料金体系を適用します。コインランドリー媒体は月額固定のパッケージ料金（15秒 スポット8,800円／エリア7,600円／全国一括6,300円・1店あたり月額、30秒は15秒の1.5倍）で算定し、視聴数等に応じた従量課金は行いません。月額は「パッケージ単価 × 配信店舗数」で算定し、全店合計は万円単位に切り上げて表示します。想定配信回数（17時間×15回×30日×店舗数。30秒は2枠占有で半分）及び想定リーチ（月間利用人数×視認80%×店舗数）は参考指標です。表示金額は税別です。
+          <h4>クリエイティブ・審査</h4>
+          入稿動画は媒体規定（MP4・1920×1080・個室トイレは30秒・最大100MB 等）に従います。広告内容は所定の審査があり、ギャンブル・アダルト・占い・情報商材・武器・政治関連など、媒体が不適切と判断するものは掲載をお断りします。
+          <h4>レポート・効果</h4>
+          配信実績（視聴数・曜日/時間帯別の放映実績など）を定期的にレポートします。効果・成果を保証するものではありません。
+          <h4>準拠法・管轄</h4>
+          本申込に関する準拠法は日本法とし、紛争は東京地方裁判所を第一審の専属的合意管轄裁判所とします。
+        </div>
+        <div class="check-row"><input type="checkbox" id="agree1"><label for="agree1">上記の利用規約および申込条件に同意します</label></div>
+        <div class="check-row"><input type="checkbox" id="agree2"><label for="agree2">プライバシーポリシーに同意します</label></div>
+        <div class="err" id="agreeErr">お申込みには各項目への同意が必要です</div>
+      </div>
+    </div>
+
+    <!-- ===== 右：申込金額サイドバー ===== -->
+    <div class="side">
+      <div class="card">
+        <div class="side-head">
+          <h3>お申込み金額（税別）</h3>
+          <div class="amt" id="sideAmt">¥0</div>
+          <div class="note" id="sideNote">媒体と期間を選んでください</div>
+        </div>
+        <div class="side-body">
+          <div id="sideRows"></div>
+          <div class="side-total"><span class="k">合計（税別）</span><span class="v" id="sideTotal">¥0</span></div>
+          <div class="side-foot" id="sideFoot">※ 視聴数は来客数×70%×78%で算定した想定値です。実績により変動します。</div>
+
+          <div class="btn-row">
+            <button type="button" class="btn btn-soft" id="quoteBtn" style="flex:1;">見積書を見る</button>
+            <button type="button" class="btn btn-soft" id="contractBtn" style="flex:1;">契約書を見る</button>
+          </div>
+          <button type="submit" class="btn btn-primary" id="submitBtn" style="margin-top:10px;">この内容でお申込み</button>
+          <div class="side-foot">お申込み後、確認のうえ請求・お支払い手続きのご案内（Stripe決済リンク）をお送りします。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </form>
+
+  <!-- 完了画面 -->
+  <div class="card done" id="doneCard">
+    <div class="big">✅</div>
+    <h2>お申込みを受け付けました</h2>
+    <p id="doneMsg"></p>
+    <div class="btn-row" style="justify-content:center;">
+      <button type="button" class="btn btn-soft" id="payBtn">お支払いへ進む（Stripe）</button>
+      <button type="button" class="btn btn-ghost" id="dlJsonBtn">申込データ(JSON)を保存</button>
+      <button type="button" class="btn btn-ghost" id="quoteBtn2">見積書</button>
+      <button type="button" class="btn btn-ghost" id="contractBtn2">契約書</button>
+    </div>
+    <div class="info-line" id="payNote" style="margin-top:14px;"></div>
+  </div>
+</div>
+
+<!-- モーダル -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <div class="modal-h"><h3 id="modalTitle">書類プレビュー</h3><button type="button" class="modal-x" id="modalX">×</button></div>
+    <div class="modal-b" id="modalBody"></div>
+    <div class="modal-f">
+      <button type="button" class="btn btn-ghost" id="modalPrint">印刷 / PDF保存</button>
+      <button type="button" class="btn btn-soft" id="modalClose">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ DigiRep 料金ロジック（管理スタジオと整合） ============ */
+const TOILET_CPV = 25;          // 視聴単価/視聴（固定月額ティアの内部基準）
+const TOILET_FLOOR = 30000;     // 最低保証フロア（月額下限・1店）
+const TOILET_VIEW_RATE = 0.70 * 0.78; // トイレ利用率70% × 個室トイレ利用率78%（自社調査n=1,001の実測値）
+/* 来店規模に応じた固定月額ティア（最大4,000人規模の実態に合わせて設計）。
+   月額 = 視聴数 × 25円（百円丸め）を基準に、最低保証フロア¥30,000を下限として設定。 */
+const TOILET_TIERS = [
+  { key:'S',  label:'Sプラン',  min:0,    max:1500, price:30000 },
+  { key:'M',  label:'Mプラン',  min:1501, max:2500, price:30000 },
+  { key:'L',  label:'Lプラン',  min:2501, max:3500, price:41000 },
+  { key:'XL', label:'XLプラン', min:3501, max:Infinity, price:54600 },
+];
+function toiletTierOf(visitors){ const v=Number(visitors)||0; return TOILET_TIERS.find(t=>v>=t.min&&v<=t.max)||TOILET_TIERS[TOILET_TIERS.length-1]; }
+const AGENCY_RATE = 0.20, STORE_RATE = 0.10;
+
+const MEDIA = {
+  toilet:  { key:'toilet',  name:'個室トイレ', icon:'🚻', ds:'1対1・強制視聴', color:'#2f6df0' },
+  laundry: { key:'laundry', name:'コインランドリー', icon:'🧺', ds:'滞在中に反復視聴', color:'#0fa3a3' },
+  hotel:   { key:'hotel',   name:'ホテルフロント', icon:'🏨', ds:'出張・インバウンド', color:'#caa14a' },
+};
+/* コインランドリー：月額固定パッケージ（2026年改定・従量課金は廃止）
+   月額 = パッケージ単価（1店・月）× 配信店舗数。視聴数の従量計算は行わない。
+     スポットパック 15秒¥8,800/30秒¥13,200（最小10店〜）
+     エリアパック  15秒¥7,600/30秒¥11,300
+     全国一括パック 15秒¥6,300/30秒¥9,500
+   収益配分（FC個別還元は廃止→GIB集約）：CMerTV50% / GIB10%（付帯あり15%）/ デジレップ40%（付帯あり35%）
+   参考指標：想定配信回数 = 17時間×15回/時×30日×店舗数（30秒は半分）／想定リーチ = 月間利用人数×視認80%×店舗数。 */
+const LAUNDRY_AGENCY_RATE = 0.50;  // 代理店報酬（固定）
+const LAUNDRY_VIEW_RATE = 0.80;    // 実視認率（参考指標）
+/* 配信回数：1店・月 = 17時間 × 15回/時 × 30日 = 7,650回（15秒スロット）。30秒は2枠占有で半分。 */
+const LAUNDRY_HOURS = 17, LAUNDRY_PLAYS_PER_HOUR = 15, LAUNDRY_DAYS = 30;
+const LAUNDRY_PLAYS_PER_STORE_15 = LAUNDRY_HOURS * LAUNDRY_PLAYS_PER_HOUR * LAUNDRY_DAYS; // 7,650
+/* パッケージ単価（1店・月・税別）。15秒=unit／30秒=unit30（百円丸め確定値）。
+   全国基準＋スポット+40%・エリア+20%、30秒は15秒×1.5。 */
+const LAUNDRY_PACKAGES = {
+  spot:     { key:'spot',     label:'スポットパック',   unit:8800, unit30:13200, min:10 },
+  area:     { key:'area',     label:'エリアパック',     unit:7600, unit30:11300, min:1  },
+  national: { key:'national', label:'全国一括パック',   unit:6300, unit30:9500,  min:1  },
+};
+function laundryPackageOf(k){ return LAUNDRY_PACKAGES[k] || LAUNDRY_PACKAGES.spot; }
+const LAUNDRY_SEC_MULT = { '15':1.0, '30':1.5 };
+function laundrySecMultOf(sec){ return LAUNDRY_SEC_MULT[String(sec||'15')] || 1.0; }
+/* 想定リーチ（来店者ベース・参考）＝ 月間利用人数 × 視認80% */
+function laundryImpressionsPerStore(visitors){ return (Number(visitors)||0) * LAUNDRY_VIEW_RATE; }
+/* 想定配信回数（1店・月）：15秒=7,650回、30秒=半分 */
+function laundryPlaysPerStore(sec){ return String(sec||'15')==='30' ? Math.round(LAUNDRY_PLAYS_PER_STORE_15/2) : LAUNDRY_PLAYS_PER_STORE_15; }
+/* 1店あたり月額：15秒=unit／30秒=unit30 */
+function laundryRevenuePerStore(pkg, sec){ const p=laundryPackageOf(pkg); return String(sec||'15')==='30' ? p.unit30 : p.unit; }
+/* 全店合計（万円切り上げ）：広告主請求ベースの見栄え調整 */
+function laundryTotalRevenue(pkg, sec, stores){ return Math.ceil(laundryRevenuePerStore(pkg,sec)*(stores||0)/10000)*10000; }
+const TERM_PLANS = [
+  { key:'m1', label:'1ヶ月プラン', months:1, discount:0.00, tag:'お試し', ds:'まず単月で効果を検証' },
+  { key:'m2', label:'2ヶ月プラン', months:2, discount:0.05, tag:'人気',   ds:'2ヶ月継続で月額5%OFF' },
+  { key:'m3', label:'3ヶ月プラン', months:3, discount:0.10, tag:'おすすめ', ds:'3ヶ月継続で月額10%OFF' },
+];
+
+/* 推奨ターゲット（商材→媒体/業界のゆるい判定） */
+const GENRE_GOODS = {
+  toilet: 'AGA 育毛 メンズ美容 マッチングアプリ 医療クリニック 健康 サプリ 金融 美容医療 脱毛 化粧品 転職 新卒採用 債務整理 サブスク コンプレックス',
+  laundry:'消費財 健康商材 食品宅配 ミールキット 保険 学習塾 教育 通信 地域サービス コスメ',
+  hotel:  'ビジネス 決済 金融 家電 ガジェット 観光 レジャー 語学 高級ブランド 会員サービス 消費財',
+};
+const INDUSTRY_MAP = [
+  { key:'美容・コスメ', kw:['美容','コスメ','化粧','脱毛','エステ'] },
+  { key:'ヘルスケア・医療', kw:['AGA','育毛','医療','クリニック','健康','サプリ','歯科'] },
+  { key:'人材・HR', kw:['転職','採用','新卒','求人'] },
+  { key:'金融・決済', kw:['金融','債務','決済','保険','投資','カード','ローン'] },
+  { key:'マッチング・アプリ', kw:['マッチング','出会い','アプリ','サブスク'] },
+  { key:'消費財・食品', kw:['消費財','食品','宅配','ミールキット','飲料'] },
+  { key:'教育・学習', kw:['教育','学習','塾','語学','資格'] },
+];
+
+/* ============ 状態 ============ */
+let state = { media:'toilet', term:'m3' };
+const $ = id => document.getElementById(id);
+const yen = n => '¥' + Math.round(n).toLocaleString();
+const num = n => Math.round(n).toLocaleString();
+
+/* ============ 媒体・プラン選択UI ============ */
+function renderMediaPick(){
+  $('mediaPick').innerHTML = Object.values(MEDIA).map(m=>`
+    <div class="media-opt ${state.media===m.key?'on':''}" data-m="${m.key}">
+      <div class="ic">${m.icon}</div><div class="nm">${m.name}</div><div class="ds">${m.ds}</div>
+    </div>`).join('');
+  document.querySelectorAll('[data-m]').forEach(el=>el.onclick=()=>{ state.media=el.dataset.m; renderMediaPick(); toggleFields(); compute(); });
+}
+function renderTermPick(){
+  $('termPick').innerHTML = TERM_PLANS.map(t=>`
+    <div class="term-opt ${state.term===t.key?'on':''}" data-t="${t.key}">
+      ${t.discount>0?`<span class="tbadge">${t.tag}</span>`:''}
+      <div class="tnm">${t.label}</div><div class="tds">${t.ds}</div>
+      <div class="tdisc">${t.discount>0?`月額 ${Math.round(t.discount*100)}% OFF`:'通常単価'}</div>
+    </div>`).join('');
+  document.querySelectorAll('[data-t]').forEach(el=>el.onclick=()=>{ state.term=el.dataset.t; renderTermPick(); compute(); });
+}
+function toggleFields(){
+  const isLaundry = state.media==='laundry';
+  $('toiletFields').style.display = isLaundry ? 'none' : 'grid';
+  $('laundryFields').style.display = isLaundry ? 'block' : 'none';
+  // ホテルはトイレと同じ入力でcpv違いだが、今回は簡易にトイレ式を流用（来客→視聴）
+}
+
+/* ============ 金額計算 ============ */
+function termOf(k){ return TERM_PLANS.find(t=>t.key===k)||TERM_PLANS[0]; }
+function calc(){
+  const term = termOf(state.term);
+  let monthlyRev=0, views=0, detail={}, agencyRate=AGENCY_RATE, storeRate=STORE_RATE;
+  if(state.media==='laundry'){
+    const stores = Math.max(1, +$('storesL').value||0);
+    const visitors = Math.max(0, +$('visitorsL').value||0);
+    const pkg = ($('pkgL')&&$('pkgL').value) || 'spot';
+    const sec = ($('secL')&&$('secL').value) || '15';
+    const addon = !!($('addonL')&&$('addonL').value);
+    const viewPerStore = laundryImpressionsPerStore(visitors);             // 参考：1店の想定リーチ（来店×視認80%）
+    const perStore = laundryRevenuePerStore(pkg, sec);                     // 1店あたり月額（百円丸め確定値）
+    const pk = laundryPackageOf(pkg);
+    monthlyRev = laundryTotalRevenue(pkg, sec, stores);                    // 全店合計を万円切り上げ（広告主請求ベース）
+    views = viewPerStore * stores;                                         // 想定リーチ（全店）
+    const playsTotal = laundryPlaysPerStore(sec) * stores;                 // 想定配信回数（全店）
+    const playUnit = playsTotal>0 ? monthlyRev/playsTotal : 0;             // 想定配信単価
+    const reachUnit = views>0 ? monthlyRev/views : 0;                      // 想定リーチ単価
+    agencyRate = LAUNDRY_AGENCY_RATE;  // 代理店50%（固定）
+    storeRate = 0;                     // FC個別還元なし（GIB集約）
+    detail = { type:'laundry', stores, visitors, viewPerStore, perStore, pkg, pkgLabel:pk.label, sec, addon, packageBased:true, playsTotal, playUnit, reachTotal:Math.round(views), reachUnit };
+  } else {
+    const stores = Math.max(1, +$('stores').value||0);
+    const booths = Math.max(1, +($('booths')?.value)||1);
+    const visitors = Math.max(0, +$('visitors').value||0);
+    const viewPerStore = visitors * TOILET_VIEW_RATE;
+    const tier = toiletTierOf(visitors);
+    const perStore = tier.price;       // 来店規模で決まる固定月額（1店・税別）
+    monthlyRev = perStore * stores;
+    views = viewPerStore * stores;
+    detail = { type:'toilet', stores, booths, visitors, viewPerStore, tier:tier.key, tierLabel:tier.label, perStore };
+  }
+  const isLaundry = state.media==='laundry';
+  // ランドリーは月額固定パッケージのため掲載期間割引を適用しない
+  const effDiscount = isLaundry ? 0 : term.discount;
+  const monthlyAfter = Math.round(monthlyRev * (1 - effDiscount));
+  const total = monthlyAfter * term.months;
+  // ランドリー：FC個別還元なし（GIB集約・基本10%/付帯あり15%）。その他：月額×店舗還元率。
+  const gibRate = isLaundry ? (detail.addon ? 0.15 : 0.10) : 0;
+  const gibIncome = Math.round(monthlyAfter * gibRate) * term.months;
+  const storeIncome = isLaundry ? 0 : Math.round(monthlyAfter * storeRate) * term.months;
+  const agencyPay = Math.round(monthlyAfter * agencyRate) * term.months;
+  const net = total - storeIncome - agencyPay - gibIncome;
+  return { term, monthlyRev, monthlyAfter, total, views:views*term.months, monthlyViews:views, storeIncome, gibIncome, gibRate, agencyPay, net, detail, agencyRate, storeRate, effDiscount };
+}
+
+/* ============ サイドバー描画 ============ */
+function compute(){
+  const r = calc(); const m = MEDIA[state.media];
+  $('sideAmt').innerHTML = yen(r.total) + ' <small>/ ' + r.term.months + 'ヶ月</small>';
+  $('sideNote').textContent = `${m.name}・${r.term.label}`;
+  let rows = '';
+  rows += `<div class="side-row"><span class="k">配信メディア</span><span class="v">${m.icon} ${m.name}</span></div>`;
+  rows += `<div class="side-row"><span class="k">掲載期間</span><span class="v">${r.term.label}${(!r.detail.packageBased&&r.term.discount>0)?`（${Math.round(r.term.discount*100)}%OFF）`:''}</span></div>`;
+  if(r.detail.type==='toilet'){
+    rows += `<div class="side-row"><span class="k">配信店舗数</span><span class="v">${num(r.detail.stores)} 店</span></div>`;
+    rows += `<div class="side-row"><span class="k">適用プラン</span><span class="v">${r.detail.tier}プラン</span></div>`;
+    rows += `<div class="side-row"><span class="k">固定月額（1店）</span><span class="v">${yen(r.detail.perStore)}/店</span></div>`;
+    rows += `<div class="side-row"><span class="k">想定 月間視聴数</span><span class="v">${num(r.monthlyViews)} 回</span></div>`;
+    rows += `<div class="side-row"><span class="k">1店あたり月額</span><span class="v">${yen(r.detail.perStore)}</span></div>`;
+  } else if(r.detail.type==='laundry'){
+    rows += `<div class="side-row"><span class="k">配信プラン</span><span class="v">${r.detail.pkgLabel}</span></div>`;
+    rows += `<div class="side-row"><span class="k">放映尺</span><span class="v">${r.detail.sec}秒${r.detail.sec==='30'?'（×1.5）':''}</span></div>`;
+    rows += `<div class="side-row"><span class="k">配信店舗数</span><span class="v">${num(r.detail.stores)} 店</span></div>`;
+    rows += `<div class="side-row"><span class="k">1店あたり月額</span><span class="v">${yen(r.detail.perStore)}</span></div>`;
+    rows += `<div class="side-row"><span class="k">想定配信回数</span><span class="v">${num(r.detail.playsTotal)} 回/月</span></div>`;
+    rows += `<div class="side-row"><span class="k">想定配信単価</span><span class="v">¥${r.detail.playUnit.toFixed(2)}/回</span></div>`;
+    rows += `<div class="side-row"><span class="k">想定リーチ数</span><span class="v">${num(r.detail.reachTotal)} 人/月</span></div>`;
+    rows += `<div class="side-row"><span class="k">想定リーチ単価</span><span class="v">¥${r.detail.reachUnit.toFixed(1)}/人</span></div>`;
+    rows += `<div class="side-row"><span class="k">GIB還元</span><span class="v">${r.detail.addon?'15%（付帯）':'10%（基本）'}</span></div>`;
+  }
+  rows += `<div class="side-row"><span class="k">月額${r.detail.packageBased?'（パッケージ）':'（割引後）'}</span><span class="v">${yen(r.monthlyAfter)}</span></div>`;
+  $('sideRows').innerHTML = rows;
+  $('sideTotal').textContent = yen(r.total);
+  return r;
+}
+
+/* ============ 推奨ターゲット ============ */
+function renderRec(){
+  const goods = $('goods').value.trim();
+  const box = $('recBox');
+  if(!goods){ box.innerHTML=''; return; }
+  const kws = goods.split(/[\/、,，\s]+/).map(s=>s.trim()).filter(Boolean);
+  // 媒体適性スコア
+  const score = {};
+  Object.keys(GENRE_GOODS).forEach(mk=>{ const pool=GENRE_GOODS[mk]; score[mk]=kws.reduce((a,k)=>a+(pool.includes(k)?1:0),0); });
+  const best = Object.entries(score).sort((a,b)=>b[1]-a[1])[0];
+  const recMedia = best && best[1]>0 ? best[0] : state.media;
+  // 業界
+  const inds = []; kws.forEach(k=>INDUSTRY_MAP.forEach(im=>{ if(im.kw.some(w=>k.includes(w)||w.includes(k))&&!inds.includes(im.key)) inds.push(im.key); }));
+  const audience = state.media==='toilet'
+    ? '個室での1対1・強制視聴。デリケート/コンプレックス商材も自分ごと化されやすい層に届きます。'
+    : state.media==='laundry' ? '女性67%・30〜50代中心の生活者へ、滞在中の反復視聴（4分ロール・約7回接触）で認知を積めます。'
+    : '出張ビジネス層・インバウンドに、滞在接点でブランディングできます。';
+  box.innerHTML = `<div class="calc-note">
+    <b>🎯 推奨ターゲット判定：</b>入力された商材から、
+    ${best&&best[1]>0?`<b>${MEDIA[recMedia].name}</b>との相性が高いと判定しました。`:'媒体との相性を判定しました。'}
+    ${inds.length?`想定業界：${inds.join('・')}。`:''}<br>
+    配信できる視聴ターゲット：${audience}
+  </div>`;
+}
+
+/* ============ 書類生成（見積・契約） ============ */
+function gatherData(){
+  const r = calc(); const m = MEDIA[state.media];
+  return {
+    submittedAt: new Date().toISOString(),
+    advertiser: {
+      company: $('company').value.trim(), companyKana:$('companyKana').value.trim(),
+      rep:$('rep').value.trim(), corpNo:$('corpNo').value.trim(),
+      addr:$('addr').value.trim(), industry:$('industry').value.trim(),
+    },
+    contact: {
+      pic:$('pic').value.trim(), picKana:$('picKana').value.trim(),
+      tel:$('tel').value.trim(), email:$('email').value.trim(),
+    },
+    billing: { name:$('billName').value.trim()||$('company').value.trim(), email:$('billEmail').value.trim()||$('email').value.trim() },
+    order: {
+      media:m.key, mediaName:m.name, term:r.term.key, termLabel:r.term.label, months:r.term.months, discount:r.term.discount,
+      goods:$('goods').value.trim(), startMonth:$('startMonth').value, memo:$('memo').value.trim(),
+      detail:r.detail, monthlyAfter:r.monthlyAfter, total:r.total, monthlyViews:r.monthlyViews, totalViews:r.views,
+      storeIncome:r.storeIncome, agencyPay:r.agencyPay, net:r.net,
+    }
+  };
+}
+function quoteHtml(d){
+  const o=d.order; const tax=Math.round(o.total*0.1);
+  const today=new Date().toLocaleDateString('ja-JP');
+  let detailRows='';
+  if(o.detail.type==='toilet'){
+    detailRows = `
+      <tr><th>配信店舗数</th><td>${num(o.detail.stores)} 店</td></tr>
+      <tr><th>適用プラン</th><td>${o.detail.tier}プラン（固定月額 ${yen(o.detail.perStore)}/店）</td></tr>
+      <tr><th>想定月間視聴数</th><td>${num(o.monthlyViews)} 回</td></tr>
+      <tr><th>算定基準</th><td>来店規模に応じた固定月額ティア（視聴数×25円を基準に設計／最低保証¥30,000）</td></tr>`;
+  } else if(o.detail.type==='laundry'){
+    detailRows = `
+      <tr><th>配信プラン</th><td>${o.detail.pkgLabel}</td></tr>
+      <tr><th>放映尺</th><td>${o.detail.sec}秒${o.detail.sec==='30'?'（15秒の1.5倍）':'（基本尺）'}</td></tr>
+      <tr><th>配信店舗数</th><td>${num(o.detail.stores)} 店</td></tr>
+      <tr><th>1店あたり月額</th><td>${yen(o.detail.perStore)}（税別）</td></tr>
+      <tr><th>算定式</th><td>パッケージ単価 × 配信店舗数（月額固定・従量課金なし／全店合計は万円単位に切上げ）</td></tr>
+      <tr><th>付帯メニュー</th><td>${o.detail.addon?'あり（LP・動画・X連携）':'なし'}</td></tr>
+      <tr><th>想定配信回数</th><td>約${num(o.detail.playsTotal)} 回/月（17時間×15回×30日×店舗数${o.detail.sec==='30'?'÷2':''}）</td></tr>
+      <tr><th>想定配信単価</th><td>約¥${o.detail.playUnit.toFixed(2)}/回</td></tr>
+      <tr><th>想定リーチ数</th><td>約${num(o.detail.reachTotal)} 人/月（月間利用人数×視認80%×店舗数）</td></tr>
+      <tr><th>想定リーチ単価</th><td>約¥${o.detail.reachUnit.toFixed(1)}/人</td></tr>`;
+  }
+  return `<div class="doc">
+    <h2>御 見 積 書</h2>
+    <div class="doc-meta">見積日：${today}<br>見積番号：Q-${Date.now().toString().slice(-8)}</div>
+    <p><b>${d.advertiser.company||'（会社名）'}</b> 御中</p>
+    <p>下記のとおりお見積り申し上げます。</p>
+    <div class="doc-sec">お見積り内容</div>
+    <table>
+      <tr><th>配信メディア</th><td>${o.mediaName}</td></tr>
+      <tr><th>掲載期間</th><td>${o.termLabel}（${o.months}ヶ月）${(!o.detail.fixedRebate&&o.discount>0)?`／月額${Math.round(o.discount*100)}%OFF適用`:''}</td></tr>
+      ${detailRows}
+      <tr><th>月額${o.detail.fixedRebate?'（従量・税別）':'（割引後・税別）'}</th><td>${yen(o.monthlyAfter)}</td></tr>
+      <tr><th>掲載期間合計（税別）</th><td>${yen(o.total)}</td></tr>
+      <tr><th>消費税（10%）</th><td>${yen(tax)}</td></tr>
+      <tr class="doc-total"><td>合計金額（税込）</td><td>${yen(o.total+tax)}</td></tr>
+    </table>
+    <div class="doc-sec">備考</div>
+    <p>${o.memo? o.memo.replace(/</g,'&lt;') : '—'}</p>
+    <p style="font-size:11px;color:#8a98ad;">※ ${o.detail.type==='laundry'?'コインランドリーは月額固定パッケージ（従量課金なし）です。広告主請求額は全店合計を万円単位に切り上げています。想定配信回数・リーチは前提に基づく想定値です':'視聴数は「来客数×70%×78%」で算定した想定値です'}。実績により変動します。表示金額は税別です。</p>
+    <div class="sign">
+      <div class="box">発行：DigiRep株式会社<br>担当：＿＿＿＿＿＿</div>
+      <div class="box">御社ご確認印：</div>
+    </div>
+  </div>`;
+}
+function contractHtml(d){
+  const o=d.order; const today=new Date().toLocaleDateString('ja-JP');
+  return `<div class="doc">
+    <h2>広 告 掲 載 契 約 書</h2>
+    <div class="doc-meta">契約日：${today}</div>
+    <p>広告主（以下「甲」）<b>${d.advertiser.company||'（会社名）'}</b> と DigiRep株式会社（以下「乙」）は、サイネージ広告の掲載に関し、以下のとおり契約を締結する。</p>
+    <div class="doc-sec">第1条（掲載内容）</div>
+    <table>
+      <tr><th>配信メディア</th><td>${o.mediaName}</td></tr>
+      <tr><th>掲載期間</th><td>${o.termLabel}（${o.months}ヶ月）</td></tr>
+      <tr><th>配信規模</th><td>${o.detail.type==='toilet'?`${num(o.detail.stores)}店（${o.detail.tier}プラン）`:`${num(o.detail.stores)}店`}</td></tr>
+      <tr><th>掲載料金（税別）</th><td>${yen(o.total)}（月額 ${yen(o.monthlyAfter)} × ${o.months}ヶ月）</td></tr>
+    </table>
+    <div class="doc-sec">第2条（料金・支払い）</div>
+    <p>甲は乙に対し、前条の掲載料金を乙の定める方法（Stripeによる電子決済等）により支払う。表示金額は税別とし、別途消費税を申し受ける。</p>
+    <div class="doc-sec">第3条（クリエイティブ・審査）</div>
+    <p>甲は乙の入稿規定に従い広告素材を入稿する。乙は所定の審査を行い、媒体が不適切と判断する内容（ギャンブル・アダルト・占い・情報商材・武器・政治関連等）は掲載を拒否できる。</p>
+    <div class="doc-sec">第4条（レポート・非保証）</div>
+    <p>乙は配信実績を定期的に甲へ報告する。ただし、広告の効果・成果を保証するものではない。</p>
+    <div class="doc-sec">第5条（更新・解約）</div>
+    <p>掲載終了の申告がない場合、本契約は同条件で更新されることがある。途中解約時の残期間の取扱いは甲乙協議のうえ定める。</p>
+    <div class="doc-sec">第6条（準拠法・管轄）</div>
+    <p>本契約は日本法に準拠し、紛争は東京地方裁判所を第一審の専属的合意管轄裁判所とする。</p>
+    <div class="sign">
+      <div class="box">甲（広告主）：${d.advertiser.company||'＿＿＿＿＿＿'}<br>　<br>印 ＿＿＿＿</div>
+      <div class="box">乙：DigiRep株式会社<br>　<br>印 ＿＿＿＿</div>
+    </div>
+  </div>`;
+}
+
+/* ============ モーダル ============ */
+function openModal(title, html){ $('modalTitle').textContent=title; $('modalBody').innerHTML=html; $('modalBg').classList.add('open'); }
+function closeModal(){ $('modalBg').classList.remove('open'); }
+$('modalX').onclick=closeModal; $('modalClose').onclick=closeModal;
+$('modalBg').onclick=e=>{ if(e.target===$('modalBg')) closeModal(); };
+$('modalPrint').onclick=()=>{ const w=window.open('','_blank'); w.document.write('<html><head><title>印刷</title><style>body{font-family:sans-serif;padding:30px;}table{width:100%;border-collapse:collapse;margin:12px 0;}th,td{border:1px solid #ccc;padding:8px;text-align:left;}th{background:#f3f3f3;width:34%;}h2{text-align:center;}</style></head><body>'+$('modalBody').innerHTML+'</body></html>'); w.document.close(); w.print(); };
+
+/* ============ バリデーション ============ */
+function validate(){
+  let ok=true;
+  const reqs=[['company','companyErr',v=>!!v],['addr','addrErr',v=>!!v],['pic','picErr',v=>!!v],['tel','telErr',v=>!!v],
+    ['email','emailErr',v=>/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)]];
+  reqs.forEach(([id,errId,fn])=>{ const v=$(id).value.trim(); const bad=!fn(v); $(id).classList.toggle('bad',bad); $(errId).classList.toggle('show',bad); if(bad) ok=false; });
+  // メール一致
+  const e2bad = $('email').value.trim()!==$('email2').value.trim() || !$('email2').value.trim();
+  $('email2').classList.toggle('bad',e2bad); $('email2Err').classList.toggle('show',e2bad); if(e2bad) ok=false;
+  // 同意
+  const agreeBad = !($('agree1').checked && $('agree2').checked);
+  $('agreeErr').classList.toggle('show',agreeBad); if(agreeBad) ok=false;
+  return ok;
+}
+
+/* ============ 送信 ============ */
+let lastData=null;
+$('form').onsubmit=e=>{
+  e.preventDefault();
+  if(!validate()){ toast('未入力・未同意の項目があります'); window.scrollTo({top:document.querySelector('.bad,.err.show')?.getBoundingClientRect().top+window.scrollY-120||0,behavior:'smooth'}); return; }
+  lastData = gatherData();
+  // localStorageに保存（後でスタジオが取り込めるよう applications 配列に追記）
+  try{
+    const key='digirep_applications';
+    const arr = JSON.parse(localStorage.getItem(key)||'[]');
+    arr.push(lastData); localStorage.setItem(key, JSON.stringify(arr));
+  }catch(err){}
+  // 完了画面へ
+  $('form').style.display='none';
+  $('doneCard').classList.add('show');
+  $('doneMsg').innerHTML = `${lastData.advertiser.company} 様のお申込みを受け付けました。<br>お申込み金額：<b>${yen(lastData.order.total)}（税別）</b> ／ ${lastData.order.termLabel}`;
+  // Stripe Payment Link（運用時はここに実URLを設定。金額・申込番号をクエリで付与可能）
+  const STRIPE_PAYMENT_LINK = ''; // 例：'https://buy.stripe.com/xxxxxxxx'
+  if(STRIPE_PAYMENT_LINK){
+    $('payNote').innerHTML='お支払いボタンからStripeの決済ページに進めます。';
+  } else {
+    $('payNote').innerHTML='※ 現在はデモ環境です。運用時はStripeのPayment Link（決済URL）を設定すると、このボタンから自動決済に進めます。';
+  }
+  $('payBtn').onclick=()=>{
+    if(STRIPE_PAYMENT_LINK){ window.open(STRIPE_PAYMENT_LINK+`?client_reference_id=${encodeURIComponent(lastData.advertiser.company)}`,'_blank'); }
+    else { toast('Stripe決済リンクが未設定です（運用時に設定）'); }
+  };
+  window.scrollTo({top:0,behavior:'smooth'});
+  toast('お申込みを受け付けました','ok');
+};
+
+/* 書類ボタン */
+function ensureDataForDoc(){ return lastData || gatherData(); }
+$('quoteBtn').onclick=()=>openModal('御見積書', quoteHtml(ensureDataForDoc()));
+$('contractBtn').onclick=()=>openModal('広告掲載契約書', contractHtml(ensureDataForDoc()));
+$('quoteBtn2').onclick=()=>openModal('御見積書', quoteHtml(ensureDataForDoc()));
+$('contractBtn2').onclick=()=>openModal('広告掲載契約書', contractHtml(ensureDataForDoc()));
+$('dlJsonBtn').onclick=()=>{
+  const d=ensureDataForDoc();
+  const blob=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='digirep_application_'+(d.advertiser.company||'advertiser')+'.json'; a.click(); URL.revokeObjectURL(a.href);
+  toast('申込データを保存しました','ok');
+};
+
+/* ============ トースト ============ */
+let toastT;
+function toast(msg,type){ const t=$('toast'); t.textContent=msg; t.className='toast show'+(type==='ok'?' ok':''); clearTimeout(toastT); toastT=setTimeout(()=>t.className='toast',2600); }
+
+/* ============ 入力監視 ============ */
+['stores','booths','visitors','storesL','visitorsL','pkgL','addonL','secL'].forEach(id=>{ const el=$(id); if(el) el.addEventListener('input',compute); el && el.addEventListener('change',compute); });
+$('goods').addEventListener('input',renderRec);
+
+/* ============ 初期化 ============ */
+renderMediaPick(); renderTermPick(); toggleFields(); compute();
+</script>
+
+<!-- ===== DigiRep セキュア決済連携（サーバー側で金額再計算・改ざん防止） ===== -->
+<script>
+(function(){
+  function latestApp(){
+    try { var a = JSON.parse(localStorage.getItem('digirep_applications')||'[]'); return a[a.length-1]||null; }
+    catch(e){ return null; }
+  }
+  // 申込データ → サーバーが検証できる構造化注文（金額そのものは送らない）
+  function toOrder(app){
+    if(!app || !app.order) return null;
+    var o = app.order, d = o.detail || {};
+    if (d.type === 'toilet') return { media:'toilet', stores:d.stores, visitors:d.visitors, months:o.months };
+    if (d.type === 'laundry') return { media:'laundry', pkg:d.pkg, sec:String(d.sec), stores:d.stores, months:o.months };
+    return null; // ホテル等は個別見積（オンライン決済対象外）
+  }
+  // payBtn のクリックを document の capture フェーズで先取りし、Stripe Checkout へ
+  document.addEventListener('click', function(ev){
+    var t = ev.target;
+    var btn = t && t.closest ? t.closest('#payBtn') : null;
+    if (!btn) return;
+    var app = latestApp();
+    var order = toOrder(app);
+    if (!order) return; // 構造化できない場合は既定動作に委ねる
+    ev.preventDefault(); ev.stopPropagation();
+    var label = btn.textContent;
+    btn.disabled = true; btn.textContent = '決済ページへ接続中…';
+    fetch('/api/checkout', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        order: order,
+        email: app && app.contact ? app.contact.email : undefined,
+        reference: app && app.advertiser ? app.advertiser.company : undefined
+      })
+    })
+    .then(function(r){ return r.json().then(function(j){ return { ok:r.ok, j:j }; }); })
+    .then(function(res){
+      if (res.ok && res.j && res.j.url) { window.location.href = res.j.url; }
+      else { alert((res.j && res.j.error) || '決済を開始できませんでした。'); btn.disabled=false; btn.textContent=label; }
+    })
+    .catch(function(){ alert('通信に失敗しました。時間をおいて再度お試しください。'); btn.disabled=false; btn.textContent=label; });
+  }, true);
+})();
+</script>
+</body>
+</html>
