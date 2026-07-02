@@ -85,6 +85,7 @@ export default async function ArticlePage({
   const post = getPost(slug);
   if (!post) notFound();
 
+  const related = posts.filter((p) => p.slug !== post.slug).slice(0, 2);
   const url = `${siteUrl}/blog/${post.slug}`;
   const jsonLd = {
     "@context": "https://schema.org",
@@ -143,7 +144,27 @@ export default async function ArticlePage({
             ))}
           </div>
 
-          <div className="mt-14 rounded-2xl border border-border bg-paper p-6 text-center sm:p-8">
+          {related.length > 0 && (
+            <div className="mt-14">
+              <h2 className="text-lg font-bold text-ink">関連記事</h2>
+              <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                {related.map((r) => (
+                  <Link
+                    key={r.slug}
+                    href={`/blog/${r.slug}`}
+                    className="group rounded-2xl border border-border bg-card p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
+                  >
+                    <span className="text-[11px] font-bold text-brand">{r.category}</span>
+                    <h3 className="mt-1.5 text-[15px] font-bold leading-snug text-ink transition-colors group-hover:text-brand">
+                      {r.title}
+                    </h3>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="mt-12 rounded-2xl border border-border bg-paper p-6 text-center sm:p-8">
             <h2 className="text-lg font-bold text-ink">まずは相談・資料請求から</h2>
             <p className="mt-2 text-sm text-ink-soft">
               「自社の商材に合うか」「概算費用は」といったご相談だけでも歓迎です。1営業日以内に担当よりご連絡します。

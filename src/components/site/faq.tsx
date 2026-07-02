@@ -6,12 +6,27 @@ import { SectionHeading } from "./section-heading";
 import { faqs } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
+// FAQ構造化データ（Googleの「よくある質問」リッチリザルト対象）
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
 export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
     <section id="faq" className="bg-paper py-20 sm:py-28">
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
         <SectionHeading eyebrow="FAQ" title="よくあるご質問" />
 
         <div className="mt-12 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card shadow-sm">

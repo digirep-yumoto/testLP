@@ -44,6 +44,7 @@ export function Carousel({
           src={src}
           alt={idx === i ? alt : ""}
           loading={idx === 0 ? undefined : "lazy"}
+          fetchPriority={idx === 0 ? "high" : undefined}
           aria-hidden={idx !== i}
           className={cn(
             "absolute inset-0 size-full object-cover object-center transition-opacity duration-[900ms] ease-out",
