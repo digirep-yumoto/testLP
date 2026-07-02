@@ -154,5 +154,25 @@ export async function POST(request: Request) {
     console.log("[lead]", JSON.stringify(payload));
   }
 
+  // Brevo（ステップメール自動化）へリードを自動登録。BREVO_API_KEY と BREVO_LIST_ID 設定時のみ・非ブロッキング。
+  const brevoKey = process.env.BREVO_API_KEY;
+  const brevoList = process.env.BREVO_LIST_ID;
+  if (brevoKey && brevoList) {
+    try {
+      await fetch("https://api.brevo.com/v3/contacts", {
+        method: "POST",
+        headers: { "api-key": brevoKey, "Content-Type": "application/json", accept: "application/json" },
+        body: JSON.stringify({
+          email,
+          attributes: { FNAME: name, COMPANY: company, PURPOSE: purpose, MEDIA: media },
+          listIds: [Number(brevoList)],
+          updateEnabled: true,
+        }),
+      });
+    } catch {
+      /* Brevo登録の失敗は無視（受付は完了） */
+    }
+  }
+
   return NextResponse.json({ ok: true });
 }
