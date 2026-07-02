@@ -44,6 +44,60 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+const siteUrl = company.url.replace(/\/$/, "");
+
+// 構造化データ（JSON-LD）＝検索エンジンに会社・サービスを正しく伝える（リッチ表示・上位表示に寄与）
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      name: company.name,
+      alternateName: company.brand,
+      url: siteUrl,
+      logo: `${siteUrl}/images/logo.png`,
+      email: company.email,
+      telephone: company.tel,
+      foundingDate: "2024-06-13",
+      founder: { "@type": "Person", name: company.representative },
+      address: {
+        "@type": "PostalAddress",
+        addressCountry: "JP",
+        addressRegion: "埼玉県",
+        streetAddress: "新座市畑中1-13-16",
+      },
+      description: company.description,
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      url: siteUrl,
+      name: company.brand,
+      inLanguage: "ja-JP",
+      publisher: { "@id": `${siteUrl}/#organization` },
+    },
+    {
+      "@type": "Service",
+      name: "個室トイレサイネージ広告",
+      serviceType: "デジタルサイネージ広告",
+      areaServed: "JP",
+      provider: { "@id": `${siteUrl}/#organization` },
+      description:
+        "飲食店の個室トイレに設置したデジタルサイネージによる広告配信。1対1・強制視聴・音ありで、視認率90%。QRで行動計測が可能。",
+    },
+    {
+      "@type": "Service",
+      name: "コインランドリーサイネージ広告",
+      serviceType: "デジタルサイネージ広告",
+      areaServed: "JP",
+      provider: { "@id": `${siteUrl}/#organization` },
+      description:
+        "全国のコインランドリーに設置したデジタルサイネージによる広告配信。視聴者の約67%が女性・30〜50代。同一属性へ高頻度で反復リーチ。",
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -55,6 +109,10 @@ export default function RootLayout({
       className={`${notoSansJP.variable} ${lexend.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-paper">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {children}
         <GoogleAnalytics />
       </body>
