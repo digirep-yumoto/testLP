@@ -8,12 +8,13 @@ const csp = [
   "default-src 'self'",
   "base-uri 'self'",
   isProd
-    ? "script-src 'self' 'unsafe-inline' https://js.stripe.com"
-    : "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com",
+    ? "script-src 'self' 'unsafe-inline' https://js.stripe.com https://www.googletagmanager.com"
+    : "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://www.googletagmanager.com",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https:",
   "font-src 'self' data:",
-  "connect-src 'self' https://api.stripe.com" + (isProd ? "" : " ws: http://localhost:*"),
+  "connect-src 'self' https://api.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com" +
+    (isProd ? "" : " ws: http://localhost:*"),
   "frame-src https://js.stripe.com https://checkout.stripe.com https://hooks.stripe.com",
   "form-action 'self' https://checkout.stripe.com",
   "frame-ancestors 'none'",

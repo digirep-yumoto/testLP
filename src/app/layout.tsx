@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Sans_JP, Lexend } from "next/font/google";
 import "./globals.css";
 import { company } from "@/lib/site-data";
+import { GoogleAnalytics } from "@/components/analytics/ga";
 
 const notoSansJP = Noto_Sans_JP({
   variable: "--font-sans",
@@ -53,7 +54,10 @@ export default function RootLayout({
       lang="ja"
       className={`${notoSansJP.variable} ${lexend.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-paper">{children}</body>
+      <body className="min-h-full flex flex-col bg-paper">
+        {children}
+        <GoogleAnalytics />
+      </body>
     </html>
   );
 }

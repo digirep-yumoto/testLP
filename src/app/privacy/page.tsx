@@ -57,7 +57,15 @@ export default function PrivacyPage() {
               </p>
             </section>
             <section>
-              <h2 className="text-lg font-bold text-ink">7. お問い合わせ窓口</h2>
+              <h2 className="text-lg font-bold text-ink">7. アクセス解析ツールについて</h2>
+              <p className="mt-2">
+                当社サイトでは、サービス改善のためにGoogle社のアクセス解析ツール「Googleアナリティクス（GA4）」を利用しています。Googleアナリティクスは、トラフィックデータの収集のためにCookieを使用します。これらのデータは匿名で収集され、個人を特定するものではありません。Cookieの利用を望まない場合は、ブラウザの設定で無効化できます。データの取扱いについては、Googleの
+                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-brand hover:underline">プライバシーポリシー</a>
+                をご確認ください。
+              </p>
+            </section>
+            <section>
+              <h2 className="text-lg font-bold text-ink">8. お問い合わせ窓口</h2>
               <p className="mt-2">
                 {company.name}
                 <br />
