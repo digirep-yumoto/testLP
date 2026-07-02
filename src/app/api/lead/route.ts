@@ -80,6 +80,32 @@ export async function POST(request: Request) {
     } catch {
       return NextResponse.json({ error: "送信に失敗しました。時間をおいて再度お試しください。" }, { status: 502 });
     }
+
+    // 見込み客への自動返信（ナーチャリング1通目）。失敗しても受付は成立させる（非ブロッキング）。
+    // ※ 実際に届くには Resend で送信ドメイン(digirep.work)の認証が必要。
+    try {
+      const site = process.env.NEXT_PUBLIC_SITE_URL || "https://digirep.work";
+      await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${resendKey}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          from: process.env.LEAD_FROM_EMAIL || "DigiRep <onboarding@resend.dev>",
+          to: [email],
+          reply_to: to,
+          subject: "【DigiRep】お問い合わせありがとうございます",
+          text:
+            `${company ? company + "　" : ""}${name} 様\n\n` +
+            `この度は DigiRep（デジレップ）にお問い合わせいただき、誠にありがとうございます。\n` +
+            `内容を確認のうえ、担当より1営業日以内にご連絡いたします。\n\n` +
+            `▼ 媒体資料・料金はこちらからもご覧いただけます\n${site}/#docs\n\n` +
+            `▼ お役立ち記事（サイネージ広告の基礎・業種別ノウハウ）\n${site}/blog\n\n` +
+            `── DigiRep（デジレップ株式会社）\n${site}\n` +
+            `本メールは送信専用です。ご返信いただいてもお受けできます（担当が確認します）。`,
+        }),
+      });
+    } catch {
+      /* 自動返信の失敗は無視（受付は完了） */
+    }
   } else {
     // メール連携未設定：サーバーログに記録（後で Resend 等を接続可能）
     console.log("[lead]", JSON.stringify(payload));

@@ -3,6 +3,7 @@ import { Noto_Sans_JP, Lexend } from "next/font/google";
 import "./globals.css";
 import { company } from "@/lib/site-data";
 import { GoogleAnalytics } from "@/components/analytics/ga";
+import { MetaPixel } from "@/components/analytics/retargeting";
 
 const notoSansJP = Noto_Sans_JP({
   variable: "--font-sans",
@@ -115,6 +116,7 @@ export default function RootLayout({
         />
         {children}
         <GoogleAnalytics />
+        <MetaPixel />
       </body>
     </html>
   );
