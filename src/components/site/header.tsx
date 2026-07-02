@@ -5,12 +5,13 @@ import { Menu, X, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const nav = [
-  { href: "#services", label: "サービス" },
-  { href: "#store", label: "店舗オーナーの方" },
-  { href: "#why", label: "選ばれる理由" },
-  { href: "#flow", label: "ご利用の流れ" },
-  { href: "#docs", label: "資料" },
-  { href: "#faq", label: "FAQ" },
+  { href: "/#services", label: "サービス" },
+  { href: "/#store", label: "店舗オーナーの方" },
+  { href: "/#why", label: "選ばれる理由" },
+  { href: "/#flow", label: "ご利用の流れ" },
+  { href: "/#docs", label: "資料" },
+  { href: "/blog", label: "記事" },
+  { href: "/#faq", label: "FAQ" },
 ];
 
 export function Header() {
@@ -48,13 +49,13 @@ export function Header() {
             </a>
           ))}
           <a
-            href="#request"
+            href="/#request"
             className="inline-flex items-center gap-1.5 rounded-lg border border-brand/40 px-4 py-2 text-sm font-bold text-brand transition-colors hover:bg-brand/5"
           >
             お問い合わせ・無料相談
           </a>
           <a
-            href="#contact"
+            href="/#contact"
             className="inline-flex items-center gap-1.5 rounded-lg bg-brand px-4 py-2 text-sm font-bold text-white shadow-sm transition-all hover:bg-brand-dark active:translate-y-px"
           >
             お申込み・試算
@@ -87,14 +88,14 @@ export function Header() {
               </a>
             ))}
             <a
-              href="#request"
+              href="/#request"
               onClick={() => setOpen(false)}
               className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-lg border border-brand/40 px-4 py-3 text-sm font-bold text-brand"
             >
               お問い合わせ・無料相談
             </a>
             <a
-              href="#contact"
+              href="/#contact"
               onClick={() => setOpen(false)}
               className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-lg bg-brand px-4 py-3 text-sm font-bold text-white"
             >
