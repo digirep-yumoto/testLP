@@ -158,7 +158,7 @@ export const laundry: Media = {
     "/images/laundry-media-new.jpg",
     "/images/laundry-front.jpg",
     "/images/laundry-interior.jpg",
-    "/images/laundry-screen.jpg",
+    "/images/laundry-media-new2.jpg",
   ],
   axis: {
     tag: "FREQUENCY ｜ 頻度で選ぶ",
