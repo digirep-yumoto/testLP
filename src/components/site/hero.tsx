@@ -39,24 +39,19 @@ export function Hero() {
       <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 pb-16 pt-32 sm:px-6 sm:pt-36 lg:grid-cols-[1.02fr_0.98fr] lg:pb-24 lg:pt-40">
         {/* 左：コピー */}
         <div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-sm font-medium text-white/90 backdrop-blur">
-            <span className="size-1.5 rounded-full bg-emerald-400" />
-            サービス改定・新メディア「コインランドリーサイネージ」追加
-          </div>
-
-          <h1 className="mt-6 text-balance text-[2.3rem] font-black leading-[1.34] tracking-[-0.01em] sm:text-[3.3rem] sm:leading-[1.24]">
-            人が“逃げ場なく見る”時間を、
+          <h1 className="text-balance text-[2.3rem] font-black leading-[1.34] tracking-[-0.01em] sm:text-[3.3rem] sm:leading-[1.24]">
+            スキップされない。埋もれない。
             <br />
             <span className="bg-gradient-to-r from-sky-300 to-brand bg-clip-text text-transparent">
-              確実に届く広告
+              “確実に見られる”広告
             </span>
-            に。
+            へ。
           </h1>
 
           <p className="mt-6 max-w-xl text-pretty text-base leading-[1.95] text-white/80 sm:text-lg">
             飲食店の個室トイレと、全国のコインランドリー。
             <br className="hidden sm:block" />
-            スキップも離脱もされない閉鎖空間で、音声つきの動画広告を“同じ人に何度も”届けるサイネージメディアです。
+            逃げ場のない閉鎖空間で、音声つきの動画広告を“同じ人に何度も”。視認率90%、QRで効果まで見える広告メディアです。
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
