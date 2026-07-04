@@ -157,7 +157,7 @@ export const laundry: Media = {
   images: [
     "/images/laundry-media-new.jpg",
     "/images/laundry-front.jpg",
-    "/images/laundry-interior.jpg",
+    "/images/laundry-media-new3.jpg",
     "/images/laundry-media-new2.jpg",
   ],
   axis: {
