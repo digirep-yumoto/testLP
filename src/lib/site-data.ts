@@ -155,7 +155,7 @@ export const laundry: Media = {
   thumb: "/images/laundry-storefront.jpg",
   thumbFit: "cover",
   images: [
-    "/images/laundry-inuse.jpg",
+    "/images/laundry-media-new.jpg",
     "/images/laundry-front.jpg",
     "/images/laundry-interior.jpg",
     "/images/laundry-screen.jpg",
