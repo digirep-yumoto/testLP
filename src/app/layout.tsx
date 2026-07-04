@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Sans_JP, Lexend, Zen_Kaku_Gothic_New } from "next/font/google";
+import { Noto_Sans_JP, Lexend, Noto_Serif_JP } from "next/font/google";
 import "./globals.css";
 import { company } from "@/lib/site-data";
 import { GoogleAnalytics } from "@/components/analytics/ga";
@@ -19,11 +19,11 @@ const lexend = Lexend({
   display: "swap",
 });
 
-// 見出し用（おしゃれで上品なモダンゴシック）
-const zenKaku = Zen_Kaku_Gothic_New({
-  variable: "--font-heading",
+// 見出し用（上品でエディトリアルな明朝＝ブランディング・信頼感）
+const notoSerifJP = Noto_Serif_JP({
+  variable: "--font-mincho",
   subsets: ["latin"],
-  weight: ["500", "700", "900"],
+  weight: ["500", "600", "700", "900"],
   display: "swap",
 });
 
@@ -115,7 +115,7 @@ export default function RootLayout({
   return (
     <html
       lang="ja"
-      className={`${notoSansJP.variable} ${lexend.variable} ${zenKaku.variable} h-full antialiased`}
+      className={`${notoSansJP.variable} ${lexend.variable} ${notoSerifJP.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-paper">
         <script
