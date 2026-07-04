@@ -82,7 +82,7 @@ export const toilet: Media = {
   icon: "toilet",
   image: "/images/toilet-vanity.jpg",
   imageAlt: "飲食店の個室トイレの洗面台に設置されたデジタルサイネージ",
-  thumb: "/images/toilet-vanity-wide.jpg",
+  thumb: "/images/toilet-media-new.jpg",
   thumbFit: "cover",
   images: ["/images/toilet-vanity.jpg", "/images/toilet-signage.jpg"],
   axis: {
