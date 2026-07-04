@@ -112,7 +112,7 @@ export function Hero() {
               <Carousel
                 images={[
                   "/images/toilet-vanity.jpg",
-                  "/images/laundry-inuse.jpg",
+                  "/images/laundry-media-new.jpg",
                   "/images/toilet-signage.jpg",
                   "/images/laundry-front.jpg",
                 ]}
