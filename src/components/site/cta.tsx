@@ -1,5 +1,4 @@
 import { ArrowRight, Calculator, Mail, FileText } from "lucide-react";
-import { company } from "@/lib/site-data";
 
 export function Cta() {
   return (
@@ -36,7 +35,7 @@ export function Cta() {
                 <ArrowRight className="size-5" />
               </a>
               <a
-                href={`mailto:${company.email}`}
+                href="/#request"
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 px-6 py-3.5 text-base font-semibold text-white backdrop-blur transition-colors hover:bg-white/10"
               >
                 <Mail className="size-5" />

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DigiRep サイネージ 加盟店お申込みフォーム</title>
+<style>
+  :root{
+    --ink:#16243d; --ink-soft:#44557a; --ink-faint:#8a98ad;
+    --brand:#0fa3a3; --brand-d:#0b7e7e; --sky:#e6f6f6; --sky2:#d2eeee; /* 店舗向けはティール基調 */
+    --paper:#f4faf9; --paper2:#eaf4f3; --line:#d6e6e4; --card:#fff;
+    --blue:#2f6df0; --amber:#e8923b; --green:#1f9d6b; --danger:#d8453a;
+    --r:14px; --r-sm:9px; --shadow:0 8px 30px rgba(16,40,40,.10); --shadow-sm:0 2px 10px rgba(16,40,40,.06);
+    --round:'Hiragino Kaku Gothic ProN','Hiragino Sans','Noto Sans JP',sans-serif;
+    --body:'Hiragino Kaku Gothic ProN','Hiragino Sans','Noto Sans JP',sans-serif;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ font-family:var(--body); background:var(--paper); color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased; }
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 20px 80px; }
+  header{ background:var(--ink); color:#fff; padding:18px 0; position:sticky; top:0; z-index:20; box-shadow:0 2px 16px rgba(0,0,0,.18); }
+  .head-in{ max-width:1080px; margin:0 auto; padding:0 20px; display:flex; align-items:center; gap:14px; }
+  .logo{ display:flex; align-items:center; gap:10px; }
+  .logo .mark{ width:38px; height:38px; border-radius:10px; background:var(--brand); display:grid; place-items:center; font-weight:800; font-size:20px; }
+  .logo b{ font-size:17px; letter-spacing:.04em; }
+  .logo span{ font-size:11.5px; color:#9fb0cc; display:block; margin-top:-3px; }
+  .head-tag{ margin-left:auto; font-size:12px; color:#9fb0cc; }
+  .hero{ background:linear-gradient(135deg,var(--ink) 0%,#103a3a 100%); color:#fff; padding:38px 0 88px; position:relative; overflow:hidden; }
+  .hero::after{ content:''; position:absolute; right:-80px; top:-60px; width:320px; height:320px; border-radius:50%; background:rgba(15,163,163,.26); }
+  .hero-in{ max-width:1080px; margin:0 auto; padding:0 20px; position:relative; z-index:1; }
+  .hero h1{ font-size:30px; font-weight:800; }
+  .hero p{ margin-top:10px; color:#cfeceb; max-width:640px; font-size:14.5px; }
+  .hero .pills{ margin-top:18px; display:flex; gap:10px; flex-wrap:wrap; }
+  .hero .pill{ background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); border-radius:30px; padding:6px 14px; font-size:12.5px; }
+  .layout{ display:grid; grid-template-columns:1fr 340px; gap:24px; margin-top:-56px; position:relative; z-index:5; align-items:start; }
+  @media(max-width:880px){ .layout{ grid-template-columns:1fr; } }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow-sm); padding:22px; margin-bottom:18px; }
+  .card.lead{ box-shadow:var(--shadow); }
+  .sec-head{ display:flex; align-items:center; gap:11px; margin-bottom:16px; padding-bottom:13px; border-bottom:1px solid var(--line); }
+  .sec-num{ width:30px; height:30px; border-radius:8px; background:var(--sky); color:var(--brand-d); font-weight:800; display:grid; place-items:center; font-size:14px; flex:0 0 auto; }
+  .sec-head h2{ font-size:16.5px; font-weight:800; }
+  .sec-head p{ font-size:11.5px; color:var(--ink-faint); margin-top:1px; }
+  .field{ margin-bottom:15px; } .field:last-child{ margin-bottom:0; }
+  .row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media(max-width:600px){ .row{ grid-template-columns:1fr; } }
+  label{ display:block; font-size:12.5px; font-weight:700; color:var(--ink-soft); margin-bottom:5px; }
+  .req{ color:var(--danger); font-size:11px; margin-left:5px; font-weight:700; }
+  .opt{ color:var(--ink-faint); font-size:10.5px; margin-left:5px; font-weight:600; }
+  .hint{ font-size:11px; color:var(--ink-faint); font-weight:400; margin-left:6px; }
+  input[type=text],input[type=email],input[type=tel],input[type=number],input[type=month],select,textarea{
+    width:100%; padding:10px 12px; border:1.5px solid var(--line); border-radius:var(--r-sm); font-size:14px; font-family:inherit; color:var(--ink); background:#fff; transition:border .15s, box-shadow .15s; }
+  input:focus,select:focus,textarea:focus{ outline:none; border-color:var(--brand); box-shadow:0 0 0 3px rgba(15,163,163,.14); }
+  textarea{ resize:vertical; min-height:74px; }
+  input.bad,select.bad{ border-color:var(--danger); }
+  .err{ display:none; color:var(--danger); font-size:11.5px; margin-top:4px; }
+  .err.show{ display:block; }
+  .with-sfx{ position:relative; }
+  .with-sfx .sfx{ position:absolute; right:12px; top:50%; transform:translateY(-50%); font-size:12.5px; color:var(--ink-faint); pointer-events:none; }
+  .side{ position:sticky; top:96px; }
+  .side .card{ padding:0; overflow:hidden; }
+  .side-head{ background:var(--ink); color:#fff; padding:16px 18px; }
+  .side-head h3{ font-size:14px; font-weight:700; }
+  .side-head .amt{ font-size:30px; font-weight:800; margin-top:6px; }
+  .side-head .amt small{ font-size:13px; font-weight:600; color:#9fb0cc; }
+  .side-head .note{ font-size:11px; color:#9fb0cc; margin-top:2px; }
+  .side-body{ padding:16px 18px; }
+  .side-row{ display:flex; justify-content:space-between; gap:10px; font-size:12.5px; padding:7px 0; border-bottom:1px dashed var(--line); }
+  .side-row:last-of-type{ border-bottom:none; }
+  .side-row .k{ color:var(--ink-soft); } .side-row .v{ font-weight:700; }
+  .side-total{ display:flex; justify-content:space-between; align-items:center; margin-top:12px; padding-top:12px; border-top:2px solid var(--line); }
+  .side-total .k{ font-weight:700; } .side-total .v{ font-size:22px; font-weight:800; color:var(--brand-d); }
+  .side-foot{ font-size:10.5px; color:var(--ink-faint); margin-top:8px; line-height:1.5; }
+  .terms-box{ background:var(--paper); border:1px solid var(--line); border-radius:var(--r-sm); padding:15px 16px; max-height:230px; overflow-y:auto; font-size:12px; color:var(--ink-soft); line-height:1.7; }
+  .terms-box h4{ font-size:12.5px; color:var(--ink); margin:12px 0 5px; } .terms-box h4:first-child{ margin-top:0; }
+  .check-row{ display:flex; align-items:flex-start; gap:9px; margin-top:13px; }
+  .check-row input{ width:18px; height:18px; margin-top:2px; flex:0 0 auto; accent-color:var(--brand); cursor:pointer; }
+  .check-row label{ margin:0; font-size:13px; color:var(--ink); font-weight:600; cursor:pointer; }
+  .check-row a{ color:var(--brand-d); }
+  .btn{ border:none; border-radius:var(--r-sm); font-family:inherit; font-weight:700; cursor:pointer; transition:.15s; display:inline-flex; align-items:center; justify-content:center; gap:8px; }
+  .btn-primary{ background:var(--brand); color:#fff; padding:14px 20px; font-size:15px; width:100%; }
+  .btn-primary:hover{ background:var(--brand-d); }
+  .btn-ghost{ background:#fff; color:var(--ink-soft); border:1.5px solid var(--line); padding:11px 16px; font-size:13px; }
+  .btn-ghost:hover{ border-color:var(--brand); color:var(--brand-d); }
+  .btn-soft{ background:var(--sky); color:var(--brand-d); padding:11px 16px; font-size:13px; }
+  .btn-soft:hover{ background:var(--sky2); }
+  .btn-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+  .modal-bg{ display:none; position:fixed; inset:0; background:rgba(16,24,44,.55); z-index:50; align-items:flex-start; justify-content:center; padding:34px 16px; overflow-y:auto; }
+  .modal-bg.open{ display:flex; }
+  .modal{ background:#fff; border-radius:var(--r); max-width:780px; width:100%; box-shadow:var(--shadow); }
+  .modal-h{ display:flex; align-items:center; justify-content:space-between; padding:18px 22px; border-bottom:1px solid var(--line); position:sticky; top:0; background:#fff; border-radius:var(--r) var(--r) 0 0; }
+  .modal-h h3{ font-size:16px; } .modal-x{ background:none; border:none; font-size:24px; cursor:pointer; color:var(--ink-faint); line-height:1; }
+  .modal-b{ padding:22px; } .modal-f{ padding:14px 22px; border-top:1px solid var(--line); display:flex; gap:10px; justify-content:flex-end; }
+  .doc{ font-size:12.5px; color:var(--ink); line-height:1.8; }
+  .doc h2{ text-align:center; font-size:18px; margin-bottom:6px; }
+  .doc .doc-meta{ text-align:right; font-size:11.5px; color:var(--ink-soft); margin-bottom:14px; }
+  .doc table{ width:100%; border-collapse:collapse; margin:12px 0; font-size:12.5px; }
+  .doc th,.doc td{ border:1px solid var(--line); padding:8px 10px; text-align:left; }
+  .doc th{ background:var(--paper); font-weight:700; width:34%; }
+  .doc .doc-total td{ background:var(--sky); font-weight:800; color:var(--brand-d); }
+  .doc .doc-sec{ font-weight:800; margin:16px 0 6px; color:var(--ink); border-left:3px solid var(--brand); padding-left:9px; }
+  .doc .sign{ margin-top:22px; display:flex; justify-content:space-between; gap:20px; }
+  .doc .sign .box{ flex:1; border-top:1px solid var(--ink); padding-top:6px; font-size:11.5px; }
+  .toast{ position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(80px); background:var(--ink); color:#fff; padding:13px 22px; border-radius:30px; font-size:13.5px; font-weight:600; box-shadow:var(--shadow); opacity:0; transition:.3s; z-index:80; }
+  .toast.show{ transform:translateX(-50%) translateY(0); opacity:1; } .toast.ok{ background:var(--green); }
+  .done{ display:none; text-align:center; padding:40px 20px; } .done.show{ display:block; }
+  .done .big{ font-size:54px; } .done h2{ font-size:22px; margin-top:10px; } .done p{ color:var(--ink-soft); margin-top:8px; }
+  .info-line{ font-size:11.5px; color:var(--ink-faint); margin-top:6px; }
+  .revenue-note{ background:var(--sky); border-radius:var(--r-sm); padding:13px 15px; font-size:12.5px; color:var(--brand-d); margin-top:13px; line-height:1.6; }
+  .revenue-note b{ font-size:15px; }
+  /* 無料導入キャンペーン */
+  .camp-grid{ display:grid; grid-template-columns:1fr; gap:12px; margin-top:6px; }
+  .camp-opt{ border:2px solid var(--line); border-radius:14px; padding:16px 16px 14px; cursor:pointer; transition:.18s; position:relative; background:#fff; }
+  .camp-opt:hover{ border-color:var(--brand); }
+  .camp-opt.sel{ border-color:var(--brand); background:var(--sky); box-shadow:0 4px 14px rgba(15,163,163,.14); }
+  .camp-opt .camp-top{ display:flex; align-items:flex-start; gap:11px; }
+  .camp-opt input[type=radio]{ margin-top:3px; width:18px; height:18px; accent-color:var(--brand); flex:none; }
+  .camp-ttl{ font-weight:800; font-size:15.5px; color:var(--ink); }
+  .camp-ttl .free{ display:inline-block; background:var(--green); color:#fff; font-size:11px; font-weight:800; padding:2px 9px; border-radius:20px; margin-left:7px; vertical-align:middle; }
+  .camp-desc{ font-size:12.5px; color:var(--ink-soft); margin-top:5px; line-height:1.6; }
+  .camp-detail{ margin-top:13px; padding-top:13px; border-top:1px dashed var(--line); display:none; }
+  .camp-opt.sel .camp-detail{ display:block; }
+  .camp-detail h5{ margin:0 0 8px; font-size:12.5px; color:var(--brand-d); }
+  .cond-row{ display:flex; align-items:flex-start; gap:8px; padding:7px 0; font-size:13px; }
+  .cond-row input[type=checkbox]{ margin-top:2px; width:17px; height:17px; accent-color:var(--brand); flex:none; }
+  .cond-note{ font-size:11.5px; color:var(--ink-faint); margin-top:3px; }
+  .camp-badge{ position:absolute; top:-10px; right:14px; background:#e8552d; color:#fff; font-size:11px; font-weight:800; padding:3px 11px; border-radius:20px; }
+  .sub-field{ margin-top:11px; }
+  .sub-field > label{ display:block; font-size:12.5px; font-weight:700; margin-bottom:5px; color:var(--ink); }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{ display:inline-flex; align-items:center; gap:6px; border:1.5px solid var(--line); border-radius:10px; padding:8px 12px; font-size:13px; cursor:pointer; transition:.15s; background:#fff; }
+  .chip input{ accent-color:var(--brand); width:16px; height:16px; }
+  .chip.on{ border-color:var(--brand); background:var(--sky); }
+  .free-line{ color:var(--green); font-weight:800; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-in">
+    <div class="logo"><div class="mark">D</div><div><b>DigiRep</b><span>サイネージ・ネットワーク</span></div></div>
+    <div class="head-tag">加盟店さま お申込みフォーム</div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-in">
+    <h1>サイネージ設置・加盟 お申込み</h1>
+    <p>店舗にDigiRepサイネージを設置し、広告配信ネットワークに加盟いただくお申込みです。設置台数をご入力いただくと、お申込み金額と、広告掲載時に受け取れる副収入の目安が表示されます。</p>
+    <div class="pills">
+      <span class="pill">📺 サイネージ設置・基本設定込み</span>
+      <span class="pill">💰 広告掲載で副収入</span>
+      <span class="pill">📄 契約書・見積をその場で確認</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <form id="form" novalidate>
+  <div class="layout">
+    <div>
+      <!-- 申込内容 -->
+      <div class="card lead" style="border:2px solid var(--brand);">
+        <div class="sec-head"><div class="sec-num" style="background:var(--green);">★</div><div><h2>無料導入キャンペーン</h2><p>条件を満たすと、本来有料のサイネージを <b class="free-line">0円</b> で導入できます</p></div></div>
+        <p style="font-size:13px;color:var(--ink-soft);margin:0 0 14px;">弊社が代理店として、フードデリバリー加盟またはヨサンダスシステム導入を <b>店舗さまの手出し0円</b> でお手伝いします。その代理店報酬をサイネージ代に充当するため、サイネージを無料でご提供できます。</p>
+        <div class="camp-grid" id="campGrid">
+
+          <!-- 通常 -->
+          <label class="camp-opt sel" data-camp="none">
+            <div class="camp-top">
+              <input type="radio" name="camp" value="none" checked>
+              <div>
+                <div class="camp-ttl">通常導入（キャンペーンなし）</div>
+                <div class="camp-desc">サイネージを通常価格（¥55,000/台・税別）でご購入いただきます。</div>
+              </div>
+            </div>
+          </label>
+
+          <!-- フードデリバリー -->
+          <label class="camp-opt" data-camp="delivery">
+            <span class="camp-badge">人気</span>
+            <div class="camp-top">
+              <input type="radio" name="camp" value="delivery">
+              <div>
+                <div class="camp-ttl">フードデリバリー セット<span class="free">サイネージ1台無料</span></div>
+                <div class="camp-desc">「UBER Eats」「menu」「ロケットナウ」へ加盟（無料）いただくと、サイネージ初期導入費が無料に。副収入源を確保しながら、手出し0円でサイネージを設置できます。</div>
+              </div>
+            </div>
+            <div class="camp-detail">
+              <h5>▼ キャンペーン利用に必要な情報</h5>
+              <div class="sub-field">
+                <label>加盟を希望する配達サービス（複数選択可）<span class="opt" style="font-weight:400;">必須</span></label>
+                <div class="chip-row" id="delivSvc">
+                  <label class="chip"><input type="checkbox" value="UBER Eats">UBER Eats</label>
+                  <label class="chip"><input type="checkbox" value="menu">menu</label>
+                  <label class="chip"><input type="checkbox" value="ロケットナウ">ロケットナウ</label>
+                </div>
+              </div>
+              <div class="sub-field">
+                <label>店舗ジャンル（料理カテゴリ）</label>
+                <input type="text" id="delivGenre" placeholder="例：居酒屋／ラーメン／カフェ など">
+              </div>
+              <div class="sub-field">
+                <label>既存のデリバリー加盟状況</label>
+                <select id="delivExisting">
+                  <option value="">選択してください</option>
+                  <option value="未加盟">いずれも未加盟（新規）</option>
+                  <option value="一部加盟済み">一部のサービスに加盟済み</option>
+                </select>
+              </div>
+              <div class="cond-note">※ 配達サービスへの加盟は無料です。加盟手続きは弊社が代理サポートいたします。</div>
+            </div>
+          </label>
+
+          <!-- ヨサンダス -->
+          <label class="camp-opt" data-camp="yosandas">
+            <div class="camp-top">
+              <input type="radio" name="camp" value="yosandas">
+              <div>
+                <div class="camp-ttl">ヨサンダス連携<span class="free">サイネージ1台無料</span></div>
+                <div class="camp-desc">EC共同運営「ヨサンダス」をご利用いただくと、サイネージ1台を無料で導入できます。下記の利用条件をすべて満たす必要があります。</div>
+              </div>
+            </div>
+            <div class="camp-detail">
+              <h5>▼ ヨサンダス利用条件（すべて必須）</h5>
+              <div class="cond-row"><input type="checkbox" id="ycond1"><label for="ycond1">2期目以降の法人である</label></div>
+              <div class="cond-row"><input type="checkbox" id="ycond2"><label for="ycond2">資本金 100万円以上である</label></div>
+              <div class="cond-row"><input type="checkbox" id="ycond3"><label for="ycond3">本則課税である（簡易課税・2割特例ではない）</label></div>
+              <div class="cond-note">※ 課税方式が不明な場合も、まずは資本金をご確認ください。資本金が100万円未満でも増資で条件を満たせる場合があります。詳細は担当者がご案内します。</div>
+              <div class="sub-field">
+                <label>資本金（確認のため）</label>
+                <div class="with-sfx"><input type="number" id="yCapital" min="0" step="10" placeholder="例：100"><span class="sfx">万円</span></div>
+              </div>
+              <div class="sub-field">
+                <label>課税方式（おわかりになる場合）</label>
+                <select id="yTax">
+                  <option value="">不明 / 未確認</option>
+                  <option value="本則課税">本則課税</option>
+                  <option value="簡易課税">簡易課税</option>
+                  <option value="2割特例">2割特例</option>
+                </select>
+              </div>
+            </div>
+          </label>
+
+        </div>
+        <div class="err" id="campErr" style="display:none;">キャンペーン利用に必要な項目をご確認ください</div>
+      </div>
+
+      <div class="card lead">
+        <div class="sec-head"><div class="sec-num">2</div><div><h2>サイネージお申込み内容</h2><p>設置台数に応じて費用を計算します</p></div></div>
+        <div class="row">
+          <div class="field">
+            <label>申込台数<span class="req">必須</span><span class="hint">設置するサイネージの台数</span></label>
+            <div class="with-sfx"><input type="number" id="units" min="1" value="1"><span class="sfx">台</span></div>
+          </div>
+          <div class="field">
+            <label>サイネージ単価<span class="opt">固定</span></label>
+            <div class="with-sfx"><input type="text" id="unitPrice" value="55,000" readonly><span class="sfx">円/台</span></div>
+          </div>
+        </div>
+        <div class="field">
+          <label>設置・利用開始 希望月<span class="opt">任意</span></label>
+          <input type="month" id="startMonth">
+        </div>
+        <div class="field">
+          <label>設置媒体タイプ<span class="opt">任意</span><span class="hint">どの業態に設置するか</span></label>
+          <select id="storeType">
+            <option value="toilet">飲食店・個室トイレ</option>
+            <option value="laundry">コインランドリー</option>
+            <option value="hotel">ホテル</option>
+            <option value="other">その他</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>1店あたり 月間来客数<span class="opt">任意</span><span class="hint">広告副収入の試算に使用</span></label>
+          <div class="with-sfx"><input type="number" id="visitors" min="0" step="100" value="3000"><span class="sfx">人</span></div>
+        </div>
+        <div class="revenue-note" id="revNote"></div>
+        <div class="field" style="margin-top:15px;">
+          <label>備考<span class="opt">任意</span></label>
+          <textarea id="memo" placeholder="設置場所の状況、ご相談事項など"></textarea>
+        </div>
+      </div>
+
+      <!-- 契約者情報 -->
+      <div class="card">
+        <div class="sec-head"><div class="sec-num">3</div><div><h2>契約者情報</h2><p>サイネージを設置する事業者さま</p></div></div>
+        <div class="field"><label>会社名・店舗名<span class="req">必須</span></label><input type="text" id="company" placeholder="株式会社○○ / ○○店"><div class="err" id="companyErr">会社名・店舗名を入力してください</div></div>
+        <div class="field"><label>会社名・店舗名（フリガナ）<span class="opt">任意</span></label><input type="text" id="companyKana"></div>
+        <div class="row">
+          <div class="field"><label>代表者 氏名<span class="req">必須</span></label><input type="text" id="rep" placeholder="山田 太郎"><div class="err" id="repErr">代表者名を入力してください</div></div>
+          <div class="field"><label>代表者 氏名（フリガナ）<span class="opt">任意</span></label><input type="text" id="repKana"></div>
+        </div>
+        <div class="field"><label>所在地<span class="req">必須</span></label><input type="text" id="addr" placeholder="東京都…"><div class="err" id="addrErr">所在地を入力してください</div></div>
+        <div class="field"><label>法人番号<span class="opt">任意</span></label><input type="text" id="corpNo" placeholder="13桁"></div>
+      </div>
+
+      <!-- 担当者情報 -->
+      <div class="card">
+        <div class="sec-head"><div class="sec-num">4</div><div><h2>ご担当者情報</h2><p>お申込み・ご連絡の窓口</p></div></div>
+        <div class="row">
+          <div class="field"><label>担当者 氏名<span class="req">必須</span></label><input type="text" id="pic" placeholder="鈴木 花子"><div class="err" id="picErr">担当者名を入力してください</div></div>
+          <div class="field"><label>担当者 氏名（フリガナ）<span class="opt">任意</span></label><input type="text" id="picKana"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label>電話番号<span class="req">必須</span></label><input type="tel" id="tel" placeholder="03-1234-5678"><div class="err" id="telErr">電話番号を入力してください</div></div>
+          <div class="field"><label>メールアドレス<span class="req">必須</span></label><input type="email" id="email" placeholder="example@store.co.jp"><div class="err" id="emailErr">正しいメールアドレスを入力してください</div></div>
+        </div>
+        <div class="field"><label>メールアドレス（確認）<span class="req">必須</span></label><input type="email" id="email2"><div class="err" id="email2Err">メールアドレスが一致しません</div></div>
+      </div>
+
+      <!-- 振込口座 -->
+      <div class="card">
+        <div class="sec-head"><div class="sec-num">5</div><div><h2>振込口座</h2><p>広告掲載時の月額報酬（副収入）の振込先</p></div></div>
+        <div class="row">
+          <div class="field"><label>銀行名<span class="req">必須</span></label><input type="text" id="bank" placeholder="○○銀行"><div class="err" id="bankErr">銀行名を入力してください</div></div>
+          <div class="field"><label>支店名<span class="req">必須</span></label><input type="text" id="branch" placeholder="○○支店"><div class="err" id="branchErr">支店名を入力してください</div></div>
+        </div>
+        <div class="row">
+          <div class="field"><label>口座種別<span class="req">必須</span></label><select id="acctType"><option value="">選択してください</option><option value="普通">普通</option><option value="当座">当座</option></select><div class="err" id="acctTypeErr">口座種別を選択してください</div></div>
+          <div class="field"><label>口座番号<span class="req">必須</span></label><input type="text" id="acctNo" placeholder="1234567"><div class="err" id="acctNoErr">口座番号を入力してください</div></div>
+        </div>
+        <div class="field"><label>口座名義<span class="req">必須</span></label><input type="text" id="acctName" placeholder="カ）○○"><div class="err" id="acctNameErr">口座名義を入力してください</div></div>
+      </div>
+
+      <!-- 規約同意 -->
+      <div class="card">
+        <div class="sec-head"><div class="sec-num">6</div><div><h2>ご確認・同意</h2><p>加盟・利用条件と各種ポリシー</p></div></div>
+        <div class="terms-box">
+          <h4>広告配信代行・サイネージ利用条件</h4>
+          本申込は、DigiRep加盟店への参画、サイネージ設置、基本設定、広告配信、必要に応じた素材制作に関する申込です。広告枠は媒体規定の尺、サイネージ全体はループ構成を前提とします。解約は原則2か月前の申告とし、申告がない場合は申込内容で自動更新されます。
+          <h4>広告掲載時の店舗報酬（副収入）</h4>
+          広告主企業が加盟店の設置サイネージに広告を掲載する場合、掲載期間中、店舗には掲載額に応じた報酬（副収入）を月末締め翌月支払いでお支払いします。長期掲載ほど安定した副収入が見込めます。
+          <h4>サイネージの取扱い</h4>
+          加盟店の責任でサイネージが破損し継続利用を希望する場合は、再購入金額を申し受けます。制作・運用開始後の仕様変更は協議のうえ対応し、投稿動画の再更新は原則禁止、必要な場合は別途20,000円の更新費が発生します。
+          <h4>基本契約条項</h4>
+          両当事者は、業務遂行に必要な協力、秘密情報・個人情報の適切な管理を行います。納品物は稼働可能な状態で納品し、受領後30日以内に異議がない場合は検収完了とします。権利義務の譲渡は禁止。契約違反・反社会的勢力該当等は解除事由となります。
+          <h4>準拠法・管轄</h4>
+          準拠法は日本法とし、紛争は東京地方裁判所を第一審の専属的合意管轄裁判所とします。
+        </div>
+        <div class="check-row"><input type="checkbox" id="agree1"><label for="agree1">上記の利用規約および申込条件に同意します</label></div>
+        <div class="check-row"><input type="checkbox" id="agree2"><label for="agree2">プライバシーポリシーに同意します</label></div>
+        <div class="err" id="agreeErr">お申込みには各項目への同意が必要です</div>
+      </div>
+    </div>
+
+    <!-- サイドバー -->
+    <div class="side">
+      <div class="card">
+        <div class="side-head">
+          <h3>お申込み金額（税別）</h3>
+          <div class="amt" id="sideAmt">¥55,000</div>
+          <div class="note" id="sideNote">サイネージ設置費用</div>
+        </div>
+        <div class="side-body">
+          <div id="sideRows"></div>
+          <div class="side-total"><span class="k">合計（税別）</span><span class="v" id="sideTotal">¥55,000</span></div>
+          <div class="side-foot">※ 表示金額は税別です。別途消費税を申し受けます。</div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-soft" id="quoteBtn" style="flex:1;">見積書</button>
+            <button type="button" class="btn btn-soft" id="contractBtn" style="flex:1;">契約書</button>
+          </div>
+          <button type="submit" class="btn btn-primary" id="submitBtn" style="margin-top:10px;">この内容でお申込み</button>
+          <div class="side-foot">お申込み後、確認のうえお支払い手続き（Stripe決済リンク）のご案内をお送りします。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </form>
+
+  <div class="card done" id="doneCard">
+    <div class="big">✅</div>
+    <h2>お申込みを受け付けました</h2>
+    <p id="doneMsg"></p>
+    <div class="btn-row" style="justify-content:center;">
+      <button type="button" class="btn btn-soft" id="payBtn">お支払いへ進む（Stripe）</button>
+      <button type="button" class="btn btn-ghost" id="dlJsonBtn">申込データ(JSON)を保存</button>
+      <button type="button" class="btn btn-ghost" id="quoteBtn2">見積書</button>
+      <button type="button" class="btn btn-ghost" id="contractBtn2">契約書</button>
+    </div>
+    <div class="info-line" id="payNote" style="margin-top:14px;"></div>
+    <div style="margin-top:22px;padding:16px;background:var(--sky);border-radius:14px;">
+      <div style="font-weight:800;font-size:14px;color:var(--brand-d);margin-bottom:6px;">📺 サイネージ設置ガイド</div>
+      <p style="font-size:12.5px;color:var(--ink-soft);margin:0 0 10px;">サイネージが届いたら、設置ガイドに沿って設置してください。Wi-Fi接続から固定・配線まで、写真付きで手順を案内しています。</p>
+      <a href="DigiRep_サイネージ設置ガイド.html" target="_blank" class="btn btn-soft" style="display:inline-block;text-decoration:none;">設置ガイドを開く →</a>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <div class="modal-h"><h3 id="modalTitle">書類プレビュー</h3><button type="button" class="modal-x" id="modalX">×</button></div>
+    <div class="modal-b" id="modalBody"></div>
+    <div class="modal-f">
+      <button type="button" class="btn btn-ghost" id="modalPrint">印刷 / PDF保存</button>
+      <button type="button" class="btn btn-soft" id="modalClose">閉じる</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const UNIT_PRICE = 55000;               // サイネージ単価/台
+const STORE_SHARE_3M = 5000;            // 3ヶ月掲載時の店舗月額報酬の目安/枠（参考フォーム準拠）
+const $ = id => document.getElementById(id);
+const yen = n => '¥' + Math.round(n).toLocaleString();
+const num = n => Math.round(n).toLocaleString();
+
+const CAMP_LABEL = {
+  none:'通常導入（キャンペーンなし）',
+  delivery:'フードデリバリー セット（サイネージ無料）',
+  yosandas:'ヨサンダス連携（サイネージ1台無料）'
+};
+
+function currentCamp(){
+  const el=document.querySelector('input[name="camp"]:checked');
+  return el? el.value : 'none';
+}
+
+function calc(){
+  const units = Math.max(1, +$('units').value||0);
+  const camp = currentCamp();
+  let fee = UNIT_PRICE * units;
+  let discount = 0;
+  if(camp==='delivery'){
+    // フードデリバリーセット：1台無料（加盟1件＝サイネージ1台分の報酬を充当）
+    discount = Math.min(UNIT_PRICE, fee);
+  } else if(camp==='yosandas'){
+    // ヨサンダス連携：1台無料
+    discount = Math.min(UNIT_PRICE, fee);
+  }
+  const total = Math.max(0, fee - discount);
+  return { units, camp, fee, discount, total };
+}
+
+function syncCampUI(){
+  // 選択カードのハイライト
+  document.querySelectorAll('.camp-opt').forEach(opt=>{
+    const v=opt.getAttribute('data-camp');
+    opt.classList.toggle('sel', v===currentCamp());
+  });
+  // チップのon表示
+  document.querySelectorAll('#delivSvc .chip').forEach(ch=>{
+    const cb=ch.querySelector('input'); ch.classList.toggle('on', cb.checked);
+  });
+}
+
+function compute(){
+  const r=calc();
+  $('sideAmt').textContent=yen(r.total);
+  if(r.camp==='none'){
+    $('sideNote').textContent=`サイネージ ${r.units}台 設置費用`;
+  } else if(r.camp==='delivery'){
+    $('sideNote').textContent=`フードデリバリーセット適用｜1台無料`;
+  } else {
+    $('sideNote').textContent=`ヨサンダス連携適用｜1台無料`;
+  }
+  let rows = `<div class="side-row"><span class="k">申込台数</span><span class="v">${num(r.units)} 台</span></div>`
+    + `<div class="side-row"><span class="k">サイネージ単価</span><span class="v">${yen(UNIT_PRICE)} / 台</span></div>`
+    + `<div class="side-row"><span class="k">設置費用</span><span class="v">${yen(r.fee)}</span></div>`;
+  if(r.discount>0){
+    const label = r.camp==='delivery' ? 'フードデリバリー特典（1台無料）' : 'ヨサンダス特典（1台無料）';
+    rows += `<div class="side-row"><span class="k">${label}</span><span class="v" style="color:var(--green);font-weight:700;">-${yen(r.discount)}</span></div>`;
+  }
+  $('sideRows').innerHTML = rows;
+  $('sideTotal').textContent=yen(r.total);
+
+  // 広告掲載時の副収入の目安
+  const visitors=Math.max(0,+$('visitors').value||0);
+  const views = visitors*0.5*0.7;
+  const adRevPerStore = views*20;
+  const storeIncome = Math.round(adRevPerStore*0.10);
+  $('revNote').innerHTML = `💰 <b>広告掲載時の副収入の目安：月 ${yen(storeIncome)}〜</b><br>`+
+    `来客 ${num(visitors)}人/月 のとき、広告が1社付くと視聴数 約${num(views)}回。掲載額の10%が店舗様の副収入になります（広告主・掲載状況により変動）。`;
+  syncCampUI();
+  return r;
+}
+
+// キャンペーン選択・チップ・条件のイベント
+document.querySelectorAll('input[name="camp"]').forEach(r=> r.addEventListener('change', compute));
+document.querySelectorAll('#delivSvc .chip input').forEach(cb=> cb.addEventListener('change', compute));
+
+
+function gatherData(){
+  const r=calc();
+  const camp=currentCamp();
+  const delivSvc=[...document.querySelectorAll('#delivSvc .chip input:checked')].map(c=>c.value);
+  const campaign={
+    type:camp,
+    label:CAMP_LABEL[camp],
+    delivery: camp==='delivery' ? {
+      services:delivSvc, genre:$('delivGenre').value.trim(), existing:$('delivExisting').value
+    } : null,
+    yosandas: camp==='yosandas' ? {
+      cond2ndYear:$('ycond1').checked, condCapital:$('ycond2').checked, condStandardTax:$('ycond3').checked,
+      capital:+$('yCapital').value||null, taxType:$('yTax').value
+    } : null
+  };
+  return {
+    type:'store_signage',
+    submittedAt:new Date().toISOString(),
+    campaign,
+    store:{ company:$('company').value.trim(), companyKana:$('companyKana').value.trim(),
+      rep:$('rep').value.trim(), repKana:$('repKana').value.trim(), addr:$('addr').value.trim(), corpNo:$('corpNo').value.trim(),
+      storeType:$('storeType').value, visitors:+$('visitors').value||0 },
+    contact:{ pic:$('pic').value.trim(), picKana:$('picKana').value.trim(), tel:$('tel').value.trim(), email:$('email').value.trim() },
+    bank:{ bank:$('bank').value.trim(), branch:$('branch').value.trim(), acctType:$('acctType').value, acctNo:$('acctNo').value.trim(), acctName:$('acctName').value.trim() },
+    order:{ units:r.units, unitPrice:UNIT_PRICE, fee:r.fee, discount:r.discount, total:r.total, startMonth:$('startMonth').value, memo:$('memo').value.trim() }
+  };
+}
+function quoteHtml(d){
+  const o=d.order; const tax=Math.round(o.total*0.1); const today=new Date().toLocaleDateString('ja-JP');
+  return `<div class="doc">
+    <h2>御 見 積 書</h2>
+    <div class="doc-meta">見積日：${today}<br>見積番号：QS-${Date.now().toString().slice(-8)}</div>
+    <p><b>${d.store.company||'（会社名・店舗名）'}</b> 御中</p>
+    <p>サイネージ設置に関し、下記のとおりお見積り申し上げます。</p>
+    <div class="doc-sec">お見積り内容</div>
+    <table>
+      <tr><th>品目</th><td>DigiRep サイネージ 設置（基本設定込み）</td></tr>
+      <tr><th>適用プラン</th><td>${d.campaign.label}</td></tr>
+      <tr><th>申込台数</th><td>${num(o.units)} 台</td></tr>
+      <tr><th>単価（税別）</th><td>${yen(o.unitPrice)} / 台</td></tr>
+      <tr><th>設置費用（税別）</th><td>${yen(o.fee)}</td></tr>
+      ${o.discount>0?`<tr><th>${d.campaign.type==='delivery'?'フードデリバリーセット特典':'ヨサンダス連携特典（1台無料）'}</th><td>-${yen(o.discount)}</td></tr>`:''}
+      <tr><th>小計（税別）</th><td>${yen(o.total)}</td></tr>
+      <tr><th>消費税（10%）</th><td>${yen(tax)}</td></tr>
+      <tr class="doc-total"><td>合計金額（税込）</td><td>${yen(o.total+tax)}</td></tr>
+    </table>
+    ${d.campaign.type!=='none'?`<p style="font-size:11.5px;color:var(--green);font-weight:700;">★ ${d.campaign.label} の適用により、サイネージ費用が${o.total===0?'無料':'割引'}になっています。</p>`:''}
+    <div class="doc-sec">備考</div>
+    <p>${o.memo? o.memo.replace(/</g,'&lt;'):'—'}</p>
+    <p style="font-size:11px;color:#8a98ad;">※ 広告掲載時には、掲載額に応じた月額報酬（副収入）を別途お支払いします。表示金額は税別です。</p>
+    <div class="sign"><div class="box">発行：DigiRep株式会社<br>担当：＿＿＿＿＿＿</div><div class="box">御社ご確認印：</div></div>
+  </div>`;
+}
+function contractHtml(d){
+  const o=d.order; const today=new Date().toLocaleDateString('ja-JP');
+  return `<div class="doc">
+    <h2>サイネージ設置・加盟店契約書</h2>
+    <div class="doc-meta">契約日：${today}</div>
+    <p>加盟店（以下「甲」）<b>${d.store.company||'（会社名・店舗名）'}</b> と DigiRep株式会社（以下「乙」）は、サイネージ設置および広告配信加盟に関し、以下のとおり契約を締結する。</p>
+    <div class="doc-sec">第1条（設置内容）</div>
+    <table>
+      <tr><th>設置サイネージ</th><td>${num(o.units)} 台（基本設定込み）</td></tr>
+      <tr><th>設置媒体タイプ</th><td>${({toilet:'飲食店・個室トイレ',laundry:'コインランドリー',hotel:'ホテル',other:'その他'})[d.store.storeType]||'-'}</td></tr>
+      <tr><th>設置費用（税別）</th><td>${yen(o.fee)}（${yen(o.unitPrice)} × ${num(o.units)}台）</td></tr>
+      <tr><th>適用キャンペーン</th><td>${d.campaign.label}</td></tr>
+      ${o.discount>0?`<tr><th>特典による減額</th><td>-${yen(o.discount)}</td></tr>`:''}
+      <tr><th>甲の負担額（税別）</th><td><b>${yen(o.total)}</b></td></tr>
+    </table>
+    <div class="doc-sec">第2条（費用・支払い）</div>
+    <p>甲は乙に対し、前条の甲の負担額を乙の定める方法（Stripeによる電子決済等）により支払う。表示金額は税別とし、別途消費税を申し受ける。${o.total===0?'本契約は無料導入キャンペーンの適用により、甲のサイネージ費用負担は生じない。':''}</p>
+    ${d.campaign.type==='delivery'?`<div class="doc-sec">第2条の2（フードデリバリーセット特典）</div><p>乙は甲のフードデリバリーサービス（${(d.campaign.delivery.services||[]).join('・')||'指定サービス'}）への加盟を代理サポートし、これに伴う代理店報酬をサイネージ費用に充当することで、甲のサイネージ費用負担を無料とする。甲は本特典の適用にあたり、加盟手続きに必要な協力を行うものとする。</p>`:''}
+    ${d.campaign.type==='yosandas'?`<div class="doc-sec">第2条の2（ヨサンダス連携特典）</div><p>乙は甲のヨサンダス（EC共同運営）利用を仲介し、これに伴う代理店報酬をサイネージ費用に充当することで、サイネージ1台分を無料とする。本特典は、甲が「2期目以降の法人」「資本金100万円以上」「本則課税（簡易課税・2割特例でないこと）」のすべての条件を満たす場合に限り適用される。</p>`:''}
+    <div class="doc-sec">第3条（広告掲載時の報酬）</div>
+    <p>乙が甲の設置サイネージに広告主企業の広告を掲載する場合、乙は甲に対し、掲載額に応じた報酬を月末締め翌月支払いで支払う。報酬は甲の指定口座（本契約記載）に振り込む。</p>
+    <div class="doc-sec">第4条（更新・解約）</div>
+    <p>解約は原則2か月前の申告とし、申告がない場合は本契約は同条件で自動更新される。</p>
+    <div class="doc-sec">第5条（サイネージの取扱い）</div>
+    <p>甲の責任による破損で継続利用を希望する場合、甲は再購入金額を支払う。投稿動画の再更新は原則禁止とし、必要な場合は別途20,000円の更新費が発生する。</p>
+    <div class="doc-sec">第6条（準拠法・管轄）</div>
+    <p>本契約は日本法に準拠し、紛争は東京地方裁判所を第一審の専属的合意管轄裁判所とする。</p>
+    <div class="sign">
+      <div class="box">甲（加盟店）：${d.store.company||'＿＿＿＿＿＿'}<br>　<br>印 ＿＿＿＿</div>
+      <div class="box">乙：DigiRep株式会社<br>　<br>印 ＿＿＿＿</div>
+    </div>
+  </div>`;
+}
+
+function openModal(title,html){ $('modalTitle').textContent=title; $('modalBody').innerHTML=html; $('modalBg').classList.add('open'); }
+function closeModal(){ $('modalBg').classList.remove('open'); }
+$('modalX').onclick=closeModal; $('modalClose').onclick=closeModal;
+$('modalBg').onclick=e=>{ if(e.target===$('modalBg')) closeModal(); };
+$('modalPrint').onclick=()=>{ const w=window.open('','_blank'); w.document.write('<html><head><title>印刷</title><style>body{font-family:sans-serif;padding:30px;}table{width:100%;border-collapse:collapse;margin:12px 0;}th,td{border:1px solid #ccc;padding:8px;text-align:left;}th{background:#f3f3f3;width:34%;}h2{text-align:center;}</style></head><body>'+$('modalBody').innerHTML+'</body></html>'); w.document.close(); w.print(); };
+
+function validate(){
+  let ok=true;
+  const reqs=[['company','companyErr',v=>!!v],['rep','repErr',v=>!!v],['addr','addrErr',v=>!!v],
+    ['pic','picErr',v=>!!v],['tel','telErr',v=>!!v],['email','emailErr',v=>/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)],
+    ['bank','bankErr',v=>!!v],['branch','branchErr',v=>!!v],['acctType','acctTypeErr',v=>!!v],['acctNo','acctNoErr',v=>!!v],['acctName','acctNameErr',v=>!!v]];
+  reqs.forEach(([id,errId,fn])=>{ const v=$(id).value.trim(); const bad=!fn(v); $(id).classList.toggle('bad',bad); $(errId).classList.toggle('show',bad); if(bad) ok=false; });
+  const e2bad=$('email').value.trim()!==$('email2').value.trim()||!$('email2').value.trim();
+  $('email2').classList.toggle('bad',e2bad); $('email2Err').classList.toggle('show',e2bad); if(e2bad) ok=false;
+  const agreeBad=!($('agree1').checked&&$('agree2').checked);
+  $('agreeErr').classList.toggle('show',agreeBad); if(agreeBad) ok=false;
+  // キャンペーン別の必須チェック
+  const camp=currentCamp();
+  const campErr=$('campErr');
+  let campBad=false, campMsg='';
+  if(camp==='delivery'){
+    const svc=document.querySelectorAll('#delivSvc .chip input:checked').length;
+    if(svc===0){ campBad=true; campMsg='加盟を希望する配達サービスを1つ以上選択してください'; }
+  } else if(camp==='yosandas'){
+    if(!($('ycond1').checked&&$('ycond2').checked&&$('ycond3').checked)){
+      campBad=true; campMsg='ヨサンダス連携の利用条件（3項目）すべてにチェックが必要です';
+    }
+  }
+  campErr.textContent=campMsg; campErr.style.display=campBad?'block':'none';
+  if(campBad) ok=false;
+  return ok;
+}
+
+let lastData=null;
+$('form').onsubmit=e=>{
+  e.preventDefault();
+  if(!validate()){ toast('未入力・未同意の項目があります'); const bad=document.querySelector('.bad,.err.show'); if(bad) window.scrollTo({top:bad.getBoundingClientRect().top+window.scrollY-120,behavior:'smooth'}); return; }
+  lastData=gatherData();
+  try{ const key='digirep_store_applications'; const arr=JSON.parse(localStorage.getItem(key)||'[]'); arr.push(lastData); localStorage.setItem(key,JSON.stringify(arr)); }catch(err){}
+  $('form').style.display='none'; $('doneCard').classList.add('show');
+  $('doneMsg').innerHTML=`${lastData.store.company} 様のお申込みを受け付けました。<br>適用プラン：<b>${lastData.campaign.label}</b><br>サイネージ費用：<b>${lastData.order.total===0?'無料（0円）':yen(lastData.order.total)+'（税別）'}</b> ／ ${lastData.order.units}台`;
+  const STRIPE_PAYMENT_LINK='';
+  $('payNote').innerHTML = STRIPE_PAYMENT_LINK ? 'お支払いボタンからStripeの決済ページに進めます。' : '※ 現在はデモ環境です。運用時はStripeのPayment Link（決済URL）を設定すると、このボタンから自動決済に進めます。';
+  $('payBtn').onclick=()=>{ if(STRIPE_PAYMENT_LINK){ window.open(STRIPE_PAYMENT_LINK+`?client_reference_id=${encodeURIComponent(lastData.store.company)}`,'_blank'); } else { toast('Stripe決済リンクが未設定です（運用時に設定）'); } };
+  window.scrollTo({top:0,behavior:'smooth'}); toast('お申込みを受け付けました','ok');
+};
+function ensureData(){ return lastData||gatherData(); }
+$('quoteBtn').onclick=()=>openModal('御見積書',quoteHtml(ensureData()));
+$('contractBtn').onclick=()=>openModal('加盟店契約書',contractHtml(ensureData()));
+$('quoteBtn2').onclick=()=>openModal('御見積書',quoteHtml(ensureData()));
+$('contractBtn2').onclick=()=>openModal('加盟店契約書',contractHtml(ensureData()));
+$('dlJsonBtn').onclick=()=>{ const d=ensureData(); const blob=new Blob([JSON.stringify(d,null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='digirep_store_application_'+(d.store.company||'store')+'.json'; a.click(); URL.revokeObjectURL(a.href); toast('申込データを保存しました','ok'); };
+
+let toastT; function toast(msg,type){ const t=$('toast'); t.textContent=msg; t.className='toast show'+(type==='ok'?' ok':''); clearTimeout(toastT); toastT=setTimeout(()=>t.className='toast',2600); }
+
+['units','visitors','storeType'].forEach(id=>{ const el=$(id); el.addEventListener('input',compute); el.addEventListener('change',compute); });
+compute();
+</script>
+</body>
+</html>

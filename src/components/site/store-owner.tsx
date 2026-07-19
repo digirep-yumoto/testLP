@@ -1,6 +1,6 @@
 import { ArrowRight, Check } from "lucide-react";
 import { Icon } from "./icon";
-import { storeOwner, company, storeSignageNote, storeInstall } from "@/lib/site-data";
+import { storeOwner, storeSignageNote, storeInstall } from "@/lib/site-data";
 
 export function StoreOwner() {
   return (
@@ -122,7 +122,7 @@ export function StoreOwner() {
 
         <div className="mt-10 text-center">
           <a
-            href={`mailto:${company.email}?subject=${encodeURIComponent("店舗へのサイネージ設置について")}`}
+            href="/store-form.html"
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-6 py-3.5 text-[15px] font-bold text-white shadow-lg shadow-brand/25 transition-all hover:bg-brand-dark active:translate-y-px"
           >
             店舗導入を相談・お申込みする
