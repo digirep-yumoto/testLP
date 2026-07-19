@@ -73,6 +73,9 @@
   .media-opt{ border:1.5px solid var(--line); border-radius:var(--r-sm); padding:13px; cursor:pointer; transition:.15s; background:#fff; text-align:center; }
   .media-opt:hover{ border-color:var(--brand); }
   .media-opt.on{ border-color:var(--brand); background:var(--sky); box-shadow:0 0 0 3px rgba(47,109,240,.1); }
+  /* 準備中の媒体（クリック不可・うす暗く） */
+  .media-opt.soon{ position:relative; opacity:.45; filter:grayscale(1); cursor:not-allowed; pointer-events:none; background:#f4f5f7; }
+  .media-opt.soon .soon-badge{ position:absolute; top:6px; right:8px; background:#6b7280; color:#fff; font-size:10px; font-weight:800; padding:2px 8px; border-radius:20px; letter-spacing:.04em; }
   .media-opt .ic{ font-size:24px; }
   .media-opt .nm{ font-weight:800; font-size:14px; margin-top:4px; }
   .media-opt .ds{ font-size:10.5px; color:var(--ink-faint); margin-top:2px; }
@@ -252,8 +255,13 @@
           </div>
           <div class="row">
             <div class="field"><label>配信店舗数<span class="req">必須</span></label><div class="with-sfx"><input type="number" id="storesL" min="1" value="20"><span class="sfx">店</span></div></div>
-            <div class="field"><label>1店あたり 月間利用人数<span class="hint">参考リーチ指標・平均1,124人</span></label><div class="with-sfx"><input type="number" id="visitorsL" min="0" step="50" value="1124"><span class="sfx">人</span></div></div>
+            <div class="field" id="fieldSpotL"><label>希望スポット<span class="hint">配信したい店舗・商業施設・エリア名</span></label><input type="text" id="spotL" placeholder="例：カインズ○○店 / 世田谷区周辺"></div>
+            <div class="field" id="fieldAreaL" style="display:none;"><label>希望エリア<span class="hint">配信したい地域</span></label><select id="areaL">
+              <option value="" selected>選択してください</option>
+              <option>北海道</option><option>東北</option><option>関東</option><option>中部・北陸</option><option>近畿</option><option>中国</option><option>四国</option><option>九州・沖縄</option>
+            </select></div>
           </div>
+          <div class="field" id="fieldAreaDetailL" style="display:none;"><label>エリア詳細<span class="opt">任意</span><span class="hint">都道府県・市区町村など</span></label><input type="text" id="areaDetailL" placeholder="例：東京都・神奈川県 / 大阪市内 など"></div>
           <div class="row">
             <div class="field"><label>付帯メニュー<span class="hint">LP・動画・X連携の有無</span></label><select id="addonL">
               <option value="" selected>なし</option>
@@ -284,6 +292,7 @@
         <div class="sec-head"><div class="sec-num">2</div><div><h2>広告主さま情報</h2><p>ご契約者となる企業・ご担当者の情報</p></div></div>
         <div class="field"><label>会社名<span class="req">必須</span></label><input type="text" id="company" placeholder="株式会社○○"><div class="err" id="companyErr">会社名を入力してください</div></div>
         <div class="field"><label>会社名（フリガナ）<span class="opt">任意</span></label><input type="text" id="companyKana" placeholder="カブシキガイシャ○○"></div>
+        <div class="field"><label>紹介者（企業名・担当者名）<span class="opt">任意</span><span class="hint">ご紹介経由の場合はご記入ください</span></label><input type="text" id="referrer" placeholder="例：株式会社△△ / 山田様"></div>
         <div class="row">
           <div class="field"><label>代表者 氏名<span class="opt">任意</span></label><input type="text" id="rep" placeholder="山田 太郎"></div>
           <div class="field"><label>法人番号<span class="opt">任意</span></label><input type="text" id="corpNo" placeholder="13桁"></div>
@@ -355,7 +364,10 @@
             <button type="button" class="btn btn-soft" id="quoteBtn" style="flex:1;">見積書を見る</button>
             <button type="button" class="btn btn-soft" id="contractBtn" style="flex:1;">契約書を見る</button>
           </div>
-          <button type="submit" class="btn btn-primary" id="submitBtn" style="margin-top:10px;">この内容でお申込み</button>
+          <button type="submit" class="btn btn-primary" id="submitBtn" style="margin-top:10px;">まずはこの内容で相談する</button>
+          <div style="margin-top:6px;font-size:11px;color:var(--ink-faint);line-height:1.6;text-align:center;">
+            正式なお申込みではありません。「このくらいの予算感で検討中」のご相談としてお気軽にどうぞ。<br>担当より内容確認のうえ、ご提案・お見積りをご案内します。
+          </div>
           <div class="side-foot">表示金額はシミュレーションの目安です。お申込み後、担当より内容確認のうえ、ご提案・お見積り・お支払い（請求書）のご案内をお送りします。</div>
         </div>
       </div>
@@ -410,7 +422,7 @@ const AGENCY_RATE = 0.20, STORE_RATE = 0.10;
 const MEDIA = {
   toilet:  { key:'toilet',  name:'個室トイレ', icon:'🚻', ds:'1対1・強制視聴', color:'#2f6df0' },
   laundry: { key:'laundry', name:'コインランドリー', icon:'🧺', ds:'滞在中に反復視聴', color:'#0fa3a3' },
-  hotel:   { key:'hotel',   name:'ホテルフロント', icon:'🏨', ds:'出張・インバウンド', color:'#caa14a' },
+  hotel:   { key:'hotel',   name:'ホテルフロント', icon:'🏨', ds:'出張・インバウンド', color:'#caa14a', soon:true },
 };
 /* コインランドリー：月額固定パッケージ（2026年改定・従量課金は廃止）
    月額 = パッケージ単価（1店・月）× 配信店舗数。視聴数の従量計算は行わない。
@@ -426,6 +438,8 @@ const LAUNDRY_HOURS = 17, LAUNDRY_PLAYS_PER_HOUR = 15, LAUNDRY_DAYS = 30;
 const LAUNDRY_PLAYS_PER_STORE_15 = LAUNDRY_HOURS * LAUNDRY_PLAYS_PER_HOUR * LAUNDRY_DAYS; // 7,650
 /* パッケージ単価（1店・月・税別）。15秒=unit／30秒=unit30（百円丸め確定値）。
    全国基準＋スポット+40%・エリア+20%、30秒は15秒×1.5。 */
+/* 1店あたり月間利用人数は入力欄を廃止し、平均値で参考リーチを算出 */
+const LAUNDRY_AVG_VISITORS = 1124;
 const LAUNDRY_PACKAGES = {
   spot:     { key:'spot',     label:'スポットパック',   unit:8800, unit30:13200, min:10 },
   area:     { key:'area',     label:'エリアパック',     unit:7600, unit30:11300, min:1  },
@@ -473,7 +487,8 @@ const num = n => Math.round(n).toLocaleString();
 /* ============ 媒体・プラン選択UI ============ */
 function renderMediaPick(){
   $('mediaPick').innerHTML = Object.values(MEDIA).map(m=>`
-    <div class="media-opt ${state.media===m.key?'on':''}" data-m="${m.key}">
+    <div class="media-opt ${state.media===m.key?'on':''}${m.soon?' soon':''}" ${m.soon?'':`data-m="${m.key}"`}>
+      ${m.soon?'<span class="soon-badge">準備中</span>':''}
       <div class="ic">${m.icon}</div><div class="nm">${m.name}</div><div class="ds">${m.ds}</div>
     </div>`).join('');
   document.querySelectorAll('[data-m]').forEach(el=>el.onclick=()=>{ state.media=el.dataset.m; renderMediaPick(); toggleFields(); compute(); });
@@ -487,10 +502,19 @@ function renderTermPick(){
     </div>`).join('');
   document.querySelectorAll('[data-t]').forEach(el=>el.onclick=()=>{ state.term=el.dataset.t; renderTermPick(); compute(); });
 }
+/* パッケージに応じて「希望スポット／希望エリア」を出し分け */
+function toggleLaundryArea(){
+  const pkg = ($('pkgL') && $('pkgL').value) || 'spot';
+  const show = (id, on) => { const el = $(id); if (el) el.style.display = on ? '' : 'none'; };
+  show('fieldSpotL', pkg === 'spot');
+  show('fieldAreaL', pkg === 'area');
+  show('fieldAreaDetailL', pkg === 'area');
+}
 function toggleFields(){
   const isLaundry = state.media==='laundry';
   $('toiletFields').style.display = isLaundry ? 'none' : 'grid';
   $('laundryFields').style.display = isLaundry ? 'block' : 'none';
+  toggleLaundryArea();
   // ホテルはトイレと同じ入力でcpv違いだが、今回は簡易にトイレ式を流用（来客→視聴）
 }
 
@@ -501,7 +525,7 @@ function calc(){
   let monthlyRev=0, views=0, detail={}, agencyRate=AGENCY_RATE, storeRate=STORE_RATE;
   if(state.media==='laundry'){
     const stores = Math.max(1, +$('storesL').value||0);
-    const visitors = Math.max(0, +$('visitorsL').value||0);
+    const visitors = LAUNDRY_AVG_VISITORS;
     const pkg = ($('pkgL')&&$('pkgL').value) || 'spot';
     const sec = ($('secL')&&$('secL').value) || '15';
     const addon = !!($('addonL')&&$('addonL').value);
@@ -604,6 +628,7 @@ function gatherData(){
     submittedAt: new Date().toISOString(),
     advertiser: {
       company: $('company').value.trim(), companyKana:$('companyKana').value.trim(),
+      referrer: ($('referrer') ? $('referrer').value.trim() : ''),
       rep:$('rep').value.trim(), corpNo:$('corpNo').value.trim(),
       addr:$('addr').value.trim(), industry:$('industry').value.trim(),
     },
@@ -615,6 +640,9 @@ function gatherData(){
     order: {
       media:m.key, mediaName:m.name, term:r.term.key, termLabel:r.term.label, months:r.term.months, discount:r.term.discount,
       goods:$('goods').value.trim(), startMonth:$('startMonth').value, memo:$('memo').value.trim(),
+      spot: ($('spotL') ? $('spotL').value.trim() : ''),
+      area: ($('areaL') ? $('areaL').value : ''),
+      areaDetail: ($('areaDetailL') ? $('areaDetailL').value.trim() : ''),
       detail:r.detail, monthlyAfter:r.monthlyAfter, total:r.total, monthlyViews:r.monthlyViews, totalViews:r.views,
       storeIncome:r.storeIncome, agencyPay:r.agencyPay, net:r.net,
     }
@@ -759,7 +787,8 @@ let toastT;
 function toast(msg,type){ const t=$('toast'); t.textContent=msg; t.className='toast show'+(type==='ok'?' ok':''); clearTimeout(toastT); toastT=setTimeout(()=>t.className='toast',2600); }
 
 /* ============ 入力監視 ============ */
-['stores','booths','visitors','storesL','visitorsL','pkgL','addonL','secL'].forEach(id=>{ const el=$(id); if(el) el.addEventListener('input',compute); el && el.addEventListener('change',compute); });
+['stores','booths','visitors','storesL','pkgL','addonL','secL','spotL','areaL','areaDetailL'].forEach(id=>{ const el=$(id); if(el) el.addEventListener('input',compute); el && el.addEventListener('change',compute); });
+if($('pkgL')) $('pkgL').addEventListener('change', toggleLaundryArea);
 $('goods').addEventListener('input',renderRec);
 
 /* ============ 初期化 ============ */
