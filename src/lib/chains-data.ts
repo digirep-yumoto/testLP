@@ -65,6 +65,15 @@ export type Chain = {
   logo: string; // 空文字ならチェーン名テキストで表示（ロゴ提供待ち）
   prefs: string[]; // 配信可能な都道府県
   stores: Record<string, Store[]>; // 都道府県ごとの店舗（サンプル）
+  // 以下はスタジオ書き出し（chains.json）に含まれる任意項目。無い場合は非表示。
+  type?: string; // 業態（居酒屋・焼肉屋 など）
+  feature?: string; // チェーンの特徴
+  tags?: string[];
+  storeCount?: number; // 登録店舗数
+  visitors?: number; // 全店合計 月間来客数
+  views?: number; // 全店配信時の想定月間視聴数
+  audience?: string; // 客層（年齢・性別など）
+  goods?: string; // 相性の良い商材
 };
 
 // 店舗数の多い主要5チェーン。※prefs/stores はサンプル。実データCSVで差し替え予定。

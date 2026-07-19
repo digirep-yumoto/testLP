@@ -90,6 +90,56 @@ function ChainModal({ chain, onClose }: { chain: Chain; onClose: () => void }) {
           </button>
         </div>
 
+        {(chain.views || chain.audience || chain.storeCount || chain.type) && (
+          <div className="border-b border-border bg-paper px-5 py-4">
+            <div className="grid gap-3 sm:grid-cols-3">
+              {typeof chain.storeCount === "number" && chain.storeCount > 0 && (
+                <div>
+                  <p className="text-[11px] font-bold text-muted-foreground">登録店舗数</p>
+                  <p className="font-display text-lg font-extrabold text-ink">
+                    {chain.storeCount}
+                    <span className="ml-0.5 text-xs font-bold text-ink-soft">店</span>
+                  </p>
+                </div>
+              )}
+              {typeof chain.views === "number" && chain.views > 0 && (
+                <div>
+                  <p className="text-[11px] font-bold text-muted-foreground">全店配信時の想定月間視聴数</p>
+                  <p className="font-display text-lg font-extrabold text-brand">
+                    約{chain.views.toLocaleString()}
+                    <span className="ml-0.5 text-xs font-bold text-ink-soft">回/月</span>
+                  </p>
+                </div>
+              )}
+              {chain.type && (
+                <div>
+                  <p className="text-[11px] font-bold text-muted-foreground">業態</p>
+                  <p className="text-sm font-bold text-ink">{chain.type}</p>
+                </div>
+              )}
+            </div>
+            {(chain.audience || chain.goods) && (
+              <div className="mt-3 space-y-1.5 border-t border-border pt-3 text-xs leading-relaxed">
+                {chain.audience && (
+                  <p>
+                    <span className="font-bold text-ink">客層：</span>
+                    <span className="text-ink-soft">{chain.audience}</span>
+                  </p>
+                )}
+                {chain.goods && (
+                  <p>
+                    <span className="font-bold text-ink">相性の良い商材：</span>
+                    <span className="text-ink-soft">{chain.goods}</span>
+                  </p>
+                )}
+              </div>
+            )}
+            <p className="mt-2 text-[10px] text-muted-foreground">
+              ※ 想定月間視聴数は「月間来客数 × 視認率」による試算値です。
+            </p>
+          </div>
+        )}
+
         <div className="grid gap-5 p-5 lg:grid-cols-[1fr_0.9fr]">
           <div>
             <p className="mb-3 flex items-center gap-1.5 text-sm font-bold text-ink">
