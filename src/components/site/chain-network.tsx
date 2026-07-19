@@ -102,13 +102,18 @@ function ChainModal({ chain, onClose }: { chain: Chain; onClose: () => void }) {
                   </p>
                 </div>
               )}
-              {typeof chain.views === "number" && chain.views > 0 && (
+              {typeof chain.visitors === "number" && chain.visitors > 0 && (
                 <div>
-                  <p className="text-[11px] font-bold text-muted-foreground">全店配信時の想定月間視聴数</p>
-                  <p className="font-display text-lg font-extrabold text-brand">
-                    約{chain.views.toLocaleString()}
-                    <span className="ml-0.5 text-xs font-bold text-ink-soft">回/月</span>
+                  <p className="text-[11px] font-bold text-muted-foreground">全店の月間来客数</p>
+                  <p className="font-display text-xl font-extrabold text-brand">
+                    約{chain.visitors.toLocaleString()}
+                    <span className="ml-0.5 text-xs font-bold text-ink-soft">人/月</span>
                   </p>
+                  {typeof chain.views === "number" && chain.views > 0 && (
+                    <p className="mt-0.5 text-[10px] text-muted-foreground">
+                      うち想定視聴 約{chain.views.toLocaleString()}回/月
+                    </p>
+                  )}
                 </div>
               )}
               {chain.type && (
@@ -135,7 +140,7 @@ function ChainModal({ chain, onClose }: { chain: Chain; onClose: () => void }) {
               </div>
             )}
             <p className="mt-2 text-[10px] text-muted-foreground">
-              ※ 想定月間視聴数は「月間来客数 × 視認率」による試算値です。
+              ※ 月間来客数は登録店舗の実績ベース。想定視聴数は「来客数 × 視認率」による試算値です。
             </p>
           </div>
         )}
