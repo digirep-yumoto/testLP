@@ -7,10 +7,8 @@ import { cn } from "@/lib/utils";
 const nav = [
   { href: "/service", label: "事業一覧" },
   { href: "/media/toilet", label: "個室トイレ" },
-  { href: "/media/laundry", label: "コインランドリー" },
-  { href: "/#store", label: "店舗オーナーの方" },
-  { href: "/#why", label: "選ばれる理由" },
-  { href: "/#flow", label: "ご利用の流れ" },
+  { href: "/media/laundry", label: "ランドリー" },
+  { href: "/#store", label: "店舗オーナー" },
   { href: "/#docs", label: "資料" },
   { href: "/blog", label: "記事" },
   { href: "/#faq", label: "FAQ" },
@@ -35,17 +33,17 @@ export function Header() {
       )}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-4 sm:px-6">
-        <a href="#top" className="flex items-center" aria-label="DigiRep ホーム">
+        <a href="/" className="flex items-center" aria-label="DigiRep ホーム">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/logo.png" alt="DigiRep（デジレップ）" className="h-11 w-auto sm:h-12" />
         </a>
 
-        <nav className="ml-auto hidden items-center gap-6 lg:flex">
+        <nav className="ml-auto hidden items-center gap-5 lg:flex">
           {nav.map((n) => (
             <a
               key={n.href}
               href={n.href}
-              className="text-sm font-medium text-ink-soft transition-colors hover:text-brand"
+              className="whitespace-nowrap text-sm font-medium text-ink-soft transition-colors hover:text-brand"
             >
               {n.label}
             </a>
