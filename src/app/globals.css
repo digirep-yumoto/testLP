@@ -255,6 +255,12 @@
   will-change: transform;
 }
 
+/* 初期表示の登場アニメ（順次フェードアップ） */
+.dr-in {
+  opacity: 0;
+  animation: dr-fade-up 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 /* スクロールで表示（JSが .is-visible を付与） */
 .dr-reveal {
   opacity: 0;
@@ -270,8 +276,12 @@
   .dr-marquee-track,
   .dr-float,
   .dr-float-slow,
-  .dr-aurora {
+  .dr-aurora,
+  .dr-in {
     animation: none !important;
+  }
+  .dr-in {
+    opacity: 1;
   }
   .dr-reveal {
     opacity: 1;

@@ -1,4 +1,4 @@
-import { ArrowRight, PlayCircle, Eye, Volume2, Repeat, Users } from "lucide-react";
+import { ArrowRight, PlayCircle, Eye, Volume2, Repeat, Users, Check, ShieldCheck } from "lucide-react";
 import type { ReactNode } from "react";
 import { MediaIcon } from "./icon";
 import { Carousel } from "./carousel";
@@ -55,7 +55,18 @@ export function Hero() {
       <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 pb-16 pt-32 sm:px-6 sm:pt-36 lg:grid-cols-[1.02fr_0.98fr] lg:pb-24 lg:pt-40">
         {/* 左：コピー */}
         <div>
-          <h1 className="text-[2.15rem] font-black leading-[1.5] tracking-[0.02em] sm:text-[3rem] sm:leading-[1.45]">
+          <p
+            className="dr-in inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 text-xs font-semibold text-white/90 backdrop-blur"
+            style={{ animationDelay: "0ms" }}
+          >
+            <ShieldCheck className="size-3.5 text-emerald-300" />
+            導入400店舗以上・全国39都道府県で配信中
+          </p>
+
+          <h1
+            className="dr-in mt-5 text-[2.15rem] font-black leading-[1.5] tracking-[0.02em] sm:text-[3rem] sm:leading-[1.45]"
+            style={{ animationDelay: "90ms" }}
+          >
             スキップされない。
             <br />
             埋もれない。
@@ -66,19 +77,25 @@ export function Hero() {
             へ。
           </h1>
 
-          <p className="mt-6 max-w-xl text-pretty text-base leading-[1.95] text-white/80 sm:text-lg">
+          <p
+            className="dr-in mt-6 max-w-xl text-pretty text-base leading-[1.95] text-white/80 sm:text-lg"
+            style={{ animationDelay: "170ms" }}
+          >
             飲食店の個室トイレと、全国のコインランドリー。
             <br className="hidden sm:block" />
             逃げ場のない閉鎖空間で、音声つきの動画広告を“同じ人に何度も”。視認率90%、QRで効果まで見える広告メディアです。
           </p>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div
+            className="dr-in mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
+            style={{ animationDelay: "250ms" }}
+          >
             <a
               href="#contact"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-6 py-4 text-base font-bold text-white shadow-lg shadow-brand/25 transition-all hover:bg-brand-dark active:translate-y-px"
+              className="group inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-6 py-4 text-base font-bold text-white shadow-lg shadow-brand/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-xl hover:shadow-brand/40 active:translate-y-0"
             >
               無料シミュレーション・お申込み
-              <ArrowRight className="size-5" />
+              <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
             </a>
             <a
               href="#services"
@@ -89,17 +106,36 @@ export function Hero() {
             </a>
           </div>
 
-          <p className="mt-4 text-sm text-white/60">
-            まだ内容が決まっていない方は{" "}
+          <p className="dr-in mt-4 text-sm text-white/65" style={{ animationDelay: "320ms" }}>
+            ご相談・シミュレーションは無料。しつこい営業はいたしません。{" "}
             <a
               href="#request"
               className="font-bold text-sky-300 underline underline-offset-4 transition-colors hover:text-sky-200"
             >
-              無料相談・お問い合わせ →
+              まずは相談する →
             </a>
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-2.5">
+          {/* 安心の理由（信頼バッジ） */}
+          <div
+            className="dr-in mt-6 flex flex-wrap gap-2 text-xs font-medium text-white/85"
+            style={{ animationDelay: "380ms" }}
+          >
+            {["単店・短期からOK", "動画制作までワンストップ", "QRで効果レポート", "適格請求書対応"].map((t) => (
+              <span
+                key={t}
+                className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5"
+              >
+                <Check className="size-3.5 shrink-0 text-sky-300" />
+                {t}
+              </span>
+            ))}
+          </div>
+
+          <div
+            className="dr-in mt-6 flex flex-wrap gap-2.5"
+            style={{ animationDelay: "440ms" }}
+          >
             {mediaList.map((m) => (
               <a
                 key={m.key}
