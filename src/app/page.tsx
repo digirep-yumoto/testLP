@@ -17,7 +17,6 @@ import { Docs } from "@/components/site/docs";
 import { LeadForm } from "@/components/site/lead-form";
 import { Faq } from "@/components/site/faq";
 import { Cta } from "@/components/site/cta";
-import { Company } from "@/components/site/company";
 import { Footer } from "@/components/site/footer";
 import { StickyCta } from "@/components/site/sticky-cta";
 
@@ -44,7 +43,6 @@ export default function Home() {
         <LeadForm />
         <Faq />
         <Cta />
-        <Company />
       </main>
       <Footer />
       <StickyCta />

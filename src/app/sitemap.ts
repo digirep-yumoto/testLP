@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: base, lastModified: now, changeFrequency: "weekly", priority: 1 },
     { url: `${base}/service`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${base}/company`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
     { url: `${base}/media/toilet`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${base}/media/laundry`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     ...lps.map((l) => ({

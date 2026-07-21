@@ -59,7 +59,6 @@ const nextConfig: NextConfig = {
       { source: "/advertising-chain/:path*", destination: "/#chains", permanent: true },
       // 予備（推測）
       { source: "/contact", destination: "/#request", permanent: true },
-      { source: "/company", destination: "/#company", permanent: true },
       { source: "/privacy-policy", destination: "/privacy", permanent: true },
       { source: "/faq", destination: "/#faq", permanent: true },
     ];
