@@ -39,8 +39,10 @@ export function Hero() {
       <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 pb-16 pt-32 sm:px-6 sm:pt-36 lg:grid-cols-[1.02fr_0.98fr] lg:pb-24 lg:pt-40">
         {/* 左：コピー */}
         <div>
-          <h1 className="text-balance text-[2.3rem] font-black leading-[1.4] tracking-[0.01em] sm:text-[3.2rem] sm:leading-[1.3]">
-            スキップされない。埋もれない。
+          <h1 className="text-[2.15rem] font-black leading-[1.5] tracking-[0.02em] sm:text-[3rem] sm:leading-[1.45]">
+            スキップされない。
+            <br />
+            埋もれない。
             <br />
             <span className="bg-gradient-to-r from-sky-300 to-brand bg-clip-text text-transparent">
               “確実に見られる”広告
