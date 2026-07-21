@@ -44,7 +44,15 @@ export function StickyCta() {
             <ArrowRight className="size-4" />
           </a>
           <a
-            href="#docs"
+            href="/#docs"
+            onClick={(e) => {
+              const el = document.getElementById("docs");
+              if (el) {
+                e.preventDefault();
+                el.scrollIntoView({ behavior: "smooth", block: "start" });
+                history.replaceState(null, "", "/#docs");
+              }
+            }}
             className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-border bg-white px-4 py-3 text-sm font-bold text-ink transition-colors hover:border-brand hover:text-brand"
           >
             <Download className="size-4" />
