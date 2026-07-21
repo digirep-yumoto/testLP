@@ -1,4 +1,5 @@
 import { SectionHeading } from "./section-heading";
+import { Reveal } from "./reveal";
 import { steps } from "@/lib/site-data";
 
 export function Process() {
@@ -11,10 +12,10 @@ export function Process() {
           lead="最短で、迷わず。商材のヒアリングから配信・レポートまで、ワンストップで伴走します。"
         />
 
-        <ol className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <Reveal as="ol" className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {steps.map((s, i) => (
             <li key={s.no} className="relative">
-              <div className="flex h-full flex-col rounded-2xl border border-border bg-card p-6 shadow-sm">
+              <div className="flex h-full flex-col rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand/30 hover:shadow-md">
                 <span className="grid size-10 place-items-center rounded-full bg-brand font-display text-base font-extrabold text-white">
                   {s.no}
                 </span>
@@ -31,7 +32,7 @@ export function Process() {
               )}
             </li>
           ))}
-        </ol>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,16 +1,17 @@
 import { ArrowRight } from "lucide-react";
 import { Icon } from "./icon";
+import { Reveal } from "./reveal";
 import { audiences } from "@/lib/site-data";
 
 export function Audiences() {
   return (
     <section className="bg-paper py-16 sm:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="grid gap-5 md:grid-cols-2">
+        <Reveal className="grid gap-5 md:grid-cols-2">
           {audiences.map((a) => (
             <div
               key={a.key}
-              className="flex flex-col rounded-2xl border border-border bg-card p-7 shadow-sm sm:p-8"
+              className="flex flex-col rounded-2xl border border-border bg-card p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand/30 hover:shadow-md sm:p-8"
             >
               <div className="flex items-center gap-3">
                 <span className="grid size-11 place-items-center rounded-lg bg-brand/10 text-brand">
@@ -38,7 +39,7 @@ export function Audiences() {
               </a>
             </div>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

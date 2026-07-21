@@ -62,7 +62,7 @@ export function Comparison() {
             </thead>
             <tbody>
               {comparison.rows.map((r) => (
-                <tr key={r.k} className="border-t border-border">
+                <tr key={r.k} className="border-t border-border transition-colors hover:bg-brand/[0.03]">
                   <th className="sticky left-0 z-10 whitespace-nowrap bg-card px-4 py-4 text-left text-sm font-bold text-ink">
                     {r.k}
                   </th>
