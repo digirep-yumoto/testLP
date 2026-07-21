@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { MediaIcon } from "./icon";
 import { Carousel } from "./carousel";
 import { CountUp } from "./count-up";
+import { PointerGlow } from "./pointer-glow";
 import { heroStats, mediaList } from "@/lib/site-data";
 
 function Chip({ icon, big, small }: { icon: ReactNode; big: string; small: string }) {
@@ -47,6 +48,9 @@ export function Hero() {
           style={{ background: "radial-gradient(circle, rgba(14,165,233,0.42) 0%, transparent 65%)", animationDelay: "-8s" }}
         />
       </div>
+
+      {/* カーソル追従の光 */}
+      <PointerGlow />
 
       <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 pb-16 pt-32 sm:px-6 sm:pt-36 lg:grid-cols-[1.02fr_0.98fr] lg:pb-24 lg:pt-40">
         {/* 左：コピー */}
