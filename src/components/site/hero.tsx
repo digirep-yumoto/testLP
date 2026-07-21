@@ -85,7 +85,7 @@ export function Hero() {
             {mediaList.map((m) => (
               <a
                 key={m.key}
-                href={`#${m.key}`}
+                href={`/media/${m.key}`}
                 className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/10"
               >
                 <MediaIcon kind={m.key} className="size-4" />

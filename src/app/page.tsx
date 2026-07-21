@@ -3,7 +3,6 @@ import { Hero } from "@/components/site/hero";
 import { Audiences } from "@/components/site/audiences";
 import { Services } from "@/components/site/services";
 import { Positioning } from "@/components/site/positioning";
-import { MediaSection } from "@/components/site/media-section";
 import { Comparison } from "@/components/site/comparison";
 import { IndustryLinks } from "@/components/site/industry-links";
 import { Voices } from "@/components/site/voices";
@@ -21,7 +20,6 @@ import { Cta } from "@/components/site/cta";
 import { Company } from "@/components/site/company";
 import { Footer } from "@/components/site/footer";
 import { StickyCta } from "@/components/site/sticky-cta";
-import { mediaList } from "@/lib/site-data";
 
 export default function Home() {
   return (
@@ -32,9 +30,6 @@ export default function Home() {
         <Audiences />
         <Services />
         <Positioning />
-        {mediaList.map((m, i) => (
-          <MediaSection key={m.key} media={m} index={i} />
-        ))}
         <Comparison />
         <IndustryLinks />
         <Voices />

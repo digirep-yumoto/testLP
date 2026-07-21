@@ -3,7 +3,7 @@ import { mediaList, company } from "@/lib/site-data";
 const navGroups = [
   {
     title: "メディア",
-    links: mediaList.map((m) => ({ href: `#${m.key}`, label: m.name })),
+    links: mediaList.map((m) => ({ href: `/media/${m.key}`, label: m.name })),
   },
   {
     title: "サービス",
