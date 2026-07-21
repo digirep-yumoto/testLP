@@ -4,6 +4,7 @@ import "./globals.css";
 import { company } from "@/lib/site-data";
 import { GoogleAnalytics } from "@/components/analytics/ga";
 import { MetaPixel } from "@/components/analytics/retargeting";
+import { ScrollProgress } from "@/components/site/scroll-progress";
 
 const notoSansJP = Noto_Sans_JP({
   variable: "--font-sans",
@@ -122,6 +123,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <ScrollProgress />
         {children}
         <GoogleAnalytics />
         <MetaPixel />
