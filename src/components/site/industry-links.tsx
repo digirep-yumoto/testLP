@@ -22,12 +22,28 @@ export function IndustryLinks() {
               <a
                 key={lp.slug}
                 href={`/lp/${lp.slug}`}
-                className="group flex items-center gap-4 rounded-2xl border border-border bg-card p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-md"
+                className="group relative flex items-center gap-4 overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand/50 hover:shadow-xl"
               >
-                <span className={cn("grid size-12 shrink-0 place-items-center rounded-xl", a.softBg, a.text)}>
+                {/* 上部アクセントバー（ホバーで出現） */}
+                <span
+                  aria-hidden
+                  className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-brand to-sky-400 transition-transform duration-300 group-hover:scale-x-100"
+                />
+                {/* うっすらグラデーション（ホバーで出現） */}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent to-brand/[0.06] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                />
+                <span
+                  className={cn(
+                    "relative grid size-12 shrink-0 place-items-center rounded-xl transition-transform duration-300 group-hover:scale-110",
+                    a.softBg,
+                    a.text,
+                  )}
+                >
                   <MediaIcon kind={lp.media} className="size-6" />
                 </span>
-                <div className="flex-1">
+                <div className="relative flex-1">
                   <h3 className="text-base font-bold text-ink transition-colors group-hover:text-brand">
                     {lp.badge}
                   </h3>
@@ -35,7 +51,7 @@ export function IndustryLinks() {
                     {lp.media === "toilet" ? "個室トイレサイネージ" : "コインランドリーサイネージ"}
                   </p>
                 </div>
-                <ArrowRight className="size-5 shrink-0 text-ink-soft transition-transform group-hover:translate-x-0.5 group-hover:text-brand" />
+                <ArrowRight className="relative size-5 shrink-0 text-ink-soft transition-all group-hover:translate-x-1 group-hover:text-brand" />
               </a>
             );
           })}
