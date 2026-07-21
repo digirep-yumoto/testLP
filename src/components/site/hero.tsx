@@ -36,6 +36,18 @@ export function Hero() {
         }}
       />
 
+      {/* ゆっくり漂うオーロラ状のグロー */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          className="dr-aurora absolute -right-24 -top-28 size-[38rem] rounded-full opacity-40 blur-3xl"
+          style={{ background: "radial-gradient(circle, rgba(4,120,189,0.5) 0%, transparent 65%)" }}
+        />
+        <div
+          className="dr-aurora absolute -bottom-32 -left-24 size-[32rem] rounded-full opacity-30 blur-3xl"
+          style={{ background: "radial-gradient(circle, rgba(14,165,233,0.42) 0%, transparent 65%)", animationDelay: "-8s" }}
+        />
+      </div>
+
       <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 pb-16 pt-32 sm:px-6 sm:pt-36 lg:grid-cols-[1.02fr_0.98fr] lg:pb-24 lg:pt-40">
         {/* 左：コピー */}
         <div>

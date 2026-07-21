@@ -240,6 +240,21 @@
   animation: dr-float-slow 7.5s ease-in-out infinite;
 }
 
+/* ゆっくり漂う背景グロー（ヒーロー等） */
+@keyframes dr-aurora {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4%, -3%, 0) scale(1.18);
+  }
+}
+.dr-aurora {
+  animation: dr-aurora 16s ease-in-out infinite;
+  will-change: transform;
+}
+
 /* スクロールで表示（JSが .is-visible を付与） */
 .dr-reveal {
   opacity: 0;
@@ -254,7 +269,8 @@
   }
   .dr-marquee-track,
   .dr-float,
-  .dr-float-slow {
+  .dr-float-slow,
+  .dr-aurora {
     animation: none !important;
   }
   .dr-reveal {
