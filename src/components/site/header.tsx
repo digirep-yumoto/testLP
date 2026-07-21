@@ -5,7 +5,8 @@ import { Menu, X, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const nav = [
-  { href: "/#services", label: "サービス" },
+  { href: "/service", label: "事業一覧" },
+  { href: "/#services", label: "媒体" },
   { href: "/#store", label: "店舗オーナーの方" },
   { href: "/#why", label: "選ばれる理由" },
   { href: "/#flow", label: "ご利用の流れ" },
