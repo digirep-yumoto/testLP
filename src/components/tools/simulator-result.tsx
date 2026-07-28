@@ -56,16 +56,11 @@ export function ResultPanel({
   const r = result;
   const a = accent[r.media];
 
+  // 媒体が変わったときの初期化は、呼び出し側が key={media} で作り直すことで行う。
+  // （レンダー中に setState する書き方は React の警告を招くため使わない）
   const [rates, setRates] = useState(defaultRates[r.media]);
   const [copied, setCopied] = useState<"none" | "text" | "url">("none");
   const [open, setOpen] = useState(false);
-
-  // 媒体が変わったら仮定値も既定に戻す
-  const [lastMedia, setLastMedia] = useState<SimMedia>(r.media);
-  if (lastMedia !== r.media) {
-    setLastMedia(r.media);
-    setRates(defaultRates[r.media]);
-  }
 
   const est = useMemo(() => estimateOutcome(r, rates), [r, rates]);
   const text = resultToText(input, r, industryLabel, objectiveLabel, { est, rates });

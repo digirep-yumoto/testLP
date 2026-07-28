@@ -366,6 +366,8 @@ export function Simulator() {
         <div className="lg:sticky lg:top-24">
           {outcome.ok ? (
             <ResultPanel
+              // 媒体を切り替えたら結果パネルを作り直す（成果試算の仮定値を既定へ戻す）
+              key={media}
               result={outcome}
               input={effective}
               industryId={industryId}

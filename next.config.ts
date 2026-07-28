@@ -11,7 +11,9 @@ const csp = [
     ? "script-src 'self' 'unsafe-inline' https://js.stripe.com https://www.googletagmanager.com https://connect.facebook.net"
     : "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://www.googletagmanager.com https://connect.facebook.net",
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: https:",
+  // 画像は自己ホスト＋base64(data:)が基本。計測用ピクセルの送信先だけを個別に許可する。
+  // （`https:` を全許可すると、万一のXSS時に任意の外部URLへデータを持ち出す経路になる）
+  "img-src 'self' data: https://www.facebook.com https://www.google-analytics.com https://www.googletagmanager.com https://googleads.g.doubleclick.net https://www.google.com https://www.google.co.jp",
   "font-src 'self' data:",
   "connect-src 'self' https://api.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://connect.facebook.net https://www.facebook.com" +
     (isProd ? "" : " ws: http://localhost:*"),

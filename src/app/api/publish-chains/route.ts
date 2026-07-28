@@ -1,7 +1,18 @@
 import { NextResponse } from "next/server";
+import {
+  authBlocked,
+  recordAuthFailure,
+  bearerMatches,
+  clientIp,
+  rateLimited,
+  readBodyLimited,
+} from "@/lib/api-guard";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+// chains.json は現状2MB弱。余裕を見て上限8MB（無制限だと大量データを押し込まれる）
+const MAX_BODY = 8 * 1024 * 1024;
 
 // スタジオ（file://）→ このAPI（digirep.work）→ GitHub の順で反映する。
 // クライアントは api.github.com に直接アクセスしないため、環境のallowlist制限を回避できる。
@@ -24,19 +35,33 @@ function json(data: unknown, status = 200) {
 }
 
 export async function POST(request: Request) {
+  // 0) 総量のレート制限（GitHubへの書き込み＝副作用が大きいので厳しめ）
+  if (rateLimited(`publish:${clientIp(request)}`, 10, 60_000)) {
+    return json({ error: "リクエストが多すぎます。時間をおいて再度お試しください。" }, 429);
+  }
+  // 認証失敗の連続＝総当たりとみなして遮断
+  if (authBlocked(request, "publish")) {
+    return json({ error: "認証の失敗が続いたため一時的に受け付けを停止しました。" }, 429);
+  }
+
   // 認証（スタジオと共有のトークン）
   const studioToken = process.env.STUDIO_API_TOKEN;
   if (!studioToken) return json({ error: "STUDIO_API_TOKEN が未設定です（Vercel）。" }, 503);
-  const auth = request.headers.get("authorization") || "";
-  if (auth !== `Bearer ${studioToken}`) return json({ error: "認証に失敗しました。" }, 401);
+  if (!bearerMatches(request, studioToken)) {
+    recordAuthFailure(request, "publish"); // 失敗を計上
+    return json({ error: "認証に失敗しました。" }, 401);
+  }
 
   // GitHub 書き込み用トークン（サーバー側のみ）
   const ghToken = process.env.GH_TOKEN;
   if (!ghToken) return json({ error: "GH_TOKEN が未設定です（Vercelに設定してください）。" }, 503);
 
+  const raw = await readBodyLimited(request, MAX_BODY);
+  if (!raw.ok) return json({ error: raw.error }, raw.status);
+
   let body: unknown;
   try {
-    body = await request.json();
+    body = JSON.parse(raw.text);
   } catch {
     return json({ error: "JSON の解析に失敗しました。" }, 400);
   }

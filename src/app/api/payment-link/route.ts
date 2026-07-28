@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
+import { authBlocked, bearerMatches, clientIp, rateLimited, recordAuthFailure } from "@/lib/api-guard";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -16,11 +17,11 @@ export async function OPTIONS() {
 }
 
 // STUDIO_API_TOKEN による認証（Bearer）。null=未設定、false=不一致、true=OK
+// トークン照合は定時間比較（api-guard）で行い、タイミング差から推測されないようにする
 function authState(request: Request): boolean | null {
   const token = process.env.STUDIO_API_TOKEN;
   if (!token) return null;
-  const provided = (request.headers.get("authorization") || "").replace(/^Bearer\s+/i, "").trim();
-  return provided.length >= 16 && provided === token;
+  return bearerMatches(request, token);
 }
 
 /**
@@ -29,6 +30,13 @@ function authState(request: Request): boolean | null {
  * 必要な環境変数: STRIPE_SECRET_KEY, STUDIO_API_TOKEN
  */
 export async function POST(request: Request) {
+  // レート制限＋認証失敗の連続遮断（決済系のため厳しめ）
+  if (rateLimited("paylink:" + clientIp(request), 20, 60_000)) {
+    return NextResponse.json({ error: "リクエストが多すぎます。" }, { status: 429, headers: cors });
+  }
+  if (authBlocked(request, "paylink")) {
+    return NextResponse.json({ error: "認証の失敗が続いたため一時的に停止しました。" }, { status: 429, headers: cors });
+  }
   const secret = process.env.STRIPE_SECRET_KEY;
   if (!secret) {
     return NextResponse.json({ error: "決済機能は未設定です（STRIPE_SECRET_KEY）。" }, { status: 503, headers: cors });
@@ -38,6 +46,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "STUDIO_API_TOKEN が未設定です。" }, { status: 503, headers: cors });
   }
   if (!auth) {
+    recordAuthFailure(request, "paylink");
     return NextResponse.json({ error: "認証に失敗しました。" }, { status: 401, headers: cors });
   }
 
