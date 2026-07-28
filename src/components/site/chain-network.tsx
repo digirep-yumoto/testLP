@@ -225,6 +225,8 @@ export function ChainNetwork() {
       loadChains();
       return;
     }
+
+    // 主経路：セクションが1画面ぶん手前に来たら取得（到達時には表示済み）
     const io = new IntersectionObserver(
       (entries) => {
         if (entries.some((e) => e.isIntersecting)) {
@@ -232,11 +234,24 @@ export function ChainNetwork() {
           loadChains();
         }
       },
-      // 1画面ぶん手前で読み始め、到達時には表示済みにする
       { rootMargin: "800px 0px" },
     );
     io.observe(el);
-    return () => io.disconnect();
+
+    // 予備経路：IO に依存せず、十分にスクロールされた時点でも取得する。
+    // （当セクションはページ下部にあるため、ここまでスクロールした＝到達間近）
+    const onScroll = () => {
+      if (window.scrollY > 1500) {
+        window.removeEventListener("scroll", onScroll);
+        loadChains();
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      io.disconnect();
+      window.removeEventListener("scroll", onScroll);
+    };
   }, [loadChains]);
 
   return (
