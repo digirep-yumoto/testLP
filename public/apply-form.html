@@ -553,8 +553,10 @@ function calc(){
     detail = { type:'toilet', stores, booths, visitors, viewPerStore, tier:tier.key, tierLabel:tier.label, perStore };
   }
   const isLaundry = state.media==='laundry';
-  // ランドリーは月額固定パッケージのため掲載期間割引を適用しない
-  const effDiscount = isLaundry ? 0 : term.discount;
+  // 継続割引（2ヶ月▲5%／3ヶ月▲10%）は両媒体に適用する。
+  // ※ 以前はランドリーを除外していたが、広告主資料の公開例・サイト表示・
+  //   src/lib/pricing.ts（サーバー権威の計算）はいずれも割引適用が前提のため統一。
+  const effDiscount = term.discount;
   const monthlyAfter = Math.round(monthlyRev * (1 - effDiscount));
   const total = monthlyAfter * term.months;
   // ランドリー：FC個別還元なし（GIB集約・基本10%/付帯あり15%）。その他：月額×店舗還元率。
@@ -573,7 +575,7 @@ function compute(){
   $('sideNote').textContent = `${m.name}・${r.term.label}`;
   let rows = '';
   rows += `<div class="side-row"><span class="k">配信メディア</span><span class="v">${m.icon} ${m.name}</span></div>`;
-  rows += `<div class="side-row"><span class="k">掲載期間</span><span class="v">${r.term.label}${(!r.detail.packageBased&&r.term.discount>0)?`（${Math.round(r.term.discount*100)}%OFF）`:''}</span></div>`;
+  rows += `<div class="side-row"><span class="k">掲載期間</span><span class="v">${r.term.label}${r.effDiscount>0?`（${Math.round(r.effDiscount*100)}%OFF）`:''}</span></div>`;
   if(r.detail.type==='toilet'){
     rows += `<div class="side-row"><span class="k">配信店舗数</span><span class="v">${num(r.detail.stores)} 店</span></div>`;
     rows += `<div class="side-row"><span class="k">適用プラン</span><span class="v">${r.detail.tier}プラン</span></div>`;
@@ -591,7 +593,7 @@ function compute(){
     rows += `<div class="side-row"><span class="k">想定リーチ単価</span><span class="v">¥${r.detail.reachUnit.toFixed(1)}/人</span></div>`;
     rows += `<div class="side-row"><span class="k">GIB還元</span><span class="v">${r.detail.addon?'15%（付帯）':'10%（基本）'}</span></div>`;
   }
-  rows += `<div class="side-row"><span class="k">月額${r.detail.packageBased?'（パッケージ）':'（割引後）'}</span><span class="v">${yen(r.monthlyAfter)}</span></div>`;
+  rows += `<div class="side-row"><span class="k">月額${r.effDiscount>0?'（割引後）':(r.detail.packageBased?'（パッケージ）':'')}</span><span class="v">${yen(r.monthlyAfter)}</span></div>`;
   $('sideRows').innerHTML = rows;
   $('sideTotal').textContent = yen(r.total);
   return r;
@@ -665,7 +667,7 @@ function quoteHtml(d){
       <tr><th>放映尺</th><td>${o.detail.sec}秒${o.detail.sec==='30'?'（15秒の1.5倍）':'（基本尺）'}</td></tr>
       <tr><th>配信店舗数</th><td>${num(o.detail.stores)} 店</td></tr>
       <tr><th>1店あたり月額</th><td>${yen(o.detail.perStore)}（税別）</td></tr>
-      <tr><th>算定式</th><td>パッケージ単価 × 配信店舗数（月額固定・従量課金なし／全店合計は万円単位に切上げ）</td></tr>
+      <tr><th>算定式</th><td>パッケージ単価 × 配信店舗数（月額固定・従量課金なし／全店合計〈割引前〉は万円単位に切上げ）${o.discount>0?`／さらに継続割引 ${Math.round(o.discount*100)}%`:''}</td></tr>
       <tr><th>付帯メニュー</th><td>${o.detail.addon?'あり（LP・動画・X連携）':'なし'}</td></tr>
       <tr><th>想定配信回数</th><td>約${num(o.detail.playsTotal)} 回/月（17時間×15回×30日×店舗数${o.detail.sec==='30'?'÷2':''}）</td></tr>
       <tr><th>想定配信単価</th><td>約¥${o.detail.playUnit.toFixed(2)}/回</td></tr>
