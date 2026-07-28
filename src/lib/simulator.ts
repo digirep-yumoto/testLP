@@ -276,8 +276,174 @@ export function simulate(input: SimInput): SimOutcome {
   };
 }
 
+// =====================================================================
+// ① 予算からの逆算（「月◯万円ならどこまでできる？」に答える）
+// =====================================================================
+
+/** 指定した月予算（税別）に収まる最大の配信店舗数を返す */
+export function maxStoresForBudget(input: SimInput, budget: number): number {
+  const cap = input.media === "toilet" ? 500 : LAUNDRY_TOTAL_STORES;
+  const min = input.media === "laundry" && input.pkg === "spot" ? 10 : 1;
+  let best = 0;
+  // 単調増加なので上から順に探索（最大500回・実用上は十分に軽い）
+  for (let s = cap; s >= min; s--) {
+    const test: SimInput =
+      input.media === "toilet" ? { ...input, stores: s } : { ...input, laundryStores: s };
+    const r = simulate(test);
+    if (r.ok && r.monthlyExclTax <= budget) {
+      best = s;
+      break;
+    }
+  }
+  return best;
+}
+
+// =====================================================================
+// ② 3プラン提案（スモールスタート／推奨／しっかり）
+// 「継続割引が効く3ヶ月」を推奨に置き、比較で意思決定できるようにする。
+// =====================================================================
+
+export type PlanOption = {
+  key: "small" | "recommended" | "full";
+  label: string;
+  badge?: string;
+  reason: string;
+  input: SimInput;
+  result: SimResult;
+};
+
+export function buildPlanOptions(base: SimInput): PlanOption[] {
+  const storesOf = (i: SimInput) => (i.media === "toilet" ? i.stores : i.laundryStores);
+  const withStores = (i: SimInput, s: number): SimInput =>
+    i.media === "toilet" ? { ...i, stores: s } : { ...i, laundryStores: s };
+
+  const minStores = base.media === "laundry" && base.pkg === "spot" ? 10 : 1;
+  const maxStores = base.media === "toilet" ? 500 : LAUNDRY_TOTAL_STORES;
+  const cur = base.media === "laundry" && base.pkg === "national" ? LAUNDRY_TOTAL_STORES : storesOf(base);
+  const clamp = (n: number) => Math.min(maxStores, Math.max(minStores, n));
+
+  const specs = [
+    {
+      key: "small" as const,
+      label: "まず試す",
+      reason: "小さく始めて反応を見る。効果を確かめてから広げられます。",
+      input: withStores({ ...base, months: 1 }, clamp(Math.round(cur / 2))),
+    },
+    {
+      key: "recommended" as const,
+      label: "推奨",
+      badge: "いちばん選ばれる",
+      reason: "3ヶ月継続で▲10%。認知は反復で積み上がるため、最低3ヶ月をおすすめしています。",
+      input: withStores({ ...base, months: 3 }, clamp(cur)),
+    },
+    {
+      key: "full" as const,
+      label: "しっかり",
+      reason: "配信店舗を広げて到達を最大化。同じ期間でも接触回数が増え、認知の立ち上がりが早くなります。",
+      input: withStores({ ...base, months: 3 }, clamp(cur * 2)),
+    },
+  ];
+
+  const out: PlanOption[] = [];
+  for (const s of specs) {
+    const r = simulate(s.input);
+    if (r.ok) out.push({ ...s, result: r });
+  }
+  return out;
+}
+
+// =====================================================================
+// ③ 成果の逆算（想定アクション数・CV数・CPA）
+// ※ 反応率・CV率は「仮置きの入力値」。実績値ではないことを画面で明記する。
+// =====================================================================
+
+export const defaultRates: Record<SimMedia, { response: number; cv: number }> = {
+  // トイレは1対1・音あり・QRを読み込める環境のため相対的に高めに仮置き
+  toilet: { response: 1.0, cv: 10 },
+  // ランドリーは反復接触が中心のため1接触あたりは低めに仮置き
+  laundry: { response: 0.3, cv: 10 },
+};
+
+export type OutcomeEstimate = {
+  actions: number; // QR読み取り・指名検索などの想定アクション数
+  conversions: number; // 予約・問い合わせ・購入などの想定CV数
+  cpa: number; // 想定獲得単価（税別）
+};
+
+export function estimateOutcome(
+  r: SimResult,
+  rates: { response: number; cv: number },
+): OutcomeEstimate {
+  const actions = r.contactsTotal * (rates.response / 100);
+  const conversions = actions * (rates.cv / 100);
+  return {
+    actions: Math.round(actions),
+    conversions: Math.round(conversions * 10) / 10,
+    cpa: conversions > 0 ? Math.round(r.subtotalExclTax / conversions) : 0,
+  };
+}
+
+// =====================================================================
+// ④ 条件のURL共有（社内共有・商談で同じ画面を見るため）
+// =====================================================================
+
+export function encodeInput(i: SimInput, industryId: string, objectiveId: string): string {
+  const p = new URLSearchParams({
+    m: i.media,
+    t: String(i.months),
+    s: String(i.stores),
+    v: String(i.visitors),
+    p: i.pkg,
+    c: i.sec,
+    l: String(i.laundryStores),
+    i: industryId,
+    o: objectiveId,
+  });
+  return p.toString();
+}
+
+export function decodeInput(
+  search: string,
+): { input: SimInput; industryId: string; objectiveId: Objective } | null {
+  const q = new URLSearchParams(search);
+  if (!q.get("m")) return null;
+  const int = (k: string, d: number) => {
+    const n = Math.floor(Number(q.get(k)));
+    return Number.isFinite(n) && n > 0 ? n : d;
+  };
+  const media: SimMedia = q.get("m") === "laundry" ? "laundry" : "toilet";
+  const months = ([1, 2, 3] as const).includes(int("t", 1) as 1 | 2 | 3)
+    ? (int("t", 1) as 1 | 2 | 3)
+    : 1;
+  const pkgRaw = q.get("p");
+  const pkg = laundryPackages.some((x) => x.id === pkgRaw)
+    ? (pkgRaw as SimInput["pkg"])
+    : defaultInput.pkg;
+  return {
+    input: {
+      media,
+      months,
+      stores: int("s", defaultInput.stores),
+      visitors: int("v", defaultInput.visitors),
+      pkg,
+      sec: q.get("c") === "30" ? "30" : "15",
+      laundryStores: int("l", defaultInput.laundryStores),
+    },
+    industryId: industries.some((x) => x.id === q.get("i")) ? String(q.get("i")) : industries[0].id,
+    objectiveId: objectives.some((x) => x.id === q.get("o"))
+      ? (q.get("o") as Objective)
+      : objectives[0].id,
+  };
+}
+
 /** 結果を問い合わせメール／クリップボード用のプレーンテキストにする */
-export function resultToText(input: SimInput, r: SimResult, industryLabel: string, objectiveLabel: string) {
+export function resultToText(
+  input: SimInput,
+  r: SimResult,
+  industryLabel: string,
+  objectiveLabel: string,
+  outcome?: { est: OutcomeEstimate; rates: { response: number; cv: number } },
+) {
   const mediaName = r.media === "toilet" ? "個室トイレサイネージ" : "コインランドリーサイネージ";
   const scale =
     r.media === "toilet"
@@ -301,5 +467,15 @@ export function resultToText(input: SimInput, r: SimResult, industryLabel: strin
     r.media === "toilet"
       ? `1視聴あたり単価: 約¥${r.cpc.toFixed(1)}（CPM ${yen(r.cpm)}）`
       : `CPM（1,000接触あたり）: ${yen(r.cpm)}`,
+    ...(outcome
+      ? [
+          "",
+          `【成果の試算（仮定値：反応率${outcome.rates.response}%・CV率${outcome.rates.cv}%）】`,
+          `想定アクション数: ${num(outcome.est.actions)}件`,
+          `想定CV数: ${outcome.est.conversions}件`,
+          `想定CPA: ${yen(outcome.est.cpa)}`,
+          "※ 上記は入力した仮定値による計算で、成果を保証するものではありません。",
+        ]
+      : []),
   ].join("\n");
 }

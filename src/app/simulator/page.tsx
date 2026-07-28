@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Gift, ShieldCheck, Zap } from "lucide-react";
+import { ArrowRight, Gift, Printer, ShieldCheck, Target, Wallet, Zap } from "lucide-react";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
 import { Simulator } from "@/components/tools/simulator";
@@ -10,7 +10,7 @@ const siteUrl = company.url.replace(/\/$/, "");
 
 const title = "サイネージ広告 無料シミュレーター｜費用・想定リーチを60秒で試算";
 const description =
-  "業種と配信規模を選ぶだけで、サイネージ広告の想定リーチ・接触回数・広告費・CPMを無料で自動試算。会員登録もメールアドレスも不要、その場で結果が見られます。個室トイレ／コインランドリーの2媒体に対応。";
+  "業種と配信規模を選ぶだけで、サイネージ広告の想定リーチ・接触回数・広告費・CPM・想定CPAを無料で自動試算。月の予算からの逆算にも対応し、結果はPDF保存・URL共有できます。会員登録もメールアドレスも不要。個室トイレ／コインランドリーの2媒体対応。";
 
 export const metadata: Metadata = {
   title,
@@ -41,9 +41,24 @@ const merits = [
     body: "会員登録もメールアドレスの入力も不要。その場ですぐに結果が表示されます。",
   },
   {
+    icon: Wallet,
+    title: "予算からの逆算もできる",
+    body: "「月30万円ならどこまで？」も、規模からの試算も両方対応。3つの始め方も自動でご提案します。",
+  },
+  {
+    icon: Target,
+    title: "CPAまで逆算できる",
+    body: "反応率・CV率を御社の実績値に置き換えて、想定獲得単価まで試算。稟議の資料にそのまま使えます。",
+  },
+  {
+    icon: Printer,
+    title: "PDF保存・URLで社内共有",
+    body: "結果をそのまま印刷・PDF化。URLで条件ごと共有できるので、決裁者への説明もワンクリックです。",
+  },
+  {
     icon: Zap,
     title: "60秒で概算がわかる",
-    body: "業種・店舗数・期間を選ぶだけ。営業に問い合わせる前に、社内検討用の数字が手に入ります。",
+    body: "業種・規模・期間を選ぶだけ。営業に問い合わせる前に、社内検討用の数字が手に入ります。",
   },
   {
     icon: ShieldCheck,
@@ -94,6 +109,22 @@ const jsonLd = {
         },
         {
           "@type": "Question",
+          name: "想定CPA（獲得単価）はどう計算していますか？",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "「想定接触回数 × 反応率 × CV率」で想定獲得数を出し、広告費を割って算出しています。反応率・CV率は画面上で変更できる仮置きの値で、当社の実績値ではありません。御社の実績値に置き換えてご利用ください。表示される数値は成果を保証するものではありません。",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "予算から逆算することもできますか？",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "できます。「予算から逆算」に切り替えて月あたりのご予算を入力すると、その予算内で配信できる最大の店舗数と、その場合の想定リーチ・接触回数を自動で計算します。",
+          },
+        },
+        {
+          "@type": "Question",
           name: "想定リーチや接触回数はどう計算していますか？",
           acceptedAnswer: {
             "@type": "Answer",
@@ -138,7 +169,7 @@ export default function SimulatorPage() {
               </p>
             </div>
 
-            <ul className="mt-8 grid gap-3 sm:grid-cols-3">
+            <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {merits.map((m) => (
                 <li key={m.title} className="rounded-2xl border border-border bg-card p-4 shadow-sm">
                   <m.icon className="size-5 text-brand" />

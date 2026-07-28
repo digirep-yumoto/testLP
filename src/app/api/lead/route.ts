@@ -83,7 +83,7 @@ export async function POST(request: Request) {
 
     // 見込み客への自動返信（ナーチャリング1通目・HTML）。非ブロッキング。
     try {
-      const site = process.env.NEXT_PUBLIC_SITE_URL || "https://digirep.work";
+      const site = process.env.NEXT_PUBLIC_SITE_URL || "https://www.digirep.work";
       const timerex = process.env.NEXT_PUBLIC_TIMEREX_URL || "";
       const esc = (v: string) =>
         v.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c] as string));

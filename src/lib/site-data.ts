@@ -16,7 +16,9 @@ export const company = {
   address: "埼玉県新座市畑中1-13-16",
   tel: "080-5527-1689",
   email: "digirep.yumoto@gmail.com",
-  url: "https://digirep.work/",
+  // 本番は apex(digirep.work) → www へ308リダイレクトされるため、
+  // canonical / sitemap / robots / JSON-LD はすべて www を正とする。
+  url: "https://www.digirep.work/",
   stores: "400店舗以上",
 } as const;
 

@@ -290,3 +290,42 @@
     animation: none !important;
   }
 }
+/* =====================================================================
+   無料シミュレーターの印刷（PDF保存）レイアウト
+   決裁者への社内共有・稟議に使えるよう、結果パネルだけを1枚に出す。
+   ===================================================================== */
+@media print {
+  header,
+  footer,
+  nav,
+  .sim-print-hide {
+    display: none !important;
+  }
+  main {
+    padding-top: 0 !important;
+  }
+  .sim-result {
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    border: 1px solid #d8dee8 !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+  .sim-result details {
+    display: block !important;
+  }
+  .sim-result details > summary {
+    list-style: none;
+  }
+  /* 印刷では内訳も必ず開いた状態で出す */
+  .sim-result details > *:not(summary) {
+    display: block !important;
+  }
+  .sim-result input[type="range"] {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+  }
+}
