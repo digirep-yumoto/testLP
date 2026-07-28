@@ -8,6 +8,7 @@ const nav = [
   { href: "/service", label: "事業一覧" },
   { href: "/media/toilet", label: "個室トイレ" },
   { href: "/media/laundry", label: "ランドリー" },
+  { href: "/simulator", label: "無料シミュレーター" },
   { href: "/#store", label: "店舗オーナー" },
   { href: "/#docs", label: "資料" },
   { href: "/blog", label: "記事" },

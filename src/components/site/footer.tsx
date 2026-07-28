@@ -9,6 +9,7 @@ const navGroups = [
     title: "サービス",
     links: [
       { href: "/service", label: "事業一覧" },
+      { href: "/simulator", label: "無料シミュレーター" },
       { href: "#why", label: "選ばれる理由" },
       { href: "#flow", label: "ご利用の流れ" },
       { href: "/blog", label: "お役立ち記事" },

@@ -5,6 +5,7 @@ import { Services } from "@/components/site/services";
 import { Positioning } from "@/components/site/positioning";
 import { Comparison } from "@/components/site/comparison";
 import { IndustryLinks } from "@/components/site/industry-links";
+import { SimulatorTeaser } from "@/components/site/simulator-teaser";
 import { Voices } from "@/components/site/voices";
 import { Proof } from "@/components/site/proof";
 import { StoreLogos } from "@/components/site/store-logos";
@@ -30,6 +31,7 @@ export default function Home() {
         <Services />
         <Positioning />
         <Comparison />
+        <SimulatorTeaser />
         <IndustryLinks />
         <Voices />
         <Proof />
