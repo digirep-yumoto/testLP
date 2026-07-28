@@ -119,7 +119,11 @@ export function computePrice(input: unknown): PriceOutcome {
       };
     }
     const perStore = sec === "30" ? pkg.unit30 : pkg.unit15;
-    // 全店合計は万円単位に切り上げ（広告主請求ベース）
+    // 全店合計は万円単位に切り上げ（広告主請求ベース）。
+    // ★切上げは「割引前の月額」に対して1回だけ。割引後・期間合計では切り上げない。
+    //   site-data の laundry.pricingNote に載せる例は必ずこの式で検算すること。
+    //   例) 全国一括15秒 383店：6,300×383＝2,412,900 →切上げ 2,420,000（1ヶ月）
+    //       3ヶ月：2,420,000×0.9×3 ＝ 6,534,000
     const monthly0 = Math.ceil((perStore * stores) / 10000) * 10000;
     const monthly = roundYen(monthly0 * (1 - discount));
     const subtotal = monthly * months;
