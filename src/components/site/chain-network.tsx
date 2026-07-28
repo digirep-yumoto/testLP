@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { X, MapPin, ChevronRight } from "lucide-react";
 import { SectionHeading } from "./section-heading";
 import { chains as fallbackChains, PREF_POS, PREF_LIST, type Chain } from "@/lib/chains-data";
@@ -198,23 +198,49 @@ function ChainModal({ chain, onClose }: { chain: Chain; onClose: () => void }) {
 export function ChainNetwork() {
   const [active, setActive] = useState<Chain | null>(null);
   const [chains, setChains] = useState<Chain[]>(fallbackChains);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const loadedRef = useRef(false);
 
-  // デジレップスタジオからエクスポートした /data/chains.json があれば使用（無ければ現状データ）
-  useEffect(() => {
-    let alive = true;
-    fetch("/data/chains.json", { cache: "no-store" })
+  // デジレップスタジオからエクスポートした /data/chains.json があれば使用（無ければ現状データ）。
+  // ロゴをbase64で内包するため1MBを超える。トップ表示時に必ず落とすと初期表示が重くなるので、
+  // このセクションがビューポートに近づいてから初めて取得する（ページ下部＝多くの訪問者は到達しない）。
+  const loadChains = useCallback(() => {
+    if (loadedRef.current) return;
+    loadedRef.current = true;
+    fetch("/data/chains.json")
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => {
-        if (alive && Array.isArray(d) && d.length > 0) setChains(d as Chain[]);
+        if (Array.isArray(d) && d.length > 0) setChains(d as Chain[]);
       })
-      .catch(() => {});
-    return () => {
-      alive = false;
-    };
+      .catch(() => {
+        // 失敗時は再試行できるようフラグを戻す（fallbackChains のまま表示は継続）
+        loadedRef.current = false;
+      });
   }, []);
 
+  useEffect(() => {
+    const el = sectionRef.current;
+    // IntersectionObserver が使えない環境では遅延させず即取得（データ欠落を防ぐ）
+    if (!el || typeof IntersectionObserver === "undefined") {
+      loadChains();
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          io.disconnect();
+          loadChains();
+        }
+      },
+      // 1画面ぶん手前で読み始め、到達時には表示済みにする
+      { rootMargin: "800px 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [loadChains]);
+
   return (
-    <section id="chains" className="bg-white py-20 sm:py-28">
+    <section id="chains" ref={sectionRef} className="bg-white py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Chain Network"
@@ -227,7 +253,13 @@ export function ChainNetwork() {
             <button
               key={c.id}
               type="button"
-              onClick={() => setActive(c)}
+              // 保険：IntersectionObserver が発火しない環境でも、操作時に必ず実データを取得する
+              onPointerEnter={loadChains}
+              onFocus={loadChains}
+              onClick={() => {
+                loadChains();
+                setActive(c);
+              }}
               className="group flex aspect-[4/3] items-center justify-center rounded-2xl border border-border bg-white p-5 text-center shadow-sm transition-all hover:-translate-y-1.5 hover:border-brand/50 hover:shadow-xl"
             >
               {c.logo ? (

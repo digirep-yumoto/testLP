@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, ArrowLeft } from "lucide-react";
+import { ArrowRight, ArrowLeft, Calculator } from "lucide-react";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
 import { posts, getPost, type Block } from "@/lib/blog-data";
-import { company } from "@/lib/site-data";
+import { company, ogImage } from "@/lib/site-data";
 
 const siteUrl = company.url.replace(/\/$/, "");
 
@@ -34,7 +34,9 @@ export async function generateMetadata({
       url,
       siteName: company.brand,
       locale: "ja_JP",
+      images: [ogImage],
     },
+    twitter: { card: "summary_large_image", images: [ogImage.url] },
   };
 }
 
@@ -164,7 +166,32 @@ export default async function ArticlePage({
             </div>
           )}
 
-          <div className="mt-12 rounded-2xl border border-border bg-paper p-6 text-center sm:p-8">
+          {/* 費用・効果を調べている読者に、問い合わせより手前の一歩（無料ツール）を提示する */}
+          <div className="mt-12 overflow-hidden rounded-2xl bg-ink text-white">
+            <div className="flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+              <div>
+                <p className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-bold">
+                  無料ツール・登録不要
+                </p>
+                <h2 className="mt-3 text-lg font-bold leading-snug sm:text-xl">
+                  自社の場合、いくらで何人に届く？
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed text-white/70">
+                  業種と配信規模を選ぶだけで、広告費・想定リーチ・CPAをその場で試算できます。
+                </p>
+              </div>
+              <Link
+                href="/simulator"
+                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-bold text-ink transition-colors hover:bg-brand hover:text-white"
+              >
+                <Calculator className="size-4" />
+                無料で試算する
+                <ArrowRight className="size-4" />
+              </Link>
+            </div>
+          </div>
+
+          <div className="mt-6 rounded-2xl border border-border bg-paper p-6 text-center sm:p-8">
             <h2 className="text-lg font-bold text-ink">まずは相談・資料請求から</h2>
             <p className="mt-2 text-sm text-ink-soft">
               「自社の商材に合うか」「概算費用は」といったご相談だけでも歓迎です。1営業日以内に担当よりご連絡します。

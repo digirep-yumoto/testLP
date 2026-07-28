@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Sans_JP, Lexend, Noto_Serif_JP } from "next/font/google";
 import "./globals.css";
-import { company } from "@/lib/site-data";
+import { company, ogImage } from "@/lib/site-data";
 import { GoogleAnalytics } from "@/components/analytics/ga";
 import { MetaPixel } from "@/components/analytics/retargeting";
 import { ScrollProgress } from "@/components/site/scroll-progress";
@@ -50,6 +50,13 @@ export const metadata: Metadata = {
     title: "DigiRep（デジレップ）｜トイレ＆ランドリー×サイネージ広告",
     description: company.description,
     url: company.url,
+    images: [ogImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "DigiRep（デジレップ）｜トイレ＆ランドリー×サイネージ広告",
+    description: company.description,
+    images: ["/og.png"],
   },
   robots: { index: true, follow: true },
 };

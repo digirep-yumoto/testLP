@@ -5,7 +5,7 @@ import { ArrowRight, ArrowLeft } from "lucide-react";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
 import { MediaSection } from "@/components/site/media-section";
-import { mediaList, company } from "@/lib/site-data";
+import { mediaList, company, ogImage } from "@/lib/site-data";
 
 const siteUrl = company.url.replace(/\/$/, "");
 
@@ -33,7 +33,9 @@ export async function generateMetadata({
       url: `${siteUrl}/media/${m.key}`,
       siteName: company.brand,
       locale: "ja_JP",
+      images: [ogImage],
     },
+    twitter: { card: "summary_large_image", images: [ogImage.url] },
   };
 }
 

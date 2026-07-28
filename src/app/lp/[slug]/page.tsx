@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { lps, getLp } from "@/lib/lp-data";
-import { company } from "@/lib/site-data";
+import { company, ogImage } from "@/lib/site-data";
 import { IndustryLp } from "@/components/lp/industry-lp";
 
 const siteUrl = company.url.replace(/\/$/, "");
@@ -30,7 +30,9 @@ export async function generateMetadata({
       url: `${siteUrl}/lp/${lp.slug}`,
       siteName: company.brand,
       locale: "ja_JP",
+      images: [ogImage],
     },
+    twitter: { card: "summary_large_image", images: [ogImage.url] },
   };
 }
 

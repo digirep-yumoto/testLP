@@ -22,6 +22,16 @@ export const company = {
   stores: "400店舗以上",
 } as const;
 
+// --- OGP画像 ----------------------------------------------------------
+// ★Next.js はページ側で openGraph を定義すると親のオブジェクトごと上書きするため、
+//   独自に openGraph を持つページは必ず images にこれを渡すこと（渡し忘れ＝画像なしカード）。
+export const ogImage = {
+  url: "/og.png",
+  width: 1200,
+  height: 630,
+  alt: "DigiRep（デジレップ）｜“確実に見られる”サイネージ広告メディア",
+} as const;
+
 // --- 全体サマリー（トラストバー） -------------------------------------
 export const heroStats = [
   { value: "400", unit: "店舗+", label: "導入実績", sub: "個人店含む・順次拡大中" },
