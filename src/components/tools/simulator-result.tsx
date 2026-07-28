@@ -79,13 +79,14 @@ export function ResultPanel({
   }, [r.media, industryId]);
 
   async function copy(kind: "text" | "url") {
+    // 計測はクリップボードの成否に依存させない（権限拒否でも操作意図は記録する）
+    track(kind === "text" ? "simulator_copy" : "simulator_share", { media: r.media });
     try {
       await navigator.clipboard.writeText(kind === "text" ? text : shareUrl);
       setCopied(kind);
-      track(kind === "text" ? "simulator_copy" : "simulator_share", { media: r.media });
       setTimeout(() => setCopied("none"), 2000);
     } catch {
-      /* クリップボード非対応環境では何もしない */
+      /* クリップボード非対応環境では表示を変えない */
     }
   }
 
