@@ -161,20 +161,32 @@
       <!-- 申込内容 -->
       <div class="card lead" style="border:2px solid var(--brand);">
         <div class="sec-head"><div class="sec-num" style="background:var(--green);">★</div><div><h2>無料導入キャンペーン</h2><p>条件を満たすと、本来有料のサイネージを <b class="free-line">0円</b> で導入できます</p></div></div>
-        <p style="font-size:13px;color:var(--ink-soft);margin:0 0 12px;">弊社が代理店として、フードデリバリー加盟またはヨサンダスシステム導入を <b>店舗さまの手出し0円</b> でお手伝いします。その代理店報酬をサイネージ代に充当するため、サイネージを無料でご提供できます。</p>
+        <p style="font-size:13px;color:var(--ink-soft);margin:0 0 12px;"><b>2026年9月より、飲食店（個人店）さまは審査のうえ「無料導入キャンペーン」でサイネージ本体・設置・運用すべて0円で導入いただけます。</b>あわせて、フードデリバリー加盟またはヨサンダス導入をご利用いただく場合も、代理店報酬をサイネージ代に充当して無料でご提供します。</p>
 
         <div style="background:var(--sky);border:1.5px solid var(--brand);border-radius:12px;padding:13px 15px;margin:0 0 14px;font-size:13px;color:var(--brand-d);line-height:1.8;">
           <b>🏢 チェーン店・グループ店舗さまへ</b><br>
-          <b>20店舗以上</b>に導入いただける場合は、キャンペーンのご利用有無にかかわらず <b class="free-line">無料導入</b> の対象となります。<br>
-          <span style="color:var(--ink-soft);">該当する場合は「通常導入」を選択のうえ、備考欄に <b>店舗数</b> をご記入ください。担当より無料導入としてご案内します。</span>
+チェーン・グループ店舗さまには <b>本部負担プラン</b>（設置実費のご負担・店舗還元率15%・初回広告から還元）または広告主連携による設置をご案内します。<br>
+          <span style="color:var(--ink-soft);">該当する場合は「通常導入」を選択のうえ、備考欄に <b>店舗数</b> をご記入ください。担当より最適なプランをご案内します。</span>
         </div>
 
         <div class="camp-grid" id="campGrid">
 
-          <!-- 通常 -->
-          <label class="camp-opt sel" data-camp="none">
+          <!-- 無料導入キャンペーン（2026-09〜・飲食店 個人店） -->
+          <label class="camp-opt sel" data-camp="free2026">
+            <span class="camp-badge">2026年9月〜</span>
             <div class="camp-top">
-              <input type="radio" name="camp" value="none" checked>
+              <input type="radio" name="camp" value="free2026" checked>
+              <div>
+                <div class="camp-ttl">無料導入キャンペーン（飲食店・個人店）<span class="free">サイネージ無料</span></div>
+                <div class="camp-desc">飲食店の個室トイレに設置する個人店さまは、審査のうえ<b>本体・設置・運用すべて0円</b>で導入いただけます（目安：月間来客1,500人以上・個室2面以上・会社員層の来店が多い業態）。※無料導入の場合、最初の1社の広告掲載分は還元対象外となり、2社目から還元が発生します。</div>
+              </div>
+            </div>
+          </label>
+
+          <!-- 通常 -->
+          <label class="camp-opt" data-camp="none">
+            <div class="camp-top">
+              <input type="radio" name="camp" value="none">
               <div>
                 <div class="camp-ttl">通常導入（キャンペーンなし）</div>
                 <div class="camp-desc">サイネージを通常価格（¥55,000/台・税別）でご購入いただきます。</div>
@@ -361,7 +373,7 @@
           <h4>広告配信代行・サイネージ利用条件</h4>
           本申込は、DigiRep加盟店への参画、サイネージ設置、基本設定、広告配信、必要に応じた素材制作に関する申込です。広告枠は媒体規定の尺、サイネージ全体はループ構成を前提とします。解約は原則2か月前の申告とし、申告がない場合は申込内容で自動更新されます。
           <h4>広告掲載時の店舗報酬（副収入）</h4>
-          広告主企業が加盟店の設置サイネージに広告を掲載する場合、掲載期間中、店舗には掲載額に応じた報酬（副収入）を月末締め翌月支払いでお支払いします。長期掲載ほど安定した副収入が見込めます。
+          広告主企業が加盟店の設置サイネージに広告を掲載する場合、掲載期間中、店舗には掲載額の10%（本部負担プランは15%）の報酬（副収入）を月末締め翌月支払いでお支払いします（2026年9月改定料金：1広告あたり月¥1,000〜¥2,200/店が目安）。無料導入キャンペーン適用店舗では、最初の1社の広告掲載分は報酬対象外となり、2社目以降から報酬が発生します。長期掲載・複数広告ほど安定した副収入が見込めます。
           <h4>サイネージの取扱い</h4>
           加盟店の責任でサイネージが破損し継続利用を希望する場合は、再購入金額を申し受けます。制作・運用開始後の仕様変更は協議のうえ対応し、投稿動画の再更新は原則禁止、必要な場合は別途20,000円の更新費が発生します。
           <h4>基本契約条項</h4>
@@ -437,7 +449,9 @@ const $ = id => document.getElementById(id);
 const yen = n => '¥' + Math.round(n).toLocaleString();
 const num = n => Math.round(n).toLocaleString();
 
+const TOILET_TIERS = [ {max:1500,price:10000},{max:2500,price:11000},{max:3500,price:16000},{max:Infinity,price:22000} ]; // 2026-09改定
 const CAMP_LABEL = {
+  free2026:'無料導入キャンペーン（飲食店・個人店／サイネージ無料）',
   none:'通常導入（キャンペーンなし）',
   delivery:'フードデリバリー セット（サイネージ無料）',
   yosandas:'ヨサンダス連携（サイネージ1台無料）'
@@ -453,7 +467,10 @@ function calc(){
   const camp = currentCamp();
   let fee = UNIT_PRICE * units;
   let discount = 0;
-  if(camp==='delivery'){
+  if(camp==='free2026'){
+    // 無料導入キャンペーン（2026-09〜）：申込台数すべて無料（審査あり）
+    discount = fee;
+  } else if(camp==='delivery'){
     // フードデリバリーセット：1台無料（加盟1件＝サイネージ1台分の報酬を充当）
     discount = Math.min(UNIT_PRICE, fee);
   } else if(camp==='yosandas'){
@@ -481,6 +498,8 @@ function compute(){
   $('sideAmt').textContent=yen(r.total);
   if(r.camp==='none'){
     $('sideNote').textContent=`サイネージ ${r.units}台 設置費用`;
+  } else if(r.camp==='free2026'){
+    $('sideNote').textContent=`無料導入キャンペーン適用｜${r.units}台無料（審査あり）`;
   } else if(r.camp==='delivery'){
     $('sideNote').textContent=`フードデリバリーセット適用｜1台無料`;
   } else {
@@ -490,7 +509,7 @@ function compute(){
     + `<div class="side-row"><span class="k">サイネージ単価</span><span class="v">${yen(UNIT_PRICE)} / 台</span></div>`
     + `<div class="side-row"><span class="k">設置費用</span><span class="v">${yen(r.fee)}</span></div>`;
   if(r.discount>0){
-    const label = r.camp==='delivery' ? 'フードデリバリー特典（1台無料）' : 'ヨサンダス特典（1台無料）';
+    const label = r.camp==='free2026' ? '無料導入キャンペーン（全台無料）' : (r.camp==='delivery' ? 'フードデリバリー特典（1台無料）' : 'ヨサンダス特典（1台無料）');
     rows += `<div class="side-row"><span class="k">${label}</span><span class="v" style="color:var(--green);font-weight:700;">-${yen(r.discount)}</span></div>`;
   }
   $('sideRows').innerHTML = rows;
@@ -498,11 +517,12 @@ function compute(){
 
   // 広告掲載時の副収入の目安
   const visitors=Math.max(0,+$('visitors').value||0);
-  const views = visitors*0.5*0.7;
-  const adRevPerStore = views*20;
+  const views = visitors*0.70*0.78;                                   // 視聴数＝来客×トイレ利用率70%×個室利用率78%
+  const tier = TOILET_TIERS.find(t=>visitors<=t.max)||TOILET_TIERS[3];   // 来店規模で決まる固定月額（2026-09改定）
+  const adRevPerStore = tier.price;
   const storeIncome = Math.round(adRevPerStore*0.10);
-  $('revNote').innerHTML = `💰 <b>広告掲載時の副収入の目安：月 ${yen(storeIncome)}〜</b><br>`+
-    `来客 ${num(visitors)}人/月 のとき、広告が1社付くと視聴数 約${num(views)}回。掲載額の10%が店舗様の副収入になります（広告主・掲載状況により変動）。`;
+  $('revNote').innerHTML = `💰 <b>広告掲載時の副収入の目安：1広告あたり 月 ${yen(storeIncome)}</b>（広告数ぶん積み増し）<br>`+
+    `来客 ${num(visitors)}人/月 のとき、想定視聴数 約${num(views)}回／月・広告料金 ${yen(adRevPerStore)}/店（2026年9月改定料金）。掲載額の10%が店舗様の副収入になります（無料導入の場合は2社目から。本部負担プランは15%）。`;
   syncCampUI();
   return r;
 }
@@ -553,7 +573,7 @@ function quoteHtml(d){
       <tr><th>申込台数</th><td>${num(o.units)} 台</td></tr>
       <tr><th>単価（税別）</th><td>${yen(o.unitPrice)} / 台</td></tr>
       <tr><th>設置費用（税別）</th><td>${yen(o.fee)}</td></tr>
-      ${o.discount>0?`<tr><th>${d.campaign.type==='delivery'?'フードデリバリーセット特典':'ヨサンダス連携特典（1台無料）'}</th><td>-${yen(o.discount)}</td></tr>`:''}
+      ${o.discount>0?`<tr><th>${d.campaign.type==='free2026'?'無料導入キャンペーン（全台無料）':(d.campaign.type==='delivery'?'フードデリバリーセット特典':'ヨサンダス連携特典（1台無料）')}</th><td>-${yen(o.discount)}</td></tr>`:''}
       <tr><th>小計（税別）</th><td>${yen(o.total)}</td></tr>
       <tr><th>消費税（10%）</th><td>${yen(tax)}</td></tr>
       <tr class="doc-total"><td>合計金額（税込）</td><td>${yen(o.total+tax)}</td></tr>
@@ -582,10 +602,11 @@ function contractHtml(d){
     </table>
     <div class="doc-sec">第2条（費用・支払い）</div>
     <p>甲は乙に対し、前条の甲の負担額を乙の定める方法（Stripeによる電子決済等）により支払う。表示金額は税別とし、別途消費税を申し受ける。${o.total===0?'本契約は無料導入キャンペーンの適用により、甲のサイネージ費用負担は生じない。':''}</p>
+    ${d.campaign.type==='free2026'?`<div class="doc-sec">第2条の2（無料導入キャンペーン）</div><p>乙は、無料導入キャンペーン（2026年9月〜・飲食店の個人店対象・審査あり）の適用により、甲に対しサイネージ本体・設置・基本設定を無償で提供する。無料導入分については、最初に掲載する広告主1社の広告掲載に係る第3条の報酬は発生せず、2社目以降の掲載から報酬を支払う。</p>`:''}
     ${d.campaign.type==='delivery'?`<div class="doc-sec">第2条の2（フードデリバリーセット特典）</div><p>乙は甲のフードデリバリーサービス（${(d.campaign.delivery.services||[]).join('・')||'指定サービス'}）への加盟を代理サポートし、これに伴う代理店報酬をサイネージ費用に充当することで、甲のサイネージ費用負担を無料とする。甲は本特典の適用にあたり、加盟手続きに必要な協力を行うものとする。</p>`:''}
     ${d.campaign.type==='yosandas'?`<div class="doc-sec">第2条の2（ヨサンダス連携特典）</div><p>乙は甲のヨサンダス（EC共同運営）利用を仲介し、これに伴う代理店報酬をサイネージ費用に充当することで、サイネージ1台分を無料とする。本特典は、甲が「2期目以降の法人」「資本金100万円以上」「本則課税（簡易課税・2割特例でないこと）」のすべての条件を満たす場合に限り適用される。</p>`:''}
     <div class="doc-sec">第3条（広告掲載時の報酬）</div>
-    <p>乙が甲の設置サイネージに広告主企業の広告を掲載する場合、乙は甲に対し、掲載額に応じた報酬を月末締め翌月支払いで支払う。報酬は甲の指定口座（本契約記載）に振り込む。</p>
+    <p>乙が甲の設置サイネージに広告主企業の広告を掲載する場合、乙は甲に対し、掲載額の10%（本部負担プランの場合は15%）の報酬を月末締め翌月支払いで支払う。報酬は甲の指定口座（本契約記載）に振り込む。</p>
     <div class="doc-sec">第4条（更新・解約）</div>
     <p>解約は原則2か月前の申告とし、申告がない場合は本契約は同条件で自動更新される。</p>
     <div class="doc-sec">第5条（サイネージの取扱い）</div>
