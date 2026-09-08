@@ -197,7 +197,7 @@ export function Simulator() {
                   label="月あたりのご予算（税別）"
                   unit="円"
                   value={budget}
-                  min={30000}
+                  min={10000}
                   max={5000000}
                   step={10000}
                   onChange={setBudget}

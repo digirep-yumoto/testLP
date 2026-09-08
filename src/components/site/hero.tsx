@@ -60,7 +60,7 @@ export function Hero() {
             style={{ animationDelay: "0ms" }}
           >
             <ShieldCheck className="size-3.5 text-emerald-300" />
-            導入400店舗以上・全国39都道府県で配信中
+            加盟・提携400店舗以上・全国39都道府県
           </p>
 
           <h1

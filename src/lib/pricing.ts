@@ -11,10 +11,11 @@ const TERM_DISCOUNT: Record<number, number> = { 1: 0, 2: 0.05, 3: 0.1 };
 
 // --- 個室トイレ：来店規模に応じた固定月額ティア（1店・税別） -----------
 const TOILET_TIERS = [
-  { key: "S", max: 1500, price: 30000 },
-  { key: "M", max: 2500, price: 30000 },
-  { key: "L", max: 3500, price: 41000 },
-  { key: "XL", max: Infinity, price: 54600 },
+  // 2026-09改定：視聴数×10円（千円丸め）・最低保証¥10,000。旧: 25円基準/¥30,000〜54,600
+  { key: "S", max: 1500, price: 10000 },
+  { key: "M", max: 2500, price: 11000 },
+  { key: "L", max: 3500, price: 16000 },
+  { key: "XL", max: Infinity, price: 22000 },
 ] as const;
 
 function toiletTier(visitors: number) {

@@ -15,7 +15,7 @@ function Row({ logos, reverse = false }: { logos: string[]; reverse?: boolean })
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={src}
-              alt="導入店舗ロゴ"
+              alt="加盟店舗ロゴ"
               loading="lazy"
               className="max-h-full max-w-full object-contain"
             />
@@ -37,10 +37,10 @@ export function StoreLogos() {
             <>
               全国 <span className="text-brand">400店舗以上</span> の
               <br className="hidden sm:block" />
-              個室トイレに配信できます
+              加盟ネットワークへ配信を拡大中
             </>
           }
-          lead="飲食チェーンを中心に、導入店舗は随時拡大中。これだけ多くの“1対1の個室”へ、まとめて広告を届けられます。"
+          lead="飲食チェーンを中心に、加盟店舗は随時拡大中（設置は受注に応じて順次）。これだけ多くの“1対1の個室”へ、まとめて広告を届けられます。"
         />
       </div>
 
