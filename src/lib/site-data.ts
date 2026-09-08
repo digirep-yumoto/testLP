@@ -34,7 +34,7 @@ export const ogImage = {
 
 // --- 全体サマリー（トラストバー） -------------------------------------
 export const heroStats = [
-  { value: "400", unit: "店舗+", label: "導入実績", sub: "個人店含む・順次拡大中" },
+  { value: "400", unit: "店舗+", label: "加盟・提携店舗", sub: "ランドリー383店＋個室トイレ・設置は順次" },
   { value: "90", unit: "%", label: "個室トイレ視認率", sub: "1対1・強制視聴" },
   { value: "34", unit: "万人+/月", label: "想定リーチ", sub: "ランドリー全店" },
   { value: "39", unit: "都道府県", label: "全国ネットワーク", sub: "商業施設併設" },

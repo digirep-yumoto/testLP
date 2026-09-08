@@ -9,7 +9,7 @@ const rows: { k: string; v: string }[] = [
   { k: "電話番号", v: company.tel },
   { k: "お問い合わせ", v: company.email },
   { k: "事業内容", v: "デジタルサイネージ広告メディアの運営（個室トイレ／コインランドリー）、広告枠の企画・販売、クリエイティブ制作" },
-  { k: "導入実績", v: `個人店を含む${company.stores}に導入（順次拡大中）` },
+  { k: "加盟・提携", v: `個人店を含む${company.stores}と加盟・提携（設置は順次拡大中）` },
 ];
 
 export function Company() {
