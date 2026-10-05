@@ -48,6 +48,8 @@ const nextConfig: NextConfig = {
   // 旧WordPressサイトのURL → 新サイトへの301リダイレクト（検索結果の旧リンク対策）
   async redirects() {
     return [
+      // ランドリーご利用者アンケートの短いURL（チラシ・モニター・LINEのQR用。?s= はそのまま引き継がれる）
+      { source: "/bsl", destination: "/laundry-survey", permanent: false },
       // 旧サイトの実URL（確認済み）
       { source: "/advertising", destination: "/", permanent: true },
       { source: "/advertising/:path*", destination: "/", permanent: true },
