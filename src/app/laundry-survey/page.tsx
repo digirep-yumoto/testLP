@@ -31,9 +31,9 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
       )}
       <footer className="mt-8 space-y-2 text-[11px] leading-relaxed text-ink-soft">
         <p>・応募はおひとり1回まで。当選の発表は、当選された方へのメール（Amazonギフトカード Eメールタイプの送付）をもってかえさせていただきます。</p>
-        <p>・本キャンペーンは{survey.organizer}による提供です。本キャンペーンについてのお問い合わせはAmazonではお受けしておりません。{survey.organizer}（{survey.contact}）までお願いいたします。</p>
+        <p>・本キャンペーンは{survey.sponsor}による提供です。本キャンペーンについてのお問い合わせはAmazonではお受けしておりません。アンケート事務局（{survey.organizer}　{survey.contact}）までお願いいたします。</p>
         <p>・Amazon、Amazon.co.jpおよびそれらのロゴはAmazon.com, Inc.またはその関連会社の商標です。</p>
-        <p className="pt-2 text-center">実施：{survey.organizer}　／　<a href="/privacy" className="underline">プライバシーポリシー</a></p>
+        <p className="pt-2 text-center">実施：{survey.organizer}　景品提供：{survey.sponsor}　／　<a href="/privacy" className="underline">プライバシーポリシー</a></p>
       </footer>
     </main>
   );

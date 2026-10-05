@@ -11,6 +11,12 @@ const store = {
   del(k: string) { try { localStorage.removeItem(k); } catch { /* noop */ } },
 };
 
+// GA4 への記録（本番のみ読み込まれる）。経路（チラシ／LINE／モニター）ごとに、開いた→始めた→各ページ→送信 の進み具合を見る
+function track(event: string, source: string, params: Record<string, unknown> = {}) {
+  const w = window as unknown as { gtag?: (...a: unknown[]) => void };
+  if (typeof w.gtag === "function") w.gtag("event", event, { survey_id: survey.id, survey_source: source || "direct", ...params });
+}
+
 // 画面の並び： -1=はじめに / 0..3=設問 / 4=抽選の応募と送信 / 5=完了
 const ENTRY = steps.length;
 const DONE = steps.length + 1;
@@ -33,6 +39,7 @@ export function LaundrySurveyForm({ source, preview }: { source: string; preview
   // 回答済みの印と下書きは端末の保存領域にあるので、表示のあとで読み込む
   useEffect(() => {
     const t = setTimeout(() => {
+      track("survey_view", source);
       if (store.get(DONE_KEY) && !preview) { setAlready(true); return; }
       const d = store.get(DRAFT_KEY);
       if (!d) return;
@@ -42,7 +49,7 @@ export function LaundrySurveyForm({ source, preview }: { source: string; preview
       } catch { /* 壊れた下書きは無視 */ }
     }, 0);
     return () => clearTimeout(t);
-  }, [preview]);
+  }, [preview, source]);
 
   useEffect(() => {
     if (screen >= 0 && screen < DONE) store.set(DRAFT_KEY, JSON.stringify({ answers }));
@@ -52,7 +59,7 @@ export function LaundrySurveyForm({ source, preview }: { source: string; preview
     setScreen(n); setMissing(null); setError("");
     requestAnimationFrame(() => top.current?.scrollIntoView({ block: "start" }));
   };
-  const start = () => { if (!startedAt.current) startedAt.current = Date.now(); go(0); };
+  const start = () => { if (!startedAt.current) startedAt.current = Date.now(); track("survey_start", source, { resumed }); go(0); };
 
   const pick = (q: Q, opt: string) => {
     setMissing(null);
@@ -81,6 +88,7 @@ export function LaundrySurveyForm({ source, preview }: { source: string; preview
       document.getElementById(`q-${miss.id}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
+    track("survey_step_done", source, { step: screen + 1, step_name: steps[screen].key });
     go(screen + 1);
   };
 
@@ -96,7 +104,8 @@ export function LaundrySurveyForm({ source, preview }: { source: string; preview
         body: JSON.stringify({ answers, wantsPrize, email: wantsPrize ? email.trim() : "", agree, source, website, elapsedSec: Math.round((Date.now() - startedAt.current) / 1000) }),
       });
       const j = await res.json().catch(() => ({}));
-      if (!res.ok) { setError(j.error || "送信できませんでした。もう一度お試しください。"); return; }
+      if (!res.ok) { track("survey_submit_error", source, { status: res.status }); setError(j.error || "送信できませんでした。もう一度お試しください。"); return; }
+      track("survey_submit", source, { prize_entry: wantsPrize, seconds: Math.round((Date.now() - startedAt.current) / 1000) });
       store.del(DRAFT_KEY);
       if (!preview) store.set(DONE_KEY, "1");
       go(DONE);
@@ -194,6 +203,7 @@ export function LaundrySurveyForm({ source, preview }: { source: string; preview
                   <li>このアンケートは {survey.organizer} が実施します。</li>
                   <li>回答は、個人がわからない形にまとめた集計結果として、{survey.partner}の運営会社および店内モニターの運営会社と共有し、サービスの改善と店内でお届けする情報の検討に使います。</li>
                   <li>メールアドレスは抽選と当選のご連絡だけに使い、ほかの会社には渡しません。抽選とプレゼントの送付が終わりしだい削除します。</li>
+                  <li>プレゼントは {survey.sponsor} の提供です。</li>
                   <li>くわしくは <a href="/privacy" target="_blank" rel="noopener" className="font-bold text-brand underline">プライバシーポリシー</a> をご覧ください。</li>
                 </ul>
                 <label className="mt-4 flex cursor-pointer items-start gap-3 rounded-xl border-2 border-slate-200 p-3 text-sm font-bold text-ink">

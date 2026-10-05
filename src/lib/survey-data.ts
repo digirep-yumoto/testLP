@@ -7,12 +7,13 @@ export const survey = {
   title: "ブルースカイランドリー ご利用者アンケート",
   // 告知チラシを貼り出す日（10/21）から答えられるようにしておく
   openAt: "2026-10-21T00:00:00+09:00",
-  closeAt: "2026-11-15T23:59:59+09:00",
-  closeLabel: "11月15日（日）",
+  closeAt: "2026-11-30T23:59:59+09:00",
+  closeLabel: "11月30日（月）",
   minutes: 2,
   prize: "Amazonギフトカード 500円分",
   winners: 100,
-  organizer: "デジレップ株式会社",
+  organizer: "デジレップ株式会社", // アンケートの実施・事務局
+  sponsor: "株式会社CMerTV", // 景品の提供
   partner: "ブルースカイランドリー",
   contact: "digirep.yumoto@gmail.com",
 } as const;
