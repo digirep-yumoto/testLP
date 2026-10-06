@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ArrowRight, MonitorPlay, Clapperboard, Share2, Check } from "lucide-react";
+import { ArrowRight, MonitorPlay, Clapperboard, Share2, Check, Sparkles } from "lucide-react";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
 import { company } from "@/lib/site-data";
@@ -52,6 +52,20 @@ const services = [
     points: ["投稿制作・カレンダー設計を代行", "自動DM等で反応をリード化", "GA連携で流入・問い合わせを可視化"],
     ctaLabel: "SNS運用を相談する",
     ctaHref: "/#request",
+  },
+  {
+    icon: Sparkles,
+    eyebrow: "Training × Promotion Package",
+    title: "助成金で集客パッケージ（店舗様向け・PR配信店）",
+    lead: "SNS×AI内製化研修・PR動画・インフルエンサー・LP・トイレサイネージ配信をひとつに。研修費の75%は国の助成金、残り25%相当も協力金・紹介料で、手出しが残りません。",
+    items: [
+      { h: "SNS×AI 内製化研修（Per-Fact）", b: "3講座30時間・オンライン。動画・SNS・生成AIを自分たちで回せる社員が育ちます。人材開発支援助成金の対象。" },
+      { h: "PR動画・インフルエンサー来店投稿（HolyTech）", b: "御社の魅力を動画に。グルメ・美容系インフルエンサーが来店して投稿します。" },
+      { h: "トイレサイネージ配信・LP（デジレップ）", b: "御社のトイレに1面設置し、御社のPR動画を自店と加盟店ネットワークの他店で配信。LPはご成約特典。" },
+    ],
+    points: ["研修費の75%は国の助成金（要件を満たした場合）", "ご成約までお会いするのは2回・申請は社労士が代行", "制度は2027年3月31日までの時限措置"],
+    ctaLabel: "パッケージの内容を見る",
+    ctaHref: "/package",
   },
 ];
 

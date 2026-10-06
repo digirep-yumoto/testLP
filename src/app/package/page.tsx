@@ -64,7 +64,7 @@ export default function PackagePage() {
             </div>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
               <a href={CTA} className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-[#e8590c] px-8 py-4 text-base font-black text-white shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98] sm:text-lg">30分の適用診断（無料）を申し込む</a>
-              <span className="text-xs text-white/80 sm:text-sm">年商・雇用保険の加入人数・決算月がわかれば、その場で判定</span>
+              <a href="/package/check" className="inline-flex items-center justify-center whitespace-nowrap rounded-full border-2 border-white/60 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/10">まず3分でセルフ診断</a>
             </div>
           </div>
           <div className="relative mx-auto w-full max-w-sm lg:max-w-none">
@@ -306,6 +306,7 @@ export default function PackagePage() {
           <div>
             <p className="text-xs font-black tracking-[0.2em] text-[#ffd23f]">MEETING</p>
             <h2 className="mt-2 font-sans text-[1.8rem] font-black leading-[1.25] sm:text-[2.4rem]">まずは30分の適用診断。<br />その場で「対象かどうか」と金額が分かります。</h2>
+            <p className="mt-3 text-sm text-white/85">先に <a href="/package/check" className="font-bold text-[#ffd23f] underline">3分のセルフ診断</a> をしておくと、当日はプランと金額の確定から始められます。</p>
             <ul className="mt-6 space-y-3 text-sm sm:text-base">
               {["御社が助成金の対象になるか、その場で判定", "御社に合うプランと金額を人数別に試算", "サイネージの設置場所とスケジュールの確認", "店頭でもオンラインでも。無理な勧誘はしません"].map((t) => <li key={t} className="flex gap-3"><span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-[#1f9d6b] text-xs font-black">✓</span>{t}</li>)}
             </ul>

@@ -14,6 +14,7 @@ import { VideoMerits } from "@/components/site/video-merits";
 import { Why } from "@/components/site/why";
 import { Process } from "@/components/site/process";
 import { StoreOwner } from "@/components/site/store-owner";
+import { PackageBanner } from "@/components/package/package-banner";
 import { Docs } from "@/components/site/docs";
 import { LeadForm } from "@/components/site/lead-form";
 import { Faq } from "@/components/site/faq";
@@ -41,6 +42,7 @@ export default function Home() {
         <Why />
         <Process />
         <StoreOwner />
+        <PackageBanner />
         <Docs />
         <LeadForm />
         <Faq />

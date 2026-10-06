@@ -20,6 +20,7 @@ const navGroups = [
     title: "お申込み",
     links: [
       { href: "/apply-form.html", label: "広告主お申込みフォーム" },
+      { href: "/package", label: "助成金で集客パッケージ（店舗様）" },
       { href: `mailto:${company.email}`, label: "お問い合わせ" },
       { href: "/company", label: "会社概要" },
     ],

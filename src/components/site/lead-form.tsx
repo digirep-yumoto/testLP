@@ -12,6 +12,7 @@ const purposeOptions = [
   "まずはミーティング・相談したい（内容未定でOK）",
   "資料がほしい（資料請求）",
   "料金・見積りを知りたい",
+  "助成金パッケージについて（店舗様・研修・PR動画・サイネージ）",
   "その他のお問い合わせ",
 ];
 const mediaOptions = ["未定・相談したい", "個室トイレサイネージ", "コインランドリーサイネージ", "両方", "店舗設置（加盟店）"];
@@ -71,6 +72,12 @@ export function LeadForm() {
                 </select>
               </Field>
 
+              {f.purpose.startsWith("助成金パッケージ") && (
+                <div className="rounded-xl border border-brand/30 bg-brand/5 p-4 text-sm leading-relaxed text-ink">
+                  <p className="font-bold">店舗様向けのパッケージ（SNS×AI研修・PR動画・トイレサイネージ）ですね。</p>
+                  <p className="mt-1 text-xs text-ink-soft">内容は <a href="/package" className="font-bold text-brand underline">こちらのページ</a>、対象かどうかは <a href="/package/check" className="font-bold text-brand underline">3分の適用診断</a> でその場で確認できます。このままお送りいただいても結構です。</p>
+                </div>
+              )}
               {f.purpose.startsWith("まずはミーティング") && (
                 <div className="rounded-xl border border-brand/30 bg-brand/5 p-4">
                   <p className="flex items-center gap-1.5 text-sm font-bold text-ink">

@@ -89,6 +89,13 @@ export function Header() {
               </a>
             ))}
             <a
+              href="/package"
+              onClick={() => setOpen(false)}
+              className="rounded-lg px-2 py-3 text-sm font-medium text-ink hover:bg-muted"
+            >
+              助成金で集客パッケージ（店舗様）
+            </a>
+            <a
               href="/#request"
               onClick={() => setOpen(false)}
               className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-lg border border-brand/40 px-4 py-3 text-sm font-bold text-brand"
