@@ -87,6 +87,7 @@ export async function POST(request: Request) {
       const timerex = process.env.NEXT_PUBLIC_TIMEREX_URL || "";
       const esc = (v: string) =>
         v.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c] as string));
+      const isPackage = purpose.startsWith("助成金パッケージ");
       const isLaundry = media.includes("ランドリー");
       const isToilet = media.includes("トイレ");
       const mediaLine = isLaundry
@@ -97,6 +98,47 @@ export async function POST(request: Request) {
       const ctaHref = timerex || `${site}/#request`;
       const ctaLabel = timerex ? "オンライン相談の日程を予約する" : "無料相談・お見積りを依頼する";
       const greet = `${company ? esc(company) + "　" : ""}${esc(name)} 様`;
+      const pkgHtml =
+        `<div style="font-family:-apple-system,'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;max-width:600px;margin:0 auto;color:#16243d;line-height:1.75;">` +
+        `<div style="background:#0f1e33;padding:20px 24px;border-radius:12px 12px 0 0;"><span style="color:#fff;font-size:18px;font-weight:800;">デジレップ株式会社</span><span style="color:#9fb0cc;font-size:12px;display:block;margin-top:3px;">SNS×AI研修・PR動画・トイレサイネージのパッケージ</span></div>` +
+        `<div style="border:1px solid #e5e9f0;border-top:none;border-radius:0 0 12px 12px;padding:24px;">` +
+        `<p style="margin:0 0 14px;">${greet}</p>` +
+        `<p style="margin:0 0 16px;">ミーティングのご希望をありがとうございます。担当の湯本より<strong>1営業日以内</strong>に、候補日のご案内をお送りします。</p>` +
+        `<div style="background:#f4f8fc;border-radius:10px;padding:16px 18px;margin:0 0 20px;"><p style="margin:0 0 10px;font-weight:700;color:#0478bd;">1回目のミーティング（約30分）でわかること</p>` +
+        `<p style="margin:0 0 6px;">① 御社が<strong>助成金の対象になるか</strong>（その場で判定）</p>` +
+        `<p style="margin:0 0 6px;">② 御社に合う<strong>プランと金額</strong>（人数別の試算）</p>` +
+        `<p style="margin:0;">③ サイネージの<strong>設置場所</strong>とスケジュール</p></div>` +
+        `<div style="border-left:4px solid #0478bd;padding:2px 0 2px 14px;margin:0 0 22px;"><p style="margin:0 0 8px;font-weight:700;">当日までにお手元にあると早いもの</p>` +
+        `<p style="margin:0 0 4px;">・直近の年商（おおよそで結構です）</p><p style="margin:0 0 4px;">・雇用保険に入っている従業員の人数</p><p style="margin:0;">・決算月</p></div>` +
+        `<p style="margin:0 0 10px;font-size:13px;color:#5b6b80;">助成金は支給要件を満たし期限内に申請した場合に支給されるもので、支給を保証するものではありません。研修費は全額お支払いいただき、別契約の協力金・紹介料は実績に応じてお支払いします。</p>` +
+        `<hr style="border:none;border-top:1px solid #e5e9f0;margin:22px 0 14px;">` +
+        `<p style="margin:0;font-size:12px;color:#8a98ad;">デジレップ株式会社｜埼玉県新座市畑中1-13-16<br>本メールにご返信いただければ担当が確認いたします。</p>` +
+        `</div></div>`;
+      const pkgText =
+        `${company ? company + "　" : ""}${name} 様
+
+` +
+        `ミーティングのご希望をありがとうございます。
+担当の湯本より1営業日以内に、候補日のご案内をお送りします。
+
+` +
+        `【1回目のミーティング（約30分）でわかること】
+① 御社が助成金の対象になるか（その場で判定）
+② 御社に合うプランと金額（人数別の試算）
+③ サイネージの設置場所とスケジュール
+
+` +
+        `【当日までにお手元にあると早いもの】
+・直近の年商（おおよそ）
+・雇用保険に入っている従業員の人数
+・決算月
+
+` +
+        `※助成金は支給要件を満たし期限内に申請した場合に支給されるもので、支給を保証するものではありません。研修費は全額お支払いいただき、別契約の協力金・紹介料は実績に応じてお支払いします。
+
+` +
+        `── デジレップ株式会社｜埼玉県新座市畑中1-13-16
+本メールにご返信いただければ担当が確認いたします。`;
       const html =
         `<div style="font-family:-apple-system,'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;max-width:600px;margin:0 auto;color:#16243d;line-height:1.75;">` +
         `<div style="background:#0f172a;padding:20px 24px;border-radius:12px 12px 0 0;"><span style="color:#fff;font-size:18px;font-weight:800;">DigiRep（デジレップ）</span><span style="color:#9fb0cc;font-size:12px;display:block;margin-top:3px;">確実に見られるサイネージ広告メディア</span></div>` +
@@ -141,9 +183,9 @@ export async function POST(request: Request) {
           from: process.env.LEAD_FROM_EMAIL || "DigiRep <onboarding@resend.dev>",
           to: [email],
           reply_to: to,
-          subject: "【DigiRep】お問い合わせありがとうございます｜資料と“次の一歩”のご案内",
-          html,
-          text,
+          subject: isPackage ? "【デジレップ】ミーティングのご希望ありがとうございます" : "【DigiRep】お問い合わせありがとうございます｜資料と“次の一歩”のご案内",
+          html: isPackage ? pkgHtml : html,
+          text: isPackage ? pkgText : text,
         }),
       });
     } catch {
