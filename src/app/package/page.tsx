@@ -63,7 +63,7 @@ export default function PackagePage() {
               ))}
             </div>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <a href={CTA} className="inline-flex items-center justify-center rounded-full bg-[#e8590c] px-8 py-4 text-base font-black text-white shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98] sm:text-lg">30分の適用診断（無料）を申し込む</a>
+              <a href={CTA} className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-[#e8590c] px-8 py-4 text-base font-black text-white shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98] sm:text-lg">30分の適用診断（無料）を申し込む</a>
               <span className="text-xs text-white/80 sm:text-sm">年商・雇用保険の加入人数・決算月がわかれば、その場で判定</span>
             </div>
           </div>
