@@ -147,8 +147,8 @@ export function PackageCheckForm() {
                   <tr className="border-b border-[#e3ebf3]"><td>お支払い合計（研修費＋役務10万＋社労士26.4万）</td><td>{man(verdict.plan.pay)}万円</td></tr>
                   <tr className="border-b border-[#e3ebf3] text-brand"><td>国の助成金（経費75%＋賃金）</td><td>▲{man(verdict.plan.sub)}万円</td></tr>
                   <tr className="border-b border-[#e3ebf3] text-brand"><td>掲載協力金</td><td>▲{man(verdict.plan.coop)}万円</td></tr>
-                  <tr className="border-b border-[#e3ebf3] text-brand"><td>ご紹介料 3社（1社 {man(verdict.plan.ref1)}万円）</td><td>▲{man(verdict.plan.ref3)}万円</td></tr>
-                  <tr className="bg-[#fff4e8] text-[#e8590c]"><td className="font-black">最終お手出し（3社ご紹介時）</td><td className="text-lg">0円</td></tr>
+                  <tr className="border-b border-[#e3ebf3] text-brand"><td>交流会 開催協力金（御社主催の交流会を1回）</td><td>▲{man(verdict.plan.ref3)}万円</td></tr>
+                  <tr className="bg-[#fff4e8] text-[#e8590c]"><td className="font-black">最終お手出し（交流会開催時）</td><td className="text-lg">0円</td></tr>
                 </tbody></table>
               </div>
               <p className="mt-2 text-xs text-ink-soft">税込。フル受講・先払い型。別途サイネージ設置費6万円（1台・税込{b.stores !== "1店舗" ? "・店舗数分" : ""}）。研修費の値引き・返金ではありません。</p>

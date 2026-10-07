@@ -110,7 +110,7 @@ export async function POST(request: Request) {
         `<p style="margin:0;">③ サイネージの<strong>設置場所</strong>とスケジュール</p></div>` +
         `<div style="border-left:4px solid #0478bd;padding:2px 0 2px 14px;margin:0 0 22px;"><p style="margin:0 0 8px;font-weight:700;">当日までにお手元にあると早いもの</p>` +
         `<p style="margin:0 0 4px;">・直近の年商（おおよそで結構です）</p><p style="margin:0 0 4px;">・雇用保険に入っている従業員の人数</p><p style="margin:0;">・決算月</p></div>` +
-        `<p style="margin:0 0 10px;font-size:13px;color:#5b6b80;">助成金は支給要件を満たし期限内に申請した場合に支給されるもので、支給を保証するものではありません。研修費は全額お支払いいただき、別契約の協力金・紹介料は実績に応じてお支払いします。</p>` +
+        `<p style="margin:0 0 10px;font-size:13px;color:#5b6b80;">助成金は支給要件を満たし期限内に申請した場合に支給されるもので、支給を保証するものではありません。研修費は全額お支払いいただき、別契約の協力金（掲載・交流会開催）は実績に応じてお支払いします。</p>` +
         `<hr style="border:none;border-top:1px solid #e5e9f0;margin:22px 0 14px;">` +
         `<p style="margin:0;font-size:12px;color:#8a98ad;">デジレップ株式会社｜埼玉県新座市畑中1-13-16<br>本メールにご返信いただければ担当が確認いたします。</p>` +
         `</div></div>`;
@@ -134,7 +134,7 @@ export async function POST(request: Request) {
 ・決算月
 
 ` +
-        `※助成金は支給要件を満たし期限内に申請した場合に支給されるもので、支給を保証するものではありません。研修費は全額お支払いいただき、別契約の協力金・紹介料は実績に応じてお支払いします。
+        `※助成金は支給要件を満たし期限内に申請した場合に支給されるもので、支給を保証するものではありません。研修費は全額お支払いいただき、別契約の協力金（掲載・交流会開催）は実績に応じてお支払いします。
 
 ` +
         `── デジレップ株式会社｜埼玉県新座市畑中1-13-16

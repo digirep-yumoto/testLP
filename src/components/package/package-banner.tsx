@@ -21,7 +21,7 @@ export function PackageBanner() {
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-white/90 sm:text-[15px]">
                 PR動画・インフルエンサー来店投稿・LP・トイレサイネージ配信・SNS×AI研修をひとつのパッケージに。
-                研修費の<b className="text-[#ffd23f]">75%は国の助成金</b>、残り25%相当も協力金・紹介料で、手出しが残りません。
+                研修費の<b className="text-[#ffd23f]">75%は国の助成金</b>、残り25%相当も2つの協力金で、手出しが残りません。
               </p>
               <div className="mt-5 flex flex-wrap gap-2">
                 {[["video", "PR動画"], ["influencer", "インフルエンサー"], ["signage", "サイネージ配信"], ["lp", "LP制作"], ["training", "SNS×AI研修"]].map(([k, t]) => (
@@ -49,7 +49,7 @@ export function PackageBanner() {
               <div className="absolute -bottom-3 -left-3 flex size-24 -rotate-[8deg] flex-col items-center justify-center rounded-full border-4 border-white bg-[#e8590c] text-center shadow-lg outline outline-2 outline-[#e8590c] sm:size-28">
                 <span className="text-[9px] font-bold">最終お手出し</span>
                 <span className="text-4xl font-black leading-none">0<span className="text-sm">円</span></span>
-                <span className="mt-0.5 text-[7px] font-bold">3社ご紹介時・設置費別</span>
+                <span className="mt-0.5 text-[7px] font-bold">交流会開催時・設置費別</span>
               </div>
             </div>
           </div>

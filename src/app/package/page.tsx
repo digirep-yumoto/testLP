@@ -55,7 +55,7 @@ export default function PackagePage() {
               バラバラに頼んでいたものを、<b className="text-[#ffd23f]">ひとつのパッケージ</b>に。
             </p>
             <div className="mt-8 grid grid-cols-3 gap-2 sm:gap-3">
-              {[["75", "%", "研修費は国の助成金"], ["25", "%", "残りは協力金・紹介料で戻る"], ["2", "回", "ご成約までお会いするのは"]].map(([n, u, t]) => (
+              {[["75", "%", "研修費は国の助成金"], ["25", "%", "残りは2つの協力金で戻る"], ["2", "回", "ご成約までお会いするのは"]].map(([n, u, t]) => (
                 <div key={t} className="rounded-2xl border border-white/35 bg-white/10 p-3 sm:p-4">
                   <p className="text-3xl font-black leading-none text-[#ffd23f] sm:text-4xl">{n}<span className="text-base sm:text-lg">{u}</span></p>
                   <p className="mt-2 text-[11px] font-bold leading-snug sm:text-sm">{t}</p>
@@ -75,7 +75,7 @@ export default function PackagePage() {
             <div className="absolute -left-3 bottom-6 flex size-32 -rotate-[8deg] flex-col items-center justify-center rounded-full border-[5px] border-white bg-[#e8590c] text-center shadow-[0_12px_30px_rgba(232,89,12,.45)] outline outline-[3px] outline-[#e8590c] sm:size-36 lg:-left-10 lg:bottom-10">
               <span className="text-[11px] font-bold">最終お手出し</span>
               <span className="text-5xl font-black leading-none sm:text-6xl">0<span className="text-lg">円</span></span>
-              <span className="mt-1 text-[9px] font-bold">3社ご紹介時・設置費別</span>
+              <span className="mt-1 text-[9px] font-bold">交流会開催時・設置費別</span>
             </div>
           </div>
         </div>
@@ -166,29 +166,29 @@ export default function PackagePage() {
       {/* ---------- お金 ---------- */}
       <section className="bg-white py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-5 sm:px-6">
-          <H2 eyebrow="MONEY" title="研修費は全額お支払い。それでも、手出しが残らない理由" lead="国の助成金と、別契約の協力金・紹介料。3つの入金で戻ります。" />
+          <H2 eyebrow="MONEY" title="研修費は全額お支払い。それでも、手出しが残らない理由" lead="国の助成金と、別契約の2つの協力金。3つの入金で戻ります。" />
           <div className="mt-10 grid items-stretch gap-3 lg:grid-cols-[1fr_auto_1fr_auto_1fr]">
             <div className="flex items-center gap-4 rounded-3xl bg-paper p-6"><PkgIcon k="gov" className="size-16 shrink-0 [&>svg]:h-full [&>svg]:w-full" /><div><p className="text-xl font-black text-ink">研修費の <span className="text-3xl text-[#e8590c]">75%</span></p><p className="mt-1 text-sm font-bold text-ink-soft">国の助成金（人材開発支援助成金・事業展開等リスキリング支援コース）</p></div></div>
             <p className="hidden items-center text-3xl font-black text-brand lg:flex">＋</p>
-            <div className="flex items-center gap-4 rounded-3xl bg-paper p-6"><PkgIcon k="hands" className="size-16 shrink-0 [&>svg]:h-full [&>svg]:w-full" /><div><p className="text-xl font-black text-ink">残り <span className="text-3xl text-[#e8590c]">25%</span> 相当</p><p className="mt-1 text-sm font-bold text-ink-soft">設置協力契約の掲載協力金（10%）＋ご紹介料（5%×3社）</p></div></div>
+            <div className="flex items-center gap-4 rounded-3xl bg-paper p-6"><PkgIcon k="hands" className="size-16 shrink-0 [&>svg]:h-full [&>svg]:w-full" /><div><p className="text-xl font-black text-ink">残り <span className="text-3xl text-[#e8590c]">25%</span> 相当</p><p className="mt-1 text-sm font-bold text-ink-soft">設置協力契約の掲載協力金（10%）＋交流会開催協力金（15%）</p></div></div>
             <p className="hidden items-center text-3xl font-black text-brand lg:flex">＝</p>
-            <div className="flex items-center rounded-3xl bg-ink p-6 text-white"><div><p className="text-2xl font-black text-[#ffd23f]">手出しが残らない</p><p className="mt-1 text-sm font-bold text-white/85">3社ご紹介（ミーティング実施）時。設置費6万円は別</p></div></div>
+            <div className="flex items-center rounded-3xl bg-ink p-6 text-white"><div><p className="text-2xl font-black text-[#ffd23f]">手出しが残らない</p><p className="mt-1 text-sm font-bold text-white/85">交流会（1回）開催時。設置費6万円は別</p></div></div>
           </div>
 
           <div className="mt-10 grid gap-6 lg:grid-cols-[1.15fr_1fr]">
             <div className="rounded-3xl bg-paper p-6 sm:p-8">
               <p className="text-sm font-black text-ink-soft">例：{P.n}名プラン・フル受講・先払い型（税込・万円）</p>
               <div className="mt-4 space-y-3">
-                {[["お支払い合計", P.pay, "#0f1e33", `研修費${P.n * 100}＋役務10＋社労士26.4`], ["国の助成金", -P.sub, "#0478bd", "経費75%＋賃金助成（支給申請から6〜10ヶ月）"], ["掲載協力金", -P.coop, "#1f9d6b", "インタビュー・記事掲載後10営業日以内"], ["ご紹介料 3社", -P.ref3, "#e8590c", `1社 ${man(P.ref1)}万円 × 3（ミーティング実施ごと）`]].map(([t, v, c, d]) => (
+                {[["お支払い合計", P.pay, "#0f1e33", `研修費${P.n * 100}＋役務10＋社労士26.4`], ["国の助成金", -P.sub, "#0478bd", "経費75%＋賃金助成（支給申請から6〜10ヶ月）"], ["掲載協力金", -P.coop, "#1f9d6b", "インタビュー・記事掲載後10営業日以内"], ["交流会 開催協力金", -P.ref3, "#e8590c", "御社主催の交流会（ご飯会）を1回。開催後10営業日以内"]].map(([t, v, c, d]) => (
                   <div key={t as string} className="grid grid-cols-[1fr_auto] items-center gap-3 sm:grid-cols-[150px_1fr_110px]">
                     <div><p className="text-sm font-black text-ink">{t}</p><p className="text-[11px] text-ink-soft">{d}</p></div>
                     <div className="hidden h-6 overflow-hidden rounded-md bg-white sm:block"><div className="h-full rounded-md" style={{ width: `${Math.round((Math.abs(v as number) / P.pay) * 100)}%`, background: c as string }} /></div>
                     <p className="text-right text-2xl font-black" style={{ color: c as string }}>{(v as number) < 0 ? "▲" : ""}{man(Math.abs(v as number))}<span className="ml-0.5 text-xs">万円</span></p>
                   </div>
                 ))}
-                <div className="grid grid-cols-[1fr_auto] items-center gap-3 rounded-2xl bg-[#fff4e8] p-4"><p className="text-base font-black text-ink">最終お手出し<span className="ml-2 text-xs font-bold text-ink-soft">3社ご紹介時</span></p><p className="text-4xl font-black text-[#e8590c]">0<span className="text-base">円</span></p></div>
+                <div className="grid grid-cols-[1fr_auto] items-center gap-3 rounded-2xl bg-[#fff4e8] p-4"><p className="text-base font-black text-ink">最終お手出し<span className="ml-2 text-xs font-bold text-ink-soft">交流会開催時</span></p><p className="text-4xl font-black text-[#e8590c]">0<span className="text-base">円</span></p></div>
               </div>
-              <p className="mt-3 text-xs leading-relaxed text-ink-soft">ご参考：ご紹介前の時点でのお手出しは {man(P.ref3)}万円。別途、サイネージ設置費6万円（1台・税込）。研修費の「値引き」「返金」ではありません。</p>
+              <p className="mt-3 text-xs leading-relaxed text-ink-soft">ご参考：交流会の開催前の時点でのお手出しは {man(P.ref3)}万円。別途、サイネージ設置費6万円（1台・税込）。研修費の「値引き」「返金」ではありません。</p>
             </div>
             <div className="space-y-4">
               <div className="rounded-3xl border-2 border-[#e3ebf3] bg-white p-6">
@@ -196,8 +196,12 @@ export default function PackagePage() {
                 <ul className="mt-3 space-y-2 text-sm leading-relaxed text-ink">
                   <li><b>国の助成金</b>：研修契約（Per-Fact）に基づく研修費が対象</li>
                   <li><b>掲載協力金</b>：設置協力契約（デジレップ）。インタビュー30分と導入事例の掲載にご協力いただいた対価</li>
-                  <li><b>ご紹介料</b>：同じく設置協力契約。ご紹介先と私たちのミーティングが実施された時点で1社分。ご成約は問いません（契約から12ヶ月・上限3社）</li>
+                  <li><b>交流会 開催協力金</b>：同じく設置協力契約。御社主催の交流会（ご飯会）を1回開催いただいた対価。お知り合いの経営者・店舗オーナー2〜3名をご招待、私たち側からも経営者3名が参加（契約から12ヶ月以内）</li>
                 </ul>
+              </div>
+              <div className="rounded-3xl border-2 border-[#e3ebf3] bg-white p-6">
+                <h3 className="font-black text-brand">交流会（ご飯会）とは</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink">御社のお店（別会場でも可）で1回開いていただく食事会です。御社のお知り合いの経営者・店舗オーナー2〜3名と、私たち側の経営者3名が参加。売り込みの場ではなく、経営者同士が横につながる交流会として開きます。</p>
               </div>
               <div className="rounded-3xl border-2 border-[#e3ebf3] bg-white p-6">
                 <h3 className="font-black text-brand">お支払い方法は2つ</h3>
@@ -218,8 +222,8 @@ export default function PackagePage() {
                 <tr className="[&_td]:border-t-2 [&_td]:border-t-ink"><td>お支払い合計</td>{plans.map((p) => <td key={p.n} className="font-black">{man(p.pay)}</td>)}</tr>
                 <tr className="text-brand"><td>国の助成金</td>{plans.map((p) => <td key={p.n}>▲{man(p.sub)}</td>)}</tr>
                 <tr className="text-brand"><td>掲載協力金</td>{plans.map((p) => <td key={p.n}>▲{man(p.coop)}</td>)}</tr>
-                <tr className="text-brand"><td>ご紹介料 3社（1社あたり）</td>{plans.map((p) => <td key={p.n}>▲{man(p.ref3)}<span className="text-xs text-ink-soft">（{man(p.ref1)}）</span></td>)}</tr>
-                <tr className="bg-[#fff4e8] text-[#e8590c]"><td>最終お手出し（3社ご紹介時）</td>{plans.map((p) => <td key={p.n} className="text-lg font-black">0</td>)}</tr>
+                <tr className="text-brand"><td>交流会 開催協力金（御社主催・1回）</td>{plans.map((p) => <td key={p.n}>▲{man(p.ref3)}</td>)}</tr>
+                <tr className="bg-[#fff4e8] text-[#e8590c]"><td>最終お手出し（交流会開催時）</td>{plans.map((p) => <td key={p.n} className="text-lg font-black">0</td>)}</tr>
                 <tr className="text-ink-soft"><td>別途：設置費（1台6万円）</td>{plans.map((p) => <td key={p.n}>{p.inst}</td>)}</tr>
               </tbody>
             </table>
@@ -254,7 +258,7 @@ export default function PackagePage() {
       {/* ---------- 流れ ---------- */}
       <section className="bg-white py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-5 sm:px-6">
-          <H2 eyebrow="FLOW" title="ご成約までは2回。ご契約後の工数は約10時間" lead="お会いするのは成約まで2回だけ。申請の実務は社労士が代行し、御社は押印のみです。" />
+          <H2 eyebrow="FLOW" title="ご成約までは2回。ご契約後の工数は約12時間" lead="お会いするのは成約まで2回だけ。申請の実務は社労士が代行し、御社は押印と交流会の開催だけです。" />
           <div className="mt-10 grid gap-4 md:grid-cols-2">
             {[["1", "適用診断 30分", "担当：デジレップ／店頭・オンライン", "年商・雇用保険の加入人数・決算月をお伺いし、その場で受給の可否とプランを判定。サイネージの設置場所も確認します。"], ["2", "ご提案の合意・ご契約 45分", "担当：Per-Fact（＋社労士）／オンライン可", "プラン・人数・お支払い方法・スケジュールを合意し、契約書にご捺印。受講者を確定します。"]].map(([n, t, who, d]) => (
               <div key={n} className="rounded-3xl bg-paper p-6 sm:p-8"><span className="inline-flex size-12 items-center justify-center rounded-full bg-brand text-2xl font-black text-white">{n}</span><h3 className="mt-3 text-xl font-black text-ink">{t}</h3><p className="mt-1 text-sm font-bold text-ink-soft">{who}</p><p className="mt-3 text-sm leading-relaxed text-ink">{d}</p></div>
@@ -268,9 +272,9 @@ export default function PackagePage() {
             </ol>
           </div>
           <div className="mt-8 rounded-3xl bg-paper p-6">
-            <p className="font-black text-ink">ご契約後に御社が動く場面（研修を除く）　<span className="text-[#e8590c]">合計 約10時間／10ヶ月</span></p>
+            <p className="font-black text-ink">ご契約後に御社が動く場面（研修を除く）　<span className="text-[#e8590c]">合計 約12時間／10ヶ月</span></p>
             <div className="mt-3 grid gap-2 text-sm sm:grid-cols-2 lg:grid-cols-5">
-              {[["書類5点のコピー・押印2点", "約2時間"], ["インタビュー（記事用）", "30分"], ["PR動画の撮影", "半日・営業時間外"], ["サイネージ設置の立会い", "30分・営業時間外"], ["3社へのお声がけ", "お声がけのみ"]].map(([t, h]) => <div key={t} className="rounded-xl bg-white px-4 py-3"><p className="font-bold text-ink">{t}</p><p className="text-xs text-ink-soft">{h}</p></div>)}
+              {[["書類5点のコピー・押印2点", "約2時間"], ["インタビュー（記事用）", "30分"], ["PR動画の撮影", "半日・営業時間外"], ["サイネージ設置の立会い", "30分・営業時間外"], ["交流会（ご飯会）の開催 1回", "お声がけ＋当日2〜3時間"]].map(([t, h]) => <div key={t} className="rounded-xl bg-white px-4 py-3"><p className="font-bold text-ink">{t}</p><p className="text-xs text-ink-soft">{h}</p></div>)}
             </div>
             <p className="mt-3 text-xs text-ink-soft">受講者は別途30時間／名（オンライン・1〜2ヶ月）。</p>
           </div>
