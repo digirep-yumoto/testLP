@@ -234,6 +234,7 @@ export function simulate(input: SimInput): SimOutcome {
         { label: "＝ 月間の想定視聴機会", value: `${num(reachPerMonth)} 回` },
         { label: "× 視認率（個室・強制視聴）", value: `${TOILET_VIEW_RATE * 100}%` },
         { label: "＝ 月間の想定視認回数", value: `${num(contactsPerMonth)} 回` },
+        { label: "成果報酬（別途・実績）", value: "視聴10円／QR500円／予約2,000円〜" },
       ],
       description: p.description,
     };

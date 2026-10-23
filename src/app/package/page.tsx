@@ -55,7 +55,7 @@ export default function PackagePage() {
               バラバラに頼んでいたものを、<b className="text-[#ffd23f]">ひとつのパッケージ</b>に。
             </p>
             <div className="mt-8 grid grid-cols-3 gap-2 sm:gap-3">
-              {[["75", "%", "研修費は国の助成金"], ["25", "%", "残りは2つの協力金で戻る"], ["2", "回", "ご成約までお会いするのは"]].map(([n, u, t]) => (
+              {[["75", "%", "研修費は国の助成金"], ["0", "円", "サイネージ端末は無償貸与"], ["2", "回", "ご成約までお会いするのは"]].map(([n, u, t]) => (
                 <div key={t} className="rounded-2xl border border-white/35 bg-white/10 p-3 sm:p-4">
                   <p className="text-3xl font-black leading-none text-[#ffd23f] sm:text-4xl">{n}<span className="text-base sm:text-lg">{u}</span></p>
                   <p className="mt-2 text-[11px] font-bold leading-snug sm:text-sm">{t}</p>
@@ -75,7 +75,7 @@ export default function PackagePage() {
             <div className="absolute -left-3 bottom-6 flex size-32 -rotate-[8deg] flex-col items-center justify-center rounded-full border-[5px] border-white bg-[#e8590c] text-center shadow-[0_12px_30px_rgba(232,89,12,.45)] outline outline-[3px] outline-[#e8590c] sm:size-36 lg:-left-10 lg:bottom-10">
               <span className="text-[11px] font-bold">最終お手出し</span>
               <span className="text-5xl font-black leading-none sm:text-6xl">0<span className="text-lg">円</span></span>
-              <span className="mt-1 text-[9px] font-bold">交流会開催時・設置費別</span>
+              <span className="mt-1 text-[9px] font-bold">交流会開催時</span>
             </div>
           </div>
         </div>
@@ -166,13 +166,13 @@ export default function PackagePage() {
       {/* ---------- お金 ---------- */}
       <section className="bg-white py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-5 sm:px-6">
-          <H2 eyebrow="MONEY" title="研修費は全額お支払い。それでも、手出しが残らない理由" lead="国の助成金と、別契約の2つの協力金。3つの入金で戻ります。" />
+          <H2 eyebrow="MONEY" title="研修費は全額お支払い。それでも、手出しが残らない理由" lead="国の助成金と、ご協力への対価としてお支払いする2つの協力金。3つの入金で、結果として手出しが残らない形になります。" />
           <div className="mt-10 grid items-stretch gap-3 lg:grid-cols-[1fr_auto_1fr_auto_1fr]">
             <div className="flex items-center gap-4 rounded-3xl bg-paper p-6"><PkgIcon k="gov" className="size-16 shrink-0 [&>svg]:h-full [&>svg]:w-full" /><div><p className="text-xl font-black text-ink">研修費の <span className="text-3xl text-[#e8590c]">75%</span></p><p className="mt-1 text-sm font-bold text-ink-soft">国の助成金（人材開発支援助成金・事業展開等リスキリング支援コース）</p></div></div>
             <p className="hidden items-center text-3xl font-black text-brand lg:flex">＋</p>
-            <div className="flex items-center gap-4 rounded-3xl bg-paper p-6"><PkgIcon k="hands" className="size-16 shrink-0 [&>svg]:h-full [&>svg]:w-full" /><div><p className="text-xl font-black text-ink">残り <span className="text-3xl text-[#e8590c]">25%</span> 相当</p><p className="mt-1 text-sm font-bold text-ink-soft">設置協力契約の掲載協力金（10%）＋交流会開催協力金（15%）</p></div></div>
+            <div className="flex items-center gap-4 rounded-3xl bg-paper p-6"><PkgIcon k="hands" className="size-16 shrink-0 [&>svg]:h-full [&>svg]:w-full" /><div><p className="text-xl font-black text-ink">ご協力への <span className="text-3xl text-[#e8590c]">対価</span></p><p className="mt-1 text-sm font-bold text-ink-soft">掲載協力金＋交流会開催協力金（記事掲載・交流会・設置へのご協力の対価）</p></div></div>
             <p className="hidden items-center text-3xl font-black text-brand lg:flex">＝</p>
-            <div className="flex items-center rounded-3xl bg-ink p-6 text-white"><div><p className="text-2xl font-black text-[#ffd23f]">手出しが残らない</p><p className="mt-1 text-sm font-bold text-white/85">交流会（1回）開催時。設置費6万円は別</p></div></div>
+            <div className="flex items-center rounded-3xl bg-ink p-6 text-white"><div><p className="text-2xl font-black text-[#ffd23f]">手出しが残らない</p><p className="mt-1 text-sm font-bold text-white/85">交流会（1回）開催時。サイネージ端末は無償貸与</p></div></div>
           </div>
 
           <div className="mt-10 grid gap-6 lg:grid-cols-[1.15fr_1fr]">
@@ -188,7 +188,7 @@ export default function PackagePage() {
                 ))}
                 <div className="grid grid-cols-[1fr_auto] items-center gap-3 rounded-2xl bg-[#fff4e8] p-4"><p className="text-base font-black text-ink">最終お手出し<span className="ml-2 text-xs font-bold text-ink-soft">交流会開催時</span></p><p className="text-4xl font-black text-[#e8590c]">0<span className="text-base">円</span></p></div>
               </div>
-              <p className="mt-3 text-xs leading-relaxed text-ink-soft">ご参考：交流会の開催前の時点でのお手出しは {man(P.ref3)}万円。別途、サイネージ設置費6万円（1台・税込）。研修費の「値引き」「返金」ではありません。</p>
+              <p className="mt-3 text-xs leading-relaxed text-ink-soft">ご参考：交流会の開催前の時点でのお手出しは {man(P.ref3)}万円。サイネージ端末は無償貸与で設置費はかかりません。協力金は研修費の「値引き」「返金」ではなく、ご協力への対価です。</p>
             </div>
             <div className="space-y-4">
               <div className="rounded-3xl border-2 border-[#e3ebf3] bg-white p-6">
@@ -205,7 +205,7 @@ export default function PackagePage() {
               </div>
               <div className="rounded-3xl border-2 border-[#e3ebf3] bg-white p-6">
                 <h3 className="font-black text-brand">お支払い方法は2つ</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink"><b>A 先にお支払い</b>：研修費を全額お振込み。助成金は申請から6〜10ヶ月で御社の口座へ。<br /><b>B 貸付で立替え</b>：貸付パートナーが立替え、助成金で返済。御社は25%相当をお支払い（社労士の申請代行が必須・審査あり）。</p>
+                <p className="mt-2 text-sm leading-relaxed text-ink"><b>A 先にお支払い</b>：研修費を全額お振込み。助成金は申請から6〜10ヶ月で御社の口座へ。<br /><b>B 貸付で立替え</b>：貸付パートナーが立替え、助成金で返済。御社は助成金差引後の残額をお支払い（社労士の申請代行が必須・審査あり）。</p>
               </div>
             </div>
           </div>
@@ -224,7 +224,7 @@ export default function PackagePage() {
                 <tr className="text-brand"><td>掲載協力金</td>{plans.map((p) => <td key={p.n}>▲{man(p.coop)}</td>)}</tr>
                 <tr className="text-brand"><td>交流会 開催協力金（御社主催・1回）</td>{plans.map((p) => <td key={p.n}>▲{man(p.ref3)}</td>)}</tr>
                 <tr className="bg-[#fff4e8] text-[#e8590c]"><td>最終お手出し（交流会開催時）</td>{plans.map((p) => <td key={p.n} className="text-lg font-black">0</td>)}</tr>
-                <tr className="text-ink-soft"><td>別途：設置費（1台6万円）</td>{plans.map((p) => <td key={p.n}>{p.inst}</td>)}</tr>
+                <tr className="text-ink-soft"><td>サイネージ端末</td>{plans.map((p) => <td key={p.n}>{p.inst}</td>)}</tr>
               </tbody>
             </table>
           </div>

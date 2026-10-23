@@ -9,16 +9,25 @@ export const TAX_RATE = 0.1; // 消費税10%
 
 const TERM_DISCOUNT: Record<number, number> = { 1: 0, 2: 0.05, 3: 0.1 };
 
-// --- 個室トイレ：来店規模に応じた固定月額ティア（1店・税別） -----------
-const TOILET_TIERS = [
-  // 2026-09改定：視聴数×10円（千円丸め）・最低保証¥10,000。旧: 25円基準/¥30,000〜54,600
-  { key: "S", max: 1500, price: 10000 },
-  { key: "M", max: 2500, price: 11000 },
-  { key: "L", max: 3500, price: 16000 },
-  { key: "XL", max: Infinity, price: 22000 },
+// --- 個室トイレ：2026-11改定・成果報酬型（1面・税別） --------------------
+// 基本料金（月額）は店舗の月間来客数で決まる4段。これに成果報酬（視聴×10円／QR読み取り500円／
+// 予約・問い合わせ2,000〜10,000円）が配信実績で加算される（月末締め・翌月実績請求。月額上限は広告主が設定）。
+// ここで計算するのは基本料金のみ。成果報酬は実績確定後に別途請求する。
+export const TOILET_MIN_VISITORS = 500; // 月間来客500人未満の店舗は媒体に載せない
+export const TOILET_TIERS = [
+  { key: "S", label: "Sプラン", min: 500, max: 2000, price: 5000 },
+  { key: "M", label: "Mプラン", min: 2001, max: 4000, price: 7000 },
+  { key: "L", label: "Lプラン", min: 4001, max: 6000, price: 9000 },
+  { key: "XL", label: "XLプラン", min: 6001, max: Infinity, price: 12000 },
 ] as const;
+export const TOILET_PERF = {
+  view: 10, // 視聴1回（赤外線センサーが個室の利用を検知して再生した回数）
+  qr: 500, // QR読み取り1件（店舗別・広告主別の専用QR）
+  booking: [2000, 5000, 10000] as const, // 予約・問い合わせ1件（顧客単価〜1万／1万〜10万／10万〜・採用）
+  maxAdvertisers: 6, // 1面あたりの最大広告主数
+} as const;
 
-function toiletTier(visitors: number) {
+export function toiletTier(visitors: number) {
   const v = Math.max(0, Math.floor(visitors) || 0);
   return TOILET_TIERS.find((t) => v <= t.max) ?? TOILET_TIERS[TOILET_TIERS.length - 1];
 }
@@ -87,6 +96,9 @@ export function computePrice(input: unknown): PriceOutcome {
     if (!Number.isFinite(visitors) || visitors < 0 || visitors > 1000000) {
       return { ok: false, error: "月間来客数が不正です。" };
     }
+    if (visitors < TOILET_MIN_VISITORS) {
+      return { ok: false, error: `個室トイレ媒体は月間来客${TOILET_MIN_VISITORS}人以上の店舗が対象です。` };
+    }
     const tier = toiletTier(visitors);
     const monthly0 = tier.price * stores;
     const monthly = roundYen(monthly0 * (1 - discount));
@@ -100,7 +112,7 @@ export function computePrice(input: unknown): PriceOutcome {
         tax,
         totalInclTax: subtotal + tax,
         months,
-        description: `個室トイレサイネージ ${tier.key}プラン × ${stores}店 × ${months}ヶ月`,
+        description: `個室トイレサイネージ 基本料金 ${tier.key}プラン × ${stores}面 × ${months}ヶ月（成果報酬は実績に応じて別途・翌月請求）`,
       },
     };
   }

@@ -145,10 +145,10 @@
 <div class="hero">
   <div class="hero-in">
     <h1>サイネージ設置・加盟 お申込み</h1>
-    <p>店舗にDigiRepサイネージを設置し、広告配信ネットワークに加盟いただくお申込みです。設置台数をご入力いただくと、お申込み金額と、広告掲載時に受け取れる副収入の目安が表示されます。</p>
+    <p>店舗にDigiRepサイネージを設置し、広告配信ネットワークに加盟いただくお申込みです。端末は無償でお貸し出しします。来客数をご入力いただくと、広告掲載時に受け取れる成果報酬の目安が表示されます。</p>
     <div class="pills">
       <span class="pill">📺 サイネージ設置・基本設定込み</span>
-      <span class="pill">💰 広告掲載で副収入</span>
+      <span class="pill">💰 広告の成果報酬は全額店舗へ</span>
       <span class="pill">📄 契約書・見積をその場で確認</span>
     </div>
   </div>
@@ -160,137 +160,18 @@
     <div>
       <!-- 申込内容 -->
       <div class="card lead" style="border:2px solid var(--brand);">
-        <div class="sec-head"><div class="sec-num" style="background:var(--green);">★</div><div><h2>無料導入キャンペーン</h2><p>条件を満たすと、本来有料のサイネージを <b class="free-line">0円</b> で導入できます</p></div></div>
-        <p style="font-size:13px;color:var(--ink-soft);margin:0 0 12px;"><b>2026年9月より、飲食店（個人店）さまは審査のうえ「無料導入キャンペーン」でサイネージ本体・設置・運用すべて0円で導入いただけます。</b>あわせて、フードデリバリー加盟またはヨサンダス導入をご利用いただく場合も、代理店報酬をサイネージ代に充当して無料でご提供します。</p>
-
-        <div style="background:var(--sky);border:1.5px solid var(--brand);border-radius:12px;padding:13px 15px;margin:0 0 14px;font-size:13px;color:var(--brand-d);line-height:1.8;">
-          <b>🏢 チェーン店・グループ店舗さまへ</b><br>
-チェーン・グループ店舗さまには <b>本部負担プラン</b>（設置実費のご負担・店舗還元率15%・初回広告から還元）または広告主連携による設置をご案内します。<br>
-          <span style="color:var(--ink-soft);">該当する場合は「通常導入」を選択のうえ、備考欄に <b>店舗数</b> をご記入ください。担当より最適なプランをご案内します。</span>
+        <div class="sec-head"><div class="sec-num" style="background:var(--green);">★</div><div><h2>サイネージ端末は無償でお貸し出し（2026年11月〜・全店共通）</h2><p>端末代・設置費・運用費はかかりません。広告の成果報酬は全額が店舗さまに入ります。</p></div></div>
+        <input type="radio" name="camp" value="loan" checked hidden>
+        <div style="background:var(--sky);border:1.5px solid var(--brand);border-radius:12px;padding:13px 15px;margin:0 0 10px;font-size:13px;color:var(--brand-d);line-height:1.8;">
+          <b>端末の無償貸与</b>：契約後に端末と自己設置キット（金具・両面テープ・延長コード・設置ガイド）を郵送します。店舗さまで設置し、設置完了の写真をお送りください。QRが読み取れる位置かを確認してから配信を始めます。所有権はデジレップ、契約期間は3年です。<br>
+          <b>成果報酬</b>：広告主の出稿があった月に、視聴1回×10円（赤外線センサーの実数）＋QR読み取り1件×500円＋予約・問い合わせ1件×2,000円〜が、全額店舗さまに入ります（月末締め・翌月末払い・3,000円未満は繰越・明細付き）。<br>
+          <span style="color:var(--ink-soft);">対象：月間来客500人以上の店舗。チェーン・グループ店舗さまは本部一括でお申込みいただけます（備考欄に店舗数をご記入ください）。</span>
         </div>
-
-        <div class="camp-grid" id="campGrid">
-
-          <!-- 無料導入キャンペーン（2026-09〜・飲食店 個人店） -->
-          <label class="camp-opt sel" data-camp="free2026">
-            <span class="camp-badge">2026年9月〜</span>
-            <div class="camp-top">
-              <input type="radio" name="camp" value="free2026" checked>
-              <div>
-                <div class="camp-ttl">無料導入キャンペーン（飲食店・個人店）<span class="free">サイネージ無料</span></div>
-                <div class="camp-desc">飲食店の個室トイレに設置する個人店さまは、審査のうえ<b>本体・設置・運用すべて0円</b>で導入いただけます（目安：月間来客1,500人以上・個室2面以上・会社員層の来店が多い業態）。※無料導入の場合、最初の1社の広告掲載分は還元対象外となり、2社目から還元が発生します。</div>
-              </div>
-            </div>
-          </label>
-
-          <!-- 通常 -->
-          <label class="camp-opt" data-camp="none">
-            <div class="camp-top">
-              <input type="radio" name="camp" value="none">
-              <div>
-                <div class="camp-ttl">通常導入（キャンペーンなし）</div>
-                <div class="camp-desc">サイネージを通常価格（¥55,000/台・税別）でご購入いただきます。</div>
-              </div>
-            </div>
-          </label>
-
-          <!-- フードデリバリー -->
-          <label class="camp-opt" data-camp="delivery">
-            <span class="camp-badge">人気</span>
-            <div class="camp-top">
-              <input type="radio" name="camp" value="delivery">
-              <div>
-                <div class="camp-ttl">フードデリバリー セット<span class="free">サイネージ1台無料</span></div>
-                <div class="camp-desc">「UBER Eats」「menu」「ロケットナウ」へ加盟（無料）いただくと、サイネージ初期導入費が無料に。副収入源を確保しながら、手出し0円でサイネージを設置できます。</div>
-              </div>
-            </div>
-            <div class="camp-detail">
-              <h5>▼ キャンペーン利用に必要な情報</h5>
-              <div class="sub-field">
-                <label>加盟を希望する配達サービス（複数選択可）<span class="opt" style="font-weight:400;">必須</span></label>
-                <div class="chip-row" id="delivSvc">
-                  <label class="chip"><input type="checkbox" value="UBER Eats">UBER Eats</label>
-                  <label class="chip"><input type="checkbox" value="menu">menu</label>
-                  <label class="chip"><input type="checkbox" value="ロケットナウ">ロケットナウ</label>
-                </div>
-              </div>
-              <div class="sub-field">
-                <label>店舗ジャンル（料理カテゴリ）</label>
-                <input type="text" id="delivGenre" placeholder="例：居酒屋／ラーメン／カフェ など">
-              </div>
-              <div class="sub-field">
-                <label>既存のデリバリー加盟状況</label>
-                <select id="delivExisting">
-                  <option value="">選択してください</option>
-                  <option value="未加盟">いずれも未加盟（新規）</option>
-                  <option value="一部加盟済み">一部のサービスに加盟済み</option>
-                </select>
-              </div>
-              <div class="cond-note">※ 配達サービスへの加盟は無料です。加盟手続きは弊社が代理サポートいたします。</div>
-
-              <div style="margin-top:13px;background:#fff8ed;border:1px solid #f0d9b5;border-radius:10px;padding:13px 15px;">
-                <h5 style="margin:0 0 9px;color:#b3701a;">▼ 加盟手続きに必要な情報・書類（事前にご準備ください）</h5>
-                <div style="font-size:12.5px;color:var(--ink-soft);line-height:1.9;">
-                  <b style="color:var(--ink);">【必要情報】</b><br>
-                  ・代表者名（フルネーム）＋カタカナ<br>
-                  ・代表者 生年月日<br>
-                  ・代表者 メールアドレス<br>
-                  ・代表者 電話番号<br>
-                  <br>
-                  <b style="color:var(--ink);">【必要書類】</b><br>
-                  ・営業許可証（※証明証は不可）<br>
-                  ・売上の振込先口座情報（銀行名／支店名／口座番号／口座名義（カタカナのみ）／普通・当座が確認できるもの）<br>
-                  ・商品名 1品以上＋料金（推奨3品）<br>
-                  ・商品写真 1枚以上（推奨3品）<br>
-                  　※他デリバリーサービスの写真を流用する場合は、<b>画像に関する使用同意書</b>が必要です。<br>
-                  　→ <a href="https://drive.google.com/file/d/1LpD2anxYpUUSa4uLhrPM6iHqYpM8rQjj/view?usp=sharing" target="_blank" rel="noopener noreferrer" style="color:var(--brand-d);font-weight:700;">使用同意書はこちら</a>（ご記入のうえ郵送をお願いします）<br>
-                  　<span style="color:var(--ink-faint);">※ ご記入が難しい場合は当社で代筆も可能です。その旨をお知らせください。</span><br>
-                  ・店舗メニュー表の写真（掲載メニューと価格が分かるもの）<br>
-                  　※Uber等の内容を流用する場合は、掲載中メニューの価格が分かるように撮影してください<br>
-                  ・通帳のコピー（ネットバンクの場合は、必要情報が入った画面のスクリーンショット）<br>
-                  ・事業者登録証（法人番号検索サイトの画面スクリーンショットでOK）
-                </div>
-              </div>
-            </div>
-          </label>
-
-          <!-- ヨサンダス -->
-          <label class="camp-opt" data-camp="yosandas">
-            <div class="camp-top">
-              <input type="radio" name="camp" value="yosandas">
-              <div>
-                <div class="camp-ttl">ヨサンダス連携<span class="free">サイネージ1台無料</span></div>
-                <div class="camp-desc">EC共同運営「ヨサンダス」をご利用いただくと、サイネージ1台を無料で導入できます。下記の利用条件をすべて満たす必要があります。</div>
-              </div>
-            </div>
-            <div class="camp-detail">
-              <h5>▼ ヨサンダス利用条件（すべて必須）</h5>
-              <div class="cond-row"><input type="checkbox" id="ycond1"><label for="ycond1">2期目以降の法人である</label></div>
-              <div class="cond-row"><input type="checkbox" id="ycond2"><label for="ycond2">資本金 100万円以上である</label></div>
-              <div class="cond-row"><input type="checkbox" id="ycond3"><label for="ycond3">本則課税である（簡易課税・2割特例ではない）</label></div>
-              <div class="cond-note">※ 課税方式が不明な場合も、まずは資本金をご確認ください。資本金が100万円未満でも増資で条件を満たせる場合があります。詳細は担当者がご案内します。</div>
-              <div class="sub-field">
-                <label>資本金（確認のため）</label>
-                <div class="with-sfx"><input type="number" id="yCapital" min="0" step="10" placeholder="例：100"><span class="sfx">万円</span></div>
-              </div>
-              <div class="sub-field">
-                <label>課税方式（おわかりになる場合）</label>
-                <select id="yTax">
-                  <option value="">不明 / 未確認</option>
-                  <option value="本則課税">本則課税</option>
-                  <option value="簡易課税">簡易課税</option>
-                  <option value="2割特例">2割特例</option>
-                </select>
-              </div>
-            </div>
-          </label>
-
-        </div>
-        <div class="err" id="campErr" style="display:none;">キャンペーン利用に必要な項目をご確認ください</div>
+        <div class="err" id="campErr" style="display:none;">入力内容をご確認ください</div>
       </div>
 
       <div class="card lead">
-        <div class="sec-head"><div class="sec-num">2</div><div><h2>サイネージお申込み内容</h2><p>設置台数に応じて費用を計算します</p></div></div>
+        <div class="sec-head"><div class="sec-num">2</div><div><h2>サイネージお申込み内容</h2><p>設置台数（無償貸与・費用はかかりません）</p></div></div>
         <div class="row">
           <div class="field">
             <label>申込台数<span class="req">必須</span><span class="hint">設置するサイネージの台数</span></label>
@@ -298,7 +179,7 @@
           </div>
           <div class="field">
             <label>サイネージ単価<span class="opt">固定</span></label>
-            <div class="with-sfx"><input type="text" id="unitPrice" value="55,000" readonly><span class="sfx">円/台</span></div>
+            <div class="with-sfx"><input type="text" id="unitPrice" value="0（無償貸与）" readonly><span class="sfx">円/台</span></div>
           </div>
         </div>
         <div class="field">
@@ -315,7 +196,7 @@
           </select>
         </div>
         <div class="field">
-          <label>1店あたり 月間来客数<span class="opt">任意</span><span class="hint">広告副収入の試算に使用</span></label>
+          <label>1店あたり 月間来客数<span class="opt">任意</span><span class="hint">成果報酬の試算に使用（500人以上が対象）</span></label>
           <div class="with-sfx"><input type="number" id="visitors" min="0" step="100" value="3000"><span class="sfx">人</span></div>
         </div>
         <div class="revenue-note" id="revNote"></div>
@@ -354,7 +235,7 @@
 
       <!-- 振込口座 -->
       <div class="card">
-        <div class="sec-head"><div class="sec-num">5</div><div><h2>振込口座</h2><p>広告掲載時の月額報酬（副収入）の振込先</p></div></div>
+        <div class="sec-head"><div class="sec-num">5</div><div><h2>振込口座</h2><p>成果報酬（月末締め・翌月末払い）の振込先</p></div></div>
         <div class="row">
           <div class="field"><label>銀行名<span class="req">必須</span></label><input type="text" id="bank" placeholder="○○銀行"><div class="err" id="bankErr">銀行名を入力してください</div></div>
           <div class="field"><label>支店名<span class="req">必須</span></label><input type="text" id="branch" placeholder="○○支店"><div class="err" id="branchErr">支店名を入力してください</div></div>
@@ -372,10 +253,10 @@
         <div class="terms-box">
           <h4>広告配信代行・サイネージ利用条件</h4>
           本申込は、DigiRep加盟店への参画、サイネージ設置、基本設定、広告配信、必要に応じた素材制作に関する申込です。広告枠は媒体規定の尺、サイネージ全体はループ構成を前提とします。解約は原則2か月前の申告とし、申告がない場合は申込内容で自動更新されます。
-          <h4>広告掲載時の店舗報酬（副収入）</h4>
-          広告主企業が加盟店の設置サイネージに広告を掲載する場合、掲載期間中、店舗には掲載額の10%（本部負担プランは15%）の報酬（副収入）を月末締め翌月支払いでお支払いします（2026年9月改定料金：1広告あたり月¥1,000〜¥2,200/店が目安）。無料導入キャンペーン適用店舗では、最初の1社の広告掲載分は報酬対象外となり、2社目以降から報酬が発生します。長期掲載・複数広告ほど安定した副収入が見込めます。
+          <h4>広告掲載時の店舗報酬（成果報酬）</h4>
+          広告主企業が加盟店の設置サイネージに広告を掲載する場合、当月の配信実績に応じた成果報酬（視聴1回×10円、QR読み取り1件×500円、予約・問い合わせ1件×2,000円／5,000円／10,000円）を、その全額、月末締め翌月末払いでお支払いします（3,000円未満の月は翌月に繰越・明細付き・2026年11月改定）。視聴数は端末の赤外線センサー、QR・予約は店舗専用のQRコード・URLの記録に基づく実数です。店舗関係者による読み取り・虚偽の予約は対象外です。広告主に対する基本料金は当社の運用費であり、分配の対象ではありません。出稿のない月は0円で、収入を約束するものではありません。
           <h4>サイネージの取扱い</h4>
-          加盟店の責任でサイネージが破損し継続利用を希望する場合は、再購入金額を申し受けます。制作・運用開始後の仕様変更は協議のうえ対応し、投稿動画の再更新は原則禁止、必要な場合は別途20,000円の更新費が発生します。
+          端末は当社の所有物を無償で貸与するもので、契約終了時にはご返送をお願いします。故意・重大な過失による破損・紛失は実費（修理費または再調達価格）を申し受けます。制作・運用開始後の仕様変更は協議のうえ対応し、投稿動画の再更新は原則禁止、必要な場合は別途20,000円の更新費が発生します。
           <h4>基本契約条項</h4>
           両当事者は、業務遂行に必要な協力、秘密情報・個人情報の適切な管理を行います。納品物は稼働可能な状態で納品し、受領後30日以内に異議がない場合は検収完了とします。権利義務の譲渡は禁止。契約違反・反社会的勢力該当等は解除事由となります。
           <h4>準拠法・管轄</h4>
@@ -392,12 +273,12 @@
       <div class="card">
         <div class="side-head">
           <h3>お申込み金額（税別）</h3>
-          <div class="amt" id="sideAmt">¥55,000</div>
-          <div class="note" id="sideNote">サイネージ設置費用</div>
+          <div class="amt" id="sideAmt">¥0</div>
+          <div class="note" id="sideNote">無償貸与｜端末代・設置費0円</div>
         </div>
         <div class="side-body">
           <div id="sideRows"></div>
-          <div class="side-total"><span class="k">合計（税別）</span><span class="v" id="sideTotal">¥55,000</span></div>
+          <div class="side-total"><span class="k">合計（税別）</span><span class="v" id="sideTotal">¥0</span></div>
           <div class="side-foot">※ 表示金額は税別です。別途消費税を申し受けます。</div>
           <div class="btn-row">
             <button type="button" class="btn btn-soft" id="quoteBtn" style="flex:1;">見積書</button>
@@ -443,15 +324,16 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const UNIT_PRICE = 55000;               // サイネージ単価/台
+const UNIT_PRICE = 0;                   // 2026-11改定：端末は無償貸与
 const STORE_SHARE_3M = 5000;            // 3ヶ月掲載時の店舗月額報酬の目安/枠（参考フォーム準拠）
 const $ = id => document.getElementById(id);
 const yen = n => '¥' + Math.round(n).toLocaleString();
 const num = n => Math.round(n).toLocaleString();
 
-const TOILET_TIERS = [ {max:1500,price:10000},{max:2500,price:11000},{max:3500,price:16000},{max:Infinity,price:22000} ]; // 2026-09改定
+const TOILET_TIERS = [ {key:'S',max:2000,price:5000},{key:'M',max:4000,price:7000},{key:'L',max:6000,price:9000},{key:'XL',max:Infinity,price:12000} ]; // 2026-11改定：基本料金（1面・月額・税別）
 const CAMP_LABEL = {
   free2026:'無料導入キャンペーン（飲食店・個人店／サイネージ無料）',
+  loan:'無償貸与（2026年11月〜・全店共通）',
   none:'通常導入（キャンペーンなし）',
   delivery:'フードデリバリー セット（サイネージ無料）',
   yosandas:'ヨサンダス連携（サイネージ1台無料）'
@@ -496,7 +378,9 @@ function syncCampUI(){
 function compute(){
   const r=calc();
   $('sideAmt').textContent=yen(r.total);
-  if(r.camp==='none'){
+  if(r.camp==='loan'){
+    $('sideNote').textContent=`無償貸与｜${r.units}台（端末代・設置費0円）`;
+  } else if(r.camp==='none'){
     $('sideNote').textContent=`サイネージ ${r.units}台 設置費用`;
   } else if(r.camp==='free2026'){
     $('sideNote').textContent=`無料導入キャンペーン適用｜${r.units}台無料（審査あり）`;
@@ -506,8 +390,7 @@ function compute(){
     $('sideNote').textContent=`ヨサンダス連携適用｜1台無料`;
   }
   let rows = `<div class="side-row"><span class="k">申込台数</span><span class="v">${num(r.units)} 台</span></div>`
-    + `<div class="side-row"><span class="k">サイネージ単価</span><span class="v">${yen(UNIT_PRICE)} / 台</span></div>`
-    + `<div class="side-row"><span class="k">設置費用</span><span class="v">${yen(r.fee)}</span></div>`;
+    + `<div class="side-row"><span class="k">端末代・設置費</span><span class="v">¥0（無償貸与）</span></div>`;
   if(r.discount>0){
     const label = r.camp==='free2026' ? '無料導入キャンペーン（全台無料）' : (r.camp==='delivery' ? 'フードデリバリー特典（1台無料）' : 'ヨサンダス特典（1台無料）');
     rows += `<div class="side-row"><span class="k">${label}</span><span class="v" style="color:var(--green);font-weight:700;">-${yen(r.discount)}</span></div>`;
@@ -515,14 +398,16 @@ function compute(){
   $('sideRows').innerHTML = rows;
   $('sideTotal').textContent=yen(r.total);
 
-  // 広告掲載時の副収入の目安
+  // 成果報酬の目安（広告主1社・1面・月）
   const visitors=Math.max(0,+$('visitors').value||0);
-  const views = visitors*0.70*0.78;                                   // 視聴数＝来客×トイレ利用率70%×個室利用率78%
-  const tier = TOILET_TIERS.find(t=>visitors<=t.max)||TOILET_TIERS[3];   // 来店規模で決まる固定月額（2026-09改定）
-  const adRevPerStore = tier.price;
-  const storeIncome = Math.round(adRevPerStore*0.10);
-  $('revNote').innerHTML = `💰 <b>広告掲載時の副収入の目安：1広告あたり 月 ${yen(storeIncome)}</b>（広告数ぶん積み増し）<br>`+
-    `来客 ${num(visitors)}人/月 のとき、想定視聴数 約${num(views)}回／月・広告料金 ${yen(adRevPerStore)}/店（2026年9月改定料金）。掲載額の10%が店舗様の副収入になります（無料導入の場合は2社目から。本部負担プランは15%）。`;
+  const views = Math.round(visitors*0.546);                             // 視聴の目安＝来客×54.6%（自社調査。実績はセンサーの実数）
+  const qr = Math.round(views*0.015), bk = Math.round(views*0.002);       // QR読み取り率1.5%・予約率0.2%の前提
+  const income = views*10 + qr*500 + bk*2000;
+  const tier = TOILET_TIERS.find(t=>visitors<=t.max)||TOILET_TIERS[3];
+  $('revNote').innerHTML = visitors<500
+    ? `⚠️ 月間来客500人以上の店舗が対象です。`
+    : `💰 <b>成果報酬の目安：広告主1社あたり 月 ${yen(income)}</b>（視聴 ${num(views)}回×10円 ＋ QR ${num(qr)}件×500円 ＋ 予約 ${num(bk)}件×2,000円の計算例・広告主数ぶん積み増し）<br>`+
+      `来客 ${num(visitors)}人/月 のとき、広告主の基本料金は ${tier.key}プラン ${yen(tier.price)}/面（当社の運用費・分配対象外）。成果報酬は全額店舗さまに。出稿のない月は0円で、収入を約束するものではありません。`;
   syncCampUI();
   return r;
 }
@@ -565,14 +450,14 @@ function quoteHtml(d){
     <h2>御 見 積 書</h2>
     <div class="doc-meta">見積日：${today}<br>見積番号：QS-${Date.now().toString().slice(-8)}</div>
     <p><b>${d.store.company||'（会社名・店舗名）'}</b> 御中</p>
-    <p>サイネージ設置に関し、下記のとおりお見積り申し上げます。</p>
+    <p>サイネージ端末の貸与・設置に関し、下記のとおりお見積り申し上げます（端末代・設置費はかかりません）。</p>
     <div class="doc-sec">お見積り内容</div>
     <table>
-      <tr><th>品目</th><td>DigiRep サイネージ 設置（基本設定込み）</td></tr>
+      <tr><th>品目</th><td>DigiRep サイネージ端末 無償貸与（基本設定・設置キット込み・郵送）</td></tr>
       <tr><th>適用プラン</th><td>${d.campaign.label}</td></tr>
       <tr><th>申込台数</th><td>${num(o.units)} 台</td></tr>
-      <tr><th>単価（税別）</th><td>${yen(o.unitPrice)} / 台</td></tr>
-      <tr><th>設置費用（税別）</th><td>${yen(o.fee)}</td></tr>
+      <tr><th>単価（税別）</th><td>¥0 / 台（無償貸与）</td></tr>
+      <tr><th>端末代・設置費（税別）</th><td>¥0</td></tr>
       ${o.discount>0?`<tr><th>${d.campaign.type==='free2026'?'無料導入キャンペーン（全台無料）':(d.campaign.type==='delivery'?'フードデリバリーセット特典':'ヨサンダス連携特典（1台無料）')}</th><td>-${yen(o.discount)}</td></tr>`:''}
       <tr><th>小計（税別）</th><td>${yen(o.total)}</td></tr>
       <tr><th>消費税（10%）</th><td>${yen(tax)}</td></tr>
@@ -581,7 +466,7 @@ function quoteHtml(d){
     ${d.campaign.type!=='none'?`<p style="font-size:11.5px;color:var(--green);font-weight:700;">★ ${d.campaign.label} の適用により、サイネージ費用が${o.total===0?'無料':'割引'}になっています。</p>`:''}
     <div class="doc-sec">備考</div>
     <p>${o.memo? o.memo.replace(/</g,'&lt;'):'—'}</p>
-    <p style="font-size:11px;color:#8a98ad;">※ 広告掲載時には、掲載額に応じた月額報酬（副収入）を別途お支払いします。表示金額は税別です。</p>
+    <p style="font-size:11px;color:#8a98ad;">※ 広告掲載時には、配信実績に応じた成果報酬（視聴・QR・予約）を全額お支払いします（月末締め・翌月末払い）。</p>
     <div class="sign"><div class="box">発行：DigiRep株式会社<br>担当：＿＿＿＿＿＿</div><div class="box">御社ご確認印：</div></div>
   </div>`;
 }
@@ -593,24 +478,24 @@ function contractHtml(d){
     <p>加盟店（以下「甲」）<b>${d.store.company||'（会社名・店舗名）'}</b> と DigiRep株式会社（以下「乙」）は、サイネージ設置および広告配信加盟に関し、以下のとおり契約を締結する。</p>
     <div class="doc-sec">第1条（設置内容）</div>
     <table>
-      <tr><th>設置サイネージ</th><td>${num(o.units)} 台（基本設定込み）</td></tr>
+      <tr><th>貸与サイネージ端末</th><td>${num(o.units)} 台（基本設定・設置キット込み・乙が郵送し甲が設置）</td></tr>
       <tr><th>設置媒体タイプ</th><td>${({toilet:'飲食店・個室トイレ',laundry:'コインランドリー',hotel:'ホテル',other:'その他'})[d.store.storeType]||'-'}</td></tr>
-      <tr><th>設置費用（税別）</th><td>${yen(o.fee)}（${yen(o.unitPrice)} × ${num(o.units)}台）</td></tr>
-      <tr><th>適用キャンペーン</th><td>${d.campaign.label}</td></tr>
+      <tr><th>端末代・設置費</th><td>¥0（無償貸与・所有権は乙・貸与期間3年）</td></tr>
+      <tr><th>適用条件</th><td>${d.campaign.label}</td></tr>
       ${o.discount>0?`<tr><th>特典による減額</th><td>-${yen(o.discount)}</td></tr>`:''}
       <tr><th>甲の負担額（税別）</th><td><b>${yen(o.total)}</b></td></tr>
     </table>
     <div class="doc-sec">第2条（費用・支払い）</div>
-    <p>甲は乙に対し、前条の甲の負担額を乙の定める方法（Stripeによる電子決済等）により支払う。表示金額は税別とし、別途消費税を申し受ける。${o.total===0?'本契約は無料導入キャンペーンの適用により、甲のサイネージ費用負担は生じない。':''}</p>
+    <p>甲は乙に対し、前条の甲の負担額を乙の定める方法（Stripeによる電子決済等）により支払う。表示金額は税別とし、別途消費税を申し受ける。${o.total===0?'本契約においてサイネージ端末は乙が甲に無償で貸与するものとし（所有権は乙・貸与期間3年・故意または重大な過失による破損は実費）、甲の端末費用の負担は生じない。':''}</p>
     ${d.campaign.type==='free2026'?`<div class="doc-sec">第2条の2（無料導入キャンペーン）</div><p>乙は、無料導入キャンペーン（2026年9月〜・飲食店の個人店対象・審査あり）の適用により、甲に対しサイネージ本体・設置・基本設定を無償で提供する。無料導入分については、最初に掲載する広告主1社の広告掲載に係る第3条の報酬は発生せず、2社目以降の掲載から報酬を支払う。</p>`:''}
     ${d.campaign.type==='delivery'?`<div class="doc-sec">第2条の2（フードデリバリーセット特典）</div><p>乙は甲のフードデリバリーサービス（${(d.campaign.delivery.services||[]).join('・')||'指定サービス'}）への加盟を代理サポートし、これに伴う代理店報酬をサイネージ費用に充当することで、甲のサイネージ費用負担を無料とする。甲は本特典の適用にあたり、加盟手続きに必要な協力を行うものとする。</p>`:''}
     ${d.campaign.type==='yosandas'?`<div class="doc-sec">第2条の2（ヨサンダス連携特典）</div><p>乙は甲のヨサンダス（EC共同運営）利用を仲介し、これに伴う代理店報酬をサイネージ費用に充当することで、サイネージ1台分を無料とする。本特典は、甲が「2期目以降の法人」「資本金100万円以上」「本則課税（簡易課税・2割特例でないこと）」のすべての条件を満たす場合に限り適用される。</p>`:''}
     <div class="doc-sec">第3条（広告掲載時の報酬）</div>
-    <p>乙が甲の設置サイネージに広告主企業の広告を掲載する場合、乙は甲に対し、掲載額の10%（本部負担プランの場合は15%）の報酬を月末締め翌月支払いで支払う。報酬は甲の指定口座（本契約記載）に振り込む。</p>
+    <p>乙が甲の設置サイネージに広告主企業の広告を掲載する場合、乙は甲に対し、当月の配信実績に応じた成果報酬（視聴1回につき10円、二次元コード読み取り1件につき500円、予約・問い合わせ1件につき広告主との契約で定める区分により2,000円／5,000円／10,000円）の全額を、月末締め翌月末払いで甲の指定口座に支払う（振込手数料は甲の負担。当月3,000円未満は翌月以降に繰越）。視聴数は端末のセンサー記録、二次元コード読み取り数および予約・問い合わせ数は乙が発行する店舗別の二次元コードおよびURLの記録に基づく実数とし、乙は毎月明細を甲に送付する。甲または甲の関係者による読み取り・予約、取り消された予約、広告主から入金のない広告に係る実績は対象外とする。広告主が乙に支払う基本料金は乙の運用費であり、分配の対象としない。成果報酬は広告の掲載がない月には発生せず、将来にわたり保証されるものではない。</p>
     <div class="doc-sec">第4条（更新・解約）</div>
     <p>解約は原則2か月前の申告とし、申告がない場合は本契約は同条件で自動更新される。</p>
     <div class="doc-sec">第5条（サイネージの取扱い）</div>
-    <p>甲の責任による破損で継続利用を希望する場合、甲は再購入金額を支払う。投稿動画の再更新は原則禁止とし、必要な場合は別途20,000円の更新費が発生する。</p>
+    <p>端末の所有権は乙に帰属し、甲は善良な管理者の注意をもって管理する。甲または甲の関係者の故意もしくは重大な過失による破損・紛失は甲が実費（修理費または再調達価格）を負担し、通常の故障は乙が無償で修理または交換する。契約終了時、甲は端末を乙の指定する方法で返送する。投稿動画の再更新は原則禁止とし、必要な場合は別途20,000円の更新費が発生する。</p>
     <div class="doc-sec">第6条（準拠法・管轄）</div>
     <p>本契約は日本法に準拠し、紛争は東京地方裁判所を第一審の専属的合意管轄裁判所とする。</p>
     <div class="sign">

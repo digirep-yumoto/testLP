@@ -151,7 +151,7 @@ export function PackageCheckForm() {
                   <tr className="bg-[#fff4e8] text-[#e8590c]"><td className="font-black">最終お手出し（交流会開催時）</td><td className="text-lg">0円</td></tr>
                 </tbody></table>
               </div>
-              <p className="mt-2 text-xs text-ink-soft">税込。フル受講・先払い型。別途サイネージ設置費6万円（1台・税込{b.stores !== "1店舗" ? "・店舗数分" : ""}）。研修費の値引き・返金ではありません。</p>
+              <p className="mt-2 text-xs text-ink-soft">税込。フル受講・先払い型。サイネージ端末は無償貸与（設置費なし{b.stores !== "1店舗" ? "・店舗数分" : ""}）。協力金は研修費の値引き・返金ではなく、ご協力への対価です。</p>
             </div>
           )}
 

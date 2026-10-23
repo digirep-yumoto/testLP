@@ -57,8 +57,8 @@ export function StoreOwner() {
 
           <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]">
             <div className="border-b border-white/10 px-6 py-4">
-              <h3 className="text-base font-bold text-white">店舗の副収入シミュレーション</h3>
-              <p className="mt-0.5 text-xs text-white/55">負担ゼロのまま、来客・個室面数が多いほど還元額UP</p>
+              <h3 className="text-base font-bold text-white">店舗の成果報酬シミュレーション</h3>
+              <p className="mt-0.5 text-xs text-white/55">負担ゼロのまま、来客・広告主が多いほど増える（例：広告主1社・1面）</p>
             </div>
             <table className="w-full text-sm">
               <thead>
@@ -66,7 +66,7 @@ export function StoreOwner() {
                   <th className="px-6 py-2.5 font-medium">店舗タイプ</th>
                   <th className="px-2 py-2.5 font-medium">面数</th>
                   <th className="px-2 py-2.5 font-medium">来客</th>
-                  <th className="px-6 py-2.5 text-right font-medium">月の還元</th>
+                  <th className="px-6 py-2.5 text-right font-medium">月の成果報酬（例）</th>
                 </tr>
               </thead>
               <tbody>
@@ -129,7 +129,7 @@ export function StoreOwner() {
             <ArrowRight className="size-5" />
           </a>
           <p className="mt-3 text-xs text-white/55">
-            運用・配信・保守・動画制作はすべて当社負担。本体導入費は無料導入キャンペーン（飲食店・個人店、審査あり）で0円。チェーンは本部負担プランほかをご案内、通常導入は¥55,000／台（税別・お申込みベース）。
+            運用・配信・保守・動画制作はすべて当社負担。端末は無償貸与（所有権は当社・契約3年）で、契約後に端末と設置キットを郵送します。個人店もチェーンも同じ条件です。
           </p>
         </div>
       </div>
