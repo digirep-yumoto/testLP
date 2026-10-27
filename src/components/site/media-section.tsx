@@ -50,7 +50,7 @@ export function MediaSection({ media, index }: { media: Media; index: number }) 
             <p className="mt-3 text-base leading-[1.95] text-ink-soft">{media.lead}</p>
 
             <a
-              href="#contact"
+              href="/#contact"
               className={cn(
                 "mt-7 inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-bold text-white shadow-sm transition-all hover:opacity-90 active:translate-y-px",
                 a.bg,
