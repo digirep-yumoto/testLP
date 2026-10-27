@@ -193,7 +193,7 @@ export function LaundrySurveyForm({ source, preview }: { source: string; preview
                     <span className="text-sm font-bold text-ink">メールアドレス</span>
                     <input type="email" inputMode="email" autoComplete="email" autoCapitalize="off" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="example@mail.com"
                       className="mt-1 w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base text-ink outline-none focus:border-brand" />
-                    <span className="mt-1 block text-xs text-ink-soft">当選のご連絡とギフトカードの送付だけに使います。広告メールは送りません。</span>
+                    <span className="mt-1 block text-xs text-ink-soft">当選のご連絡とギフトカードの送付だけに使います。当選された方のメールアドレスは、景品の提供元である{survey.sponsor}に共有し、同社から当選のご連絡とギフトカードをお送りします。広告メールは送りません。</span>
                   </label>
                 )}
               </div>
@@ -202,7 +202,7 @@ export function LaundrySurveyForm({ source, preview }: { source: string; preview
                 <ul className="mt-2 list-disc space-y-1 pl-4">
                   <li>このアンケートは {survey.organizer} が実施します。</li>
                   <li>回答は、個人がわからない形にまとめた集計結果として、{survey.partner}の運営会社および店内モニターの運営会社と共有し、サービスの改善と店内でお届けする情報の検討に使います。</li>
-                  <li>メールアドレスは抽選と当選のご連絡だけに使い、ほかの会社には渡しません。抽選とプレゼントの送付が終わりしだい削除します。</li>
+                  <li>メールアドレスは抽選と当選のご連絡だけに使います。当選された方のメールアドレスは、景品の提供元である {survey.sponsor} に当選のご連絡とギフトカードの送付のためだけに共有し、それ以外の会社には渡しません。送付が終わりしだい両社で削除します。</li>
                   <li>プレゼントは {survey.sponsor} の提供です。</li>
                   <li>くわしくは <a href="/privacy" target="_blank" rel="noopener" className="font-bold text-brand underline">プライバシーポリシー</a> をご覧ください。</li>
                 </ul>
@@ -233,7 +233,7 @@ export function LaundrySurveyForm({ source, preview }: { source: string; preview
           <p className="text-5xl">🎉</p>
           <h2 className="font-sans mt-3 text-2xl font-black text-ink">ありがとうございました！</h2>
           <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-            ご回答を受け付けました。{wantsPrize ? `抽選の結果は、当選された方へメールでお知らせします（${survey.closeLabel}のしめきり後に抽選します）。` : "いただいた声は、サービスの改善に役立てます。"}
+            ご回答を受け付けました。{wantsPrize ? `抽選の結果は、当選された方へ${survey.sponsor}からのメールでお知らせします（${survey.closeLabel}のしめきり後に抽選します）。` : "いただいた声は、サービスの改善に役立てます。"}
           </p>
           <p className="mt-4 rounded-xl bg-paper px-4 py-3 text-sm font-bold text-ink">洗濯が終わるまで、ごゆっくりお過ごしください。</p>
         </Card>
