@@ -31,7 +31,7 @@ const diagnosisFrameAncestors =
 const diagnosisCsp = csp.replace("frame-ancestors 'none'", `frame-ancestors ${diagnosisFrameAncestors}`);
 
 // 採用支援事業サイト（saiyo.digirep.work / ローカルは saiyo.localhost）用の CSP
-const SAIYO_HOST = "saiyo\\.(digirep\\.work|localhost)";
+const SAIYO_HOST = "saiyo\\.(?<tld>digirep\\.work|localhost)";
 const saiyoCsp = csp
   .replace("style-src 'self' 'unsafe-inline'", "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com")
   .replace("font-src 'self' data:", "font-src 'self' data: https://fonts.gstatic.com")
