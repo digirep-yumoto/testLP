@@ -26,8 +26,13 @@ const isEmail = (v: string) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v);
 function leadCsv(p: Record<string, string>, diag: string): string {
   const pick = (re: RegExp) => (diag.match(re)?.[1] || "").trim();
   const lay = diag.match(/中身 (\d+)／見え方 (\d+)／動かし方 (\d+)/);
-  const cols = ["受付日時", "ご用件", "会社名", "担当者", "電話", "メール", "業種", "ターゲット", "診断タイプ", "中身", "見え方", "動かし方", "離脱ポイント", "送信元ページ", "メモ"];
-  const row = [p.at, p.purpose, p.company, p.name, p.tel, p.email, pick(/業種：([^／\n]+)/), pick(/ターゲット：([^\n]+)/), pick(/タイプ：([^\n]+)/), lay?.[1] || "", lay?.[2] || "", lay?.[3] || "", pick(/離脱ポイント：([^\n]+)/), (p.message.match(/送信元ページ：([^\n]+)/)?.[1] || "").trim(), p.message.replace(/\n/g, " ／ ")];
+  // 列は営業管理システム（MCC_営業管理システム）の「CSV取込」テンプレートと同じ並び
+  const cols = ["会社名", "電話", "業種", "従業員数", "所在地", "担当者", "メール", "URL", "掲載媒体", "募集職種", "メモ"];
+  const target = pick(/ターゲット：([^\n]+)/), type = pick(/タイプ：([^\n]+)/), leak = pick(/離脱ポイント：([^\n]+)/);
+  const from = (p.message.match(/送信元ページ：([^\n]+)/)?.[1] || "").trim();
+  const rest = p.message.replace(/送信元ページ：[^\n]*\n?/, "").replace(/\n/g, " ／ ").replace(/\s*／\s*$/, "").trim();
+  const memo = [`受付 ${p.at.slice(0, 16).replace("T", " ")}`, p.purpose, target && `採用したい人：${target}`, type && `診断タイプ：${type}`, lay && `中身${lay[1]}／見え方${lay[2]}／動かし方${lay[3]}`, leak && `離脱：${leak}`, from && `送信元 ${from}`, rest].filter(Boolean).join("　");
+  const row = [p.company, p.tel, pick(/業種：([^／\n]+)/).replace(/の平均$/, ""), "", "", p.name, p.email, "", "HP問い合わせ", "", memo];
   const q = (v: string) => `"${String(v ?? "").replace(/"/g, '""')}"`;
   return "\uFEFF" + [cols, row].map((r) => r.map(q).join(",")).join("\r\n") + "\r\n";
 }
@@ -84,7 +89,7 @@ export async function POST(request: Request) {
           to: [to],
           reply_to: email,
           subject: `${purpose.startsWith("採用支援") ? "【採用の顔】" : "【お問い合わせ】"}${purpose || "お問い合わせ"}／${company || name} 様`,
-          text: `ご用件: ${purpose}\n会社名: ${company}\n氏名: ${name}\nメール: ${email}\n電話: ${tel}\n興味のある媒体: ${media}\n\n${message}` + (diag ? `\n\n【かんたん採用スター診断の結果】\n${diag}` : "") + (purpose.startsWith("採用支援") ? "\n\n※添付のCSVは、営業管理システム（顧客リスト）への取込用です。" : ""),
+          text: `ご用件: ${purpose}\n会社名: ${company}\n氏名: ${name}\nメール: ${email}\n電話: ${tel}\n興味のある媒体: ${media}\n\n${message}` + (diag ? `\n\n【かんたん採用スター診断の結果】\n${diag}` : "") + (purpose.startsWith("採用支援") ? "\n\n※添付のCSVは、営業管理システムの「CSV取込」にそのまま読み込める形式です（顧客リストに追加されます）。" : ""),
           ...(purpose.startsWith("採用支援") ? { attachments: [{ filename: `lead_${payload.at.slice(0, 10)}_${(company || name).replace(/[\\/:*?"<>|\s]+/g, "_").slice(0, 30)}.csv`, content: Buffer.from(leadCsv(payload, diag)).toString("base64") }] } : {}),
         }),
       });
