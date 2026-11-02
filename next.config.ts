@@ -24,6 +24,12 @@ const csp = [
   "upgrade-insecure-requests",
 ].join("; ");
 
+// 採用支援事業（採用の顔）のHP（STUDIO）に iframe で埋め込む「採用スター診断」だけは、
+// 埋め込み元を限定したうえで frame 表示を許可する（それ以外のページは従来どおり frame-ancestors 'none'）。
+const diagnosisFrameAncestors =
+  "https://mycareerconsultant.jp https://*.mycareerconsultant.jp https://*.digirep.work https://*.studio.site https://app.studio.design";
+const diagnosisCsp = csp.replace("frame-ancestors 'none'", `frame-ancestors ${diagnosisFrameAncestors}`);
+
 const securityHeaders = [
   { key: "Content-Security-Policy", value: csp },
   {
@@ -72,6 +78,16 @@ const nextConfig: NextConfig = {
       {
         source: "/:path*",
         headers: securityHeaders,
+      },
+      {
+        // 採用スター診断（STUDIOのHPに埋め込む）: frame-ancestors で埋め込み元を限定して許可。
+        // 同じキーは後のルールが優先される（X-Frame-Options は CSP の frame-ancestors がある場合は無視される）。
+        source: "/saiyo-diagnosis/:path*",
+        headers: [
+          { key: "Content-Security-Policy", value: diagnosisCsp },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "X-Robots-Tag", value: "noindex" },
+        ],
       },
       {
         // API はキャッシュ・インデックス禁止
