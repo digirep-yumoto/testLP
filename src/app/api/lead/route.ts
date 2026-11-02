@@ -72,7 +72,7 @@ export async function POST(request: Request) {
           from: process.env.LEAD_FROM_EMAIL || "DigiRep <onboarding@resend.dev>",
           to: [to],
           reply_to: email,
-          subject: `【お問い合わせ】${purpose || "お問い合わせ"}／${company || name} 様`,
+          subject: `${purpose.startsWith("採用支援") ? "【採用の顔】" : "【お問い合わせ】"}${purpose || "お問い合わせ"}／${company || name} 様`,
           text: `ご用件: ${purpose}\n会社名: ${company}\n氏名: ${name}\nメール: ${email}\n電話: ${tel}\n興味のある媒体: ${media}\n\n${message}`,
         }),
       });
@@ -88,6 +88,7 @@ export async function POST(request: Request) {
       const esc = (v: string) =>
         v.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c] as string));
       const isPackage = purpose.startsWith("助成金パッケージ");
+      const isSaiyo = purpose.startsWith("採用支援");
       const isLaundry = media.includes("ランドリー");
       const isToilet = media.includes("トイレ");
       const mediaLine = isLaundry
@@ -176,6 +177,33 @@ export async function POST(request: Request) {
         `▼ ${ctaLabel}\n${ctaHref}\n\n` +
         `▼ 媒体資料・料金\n${site}/#docs\n▼ お役立ち記事\n${site}/blog\n\n` +
         `── DigiRep（デジレップ株式会社）\n埼玉県新座市畑中1-13-16\n本メールにご返信いただければ担当が確認いたします。`;
+      const saiyoSite = "https://saiyo.digirep.work";
+      const saiyoHtml =
+        `<div style="font-family:-apple-system,'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;max-width:600px;margin:0 auto;color:#1c2333;line-height:1.75;">` +
+        `<div style="background:#0f1f3d;padding:20px 24px;border-radius:12px 12px 0 0;"><span style="color:#fff;font-size:18px;font-weight:800;">採用の顔・新卒ダイレクト</span><span style="color:#ffb48f;font-size:12px;margin-left:10px;">デジレップ株式会社 採用支援事業</span></div>` +
+        `<div style="border:1px solid #e5e9f0;border-top:none;border-radius:0 0 12px 12px;padding:24px;">` +
+        `<p style="margin:0 0 14px;">${greet}</p>` +
+        `<p style="margin:0 0 16px;">お申込み・お問い合わせをありがとうございます。担当の湯本より<strong>1営業日以内</strong>に、ご希望の日時の確認のご連絡を差し上げます。</p>` +
+        `<div style="background:#fff5ee;border-radius:10px;padding:16px 18px;margin:0 0 20px;"><p style="margin:0 0 10px;font-weight:700;color:#e8622c;">無料の採用診断（Web30分）でお渡しするもの</p>` +
+        `<p style="margin:0 0 6px;">① 御社の求人票・採用ページを見て、<strong>改善点を3つ</strong></p>` +
+        `<p style="margin:0 0 6px;">② 御社の<strong>採用キャッチコピー案を1つ</strong></p>` +
+        `<p style="margin:0;">③ 採用の顔・新卒ダイレクトが<strong>向いているかどうか</strong>（向いていなければ、そうお伝えします）</p></div>` +
+        `<div style="border-left:4px solid #e8622c;padding:2px 0 2px 14px;margin:0 0 22px;"><p style="margin:0 0 8px;font-weight:700;">当日までにあると早いもの</p>` +
+        `<p style="margin:0 0 4px;">・いまの求人票（URLまたは原稿）</p><p style="margin:0 0 4px;">・採用ページ・会社ホームページのURL</p><p style="margin:0;">・直近1年の応募数・採用数（分かる範囲で）</p></div>` +
+        `<p style="margin:0 0 10px;font-weight:700;">先に見ておきたい方へ</p>` +
+        `<p style="margin:0 0 5px;">📄 <a href="${saiyoSite}/service" style="color:#e8622c;">採用の顔（採用コンテンツ一式・88万円〜）</a></p>` +
+        `<p style="margin:0 0 5px;">🎓 <a href="${saiyoSite}/service/direct" style="color:#e8622c;">新卒ダイレクト（内定承諾を人数で保証）</a></p>` +
+        `<p style="margin:0 0 5px;">⭐ <a href="${saiyoSite}/diagnosis/check" style="color:#e8622c;">かんたん採用スター診断（無料・約5分）</a></p>` +
+        `<hr style="border:none;border-top:1px solid #e5e9f0;margin:22px 0 14px;">` +
+        `<p style="margin:0;font-size:12px;color:#8a98ad;">デジレップ株式会社 採用支援事業｜〒352-0003 埼玉県新座市畑中1-13-16｜TEL 080-5527-1689（平日9:00〜19:00）<br>本メールにご返信いただければ担当が確認いたします。</p>` +
+        `</div></div>`;
+      const saiyoText =
+        `${company ? company + "　" : ""}${name} 様\n\n` +
+        `お申込み・お問い合わせをありがとうございます。\n担当の湯本より1営業日以内に、ご希望の日時の確認のご連絡を差し上げます。\n\n` +
+        `【無料の採用診断（Web30分）でお渡しするもの】\n① 求人票・採用ページの改善点3つ\n② 採用キャッチコピー案1つ\n③ 採用の顔・新卒ダイレクトが向いているかどうか\n\n` +
+        `【当日までにあると早いもの】\n・いまの求人票（URLまたは原稿）\n・採用ページ・会社ホームページのURL\n・直近1年の応募数・採用数（分かる範囲で）\n\n` +
+        `▼ 採用の顔\n${saiyoSite}/service\n▼ 新卒ダイレクト\n${saiyoSite}/service/direct\n▼ かんたん採用スター診断（無料）\n${saiyoSite}/diagnosis/check\n\n` +
+        `── デジレップ株式会社 採用支援事業\n〒352-0003 埼玉県新座市畑中1-13-16｜TEL 080-5527-1689\n本メールにご返信いただければ担当が確認いたします。`;
       await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: { Authorization: `Bearer ${resendKey}`, "Content-Type": "application/json" },
@@ -183,9 +211,9 @@ export async function POST(request: Request) {
           from: process.env.LEAD_FROM_EMAIL || "DigiRep <onboarding@resend.dev>",
           to: [email],
           reply_to: to,
-          subject: isPackage ? "【デジレップ】ミーティングのご希望ありがとうございます" : "【DigiRep】お問い合わせありがとうございます｜資料と“次の一歩”のご案内",
-          html: isPackage ? pkgHtml : html,
-          text: isPackage ? pkgText : text,
+          subject: isSaiyo ? "【採用の顔】お申込みありがとうございます｜無料採用診断のご案内" : isPackage ? "【デジレップ】ミーティングのご希望ありがとうございます" : "【DigiRep】お問い合わせありがとうございます｜資料と“次の一歩”のご案内",
+          html: isSaiyo ? saiyoHtml : isPackage ? pkgHtml : html,
+          text: isSaiyo ? saiyoText : isPackage ? pkgText : text,
         }),
       });
     } catch {
@@ -199,7 +227,7 @@ export async function POST(request: Request) {
   // Brevo（ステップメール自動化）へリードを自動登録。BREVO_API_KEY と BREVO_LIST_ID 設定時のみ・非ブロッキング。
   const brevoKey = process.env.BREVO_API_KEY;
   const brevoList = process.env.BREVO_LIST_ID;
-  if (brevoKey && brevoList) {
+  if (brevoKey && brevoList && !purpose.startsWith("採用支援")) {
     try {
       await fetch("https://api.brevo.com/v3/contacts", {
         method: "POST",

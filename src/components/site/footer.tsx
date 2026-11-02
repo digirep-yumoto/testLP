@@ -23,6 +23,7 @@ const navGroups = [
       { href: "/package", label: "助成金で集客パッケージ（店舗様）" },
       { href: `mailto:${company.email}`, label: "お問い合わせ" },
       { href: "/company", label: "会社概要" },
+      { href: "https://saiyo.digirep.work/", label: "採用支援事業（採用の顔・新卒ダイレクト）↗" },
     ],
   },
 ];

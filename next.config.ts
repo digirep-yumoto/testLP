@@ -30,6 +30,13 @@ const diagnosisFrameAncestors =
   "https://mycareerconsultant.jp https://*.mycareerconsultant.jp https://*.digirep.work https://*.studio.site https://app.studio.design";
 const diagnosisCsp = csp.replace("frame-ancestors 'none'", `frame-ancestors ${diagnosisFrameAncestors}`);
 
+// 採用支援事業サイト（saiyo.digirep.work / ローカルは saiyo.localhost）用の CSP
+const SAIYO_HOST = "saiyo\\.(digirep\\.work|localhost)";
+const saiyoCsp = csp
+  .replace("style-src 'self' 'unsafe-inline'", "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com")
+  .replace("font-src 'self' data:", "font-src 'self' data: https://fonts.gstatic.com")
+  .replace("frame-src https://js.stripe.com", "frame-src https://www.google.com https://js.stripe.com");
+
 const securityHeaders = [
   { key: "Content-Security-Policy", value: csp },
   {
@@ -53,6 +60,8 @@ const nextConfig: NextConfig = {
   poweredByHeader: false, // X-Powered-By を隠す
   // 旧WordPressサイトのURL → 新サイトへの301リダイレクト（検索結果の旧リンク対策）
   async redirects() {
+    // 旧WordPressのURL転送は digirep.work だけに適用する（採用支援サイトの /contact /faq などは転送しない）
+    const notSaiyo = { missing: [{ type: "host" as const, value: SAIYO_HOST }] };
     return [
       // ランドリーご利用者アンケートの短いURL（チラシ・モニター・LINEのQR用。?s= はそのまま引き継がれる）
       { source: "/bsl", destination: "/laundry-survey", permanent: false },
@@ -71,13 +80,34 @@ const nextConfig: NextConfig = {
       { source: "/contact", destination: "/#request", permanent: true },
       { source: "/privacy-policy", destination: "/privacy", permanent: true },
       { source: "/faq", destination: "/#faq", permanent: true },
-    ];
+    ].map((r) => ({ ...r, ...notSaiyo }));
+  },
+  // 採用支援事業サイト（saiyo.digirep.work）: public/saiyo の静的HTMLを、拡張子なしのURLで配信する。
+  // ローカル確認は http://saiyo.localhost:3000/
+  async rewrites() {
+    const saiyoHost = [{ type: "host" as const, value: SAIYO_HOST }];
+    return {
+      beforeFiles: [
+        { source: "/", has: saiyoHost, destination: "/saiyo/index.html" },
+        { source: "/:file(robots\\.txt|sitemap\\.xml|404\\.html)", has: saiyoHost, destination: "/saiyo/:file" },
+        { source: "/:dir(assets|img|download)/:rest*", has: saiyoHost, destination: "/saiyo/:dir/:rest*" },
+        { source: "/:path((?!api/|saiyo-diagnosis|saiyo/|_next/|favicon).+)", has: saiyoHost, destination: "/saiyo/:path.html" },
+      ],
+      afterFiles: [],
+      fallback: [],
+    };
   },
   async headers() {
     return [
       {
         source: "/:path*",
         headers: securityHeaders,
+      },
+      {
+        // 採用支援事業サイト: Google Fonts と地図の埋め込みを許可した CSP
+        source: "/:path*",
+        has: [{ type: "host", value: SAIYO_HOST }],
+        headers: [{ key: "Content-Security-Policy", value: saiyoCsp }],
       },
       {
         // 採用スター診断（STUDIOのHPに埋め込む）: frame-ancestors で埋め込み元を限定して許可。
