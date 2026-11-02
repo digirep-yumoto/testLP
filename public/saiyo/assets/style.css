@@ -565,12 +565,13 @@ h1,h2,h3,.ph h3,.sh b{text-wrap:balance}p,li,.lead,.pc,.bub,.pwho,.pts li span,t
 
 /* ===== ブランドのロックアップ ===== */
 .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink);white-space:nowrap}
-.brand .mk{width:40px;height:40px;flex:none;filter:drop-shadow(0 4px 10px rgba(15,31,61,.18))}
-.brand .bn{font-family:var(--serif);font-weight:900;font-size:23px;line-height:1;letter-spacing:.06em;color:var(--ink);display:block}.brand .bn>span{display:block}.brand .bn small{display:block;margin-top:5px}
+.brand .mk{width:52px;height:52px;flex:none;filter:drop-shadow(0 4px 10px rgba(15,31,61,.18))}
+.brand .bn{font-family:var(--serif);font-weight:900;font-size:30px;line-height:1;letter-spacing:.06em;color:var(--ink);display:block}.brand .bn>span{display:block}.brand .bn small{display:block;margin-top:5px}
 .brand .bn em{font-style:normal;color:var(--acc)}
-.brand .bn small{font-family:"Noto Sans JP",sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.14em;color:var(--mut)}
+.brand .bn small{font-family:"Noto Sans JP",sans-serif;font-weight:700;font-size:13px;letter-spacing:.14em;color:var(--mut)}
 .brand.dk .bn,.brand.dk .bn em{color:#fff}.brand.dk .bn small{color:#c9d2e6}
-@media(max-width:900px){.brand .mk{width:34px;height:34px}.brand .bn{font-size:19px}.brand .bn small{font-size:9.5px}}
+@media(max-width:1200px){.brand .mk{width:46px;height:46px}.brand .bn{font-size:26px}.brand .bn small{font-size:11.5px}}
+@media(max-width:900px){.brand .mk{width:40px;height:40px}.brand .bn{font-size:22px}.brand .bn small{font-size:10.5px;margin-top:4px}}
 
 
 /* ===== 制作イメージ（架空の会社） ===== */
@@ -751,7 +752,8 @@ h1 .sv{font-family:var(--en);font-weight:600;letter-spacing:.3em;font-size:.36em
 .wnote{font-size:13px;color:var(--mut);background:var(--bg);border-radius:12px;padding:12px 16px;margin:0 0 22px}
 .wsamp{margin-top:56px}
 /* 会社案内 */
-.band{position:relative;min-height:380px;border-radius:28px;overflow:hidden;display:flex;align-items:flex-end;padding:44px;color:#fff;background:#0f1f3d url(/img/rep-wide.jpg) center 28%/cover}
+.band{position:relative;min-height:380px;border-radius:28px;overflow:hidden;display:flex;align-items:flex-end;padding:44px;color:#fff;background:#0f1f3d}
+.band .bandart{position:absolute;inset:0;width:100%;height:100%;display:block}
 .band::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,31,61,.08) 0%,rgba(15,31,61,.86) 100%)}
 .band>*{position:relative}
 .band .tag{color:#ffb48f}.band .tag::before{background:#ffb48f}
@@ -762,7 +764,7 @@ h1 .sv{font-family:var(--en);font-weight:600;letter-spacing:.3em;font-size:.36em
 .msg .sig{margin-top:18px;font-family:var(--serif);font-size:15px}
 .msg .sig b{font-size:20px;display:block;margin-top:4px}
 .msg .mphoto{background:#fff;border:1px solid var(--line);border-radius:24px;padding:26px;text-align:center}
-.msg .mphoto img{width:100%;max-width:320px;aspect-ratio:4/5;object-fit:cover;border-radius:18px;display:block;margin:0 auto 16px}
+.msg .mphoto img{width:180px;height:180px;object-fit:cover;object-position:center 20%;border-radius:50%;display:block;margin:0 auto 16px;border:5px solid var(--bg);box-shadow:0 14px 30px rgba(15,31,61,.14)}
 .msg .mphoto b{display:block;font-size:19px;color:var(--ink);font-family:var(--serif)}
 .msg .mphoto small{display:block;color:var(--mut);font-size:13px;margin-top:4px}
 @media(max-width:860px){.msg{grid-template-columns:1fr}}
@@ -829,6 +831,7 @@ footer .sis{display:inline-block;margin-top:10px;font-size:13px}
 .prof .ph img{width:170px;height:170px;border-radius:50%;object-fit:cover;object-position:center 20%;display:block;margin:0 auto 14px;border:4px solid rgba(255,255,255,.22);box-shadow:0 14px 30px rgba(0,0,0,.25)}
 .phero .hpic.il{width:min(520px,42vw)}.phero .hpic.il svg{width:100%;height:auto;display:block;overflow:visible}
 @media(max-width:760px){.phero .hpic.il{width:100%}}
-.band{min-height:420px}
+.band{min-height:400px}
 .svc .th .mk{width:100%}.svc .th .mk svg{width:100%;height:auto;aspect-ratio:16/10}
 @media(max-width:1020px){.hero2 .hboard{display:block;margin:6px 0 0}.hboard .lab{position:static;display:block;margin-top:8px;text-align:right}}
+.prof .ph svg.mono{width:150px;height:150px;margin:0 auto 14px;display:block;border-radius:32px}

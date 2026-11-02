@@ -22,6 +22,16 @@ function clientIp(req: Request): string {
 }
 const isEmail = (v: string) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v);
 
+/** 採用支援のリード1件を、営業管理システム（顧客リスト）に取り込めるCSV（UTF-8 BOM・1行）にする。診断結果があれば点数も列にする。 */
+function leadCsv(p: Record<string, string>, diag: string): string {
+  const pick = (re: RegExp) => (diag.match(re)?.[1] || "").trim();
+  const lay = diag.match(/中身 (\d+)／見え方 (\d+)／動かし方 (\d+)/);
+  const cols = ["受付日時", "ご用件", "会社名", "担当者", "電話", "メール", "業種", "ターゲット", "診断タイプ", "中身", "見え方", "動かし方", "離脱ポイント", "送信元ページ", "メモ"];
+  const row = [p.at, p.purpose, p.company, p.name, p.tel, p.email, pick(/業種：([^／\n]+)/), pick(/ターゲット：([^\n]+)/), pick(/タイプ：([^\n]+)/), lay?.[1] || "", lay?.[2] || "", lay?.[3] || "", pick(/離脱ポイント：([^\n]+)/), (p.message.match(/送信元ページ：([^\n]+)/)?.[1] || "").trim(), p.message.replace(/\n/g, " ／ ")];
+  const q = (v: string) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  return "\uFEFF" + [cols, row].map((r) => r.map(q).join(",")).join("\r\n") + "\r\n";
+}
+
 /**
  * 資料請求・お問い合わせの受付。
  * RESEND_API_KEY と LEAD_TO_EMAIL が設定されていれば Resend でメール送信、
@@ -36,7 +46,7 @@ export async function POST(request: Request) {
   }
 
   const raw = await request.text();
-  if (raw.length > 8000) {
+  if (raw.length > 16000) {
     return NextResponse.json({ error: "入力が大きすぎます。" }, { status: 413 });
   }
   let body: Record<string, unknown>;
@@ -54,6 +64,7 @@ export async function POST(request: Request) {
   const tel = s(body.tel);
   const media = s(body.media, 40);
   const message = s(body.message, 2000);
+  const diag = s(body.diag, 4000); // かんたん採用スター診断の結果（採用支援サイトの診断ページから）
 
   if (!name || !isEmail(email)) {
     return NextResponse.json({ error: "お名前と正しいメールアドレスをご入力ください。" }, { status: 400 });
@@ -73,7 +84,8 @@ export async function POST(request: Request) {
           to: [to],
           reply_to: email,
           subject: `${purpose.startsWith("採用支援") ? "【採用の顔】" : "【お問い合わせ】"}${purpose || "お問い合わせ"}／${company || name} 様`,
-          text: `ご用件: ${purpose}\n会社名: ${company}\n氏名: ${name}\nメール: ${email}\n電話: ${tel}\n興味のある媒体: ${media}\n\n${message}`,
+          text: `ご用件: ${purpose}\n会社名: ${company}\n氏名: ${name}\nメール: ${email}\n電話: ${tel}\n興味のある媒体: ${media}\n\n${message}` + (diag ? `\n\n【かんたん採用スター診断の結果】\n${diag}` : "") + (purpose.startsWith("採用支援") ? "\n\n※添付のCSVは、営業管理システム（顧客リスト）への取込用です。" : ""),
+          ...(purpose.startsWith("採用支援") ? { attachments: [{ filename: `lead_${payload.at.slice(0, 10)}_${(company || name).replace(/[\\/:*?"<>|\s]+/g, "_").slice(0, 30)}.csv`, content: Buffer.from(leadCsv(payload, diag)).toString("base64") }] } : {}),
         }),
       });
       if (!res.ok) throw new Error("resend failed");
@@ -204,6 +216,14 @@ export async function POST(request: Request) {
         `【当日までにあると早いもの】\n・いまの求人票（URLまたは原稿）\n・採用ページ・会社ホームページのURL\n・直近1年の応募数・採用数（分かる範囲で）\n\n` +
         `▼ 採用の顔\n${saiyoSite}/service\n▼ 新卒ダイレクト\n${saiyoSite}/service/direct\n▼ かんたん採用スター診断（無料）\n${saiyoSite}/diagnosis/check\n\n` +
         `── デジレップ株式会社 採用支援事業\n〒352-0003 埼玉県新座市畑中1-13-16｜TEL 080-5527-1689\n本メールにご返信いただければ担当が確認いたします。`;
+      // かんたん採用スター診断の結果の控え（回答の生データは除く）を、自動返信に差し込む
+      const diagCopy = diag.replace(/\n回答：[\s\S]*$/, "").trim();
+      const diagHtml = diagCopy
+        ? `<div style="background:#f6f4ee;border-radius:10px;padding:16px 18px;margin:0 0 20px;"><p style="margin:0 0 8px;font-weight:700;color:#0f1f3d;">⭐ かんたん採用スター診断の結果（控え）</p><p style="margin:0;font-size:13.5px;line-height:1.8;">${esc(diagCopy).replace(/\n/g, "<br>")}</p><p style="margin:10px 0 0;font-size:12px;color:#5d667a;">詳しい診断（37問・Web30分）では、課題の優先順位・社風カラー・勝ち筋と、御社の採用キャッチコピー案までお渡しします。</p></div>`
+        : "";
+      const diagText = diagCopy ? `【かんたん採用スター診断の結果（控え）】\n${diagCopy}\n\n` : "";
+      const saiyoHtml2 = diagHtml ? saiyoHtml.replace('<hr style', diagHtml + '<hr style') : saiyoHtml;
+      const saiyoText2 = diagText ? saiyoText.replace('── デジレップ', diagText + '── デジレップ') : saiyoText;
       await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: { Authorization: `Bearer ${resendKey}`, "Content-Type": "application/json" },
@@ -211,9 +231,9 @@ export async function POST(request: Request) {
           from: process.env.LEAD_FROM_EMAIL || "DigiRep <onboarding@resend.dev>",
           to: [email],
           reply_to: to,
-          subject: isSaiyo ? "【採用の顔】お申込みありがとうございます｜無料採用診断のご案内" : isPackage ? "【デジレップ】ミーティングのご希望ありがとうございます" : "【DigiRep】お問い合わせありがとうございます｜資料と“次の一歩”のご案内",
-          html: isSaiyo ? saiyoHtml : isPackage ? pkgHtml : html,
-          text: isSaiyo ? saiyoText : isPackage ? pkgText : text,
+          subject: isSaiyo ? (diagCopy ? "【採用の顔】かんたん診断の結果（控え）と、詳しい診断のご案内" : "【採用の顔】お申込みありがとうございます｜無料採用診断のご案内") : isPackage ? "【デジレップ】ミーティングのご希望ありがとうございます" : "【DigiRep】お問い合わせありがとうございます｜資料と“次の一歩”のご案内",
+          html: isSaiyo ? saiyoHtml2 : isPackage ? pkgHtml : html,
+          text: isSaiyo ? saiyoText2 : isPackage ? pkgText : text,
         }),
       });
     } catch {
