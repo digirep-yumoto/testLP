@@ -15,7 +15,7 @@ var TO='digirep.yumoto@gmail.com';
  // フォーム
  var f=document.getElementById('f'),err=document.getElementById('err');if(!f)return;
  function showErr(t,ok){err.textContent=t;err.style.display='block';err.style.color=ok?'#128a5a':'#c8372d'}
- function done(){f.style.display='none';document.getElementById('done').style.display='block'}
+ function done(){f.style.display='none';document.getElementById('done').style.display='block';try{if(window.gtag)gtag('event','generate_lead',{event_category:'saiyo',event_label:location.pathname,value:1})}catch(e){}}
  function viaMail(o){location.href='mailto:'+TO+'?subject='+encodeURIComponent('【採用診断のお申込み】'+o['会社名'])+'&body='+encodeURIComponent(Object.keys(o).filter(function(k){return k.charAt(0)!=='_'}).map(function(k){return k+'：'+o[k]}).join('\n'));
   showErr('メールソフトが開きます。そのまま送信してください。開かない場合は、お電話（080-5527-1689）でご連絡ください。',1)}
  f.addEventListener('submit',function(e){
