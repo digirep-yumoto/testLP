@@ -20,14 +20,14 @@ var TO='digirep.yumoto@gmail.com';
   showErr('メールソフトが開きます。そのまま送信してください。開かない場合は、お電話（080-5527-1689）でご連絡ください。',1)}
  f.addEventListener('submit',function(e){
   e.preventDefault();err.style.display='none';
-  var d=new FormData(f);if(d.get('_honey'))return;
+  var d=new FormData(f);if(d.get('_honey')){done();return}
   var need=[['co','会社名'],['nm','お名前'],['tl','電話番号'],['ml','メールアドレス']];
   for(var i=0;i<need.length;i++){var el=document.getElementById(need[i][0]);if(!el.value.trim()){showErr(need[i][1]+'をご入力ください。');el.focus();return}}
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.get('email'))){showErr('メールアドレスの形式をご確認ください。');document.getElementById('ml').focus();return}
-  var o={};d.forEach(function(v,k){if(k!=='_honey')o[k]=v});o['送信元ページ']=location.pathname;
+  var o={};d.forEach(function(v,k){if(k!=='_honey')o[k]=v});window.__t0=window.__t0||Date.now();o['送信元ページ']=location.pathname;
   if(!FORM_ENDPOINT){viaMail(o);return}
   var skip={'会社名':1,'お名前':1,'電話番号':1,'email':1,'診断結果':1};
-  var body={purpose:'採用支援（'+(o['診断結果']?'かんたん診断からの詳しい診断のお申込み':'無料採用診断のお申込み')+'）',company:o['会社名'],name:o['お名前'],email:o['email'],tel:o['電話番号'],media:'採用の顔・新卒ダイレクト',diag:o['診断結果']||'',
+  var body={purpose:'採用支援（'+(o['診断結果']?'かんたん診断からの詳しい診断のお申込み':'無料採用診断のお申込み')+'）',company:o['会社名'],name:o['お名前'],email:o['email'],tel:o['電話番号'],media:'採用の顔・新卒ダイレクト',diag:o['診断結果']||'',hp:'',ts:(window.__t0||0),
    message:Object.keys(o).filter(function(k){return !skip[k]&&k.charAt(0)!=='_'}).map(function(k){return k+'：'+o[k]}).join('\n')};
   var b=f.querySelector('button');b.disabled=true;b.textContent='送信中…';
   fetch(FORM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(body)})

@@ -46,6 +46,12 @@ export async function POST(request: Request) {
   if (rateLimited(clientIp(request))) {
     return NextResponse.json({ error: "送信が多すぎます。時間をおいて再度お試しください。" }, { status: 429 });
   }
+  // 自社サイト以外からの投稿（スパムボット・他サイトからのCSRF）を拒否する
+  const origin = request.headers.get("origin") || "";
+  const okOrigin = !origin || /^https:\/\/(www\.)?digirep\.work$|^https:\/\/saiyo\.digirep\.work$|^https:\/\/[a-z0-9-]+\.vercel\.app$|^http:\/\/([a-z0-9-]+\.)?localhost(:\d+)?$/.test(origin);
+  if (!okOrigin) {
+    return NextResponse.json({ error: "不正な送信元です。" }, { status: 403 });
+  }
   if (!request.headers.get("content-type")?.includes("application/json")) {
     return NextResponse.json({ error: "Content-Type が不正です。" }, { status: 415 });
   }
@@ -73,6 +79,12 @@ export async function POST(request: Request) {
 
   if (!name || !isEmail(email)) {
     return NextResponse.json({ error: "お名前と正しいメールアドレスをご入力ください。" }, { status: 400 });
+  }
+  // スパム対策：ハニーポット（人間には見えない欄）に値がある／本文にURLが4つ以上／明らかに機械的な送信は、受付したふりをして捨てる
+  const honey = s(body.hp, 200) || s(body._honey, 200) || s(body.website, 200);
+  const urlCount = (message.match(/https?:\/\//g) || []).length;
+  if (honey || urlCount >= 4) {
+    return NextResponse.json({ ok: true });
   }
 
   const payload = { purpose, company, name, email, tel, media, message, at: new Date().toISOString() };
