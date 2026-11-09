@@ -5,6 +5,9 @@ import { ArrowRight, ArrowLeft } from "lucide-react";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
 import { MediaSection } from "@/components/site/media-section";
+import { Proof } from "@/components/site/proof";
+import { StoreLogos } from "@/components/site/store-logos";
+import { ChainNetwork } from "@/components/site/chain-network";
 import { mediaList, company, ogImage } from "@/lib/site-data";
 
 const siteUrl = company.url.replace(/\/$/, "");
@@ -63,6 +66,13 @@ export default async function MediaPage({
         </div>
 
         <MediaSection media={m} index={0} />
+        {m.key === "toilet" && (
+          <>
+            <Proof />
+            <StoreLogos />
+            <ChainNetwork />
+          </>
+        )}
 
         <section className="bg-white pb-20">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">

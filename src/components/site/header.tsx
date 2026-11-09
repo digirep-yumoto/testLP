@@ -9,6 +9,7 @@ const nav = [
   { href: "/media/toilet", label: "トイレ広告" },
   { href: "/simulator", label: "シミュレーター" },
   { href: "/laundry-partner", label: "運営会社の方へ" },
+  { href: "/store", label: "店舗オーナー" },
   { href: "https://saiyo.digirep.work/", label: "採用支援 ↗" },
   { href: "/#docs", label: "資料" },
   { href: "/#faq", label: "FAQ" },
@@ -95,11 +96,11 @@ export function Header() {
               事業一覧
             </a>
             <a
-              href="/#store"
+              href="/store"
               onClick={() => setOpen(false)}
               className="rounded-lg px-2 py-3 text-sm font-medium text-ink hover:bg-muted"
             >
-              店舗オーナー（個室トイレ設置）
+              店舗オーナーの方へ（個室トイレ設置・パッケージ）
             </a>
             <a
               href="/package"

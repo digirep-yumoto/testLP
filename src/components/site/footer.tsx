@@ -10,16 +10,19 @@ const navGroups = [
     links: [
       { href: "/service", label: "事業一覧" },
       { href: "/simulator", label: "無料シミュレーター" },
-      { href: "#why", label: "選ばれる理由" },
-      { href: "#flow", label: "ご利用の流れ" },
+      { href: "/#why", label: "なぜコインランドリーか" },
+      { href: "/#pricing", label: "料金プラン" },
+      { href: "/#flow", label: "配信開始スケジュール・申込の流れ" },
       { href: "/blog", label: "お役立ち記事" },
-      { href: "#faq", label: "よくあるご質問" },
+      { href: "/#faq", label: "よくあるご質問" },
     ],
   },
   {
     title: "お申込み",
     links: [
       { href: "/apply-form.html", label: "広告主お申込みフォーム" },
+      { href: "/store", label: "店舗オーナーの方へ（個室トイレ設置）" },
+      { href: "/laundry-partner", label: "コインランドリー運営会社の方へ" },
       { href: "/package", label: "助成金で集客パッケージ（店舗様）" },
       { href: `mailto:${company.email}`, label: "お問い合わせ" },
       { href: "/company", label: "会社概要" },

@@ -1,20 +1,15 @@
 import { Header } from "@/components/site/header";
-import { Hero } from "@/components/site/hero";
-import { Audiences } from "@/components/site/audiences";
-import { Services } from "@/components/site/services";
-import { Positioning } from "@/components/site/positioning";
+import { HeroLaundry } from "@/components/laundry/hero-laundry";
+import { StatsBar } from "@/components/laundry/stats-bar";
+import { WhyLaundry } from "@/components/laundry/why-laundry";
+import { LoopVisual } from "@/components/laundry/loop-visual";
+import { UseCases } from "@/components/laundry/use-cases";
+import { PricingLaundry } from "@/components/laundry/pricing-laundry";
 import { Comparison } from "@/components/site/comparison";
-import { IndustryLinks } from "@/components/site/industry-links";
+import { TrustReport } from "@/components/laundry/trust-report";
+import { LaunchTimeline } from "@/components/laundry/launch-timeline";
 import { SimulatorTeaser } from "@/components/site/simulator-teaser";
-import { Voices } from "@/components/site/voices";
-import { Proof } from "@/components/site/proof";
-import { StoreLogos } from "@/components/site/store-logos";
-import { ChainNetwork } from "@/components/site/chain-network";
-import { VideoMerits } from "@/components/site/video-merits";
-import { Why } from "@/components/site/why";
-import { Process } from "@/components/site/process";
-import { StoreOwner } from "@/components/site/store-owner";
-import { PackageBanner } from "@/components/package/package-banner";
+import { OtherServices } from "@/components/laundry/other-services";
 import { Docs } from "@/components/site/docs";
 import { LeadForm } from "@/components/site/lead-form";
 import { Faq } from "@/components/site/faq";
@@ -22,27 +17,28 @@ import { Cta } from "@/components/site/cta";
 import { Footer } from "@/components/site/footer";
 import { StickyCta } from "@/components/site/sticky-cta";
 
+/**
+ * トップページ＝コインランドリーサイネージ広告（主力）の広告主向けページ。
+ * 構成：ヒーロー → 数字 → なぜランドリーか → 配信イメージ → 向いている商材 → 料金 → 他媒体との違い
+ *       → 実測・信頼 → 配信開始スケジュールと申込の流れ → シミュレーター → その他のサービス → 資料 → 問い合わせ → FAQ
+ * 店舗オーナー向け（個室トイレ設置・パッケージ）は /store へ分離。
+ */
 export default function Home() {
   return (
     <>
       <Header />
       <main>
-        <Hero />
-        <Audiences />
-        <Services />
-        <Positioning />
+        <HeroLaundry />
+        <StatsBar />
+        <WhyLaundry />
+        <LoopVisual />
+        <UseCases />
+        <PricingLaundry />
         <Comparison />
+        <TrustReport />
+        <LaunchTimeline />
         <SimulatorTeaser />
-        <IndustryLinks />
-        <Voices />
-        <Proof />
-        <StoreLogos />
-        <ChainNetwork />
-        <VideoMerits />
-        <Why />
-        <Process />
-        <StoreOwner />
-        <PackageBanner />
+        <OtherServices />
         <Docs />
         <LeadForm />
         <Faq />
