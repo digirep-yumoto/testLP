@@ -260,6 +260,39 @@
   will-change: transform;
 }
 
+
+/* 泡が下からゆっくり立ちのぼる（装飾） */
+@keyframes dr-rise {
+  0% { transform: translate3d(0, 0, 0) scale(0.6); opacity: 0; }
+  12% { opacity: 0.9; }
+  100% { transform: translate3d(var(--dx, 0px), -115vh, 0) scale(1.15); opacity: 0; }
+}
+.dr-rise {
+  animation: dr-rise var(--dur, 18s) linear infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform, opacity;
+}
+/* 画面上を走る光沢（店内モニター風） */
+@keyframes dr-sheen {
+  0% { transform: translateX(-130%) skewX(-18deg); }
+  60%, 100% { transform: translateX(230%) skewX(-18deg); }
+}
+.dr-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 35%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+  animation: dr-sheen 7s ease-in-out infinite;
+  pointer-events: none;
+}
+/* やわらかく脈打つ（数字カード） */
+@keyframes dr-pulse-soft {
+  0%, 100% { box-shadow: 0 10px 30px rgba(10, 127, 160, 0.14); }
+  50% { box-shadow: 0 14px 40px rgba(10, 127, 160, 0.26); }
+}
+.dr-pulse-soft { animation: dr-pulse-soft 4s ease-in-out infinite; }
+
 /* 初期表示の登場アニメ（順次フェードアップ） */
 .dr-in {
   opacity: 0;
@@ -282,8 +315,14 @@
   .dr-float,
   .dr-float-slow,
   .dr-aurora,
+  .dr-rise,
+  .dr-pulse-soft,
   .dr-in {
     animation: none !important;
+  }
+  .dr-sheen::after {
+    animation: none !important;
+    display: none;
   }
   .dr-in {
     opacity: 1;

@@ -1,7 +1,7 @@
 import { CountUp } from "@/components/site/count-up";
 
 const stats = [
-  { value: "400", unit: "店", label: "全国のコインランドリー", sub: "ブルースカイランドリー406店・39都道府県" },
+  { value: "400", unit: "店", label: "国内最大級の統一配信網", sub: "ブルースカイランドリー406店・39都道府県" },
   { value: "43", unit: "万人/月", label: "月間延べ利用者", sub: "全店合計（運営会社データ・推計）" },
   { value: "7", unit: "割", label: "女性比率", sub: "30〜50代が中心" },
   { value: "8,800", unit: "円〜", label: "1店舗・月額（15秒）", sub: "店舗を選んで10店から" },

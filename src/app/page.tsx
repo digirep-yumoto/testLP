@@ -2,6 +2,7 @@ import { Header } from "@/components/site/header";
 import { HeroLaundry } from "@/components/laundry/hero-laundry";
 import { StatsBar } from "@/components/laundry/stats-bar";
 import { WhyLaundry } from "@/components/laundry/why-laundry";
+import { Strengths } from "@/components/laundry/strengths";
 import { AdPreview } from "@/components/laundry/ad-preview";
 import { DayScenario } from "@/components/laundry/day-scenario";
 import { LoopVisual } from "@/components/laundry/loop-visual";
@@ -33,6 +34,7 @@ export default function Home() {
         <HeroLaundry />
         <StatsBar />
         <WhyLaundry />
+        <Strengths />
         <AdPreview />
         <LoopVisual />
         <DayScenario />
