@@ -435,7 +435,7 @@ const MEDIA = {
      エリアパック  15秒¥7,600/30秒¥11,300
      全国一括パック 15秒¥6,300/30秒¥9,500
    収益配分（FC個別還元は廃止→GIB集約）：CMerTV50% / GIB10%（付帯あり15%）/ デジレップ40%（付帯あり35%）
-   参考指標：想定配信回数 = 17時間×15回/時×30日×店舗数（30秒は半分）／想定リーチ = 月間利用人数×視認80%×店舗数。 */
+   参考指標：想定配信回数 = 17時間×15回/時×30日×店舗数（30秒は半分）／想定リーチ = 月間利用人数×視認55%×店舗数。 */
 const LAUNDRY_AGENCY_RATE = 0.50;  // 代理店報酬（固定）
 const LAUNDRY_VIEW_RATE = 0.55;    // 想定視認率（社内統一値・参考指標）
 /* 配信回数：1店・月 = 17時間 × 15回/時 × 30日 = 7,650回（15秒スロット）。30秒は2枠占有で半分。 */
@@ -453,7 +453,7 @@ const LAUNDRY_PACKAGES = {
 function laundryPackageOf(k){ return LAUNDRY_PACKAGES[k] || LAUNDRY_PACKAGES.spot; }
 const LAUNDRY_SEC_MULT = { '15':1.0, '30':1.5 };
 function laundrySecMultOf(sec){ return LAUNDRY_SEC_MULT[String(sec||'15')] || 1.0; }
-/* 想定リーチ（来店者ベース・参考）＝ 月間利用人数 × 視認80% */
+/* 想定リーチ（来店者ベース・参考）＝ 月間利用人数 × 視認55% */
 function laundryImpressionsPerStore(visitors){ return (Number(visitors)||0) * LAUNDRY_VIEW_RATE; }
 /* 想定配信回数（1店・月）：15秒=7,650回、30秒=半分 */
 function laundryPlaysPerStore(sec){ return String(sec||'15')==='30' ? Math.round(LAUNDRY_PLAYS_PER_STORE_15/2) : LAUNDRY_PLAYS_PER_STORE_15; }
@@ -534,7 +534,7 @@ function calc(){
     const pkg = ($('pkgL')&&$('pkgL').value) || 'spot';
     const sec = ($('secL')&&$('secL').value) || '15';
     const addon = !!($('addonL')&&$('addonL').value);
-    const viewPerStore = laundryImpressionsPerStore(visitors);             // 参考：1店の想定リーチ（来店×視認80%）
+    const viewPerStore = laundryImpressionsPerStore(visitors);             // 参考：1店の想定リーチ（来店×視認55%）
     const perStore = laundryRevenuePerStore(pkg, sec);                     // 1店あたり月額（百円丸め確定値）
     const pk = laundryPackageOf(pkg);
     monthlyRev = laundryTotalRevenue(pkg, sec, stores);                    // 全店合計を万円切り上げ（広告主請求ベース）
@@ -678,7 +678,7 @@ function quoteHtml(d){
       <tr><th>付帯メニュー</th><td>${o.detail.addon?'あり（LP・動画・X連携）':'なし'}</td></tr>
       <tr><th>想定配信回数</th><td>約${num(o.detail.playsTotal)} 回/月（17時間×15回×30日×店舗数${o.detail.sec==='30'?'÷2':''}）</td></tr>
       <tr><th>想定配信単価</th><td>約¥${o.detail.playUnit.toFixed(2)}/回</td></tr>
-      <tr><th>想定リーチ数</th><td>約${num(o.detail.reachTotal)} 人/月（月間利用人数×視認80%×店舗数）</td></tr>
+      <tr><th>想定リーチ数</th><td>約${num(o.detail.reachTotal)} 人/月（月間利用人数×視認55%×店舗数）</td></tr>
       <tr><th>想定リーチ単価</th><td>約¥${o.detail.reachUnit.toFixed(1)}/人</td></tr>`;
   }
   return `<div class="doc">
