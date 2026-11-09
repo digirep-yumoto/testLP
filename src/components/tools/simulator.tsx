@@ -36,7 +36,7 @@ const mediaMeta: Record<SimMedia, { name: string; tag: string; sub: string }> = 
 };
 
 export function Simulator() {
-  const [industryId, setIndustryId] = useState<string>(industries[0].id);
+  const [industryId, setIndustryId] = useState<string>((industries.find((i) => i.rec === "laundry") ?? industries[0]).id);
   const [objectiveId, setObjectiveId] = useState<Objective>(objectives[0].id);
   const [touchedMedia, setTouchedMedia] = useState(false);
   const [input, setInput] = useState<SimInput>(defaultInput);
@@ -46,11 +46,26 @@ export function Simulator() {
   // URLで共有された条件を復元（?m=...&s=... 形式）
   useEffect(() => {
     const restored = decodeInput(window.location.search);
-    if (!restored) return;
-    setInput(restored.input);
-    setIndustryId(restored.industryId);
-    setObjectiveId(restored.objectiveId);
-    setTouchedMedia(true);
+    if (restored) {
+      setInput(restored.input);
+      setIndustryId(restored.industryId);
+      setObjectiveId(restored.objectiveId);
+      setTouchedMedia(true);
+      return;
+    }
+    // トップページの「御社の広告が、ここに流れます」からの簡易リンク（?media=laundry&pkg=area&stores=50）
+    const q = new URLSearchParams(window.location.search);
+    if (q.get("media") === "laundry") {
+      const pkg = q.get("pkg");
+      const stores = Math.floor(Number(q.get("stores")));
+      setInput((p) => ({
+        ...p,
+        media: "laundry",
+        pkg: pkg === "spot" || pkg === "area" || pkg === "national" ? pkg : p.pkg,
+        laundryStores: Number.isFinite(stores) && stores > 0 ? stores : p.laundryStores,
+      }));
+      setTouchedMedia(true);
+    }
   }, []);
 
   const industry = industries.find((i) => i.id === industryId) ?? industries[0];

@@ -160,10 +160,10 @@ export function Hero() {
             <div className="relative overflow-hidden rounded-[1.4rem] border border-white/15 shadow-2xl">
               <Carousel
                 images={[
-                  "/images/laundry-media-new.jpg",
-                  "/images/laundry-front.jpg",
-                  "/images/laundry-media-new3.jpg",
-                  "/images/toilet-vanity.jpg",
+                  "/images/laundry-media-new.webp",
+                  "/images/laundry-front.webp",
+                  "/images/laundry-media-new3.webp",
+                  "/images/toilet-vanity.webp",
                 ]}
                 captions={[
                   "コインランドリーサイネージ｜55インチ・音声つきで待ち時間に届く",

@@ -5,21 +5,21 @@ import { Reveal } from "@/components/site/reveal";
 const reasons = [
   {
     icon: Clock,
-    img: "/images/laundry-inuse.jpg",
+    img: "/images/laundry-inuse.webp",
     title: "“見るしかない時間”に流れる",
     body: "洗濯・乾燥の待ち時間、利用者は店内にとどまり、スマホと店内のモニター以外に目をやる先がありません。55インチ・音声つきなので、視界にも耳にも届きます。",
     tag: "待ち時間",
   },
   {
     icon: Repeat,
-    img: "/images/laundry-media-new3.jpg",
+    img: "/images/laundry-media-new3.webp",
     title: "同じ人に、来店のたびに",
     body: "利用者は月2〜3回来店し、1回の利用で洗濯物を入れるとき・取り出すときの2回以上、画面の前に立ちます。固定客が多く、同じ広告が繰り返し届くので記憶に残ります。",
     tag: "反復接触",
   },
   {
     icon: Store,
-    img: "/images/laundry-storefront.jpg",
+    img: "/images/laundry-storefront.webp",
     title: "商業施設併設・全国統一の配信網",
     body: "カインズ・イオンタウン・マックスバリュ等に併設する全国約400店を、1つのメディアとして一括配信・一括レポート。商圏を絞っても、全国一斉でも配信できます。",
     tag: "全国約400店",

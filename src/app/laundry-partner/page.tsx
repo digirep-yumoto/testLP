@@ -7,13 +7,15 @@ import { LeadForm } from "@/components/site/lead-form";
 import { SectionHeading } from "@/components/site/section-heading";
 import { Reveal } from "@/components/site/reveal";
 import { company, ogImage } from "@/lib/site-data";
+import { LaundryScene } from "@/components/laundry/laundry-scene";
+import { BubbleField } from "@/components/laundry/bubble-field";
 
 const siteUrl = company.url.replace(/\/$/, "");
 
 export const metadata: Metadata = {
   title: "コインランドリー運営会社さまへ｜店内モニターを広告媒体に（配信提携）",
   description:
-    "コインランドリーを運営する企業さま・多店舗オーナーさま向け。店内にすでにあるモニターに当社が配信端末を無償で取り付け、広告の販売・配信・保守・レポートを行い、広告掲載料の一部を毎月お支払いします。空き枠は自社告知に無料で使えます。全国約400店のブルースカイランドリーと提携し、2027年初めから配信開始。",
+    "コインランドリーを運営する企業さま・多店舗オーナーさま向け。店内にすでにあるモニターに当社が配信端末を無償で取り付け、広告の販売・配信・保守・レポートを行い、広告掲載料の一部を毎月お支払いします。空き枠は自社告知に無料で使えます。全国約400店のコインランドリーチェーンと提携し、2027年初めから配信開始。",
   alternates: { canonical: "/laundry-partner" },
   openGraph: {
     type: "website",
@@ -64,8 +66,9 @@ export default function LaundryPartnerPage() {
         </div>
 
         {/* ヒーロー */}
-        <section className="bg-paper pb-16 pt-8 sm:pb-20">
-          <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr]">
+        <section className="relative overflow-hidden bg-paper pb-16 pt-8 sm:pb-20">
+          <BubbleField count={6} />
+          <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr]">
             <div>
               <p className="font-display text-[13px] font-semibold tracking-[0.18em] text-brand uppercase">For Laundry Operators</p>
               <h1 className="mt-3 text-[2rem] font-bold leading-[1.35] text-ink sm:text-[2.6rem] sm:leading-[1.25]">
@@ -74,7 +77,7 @@ export default function LaundryPartnerPage() {
                 <span className="text-brand">店舗網の広告媒体</span>に。
               </h1>
               <p className="mt-5 text-base leading-[1.95] text-ink-soft sm:text-lg">
-                コインランドリーを運営する企業さま・多店舗オーナーさまへ。当社は、ブルースカイランドリー（全国約400店）と提携し、店内モニターでの広告配信を2027年初めから始めます。同じ仕組みを、御社の店舗網でもご一緒できないかと考えています。
+                コインランドリーを運営する企業さま・多店舗オーナーさまへ。当社は、全国約400店のコインランドリーチェーン（商業施設併設）と提携し、店内モニターでの広告配信を2027年初めから始めます。同じ仕組みを、御社の店舗網でもご一緒できないかと考えています。
               </p>
               <div className="mt-6 flex flex-wrap gap-2 text-xs font-medium text-ink">
                 {["既設モニターを活用", "端末・配信・保守は当社負担", "掲載料の10〜15%を毎月", "自社告知枠は無料", "数店舗のテストからOK"].map((t) => (
@@ -100,8 +103,8 @@ export default function LaundryPartnerPage() {
             <Reveal className="relative">
               <div aria-hidden className="absolute -inset-5 rounded-[2rem] bg-gradient-to-br from-brand/20 to-sky-200/40 opacity-70 blur-2xl" />
               <div className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-xl">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/images/laundry-media-new.jpg" alt="コインランドリー店内の大型モニターで広告を配信しているイメージ" className="aspect-[4/3] w-full object-cover" />
+                <LaundryScene ad={{ brand: "御社の店舗（自社告知枠・無料）", headline: "LINE友だち登録で 洗剤1回無料", sub: "御社のキャンペーン・求人・新店案内を、空き枠で", color: "#0a7fa0", accent: "#38bdf8", cta: "QRで登録" }} className="block w-full" />
+                <div className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 text-xs font-bold text-ink shadow">御社の店内モニターのイメージ</div>
               </div>
             </Reveal>
           </div>
@@ -128,7 +131,7 @@ export default function LaundryPartnerPage() {
         {/* 条件の目安 */}
         <section className="bg-paper py-20 sm:py-24">
           <div className="mx-auto max-w-4xl px-4 sm:px-6">
-            <SectionHeading eyebrow="Terms" title="条件の目安" lead="詳細は30分の説明でお話しします。ブルースカイランドリーと同じ考え方で設計しています。" />
+            <SectionHeading eyebrow="Terms" title="条件の目安" lead="詳細は30分の説明でお話しします。提携中の店舗網と同じ考え方で設計しています。" />
             <div className="mt-10 overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
               <table className="w-full text-sm">
                 <tbody>

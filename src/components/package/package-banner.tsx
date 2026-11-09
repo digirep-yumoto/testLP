@@ -44,7 +44,7 @@ export function PackageBanner() {
             </div>
             <div className="relative mx-auto w-full max-w-[280px] lg:max-w-none">
               <div className="relative overflow-hidden rounded-3xl border-4 border-white/80 shadow-2xl">
-                <Image src="/images/toilet-vanity.jpg" alt="個室トイレの洗面台に設置されたサイネージ" width={700} height={1100} className="aspect-[4/5] w-full object-cover object-[50%_40%]" />
+                <Image src="/images/toilet-vanity.webp" alt="個室トイレの洗面台に設置されたサイネージ" width={700} height={1100} className="aspect-[4/5] w-full object-cover object-[50%_40%]" />
               </div>
               <div className="absolute -bottom-3 -left-3 flex size-24 -rotate-[8deg] flex-col items-center justify-center rounded-full border-4 border-white bg-[#e8590c] text-center shadow-lg outline outline-2 outline-[#e8590c] sm:size-28">
                 <span className="text-[9px] font-bold">最終お手出し</span>

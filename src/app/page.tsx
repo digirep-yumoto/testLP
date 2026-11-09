@@ -2,6 +2,8 @@ import { Header } from "@/components/site/header";
 import { HeroLaundry } from "@/components/laundry/hero-laundry";
 import { StatsBar } from "@/components/laundry/stats-bar";
 import { WhyLaundry } from "@/components/laundry/why-laundry";
+import { AdPreview } from "@/components/laundry/ad-preview";
+import { DayScenario } from "@/components/laundry/day-scenario";
 import { LoopVisual } from "@/components/laundry/loop-visual";
 import { UseCases } from "@/components/laundry/use-cases";
 import { PricingLaundry } from "@/components/laundry/pricing-laundry";
@@ -31,7 +33,9 @@ export default function Home() {
         <HeroLaundry />
         <StatsBar />
         <WhyLaundry />
+        <AdPreview />
         <LoopVisual />
+        <DayScenario />
         <UseCases />
         <PricingLaundry />
         <Comparison />

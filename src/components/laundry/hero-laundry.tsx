@@ -87,7 +87,7 @@ export function HeroLaundry() {
           <div className="dr-float relative">
             <div className="relative overflow-hidden rounded-[1.6rem] border-[6px] border-ink bg-ink shadow-2xl shadow-brand/20">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/laundry-media-new.jpg" alt="コインランドリー店内の55インチモニターで広告が流れているイメージ" className="aspect-[16/10] w-full object-cover" loading="eager" />
+              <img src="/images/laundry-media-new.webp" alt="コインランドリー店内の55インチモニターで広告が流れているイメージ" className="aspect-[16/10] w-full object-cover" loading="eager" />
               <div className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-ink/70 px-3 py-1.5 text-xs font-bold text-white backdrop-blur">
                 <MonitorPlay className="size-3.5" />
                 55インチ ｜ 15秒・30秒 ｜ 音声あり

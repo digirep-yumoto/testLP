@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: { absolute: pkg.title },
   description: pkg.description,
   robots: { index: false, follow: false },
-  openGraph: { type: "website", title: pkg.title, description: pkg.description, locale: "ja_JP", images: [{ url: "/images/toilet-vanity.jpg", width: 700, height: 1100 }] },
+  openGraph: { type: "website", title: pkg.title, description: pkg.description, locale: "ja_JP", images: [{ url: "/images/toilet-vanity.webp", width: 700, height: 1100 }] },
 };
 
 const CTA = "#meeting";
@@ -69,7 +69,7 @@ export default function PackagePage() {
           </div>
           <div className="relative mx-auto w-full max-w-sm lg:max-w-none">
             <div className="relative overflow-hidden rounded-[28px] border-4 border-white/85 shadow-2xl">
-              <Image src="/images/toilet-vanity.jpg" alt="個室トイレの洗面台に設置されたサイネージ" width={700} height={1100} priority className="aspect-[3/4] w-full object-cover object-[50%_40%]" />
+              <Image src="/images/toilet-vanity.webp" alt="個室トイレの洗面台に設置されたサイネージ" width={700} height={1100} priority className="aspect-[3/4] w-full object-cover object-[50%_40%]" />
               <p className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/90 to-transparent px-5 pb-5 pt-16 text-right text-sm font-bold">御社のトイレに1面。<br />御社のPR動画が流れます</p>
             </div>
             <div className="absolute -left-3 bottom-6 flex size-32 -rotate-[8deg] flex-col items-center justify-center rounded-full border-[5px] border-white bg-[#e8590c] text-center shadow-[0_12px_30px_rgba(232,89,12,.45)] outline outline-[3px] outline-[#e8590c] sm:size-36 lg:-left-10 lg:bottom-10">
@@ -148,7 +148,7 @@ export default function PackagePage() {
           </div>
           <div className="mt-8 grid gap-5 lg:grid-cols-[1fr_1.1fr]">
             <div className="relative overflow-hidden rounded-3xl shadow-lg">
-              <Image src="/images/toilet-signage.jpg" alt="個室トイレに設置されたサイネージ" width={1000} height={851} className="h-full min-h-64 w-full object-cover" />
+              <Image src="/images/toilet-signage.webp" alt="個室トイレに設置されたサイネージ" width={1000} height={851} className="h-full min-h-64 w-full object-cover" />
               <p className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/90 to-transparent px-5 pb-4 pt-14 text-sm font-bold text-white">個室トイレの壁面に縦型モニターを1面。設置は営業時間外、運用はデジレップ</p>
             </div>
             <div className="rounded-3xl bg-white p-6 shadow-sm sm:p-8">
