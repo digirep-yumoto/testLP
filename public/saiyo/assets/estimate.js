@@ -2,7 +2,7 @@
 (function(){
 var FORM_ENDPOINT='/api/lead';
 var PL=DocCore.PL, $=function(id){return document.getElementById(id)};
-var PLANS=[['std','採用の顔 スタンダード（128万円・顧問3ヶ月つき）'],['light','採用の顔 ライト（88万円・顧問1ヶ月つき）'],['lp','採用LP単体プラン（30万円）'],['lpadv','採用LP単体 ＋ 採用運用顧問（30万円＋月10万円）'],['adv','採用運用顧問のみ（月10万円）'],['dr_s','新卒ダイレクト スタンダード（内定承諾5名保証・年額）'],['dr_b','新卒ダイレクト ベーシック（内定承諾3名保証・年額）'],['dr_p','新卒ダイレクト プレミアム（内定承諾5名保証・年額）'],['sales','営業の顔 スタート（58万円）'],['salesf','営業の顔 フル（98万円）']];
+var PLANS=[['std','採用の顔 スタンダード（128万円・顧問3ヶ月つき）'],['light','採用の顔 ライト（88万円・顧問1ヶ月つき）'],['lp','採用LP単体プラン（30万円）'],['lpadv','採用LP単体 ＋ 採用運用顧問（30万円＋月10万円）'],['adv','採用運用顧問のみ（月10万円）'],['dr_s','新卒ダイレクト スタンダード（入社5名保証・年額）'],['dr_b','新卒ダイレクト ベーシック（入社3名保証・年額）'],['dr_p','新卒ダイレクト プレミアム（入社5名保証・年額）'],['sales','営業の顔 スタート（58万円）'],['salesf','営業の顔 フル（98万円）']];
 var sel=$('plan');PLANS.forEach(function(p){var o=document.createElement('option');o.value=p[0];o.textContent=p[1];sel.appendChild(o)});
 function yen(n){return '¥'+Math.round(n).toLocaleString()}
 function upd(){var P=PL[sel.value];$('rowM').style.display=P.monthly?'':'none';$('rowP').style.display=(P.list||P.monthly&&!P.price)?'none':'';$('rowD').style.display=P.list?'':'none';
