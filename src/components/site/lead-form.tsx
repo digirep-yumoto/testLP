@@ -12,15 +12,35 @@ const purposeOptions = [
   "まずはミーティング・相談したい（内容未定でOK）",
   "資料がほしい（資料請求）",
   "料金・見積りを知りたい",
+  "コインランドリー店舗での配信提携について（運営会社・多店舗オーナー様）",
+  "採用支援について（採用の顔・新卒ダイレクト）",
   "助成金パッケージについて（店舗様・研修・PR動画・サイネージ）",
   "その他のお問い合わせ",
 ];
-const mediaOptions = ["未定・相談したい", "個室トイレサイネージ", "コインランドリーサイネージ", "両方", "店舗設置（加盟店）"];
+const mediaOptions = ["未定・相談したい", "コインランドリーサイネージ", "個室トイレサイネージ", "両方", "店舗設置（個室トイレ加盟店）", "コインランドリーの配信提携（運営会社）"];
 
-export function LeadForm() {
+export function LeadForm({
+  defaultPurpose,
+  defaultMedia,
+  title = "お問い合わせ・無料相談",
+  lead = "「まだ内容は決まっていないが、まずは話を聞きたい」も大歓迎です。資料請求・ミーティングのご希望など、お気軽にどうぞ。1営業日以内に担当よりご連絡します。",
+}: {
+  defaultPurpose?: string;
+  defaultMedia?: string;
+  title?: string;
+  lead?: string;
+} = {}) {
   const [state, setState] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [err, setErr] = useState("");
-  const [f, setF] = useState({ purpose: purposeOptions[0], company: "", name: "", email: "", tel: "", media: mediaOptions[0], message: "" });
+  const [f, setF] = useState({
+    purpose: defaultPurpose && purposeOptions.includes(defaultPurpose) ? defaultPurpose : purposeOptions[0],
+    company: "",
+    name: "",
+    email: "",
+    tel: "",
+    media: defaultMedia && mediaOptions.includes(defaultMedia) ? defaultMedia : mediaOptions[0],
+    message: "",
+  });
 
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setF((p) => ({ ...p, [k]: e.target.value }));
@@ -47,11 +67,7 @@ export function LeadForm() {
   return (
     <section id="request" className="bg-paper py-20 sm:py-28">
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
-        <SectionHeading
-          eyebrow="Contact"
-          title="お問い合わせ・無料相談"
-          lead="「まだ内容は決まっていないが、まずは話を聞きたい」も大歓迎です。資料請求・ミーティングのご希望など、お気軽にどうぞ。1営業日以内に担当よりご連絡します。"
-        />
+        <SectionHeading eyebrow="Contact" title={title} lead={lead} />
 
         <div className="mt-10 rounded-3xl border border-border bg-card p-6 shadow-sm sm:p-9">
           {state === "done" ? (
@@ -72,6 +88,18 @@ export function LeadForm() {
                 </select>
               </Field>
 
+              {f.purpose.startsWith("コインランドリー店舗での配信提携") && (
+                <div className="rounded-xl border border-brand/30 bg-brand/5 p-4 text-sm leading-relaxed text-ink">
+                  <p className="font-bold">コインランドリーを運営されている企業さまですね。</p>
+                  <p className="mt-1 text-xs text-ink-soft">条件の概要は <a href="/laundry-partner" className="font-bold text-brand underline">運営会社の方へ</a> にまとめています。ご相談欄に、店舗数と「店内モニターのある店舗数」をお書きいただけると、ご案内が早くなります。</p>
+                </div>
+              )}
+              {f.purpose.startsWith("採用支援") && (
+                <div className="rounded-xl border border-brand/30 bg-brand/5 p-4 text-sm leading-relaxed text-ink">
+                  <p className="font-bold">採用支援（採用の顔・新卒ダイレクト）のご相談ですね。</p>
+                  <p className="mt-1 text-xs text-ink-soft">サービスの詳細と料金は <a href="https://saiyo.digirep.work/" className="font-bold text-brand underline">採用支援サイト</a> をご覧ください。このままお送りいただいても結構です。</p>
+                </div>
+              )}
               {f.purpose.startsWith("助成金パッケージ") && (
                 <div className="rounded-xl border border-brand/30 bg-brand/5 p-4 text-sm leading-relaxed text-ink">
                   <p className="font-bold">店舗様向けのパッケージ（SNS×AI研修・PR動画・トイレサイネージ）ですね。</p>

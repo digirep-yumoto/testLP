@@ -35,12 +35,12 @@ export function StoreLogos() {
           eyebrow="Store Network"
           title={
             <>
-              全国 <span className="text-brand">400店舗以上</span> の
+              提携・加盟 <span className="text-brand">400店舗以上</span> の
               <br className="hidden sm:block" />
-              加盟ネットワークへ配信を拡大中
+              ネットワークへ配信を拡大中
             </>
           }
-          lead="飲食チェーンを中心に、加盟店舗は随時拡大中（設置は受注に応じて順次）。これだけ多くの“1対1の個室”へ、まとめて広告を届けられます。"
+          lead="コインランドリーは全国約400店のブルースカイランドリーと提携。個室トイレは飲食チェーンを中心に加盟店を拡大中（設置は順次）。下のロゴは個室トイレの加盟・導入予定店舗の一部です。"
         />
       </div>
 
@@ -50,7 +50,7 @@ export function StoreLogos() {
       </Reveal>
 
       <p className="mt-8 px-4 text-center text-xs leading-relaxed text-muted-foreground">
-        ※ 導入・導入予定店舗の一部です。最新の配信可能店舗は担当までお問い合わせください。
+        ※ 個室トイレの導入・導入予定店舗の一部です。最新の配信可能店舗は担当までお問い合わせください。
       </p>
     </section>
   );

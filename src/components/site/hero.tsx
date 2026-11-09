@@ -20,10 +20,10 @@ function Chip({ icon, big, small }: { icon: ReactNode; big: string; small: strin
 
 export function Hero() {
   const chips = [
-    <Chip key="0" icon={<Eye className="size-4" />} big="90%" small="個室トイレ視認率" />,
-    <Chip key="1" icon={<Repeat className="size-4" />} big="約7回" small="来店ごとの接触" />,
-    <Chip key="2" icon={<Volume2 className="size-4" />} big="音声あり" small="強制視聴・標準仕様" />,
-    <Chip key="3" icon={<Users className="size-4" />} big="60万人+" small="同一属性ターゲット" />,
+    <Chip key="0" icon={<Users className="size-4" />} big="約43万人/月" small="コインランドリー延べ利用者" />,
+    <Chip key="1" icon={<Repeat className="size-4" />} big="女性 約7割" small="30〜50代中心・来店のたびに接触" />,
+    <Chip key="2" icon={<Volume2 className="size-4" />} big="音声あり" small="55インチ・標準仕様" />,
+    <Chip key="3" icon={<Eye className="size-4" />} big="2027年1月" small="配信開始・先行受付中" />,
   ];
 
   return (
@@ -60,30 +60,30 @@ export function Hero() {
             style={{ animationDelay: "0ms" }}
           >
             <ShieldCheck className="size-3.5 text-emerald-300" />
-            加盟・提携400店舗以上・全国39都道府県
+            ブルースカイランドリー全国約400店と提携・39都道府県
           </p>
 
           <h1
             className="dr-in mt-5 text-[2.15rem] font-black leading-[1.5] tracking-[0.02em] sm:text-[3rem] sm:leading-[1.45]"
             style={{ animationDelay: "90ms" }}
           >
-            スキップされない。
+            全国約400店の
             <br />
-            埋もれない。
+            コインランドリー店内TVで、
             <br />
             <span className="bg-gradient-to-r from-sky-300 to-brand bg-clip-text text-transparent">
               “確実に見られる”広告
             </span>
-            へ。
+            を。
           </h1>
 
           <p
             className="dr-in mt-6 max-w-xl text-pretty text-base leading-[1.95] text-white/80 sm:text-lg"
             style={{ animationDelay: "170ms" }}
           >
-            飲食店の個室トイレと、全国のコインランドリー。
+            洗濯・乾燥の待ち時間に、55インチ・音声つきの動画広告を“同じ人に何度も”。
             <br className="hidden sm:block" />
-            逃げ場のない閉鎖空間で、音声つきの動画広告を“同じ人に何度も”。視認率90%、QRで効果まで見える広告メディアです。
+            利用者の約7割が30〜50代の女性。1店舗 月8,800円から、エリアでも全国でも。飲食店の個室トイレ媒体もご用意しています。
           </p>
 
           <div
@@ -121,7 +121,7 @@ export function Hero() {
             className="dr-in mt-6 flex flex-wrap gap-2 text-xs font-medium text-white/85"
             style={{ animationDelay: "380ms" }}
           >
-            {["単店・短期からOK", "動画制作までワンストップ", "QRで効果レポート", "適格請求書対応"].map((t) => (
+            {["10店・1ヶ月からOK", "動画がなくても始められる", "配信回数は実測レポート", "適格請求書対応"].map((t) => (
               <span
                 key={t}
                 className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5"
@@ -160,16 +160,16 @@ export function Hero() {
             <div className="relative overflow-hidden rounded-[1.4rem] border border-white/15 shadow-2xl">
               <Carousel
                 images={[
-                  "/images/toilet-vanity.jpg",
                   "/images/laundry-media-new.jpg",
-                  "/images/toilet-signage.jpg",
                   "/images/laundry-front.jpg",
+                  "/images/laundry-media-new3.jpg",
+                  "/images/toilet-vanity.jpg",
                 ]}
                 captions={[
-                  "個室トイレサイネージ｜1対1で“濃く”届ける",
-                  "コインランドリーサイネージ｜同一ターゲットに高頻度",
-                  "個室トイレサイネージ｜音声つき・強制視聴",
-                  "コインランドリーサイネージ｜商業施設併設で圧倒的集客",
+                  "コインランドリーサイネージ｜55インチ・音声つきで待ち時間に届く",
+                  "コインランドリーサイネージ｜商業施設併設・全国約400店",
+                  "コインランドリーサイネージ｜同じ人に、来店のたびに",
+                  "個室トイレサイネージ｜1対1で“濃く”届ける（設置店舗から順次）",
                 ]}
                 chips={chips}
                 alt="DigiRep サイネージの設置イメージ"

@@ -34,7 +34,7 @@ export function Comparison() {
         <SectionHeading
           eyebrow="Comparison"
           title="他の広告媒体との違い"
-          lead="「広く浅く」の一般的な広告と、「狭く・深く・繰り返す」DigiRep。1対1の質（トイレ）と、超高頻度の量（ランドリー）で、他媒体にはない届き方を実現します。"
+          lead="「広く浅く」の一般的な広告と、「狭く・深く・繰り返す」DigiRep。高頻度の量（ランドリー）と1対1の質（トイレ）で、他媒体にはない届き方を実現します。"
         />
 
         <div className="mt-12 overflow-x-auto rounded-2xl border border-border shadow-sm">

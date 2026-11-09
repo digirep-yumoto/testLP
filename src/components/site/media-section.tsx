@@ -48,6 +48,12 @@ export function MediaSection({ media, index }: { media: Media; index: number }) 
             <p className="mt-1 text-[15px] font-bold text-ink-soft">{media.axis.sub}</p>
             <p className="mt-4 text-lg font-bold leading-relaxed text-ink">{media.catch}</p>
             <p className="mt-3 text-base leading-[1.95] text-ink-soft">{media.lead}</p>
+            {media.notice && (
+              <p className={cn("mt-4 flex gap-2 rounded-xl border px-4 py-3 text-xs leading-relaxed text-ink-soft", a.border, a.softBg)}>
+                <AlertCircle className={cn("mt-0.5 size-4 shrink-0", a.text)} />
+                <span>{media.notice}</span>
+              </p>
+            )}
 
             <a
               href="/#contact"

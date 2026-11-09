@@ -122,7 +122,7 @@ export function ResultPanel({
           label={r.media === "toilet" ? "想定視認回数 / 月" : "想定接触回数 / 月"}
           value={num(r.contactsPerMonth)}
           unit="回"
-          hint={r.media === "toilet" ? "視認率90%を適用" : "1来店あたり約7回の反復"}
+          hint={r.media === "toilet" ? "視認率90%を適用" : "視認率55%・1利用2回の接触"}
           accentClass={a.text}
         />
         <Metric

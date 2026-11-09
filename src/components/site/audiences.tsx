@@ -7,7 +7,7 @@ export function Audiences() {
   return (
     <section className="bg-paper py-16 sm:py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <Reveal className="grid gap-5 md:grid-cols-2">
+        <Reveal className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {audiences.map((a) => (
             <div
               key={a.key}
@@ -21,7 +21,7 @@ export function Audiences() {
                   {a.label}
                 </span>
               </div>
-              <h3 className="mt-4 text-xl font-bold text-ink">{a.title}</h3>
+              <h3 className="mt-4 text-lg font-bold text-ink xl:min-h-[3.5rem]">{a.title}</h3>
               <div className="flex-1">
                 <p className="mt-2 text-sm leading-relaxed text-ink-soft">{a.body}</p>
                 {a.note && (

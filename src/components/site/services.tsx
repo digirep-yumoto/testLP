@@ -13,7 +13,7 @@ export function Services() {
         <SectionHeading
           eyebrow="Our Media"
           title="2つの生活導線メディア"
-          lead="「1対1で濃く届ける個室トイレ」と、「同一ターゲットに繰り返す商業施設併設のコインランドリー」。商材に合わせて、最適な“視聴環境”を選べます。"
+          lead="主力は、全国約400店の商業施設併設コインランドリーで同一ターゲットに繰り返し届ける「BlueSky LAUNDRY TV」。1対1で濃く届ける「個室トイレ」は設置店舗から順次。商材に合わせて“視聴環境”を選べます。"
         />
 
         <Reveal className="mt-14 grid gap-6 md:grid-cols-2">

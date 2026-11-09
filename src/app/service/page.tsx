@@ -1,29 +1,75 @@
 import type { Metadata } from "next";
-import { ArrowRight, MonitorPlay, Clapperboard, Share2, Check, Sparkles } from "lucide-react";
+import { ArrowRight, MonitorPlay, Users, Sparkles, Clapperboard, Share2, Check, Building2 } from "lucide-react";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
 import { company } from "@/lib/site-data";
 
 export const metadata: Metadata = {
-  title: "事業一覧｜サイネージ広告・コンテンツ制作・SNS運用",
+  title: "事業一覧｜コインランドリー・個室トイレのサイネージ広告、採用支援、集客パッケージ",
   description:
-    "DigiRep（デジレップ）の事業一覧。個室トイレ・コインランドリーのサイネージ広告事業、動画・LP・パンフレットのコンテンツ制作事業、Instagram・TikTok・XのSNS運用事業をワンストップで提供します。",
+    "DigiRep（デジレップ）の事業一覧。全国約400店のコインランドリーと飲食店の個室トイレのサイネージ広告事業、中小企業向けの採用支援（採用の顔・新卒ダイレクト）、コインランドリー運営会社との配信提携、助成金を使った店舗向け集客パッケージ、動画・LP制作をご案内します。",
   alternates: { canonical: "/service" },
 };
 
 const services = [
   {
     icon: MonitorPlay,
-    eyebrow: "Signage Advertising",
+    eyebrow: "Signage Advertising ｜ 主力事業",
     title: "サイネージ広告事業",
-    lead: "生活導線の“逃げ場のない場所”に出す、確実に見られるサイネージ広告メディア。",
+    lead: "生活導線の“待ち時間”に出す、確実に見られるサイネージ広告メディア。主力は全国約400店のコインランドリー店内TV「BlueSky LAUNDRY TV」です。",
     items: [
-      { h: "個室トイレサイネージ", b: "飲食店の個室トイレに設置。1対1・音あり・視認率90%で、比較検討・デリケート商材を“濃く”届けます。" },
-      { h: "コインランドリーサイネージ", b: "全国のコインランドリーに設置。視聴者の約67%が女性・30〜50代。待ち時間に高頻度で反復接触します。" },
+      { h: "コインランドリーサイネージ（BlueSky LAUNDRY TV）", b: "商業施設併設のコインランドリー全国約400店・55インチ・音声つき。利用者の約7割が女性・30〜50代。洗濯・乾燥の待ち時間に、同じ人へ来店のたびに届きます。1店舗 月8,800円〜（10店から）。2027年1月配信開始・先行受付中。" },
+      { h: "個室トイレサイネージ", b: "飲食店の個室トイレに設置。1対1・音あり・視認率90%で、比較検討・デリケート商材を“濃く”届けます。基本料金 月5,000円〜＋成果報酬。設置店舗から順次ご案内します。" },
     ],
-    points: ["視認率90%・QRで効果を可視化", "単店・短期から、動画制作込みで開始可能", "全国ネットワークでエリア/全国を選んで配信"],
+    points: ["配信店舗数・配信回数は配信ログで実測し、月次レポート", "動画がなくても、静止画＋音声からスタートできる", "エリア指定も全国一斉も。2ヶ月・3ヶ月の継続割引あり"],
     ctaLabel: "媒体資料・料金を見る",
-    ctaHref: "/#docs",
+    ctaHref: "/media/laundry",
+    tone: "primary",
+  },
+  {
+    icon: Users,
+    eyebrow: "Recruitment Support ｜ 採用支援事業",
+    title: "採用支援事業（採用の顔・新卒ダイレクト）",
+    lead: "「求人を出しても応募が来ない」中小企業のために。応募したくなる“採用の顔”をつくる制作物と、入社人数の保証つきの新卒採用をご用意しています。",
+    items: [
+      { h: "採用の顔", b: "採用サイト・会社紹介・求人票・社員インタビュー・動画など、応募者が最初に見る6つの制作物を、業種と会社の強みに合わせて設計・制作します。" },
+      { h: "新卒ダイレクト", b: "学生プールから御社に合う学生へ直接アプローチ。入社人数の保証つきで、届かなければ達成まで無料で延長します。" },
+      { h: "かんたん採用スター診断", b: "3分の質問で、御社の採用の“中身”と“見え方”を7領域で診断。打ち手とおすすめをその場で表示します。" },
+    ],
+    points: ["専用サイト saiyo.digirep.work で料金・制作イメージを公開", "診断→30分の相談→制作、の順で進みます", "サイネージ広告（求人動画）との組み合わせも可能"],
+    ctaLabel: "採用支援サイトを見る",
+    ctaHref: "https://saiyo.digirep.work/",
+    tone: "primary",
+  },
+  {
+    icon: Building2,
+    eyebrow: "Partnership ｜ コインランドリー運営会社さまへ",
+    title: "店内モニターの広告媒体化（配信提携）",
+    lead: "コインランドリーを運営する企業さま・多店舗オーナーさまの店内モニターを、広告媒体として一緒に運営します。",
+    items: [
+      { h: "既設モニターを活用", b: "店内にすでにあるモニターに、当社が配信用の小型端末を無償で取り付けます。配信・保守・月次レポートも当社が行います。" },
+      { h: "広告の販売は当社", b: "広告は当社と提携する広告代理店が販売。御社に営業の手間はなく、広告掲載料の一部を毎月お支払いします。空き枠は御社の告知に無料でお使いいただけます。" },
+      { h: "掲載基準と判断権", b: "消費者金融・ギャンブル・出会い系などは掲載しません。御社にも掲載可否の判断権があります。" },
+    ],
+    points: ["店内モニターのある店舗が対象", "数店舗でのテストから始められる", "初回2年・以後1年更新・3か月前通知で解約可"],
+    ctaLabel: "配信提携のご案内を見る",
+    ctaHref: "/laundry-partner",
+    tone: "default",
+  },
+  {
+    icon: Sparkles,
+    eyebrow: "Training × Promotion Package ｜ 飲食店・サロン向け",
+    title: "助成金で集客パッケージ（店舗様向け・PR配信店）",
+    lead: "SNS×AI内製化研修・PR動画・インフルエンサー・LP・トイレサイネージ配信をひとつに。研修費の75%は国の助成金。さらに記事掲載・交流会へのご協力の対価として2つの協力金をお支払いし、交流会を1回開催いただいた場合は結果として手出しが残らない形になります。",
+    items: [
+      { h: "SNS×AI 内製化研修（Per-Fact）", b: "3講座30時間・オンライン。動画・SNS・生成AIを自分たちで回せる社員が育ちます。人材開発支援助成金の対象。" },
+      { h: "PR動画・インフルエンサー来店投稿（HolyTech）", b: "御社の魅力を動画に。グルメ・美容系インフルエンサーが来店して投稿します。" },
+      { h: "トイレサイネージ配信・LP（デジレップ）", b: "御社のトイレに1面設置し、御社のPR動画を自店と加盟店ネットワークの他店で配信。LPはご成約特典。" },
+    ],
+    points: ["研修費の75%は国の助成金（要件を満たした場合）", "ご成約までお会いするのは2回・申請は社労士が代行", "制度は2027年3月31日までの時限措置"],
+    ctaLabel: "パッケージの内容を見る",
+    ctaHref: "/package",
+    tone: "default",
   },
   {
     icon: Clapperboard,
@@ -38,6 +84,7 @@ const services = [
     points: ["広告・配信と一貫した設計", "素材が無くても“伝わる”表現に", "業種・ターゲットに合わせて最適化"],
     ctaLabel: "制作について相談する",
     ctaHref: "/#request",
+    tone: "default",
   },
   {
     icon: Share2,
@@ -52,20 +99,7 @@ const services = [
     points: ["投稿制作・カレンダー設計を代行", "自動DM等で反応をリード化", "GA連携で流入・問い合わせを可視化"],
     ctaLabel: "SNS運用を相談する",
     ctaHref: "/#request",
-  },
-  {
-    icon: Sparkles,
-    eyebrow: "Training × Promotion Package",
-    title: "助成金で集客パッケージ（店舗様向け・PR配信店）",
-    lead: "SNS×AI内製化研修・PR動画・インフルエンサー・LP・トイレサイネージ配信をひとつに。研修費の75%は国の助成金。さらに記事掲載・交流会へのご協力の対価として2つの協力金をお支払いし、結果として手出しが残りません。",
-    items: [
-      { h: "SNS×AI 内製化研修（Per-Fact）", b: "3講座30時間・オンライン。動画・SNS・生成AIを自分たちで回せる社員が育ちます。人材開発支援助成金の対象。" },
-      { h: "PR動画・インフルエンサー来店投稿（HolyTech）", b: "御社の魅力を動画に。グルメ・美容系インフルエンサーが来店して投稿します。" },
-      { h: "トイレサイネージ配信・LP（デジレップ）", b: "御社のトイレに1面設置し、御社のPR動画を自店と加盟店ネットワークの他店で配信。LPはご成約特典。" },
-    ],
-    points: ["研修費の75%は国の助成金（要件を満たした場合）", "ご成約までお会いするのは2回・申請は社労士が代行", "制度は2027年3月31日までの時限措置"],
-    ctaLabel: "パッケージの内容を見る",
-    ctaHref: "/package",
+    tone: "default",
   },
 ];
 
@@ -84,8 +118,9 @@ export default function ServicePage() {
               事業一覧
             </h1>
             <p className="mt-4 max-w-2xl text-[15px] leading-[1.9] text-white/75">
-              DigiRep（デジレップ）は、「確実に見られる広告メディア」を軸に、
-              集客に必要な<strong className="text-white">「媒体・制作・運用」</strong>をワンストップで提供します。
+              DigiRep（デジレップ）は、全国約400店のコインランドリーを中心とした
+              <strong className="text-white">「確実に見られる広告メディア」</strong>と、
+              中小企業の<strong className="text-white">「採用支援」</strong>を軸に、集客と採用に必要な媒体・制作・運用をワンストップで提供します。
             </p>
           </div>
         </section>
@@ -94,7 +129,14 @@ export default function ServicePage() {
         <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:py-20">
           <div className="grid gap-6">
             {services.map((s) => (
-              <div key={s.title} className="overflow-hidden rounded-3xl border border-border bg-card shadow-sm">
+              <div
+                key={s.title}
+                className={
+                  s.tone === "primary"
+                    ? "overflow-hidden rounded-3xl border-2 border-brand/40 bg-card shadow-md"
+                    : "overflow-hidden rounded-3xl border border-border bg-card shadow-sm"
+                }
+              >
                 <div className="grid gap-6 p-7 sm:p-9 lg:grid-cols-[1fr_1.3fr]">
                   <div>
                     <span className="grid size-12 place-items-center rounded-xl bg-brand/10 text-brand">

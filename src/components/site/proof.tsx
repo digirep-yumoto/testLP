@@ -17,7 +17,7 @@ export function Proof() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Proven Results"
-          title="トライアルで実証された、広告効果"
+          title="個室トイレ：トライアルで確認した広告効果"
           lead={proof.lead}
         />
 

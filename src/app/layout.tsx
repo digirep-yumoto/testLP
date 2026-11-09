@@ -31,14 +31,16 @@ const notoSerifJP = Noto_Serif_JP({
 export const metadata: Metadata = {
   metadataBase: new URL(company.url),
   title: {
-    default: "DigiRep（デジレップ）｜トイレ＆ランドリー×サイネージ広告",
+    default: "DigiRep（デジレップ）｜コインランドリー＆個室トイレ×サイネージ広告",
     template: `%s｜${company.brand}`,
   },
   description: company.description,
   keywords: [
     "サイネージ広告",
-    "個室トイレサイネージ",
     "コインランドリーサイネージ",
+    "コインランドリー 広告",
+    "個室トイレサイネージ",
+    "採用支援",
     "デジタルサイネージ",
     "BlueSky LAUNDRY TV",
     "DigiRep",
@@ -47,14 +49,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ja_JP",
     siteName: company.brand,
-    title: "DigiRep（デジレップ）｜トイレ＆ランドリー×サイネージ広告",
+    title: "DigiRep（デジレップ）｜コインランドリー＆個室トイレ×サイネージ広告",
     description: company.description,
     url: company.url,
     images: [ogImage],
   },
   twitter: {
     card: "summary_large_image",
-    title: "DigiRep（デジレップ）｜トイレ＆ランドリー×サイネージ広告",
+    title: "DigiRep（デジレップ）｜コインランドリー＆個室トイレ×サイネージ広告",
     description: company.description,
     images: ["/og.png"],
   },
@@ -96,21 +98,31 @@ const jsonLd = {
     },
     {
       "@type": "Service",
+      name: "コインランドリーサイネージ広告（BlueSky LAUNDRY TV）",
+      serviceType: "デジタルサイネージ広告",
+      areaServed: "JP",
+      provider: { "@id": `${siteUrl}/#organization` },
+      description:
+        "全国約400店のコインランドリー店内に設置した55インチ・音声つきデジタルサイネージによる広告配信。利用者の約7割が女性・30〜50代。同一属性へ高頻度で反復リーチ。",
+    },
+    {
+      "@type": "Service",
       name: "個室トイレサイネージ広告",
       serviceType: "デジタルサイネージ広告",
       areaServed: "JP",
       provider: { "@id": `${siteUrl}/#organization` },
       description:
-        "飲食店の個室トイレに設置したデジタルサイネージによる広告配信。1対1・強制視聴・音ありで、視認率90%。QRで行動計測が可能。",
+        "飲食店の個室トイレに設置したデジタルサイネージによる広告配信。1対1・強制視聴・音ありで、視認率90%。QRで行動計測が可能。設置店舗から順次配信。",
     },
     {
       "@type": "Service",
-      name: "コインランドリーサイネージ広告",
-      serviceType: "デジタルサイネージ広告",
+      name: "採用支援（採用の顔・新卒ダイレクト）",
+      serviceType: "採用支援",
       areaServed: "JP",
+      url: "https://saiyo.digirep.work/",
       provider: { "@id": `${siteUrl}/#organization` },
       description:
-        "全国のコインランドリーに設置したデジタルサイネージによる広告配信。視聴者の約67%が女性・30〜50代。同一属性へ高頻度で反復リーチ。",
+        "中小企業向けの採用ブランディング制作物「採用の顔」と、入社人数の保証つき新卒採用「新卒ダイレクト」。",
     },
   ],
 };

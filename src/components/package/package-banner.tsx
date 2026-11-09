@@ -21,7 +21,7 @@ export function PackageBanner() {
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-white/90 sm:text-[15px]">
                 PR動画・インフルエンサー来店投稿・LP・トイレサイネージ配信・SNS×AI研修をひとつのパッケージに。
-                研修費の<b className="text-[#ffd23f]">75%は国の助成金</b>。さらに記事掲載・交流会へのご協力の対価として2つの協力金をお支払いし、結果として手出しが残りません。
+                研修費の<b className="text-[#ffd23f]">75%は国の助成金</b>。さらに記事掲載・交流会へのご協力の対価として2つの協力金をお支払いし、交流会を1回開催いただいた場合は結果として手出しが残らない形になります。
               </p>
               <div className="mt-5 flex flex-wrap gap-2">
                 {[["video", "PR動画"], ["influencer", "インフルエンサー"], ["signage", "サイネージ配信"], ["lp", "LP制作"], ["training", "SNS×AI研修"]].map(([k, t]) => (

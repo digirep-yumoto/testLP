@@ -11,8 +11,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/service`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/simulator`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${base}/company`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
-    { url: `${base}/media/toilet`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${base}/media/laundry`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${base}/media/toilet`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${base}/laundry-partner`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     ...lps.map((l) => ({
       url: `${base}/lp/${l.slug}`,
       lastModified: now,

@@ -5,13 +5,12 @@ import { Menu, X, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const nav = [
-  { href: "/service", label: "事業一覧" },
-  { href: "/media/toilet", label: "個室トイレ" },
-  { href: "/media/laundry", label: "ランドリー" },
-  { href: "/simulator", label: "無料シミュレーター" },
-  { href: "/#store", label: "店舗オーナー" },
+  { href: "/media/laundry", label: "ランドリー広告" },
+  { href: "/media/toilet", label: "トイレ広告" },
+  { href: "/simulator", label: "シミュレーター" },
+  { href: "/laundry-partner", label: "運営会社の方へ" },
+  { href: "https://saiyo.digirep.work/", label: "採用支援 ↗" },
   { href: "/#docs", label: "資料" },
-  { href: "/blog", label: "記事" },
   { href: "/#faq", label: "FAQ" },
 ];
 
@@ -51,13 +50,13 @@ export function Header() {
           ))}
           <a
             href="/#request"
-            className="inline-flex items-center gap-1.5 rounded-lg border border-brand/40 px-4 py-2 text-sm font-bold text-brand transition-colors hover:bg-brand/5"
+            className="hidden items-center gap-1.5 whitespace-nowrap rounded-lg border border-brand/40 px-4 py-2 text-sm font-bold text-brand transition-colors hover:bg-brand/5 xl:inline-flex"
           >
-            お問い合わせ・無料相談
+            無料相談
           </a>
           <a
             href="/#contact"
-            className="inline-flex items-center gap-1.5 rounded-lg bg-brand px-4 py-2 text-sm font-bold text-white shadow-sm transition-all hover:bg-brand-dark active:translate-y-px"
+            className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg bg-brand px-4 py-2 text-sm font-bold text-white shadow-sm transition-all hover:bg-brand-dark active:translate-y-px"
           >
             お申込み・試算
             <ArrowRight className="size-4" />
@@ -88,6 +87,20 @@ export function Header() {
                 {n.label}
               </a>
             ))}
+            <a
+              href="/service"
+              onClick={() => setOpen(false)}
+              className="rounded-lg px-2 py-3 text-sm font-medium text-ink hover:bg-muted"
+            >
+              事業一覧
+            </a>
+            <a
+              href="/#store"
+              onClick={() => setOpen(false)}
+              className="rounded-lg px-2 py-3 text-sm font-medium text-ink hover:bg-muted"
+            >
+              店舗オーナー（個室トイレ設置）
+            </a>
             <a
               href="/package"
               onClick={() => setOpen(false)}

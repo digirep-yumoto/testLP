@@ -59,12 +59,12 @@ export function Positioning() {
         <SectionHeading
           eyebrow="Positioning"
           title="2つの媒体、2つの強み"
-          lead="「1対1で濃く刺す“質”のトイレ」と、「同一ターゲットに繰り返す“頻度・量”のランドリー」。目的に合わせて選べます。"
+          lead="「同一ターゲットに繰り返す“頻度・量”のランドリー」と、「1対1で濃く刺す“質”のトイレ」。目的に合わせて選べます。"
         />
 
         <Reveal className="relative mt-14 grid gap-6 lg:grid-cols-2">
-          <Panel data={positioning.toilet} />
           <Panel data={positioning.laundry} />
+          <Panel data={positioning.toilet} />
           {/* 中央のVS */}
           <div className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 lg:block">
             <span className="grid size-14 place-items-center rounded-full border border-border bg-white font-display text-lg font-black text-ink shadow-md">

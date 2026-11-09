@@ -18,13 +18,15 @@ export const TOILET_BOOTH_RATE = 0.78;
 /** 視認率 90%（個室・強制視聴）— site-data toilet.stats / proof */
 export const TOILET_VIEW_RATE = 0.9;
 
-/** ランドリー全店（383店）の想定リーチ 約34万人/月 — site-data laundry.stats */
-export const LAUNDRY_TOTAL_STORES = 383;
-export const LAUNDRY_TOTAL_REACH = 340_000;
-/** 1店あたりの月間来店者（＝想定リーチ）約888人 */
-export const LAUNDRY_REACH_PER_STORE = Math.round(LAUNDRY_TOTAL_REACH / LAUNDRY_TOTAL_STORES);
-/** 1回の来店での想定接触 約7回（4分ロールの反復再生）— site-data laundry.stats */
-export const LAUNDRY_CONTACTS_PER_VISIT = 7;
+/** ランドリー全店（約400店）。月間延べ利用 約43万人（運営会社の店舗データ・2026年6月時点 430,307人）— site-data laundry.stats */
+export const LAUNDRY_TOTAL_STORES = 400;
+export const LAUNDRY_TOTAL_VISITS = 430_000;
+/** 想定視認率 55%（1利用あたり、画面を見る人の割合。社内の統一値） */
+export const LAUNDRY_VIEW_RATE = 0.55;
+/** 1店あたりの月間来店者（延べ）約1,075人 */
+export const LAUNDRY_REACH_PER_STORE = Math.round(LAUNDRY_TOTAL_VISITS / LAUNDRY_TOTAL_STORES);
+/** 1回の利用での接触 最低2回（投入時・引取時）— site-data laundry.stats */
+export const LAUNDRY_CONTACTS_PER_VISIT = 2;
 
 export type SimMedia = "toilet" | "laundry";
 export type Objective = "awareness" | "acquisition" | "recruit";
@@ -186,7 +188,7 @@ export const defaultInput: SimInput = {
 export const laundryPackages = [
   { id: "spot" as const, label: "スポットパック", note: "店舗指定・最小10店〜（お試し）", min: 10 },
   { id: "area" as const, label: "エリアパック", note: "エリア内の全店をまとめ買い（人気）", min: 1 },
-  { id: "national" as const, label: "全国一括パック", note: `全${LAUNDRY_TOTAL_STORES}店を一括配信（基準）`, min: 1 },
+  { id: "national" as const, label: "全国一括パック", note: `全店（約${LAUNDRY_TOTAL_STORES}店）を一括配信（基準）`, min: 1 },
 ];
 
 const yen = (n: number) => `¥${Math.round(n).toLocaleString("ja-JP")}`;
@@ -249,7 +251,7 @@ export function simulate(input: SimInput): SimOutcome {
   const priced = computePrice(order);
   if (!priced.ok) return { ok: false, error: priced.error };
 
-  const reachPerMonth = Math.round(LAUNDRY_REACH_PER_STORE * stores);
+  const reachPerMonth = Math.round(LAUNDRY_REACH_PER_STORE * stores * LAUNDRY_VIEW_RATE);
   const contactsPerMonth = reachPerMonth * LAUNDRY_CONTACTS_PER_VISIT;
   const contactsTotal = contactsPerMonth * months;
   const p = priced.price;
@@ -267,10 +269,11 @@ export function simulate(input: SimInput): SimOutcome {
     cpm: contactsTotal > 0 ? Math.round((p.subtotalExclTax / contactsTotal) * 1000) : 0,
     cpc: contactsTotal > 0 ? Math.round((p.subtotalExclTax / contactsTotal) * 10) / 10 : 0,
     formula: [
-      { label: "1店あたりの月間来店者", value: `約 ${num(LAUNDRY_REACH_PER_STORE)} 人` },
+      { label: "1店あたりの月間来店者（延べ）", value: `約 ${num(LAUNDRY_REACH_PER_STORE)} 人` },
       { label: "× 配信店舗数", value: `${num(stores)} 店` },
-      { label: "＝ 月間の想定リーチ", value: `${num(reachPerMonth)} 人` },
-      { label: "× 1来店あたりの想定接触", value: `約 ${LAUNDRY_CONTACTS_PER_VISIT} 回` },
+      { label: "× 想定視認率", value: `${Math.round(LAUNDRY_VIEW_RATE * 100)}%` },
+      { label: "＝ 月間の想定視認者（延べ）", value: `${num(reachPerMonth)} 人` },
+      { label: "× 1利用あたりの接触", value: `${LAUNDRY_CONTACTS_PER_VISIT} 回（投入時・引取時）` },
       { label: "＝ 月間の想定接触回数", value: `${num(contactsPerMonth)} 回` },
     ],
     description: p.description,
