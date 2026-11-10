@@ -1,30 +1,18 @@
 import type { Metadata } from "next";
-import { Noto_Sans_JP, Lexend, Noto_Serif_JP } from "next/font/google";
+import { Lexend } from "next/font/google";
 import "./globals.css";
 import { company, ogImage } from "@/lib/site-data";
 import { GoogleAnalytics } from "@/components/analytics/ga";
 import { MetaPixel } from "@/components/analytics/retargeting";
 import { ScrollProgress } from "@/components/site/scroll-progress";
 
-const notoSansJP = Noto_Sans_JP({
-  variable: "--font-sans",
-  subsets: ["latin"],
-  weight: ["400", "700", "900"],
-  display: "swap",
-});
-
+// 日本語フォントはWebフォントを読み込まず、端末のシステムフォント（ヒラギノ／游ゴシック／Noto Sans JP）を使う。
+// Noto Sans JP/Noto Serif JP を Webフォントで配信すると、文字範囲ごとの分割ファイルが約70本・1.5MBになり、
+// スマホの初期表示（LCP）が10秒超になるため。欧文の見出し・数字だけ Lexend を使う（3ファイル・約100KB）。
 const lexend = Lexend({
   variable: "--font-display",
   subsets: ["latin"],
   weight: ["600", "700", "800"],
-  display: "swap",
-});
-
-// 見出し用（上品でエディトリアルな明朝＝ブランディング・信頼感）
-const notoSerifJP = Noto_Serif_JP({
-  variable: "--font-mincho",
-  subsets: ["latin"],
-  weight: ["600", "700"],
   display: "swap",
 });
 
@@ -135,7 +123,7 @@ export default function RootLayout({
   return (
     <html
       lang="ja"
-      className={`${notoSansJP.variable} ${lexend.variable} ${notoSerifJP.variable} h-full antialiased`}
+      className={`${lexend.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-paper">
         <script

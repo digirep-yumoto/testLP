@@ -27,7 +27,7 @@ export function OtherServices() {
           ))}
         </Reveal>
         <p className="mt-6 text-center text-sm text-ink-soft">
-          飲食店・サロンのオーナーさま向け（個室トイレの設置・助成金で集客パッケージ）は <a href="/store" className="font-bold text-brand underline underline-offset-4">店舗オーナーの方へ</a> をご覧ください。
+          飲食店・サロンのオーナーさま向け（個室トイレの設置・助成金で集客パッケージ）は <a href="/store" className="font-bold text-brand-dark underline underline-offset-4">店舗オーナーの方へ</a> をご覧ください。
         </p>
       </div>
     </section>

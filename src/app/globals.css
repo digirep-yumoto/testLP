@@ -85,6 +85,9 @@
   --chart-5: oklch(0.269 0 0);
   --radius: 0.75rem;
   /* DigiRep ブランド／媒体別アクセント */
+  /* 日本語はシステムフォント（Webフォント非配信＝表示速度優先）。欧文は Lexend（next/font） */
+  --font-sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic Medium", "Yu Gothic", Meiryo, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mincho: "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Yu Mincho", "Noto Serif JP", "BIZ UDPMincho", serif;
   --ink: #0f1e33;
   --ink-soft: #45576f;
   /* 2026-11：主力のコインランドリー媒体（清潔・水・光）に寄せた配色。brand＝ランドリーの青緑 */

@@ -48,11 +48,11 @@ export function Footer() {
             </p>
             <dl className="mt-5 space-y-1.5 text-xs text-white/60">
               <div className="flex gap-2">
-                <dt className="w-12 shrink-0 text-white/40">所在地</dt>
+                <dt className="w-12 shrink-0 text-white/60">所在地</dt>
                 <dd>{company.address}</dd>
               </div>
               <div className="flex gap-2">
-                <dt className="w-12 shrink-0 text-white/40">TEL</dt>
+                <dt className="w-12 shrink-0 text-white/60">TEL</dt>
                 <dd>
                   <a href={`tel:${company.tel.replace(/-/g, "")}`} className="hover:text-white">
                     {company.tel}
@@ -60,7 +60,7 @@ export function Footer() {
                 </dd>
               </div>
               <div className="flex gap-2">
-                <dt className="w-12 shrink-0 text-white/40">Mail</dt>
+                <dt className="w-12 shrink-0 text-white/60">Mail</dt>
                 <dd>
                   <a href={`mailto:${company.email}`} className="hover:text-white">
                     {company.email}
@@ -98,7 +98,7 @@ export function Footer() {
           <nav className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-white/55">
             <a href="/privacy" className="transition-colors hover:text-white">プライバシーポリシー</a>
             <a href="/tokushoho" className="transition-colors hover:text-white">特定商取引法に基づく表記</a>
-            <span className="text-white/40">{company.name}（媒体運営）</span>
+            <span className="text-white/60">{company.name}（媒体運営）</span>
           </nav>
         </div>
       </div>
