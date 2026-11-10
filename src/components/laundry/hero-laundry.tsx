@@ -29,7 +29,7 @@ export function HeroLaundry() {
         {/* 左：コピー */}
         <div>
           <p className="dr-in inline-flex flex-wrap items-center gap-2 rounded-full border border-brand/20 bg-white/80 px-3.5 py-1.5 text-xs font-bold text-brand-dark shadow-sm backdrop-blur" style={{ animationDelay: "0ms" }}>
-            <span className="rounded-full bg-sun px-2 py-0.5 text-[10px] font-black text-ink">先行受付中</span>
+            <span className="rounded-full bg-sun px-2 py-0.5 text-[10px] font-black text-ink">国内最大級</span>
             BlueSky LAUNDRY TV ｜ コインランドリー店内サイネージ広告
           </p>
 
@@ -58,7 +58,7 @@ export function HeroLaundry() {
               href="#request"
               className="inline-flex items-center justify-center gap-2 rounded-xl border border-brand/30 bg-white px-6 py-4 text-base font-semibold text-brand-dark transition-colors hover:bg-brand/5"
             >
-              先行申込・相談する
+              無料で相談する
             </a>
           </div>
 

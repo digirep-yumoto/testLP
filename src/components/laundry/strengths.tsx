@@ -41,8 +41,8 @@ export function Strengths() {
           ))}
         </Reveal>
         <div className="mt-10 flex flex-col items-center justify-between gap-4 rounded-2xl border border-sun/40 bg-white/5 px-6 py-5 sm:flex-row">
-          <p className="flex items-center gap-2 text-sm font-bold text-white"><Sparkles className="size-4 text-sun" />2027年1月の配信開始に向けて、先行でお申込みいただいた広告主さまから希望エリアの枠をご案内しています。</p>
-          <a href="#request" className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-sun px-5 py-3 text-sm font-black text-ink transition-transform hover:-translate-y-0.5">先行申込・相談する</a>
+          <p className="flex items-center gap-2 text-sm font-bold text-white"><Sparkles className="size-4 text-sun" />掲載枠は店舗ごとに最大6社・先着順。希望エリア・店舗の空き状況をすぐにご案内します。</p>
+          <a href="#request" className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-sun px-5 py-3 text-sm font-black text-ink transition-transform hover:-translate-y-0.5">枠の空きを相談する</a>
         </div>
       </div>
     </section>

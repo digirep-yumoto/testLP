@@ -23,7 +23,7 @@ export function Hero() {
     <Chip key="0" icon={<Users className="size-4" />} big="約43万人/月" small="コインランドリー延べ利用者" />,
     <Chip key="1" icon={<Repeat className="size-4" />} big="女性 約7割" small="30〜50代中心・来店のたびに接触" />,
     <Chip key="2" icon={<Volume2 className="size-4" />} big="音声あり" small="55インチ・標準仕様" />,
-    <Chip key="3" icon={<Eye className="size-4" />} big="2027年1月" small="配信開始・先行受付中" />,
+    <Chip key="3" icon={<Eye className="size-4" />} big="最大6社/店" small="掲載枠は先着順" />,
   ];
 
   return (

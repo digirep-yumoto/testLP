@@ -12,7 +12,7 @@ const navGroups = [
       { href: "/simulator", label: "無料シミュレーター" },
       { href: "/#why", label: "なぜコインランドリーか" },
       { href: "/#pricing", label: "料金プラン" },
-      { href: "/#flow", label: "配信開始スケジュール・申込の流れ" },
+      { href: "/#flow", label: "お申込みから配信までの流れ" },
       { href: "/blog", label: "お役立ち記事" },
       { href: "/#faq", label: "よくあるご質問" },
     ],
