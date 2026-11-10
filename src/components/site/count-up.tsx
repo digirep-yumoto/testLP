@@ -39,6 +39,7 @@ export function CountUp({
         for (const e of entries) {
           if (e.isIntersecting && !started.current) {
             started.current = true;
+            setVal(0);
             const start = performance.now();
             const tick = (now: number) => {
               const p = Math.min(1, (now - start) / duration);
@@ -62,7 +63,8 @@ export function CountUp({
 
   return (
     <span ref={ref} className={className}>
-      {fmt(0)}
+      {/* JS無効・検索エンジン向けに最終値をサーバー描画し、表示領域に入ったら 0 から数える */}
+      {fmt(to)}
     </span>
   );
 }
