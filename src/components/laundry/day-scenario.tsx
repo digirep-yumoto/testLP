@@ -55,7 +55,7 @@ export function DayScenario() {
             ))}
           </ol>
         </Reveal>
-        <p className="mx-auto mt-6 max-w-3xl text-center text-xs leading-relaxed text-muted-foreground">
+        <p className="mx-auto mt-6 max-w-3xl text-center text-xs leading-relaxed text-ink-soft">
           ※ 利用の流れは一例です。来店頻度・性別年代は運営会社の店舗データ、接触回数は利用の流れからの想定です。
         </p>
       </div>

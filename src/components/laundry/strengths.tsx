@@ -16,7 +16,7 @@ export function Strengths() {
   return (
     <section id="strengths" className="relative overflow-hidden bg-ink py-20 text-white sm:py-28">
       <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(60% 60% at 100% 0%, rgba(10,127,160,0.5) 0%, transparent 55%), radial-gradient(40% 50% at 0% 100%, rgba(56,189,248,0.22) 0%, transparent 50%)" }} />
-      <BubbleField variant="dark" count={5} rising={10} />
+      <BubbleField variant="dark" count={5} rising={6} />
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mx-auto max-w-3xl text-center">
           <p className="mb-3 font-display text-sm font-semibold tracking-[0.18em] text-sky-300 uppercase">Why BlueSky LAUNDRY TV</p>

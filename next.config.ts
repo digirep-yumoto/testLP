@@ -17,8 +17,8 @@ const csp = [
   "font-src 'self' data:",
   "connect-src 'self' https://api.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://connect.facebook.net https://www.facebook.com" +
     (isProd ? "" : " ws: http://localhost:*"),
-  "frame-src https://js.stripe.com https://checkout.stripe.com https://hooks.stripe.com",
-  "form-action 'self' https://checkout.stripe.com",
+  "frame-src https://js.stripe.com https://checkout.stripe.com https://hooks.stripe.com https://www.facebook.com",
+  "form-action 'self' https://checkout.stripe.com https://www.facebook.com",
   "frame-ancestors 'none'",
   "object-src 'none'",
   "upgrade-insecure-requests",

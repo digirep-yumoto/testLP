@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 /**
  * ビューポートに入ると 0 → to までカウントアップする数値アニメ。
@@ -18,13 +18,18 @@ export function CountUp({
   className?: string;
 }) {
   const ref = useRef<HTMLSpanElement | null>(null);
-  const [val, setVal] = useState(0);
   const started = useRef(false);
+  const fmt = (v: number) =>
+    v.toLocaleString("ja-JP", { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // 再描画ではなく textContent を直接更新する（1フレームごとの React 再レンダーを避ける）
+    const setVal = (v: number) => {
+      el.textContent = fmt(v);
+    };
     if (reduce) {
       setVal(to);
       return;
@@ -52,14 +57,12 @@ export function CountUp({
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [to, duration]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [to, duration, decimals]);
 
   return (
     <span ref={ref} className={className}>
-      {val.toLocaleString("ja-JP", {
-        minimumFractionDigits: decimals,
-        maximumFractionDigits: decimals,
-      })}
+      {fmt(0)}
     </span>
   );
 }

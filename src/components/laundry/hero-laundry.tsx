@@ -22,7 +22,7 @@ export function HeroLaundry() {
         <div className="dr-aurora absolute -right-32 -top-40 size-[44rem] rounded-full opacity-50 blur-3xl" style={{ background: "radial-gradient(circle, rgba(10,127,160,0.22) 0%, transparent 65%)" }} />
         <div className="dr-aurora absolute -bottom-40 -left-24 size-[36rem] rounded-full opacity-40 blur-3xl" style={{ background: "radial-gradient(circle, rgba(56,189,248,0.25) 0%, transparent 65%)", animationDelay: "-8s" }} />
       </div>
-      <BubbleField count={6} rising={12} />
+      <BubbleField count={6} rising={8} />
       <PointerGlow />
 
       <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 pb-14 pt-28 sm:px-6 sm:pt-32 lg:grid-cols-[1.02fr_0.98fr] lg:pb-20 lg:pt-36">
@@ -77,7 +77,7 @@ export function HeroLaundry() {
           <div className="dr-float relative">
             <div className="dr-sheen relative overflow-hidden rounded-[1.6rem] border-[6px] border-ink bg-ink shadow-2xl shadow-brand/25">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/laundry-media-new.webp" alt="コインランドリー店内の55インチモニターで広告が流れているイメージ" width={1368} height={768} className="aspect-[16/10] w-full object-cover" loading="eager" fetchPriority="high" />
+              <img src="/images/laundry-media-new.webp" srcSet="/images/laundry-media-new-800.webp 800w, /images/laundry-media-new.webp 1368w" sizes="(min-width: 1024px) 560px, calc(100vw - 32px)" alt="コインランドリー店内の55インチモニターで広告が流れているイメージ" width={1368} height={768} className="aspect-[16/10] w-full object-cover" loading="eager" fetchPriority="high" />
               {/* 画面下部のラベルと進行バー */}
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/80 to-transparent px-4 pb-3 pt-10">
                 <div className="flex items-center justify-between gap-3 text-[11px] font-bold text-white/90">

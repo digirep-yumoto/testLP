@@ -107,7 +107,7 @@ export function AdPreview() {
                 相談する
               </a>
             </div>
-            <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground">
+            <p className="mt-3 text-[11px] leading-relaxed text-ink-soft">
               ※ 月額は1店舗単価×店舗数を万円単位に切り上げた目安。想定視認者数は1店あたり月間来店約1,124人×視認率55%で算出した推計値で、効果を保証するものではありません。広告の表示内容はイメージです。
             </p>
           </div>

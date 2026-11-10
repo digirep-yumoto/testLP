@@ -47,11 +47,11 @@ export function Comparison() {
                     key={c.label}
                     className={cn(
                       "px-4 py-4 text-sm font-bold",
-                      c.highlight ? "bg-brand/5 text-brand" : "text-ink-soft",
+                      c.highlight ? "bg-brand/5 text-brand-dark" : "text-ink-soft",
                     )}
                   >
                     {c.highlight && (
-                      <span className="mb-1 block font-display text-[10px] tracking-wide text-brand/70">
+                      <span className="mb-1 block font-display text-[10px] tracking-wide text-brand-dark">
                         DigiRep
                       </span>
                     )}
@@ -82,7 +82,7 @@ export function Comparison() {
             </tbody>
           </table>
         </div>
-        <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+        <p className="mt-4 text-xs leading-relaxed text-ink-soft">
           ※ 各媒体の一般的な特性に基づく比較イメージです。効果・単価は出稿条件により異なります。
         </p>
       </div>

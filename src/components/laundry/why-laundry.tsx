@@ -12,14 +12,14 @@ const reasons = [
   },
   {
     icon: Repeat,
-    img: "/images/laundry-media-new3.webp",
+    img: "/images/laundry-media-new3-800.webp",
     title: "同じ人に、来店のたびに",
     body: "利用者は月2〜3回来店し、1回の利用で洗濯物を入れるとき・取り出すときの2回以上、画面の前に立ちます。固定客が多く、同じ広告が繰り返し届くので記憶に残ります。",
     tag: "反復接触",
   },
   {
     icon: Store,
-    img: "/images/laundry-storefront.webp",
+    img: "/images/laundry-storefront-640.webp",
     title: "商業施設併設・全国統一の配信網",
     body: "カインズ・イオンタウン・マックスバリュ等に併設する全国約400店を、1つのメディアとして一括配信・一括レポート。商圏を絞っても、全国一斉でも配信できます。",
     tag: "全国約400店",
@@ -40,7 +40,7 @@ export function WhyLaundry() {
             <article key={r.title} className="group overflow-hidden rounded-3xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
               <div className="relative h-48 overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={r.img} alt="" loading="lazy" className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.05]" />
+                <img src={r.img} alt="" loading="lazy" width={800} height={534} className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.05]" />
                 <span className="absolute left-4 top-4 rounded-full bg-brand px-3 py-1 text-[11px] font-bold text-white shadow">{r.tag}</span>
               </div>
               <div className="p-6">
@@ -53,7 +53,7 @@ export function WhyLaundry() {
             </article>
           ))}
         </Reveal>
-        <p className="mx-auto mt-6 max-w-3xl text-center text-xs leading-relaxed text-muted-foreground">
+        <p className="mx-auto mt-6 max-w-3xl text-center text-xs leading-relaxed text-ink-soft">
           ※ 来店者数・性別年代は運営会社の店舗データ（2026年6月時点）。接触回数は利用の流れからの想定値です。
         </p>
       </div>

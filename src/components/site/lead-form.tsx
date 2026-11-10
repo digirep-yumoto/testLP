@@ -173,7 +173,7 @@ export function LeadForm({
               </button>
               <p className="text-center text-xs text-muted-foreground">
                 送信により
-                <a href="/privacy" className="text-brand hover:underline">プライバシーポリシー</a>
+                <a href="/privacy" className="text-brand-dark underline underline-offset-2">プライバシーポリシー</a>
                 に同意したものとみなします。
               </p>
             </form>

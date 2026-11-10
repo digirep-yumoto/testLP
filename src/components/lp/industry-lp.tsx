@@ -10,7 +10,7 @@ export function IndustryLp({ lp }: { lp: LpConfig }) {
       <header className="sticky top-0 z-40 border-b border-border bg-white/95 backdrop-blur">
         <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:px-6">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/logo.png" alt="DigiRep" className="h-9 w-auto" />
+          <img src="/images/logo.webp" alt="DigiRep" width={107} height={36} className="h-9 w-auto" />
           <a href={`tel:${company.tel.replace(/-/g, "")}`} className="inline-flex items-center gap-1.5 text-sm font-bold text-brand">
             <Phone className="size-4" />
             {company.tel}

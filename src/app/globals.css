@@ -252,7 +252,7 @@
     transform: translate3d(0, 0, 0) scale(1);
   }
   50% {
-    transform: translate3d(4%, -3%, 0) scale(1.18);
+    transform: translate3d(5%, -4%, 0);
   }
 }
 .dr-aurora {

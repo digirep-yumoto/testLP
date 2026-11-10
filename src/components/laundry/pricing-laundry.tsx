@@ -81,7 +81,7 @@ export function PricingLaundry() {
             <ArrowRight className="size-6 shrink-0 transition-transform group-hover:translate-x-1" />
           </a>
         </div>
-        <p className="mt-4 flex gap-2 text-xs leading-relaxed text-muted-foreground">
+        <p className="mt-4 flex gap-2 text-xs leading-relaxed text-ink-soft">
           <Info className="mt-0.5 size-3.5 shrink-0" />
           想定視認者数・想定リーチは来店者数に基づく推計値で、効果を保証するものではありません。掲載基準により、消費者金融・ギャンブル・出会い系・風俗・コンプレックス系の広告は掲載できません。
         </p>
