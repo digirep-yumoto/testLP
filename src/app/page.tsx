@@ -33,22 +33,55 @@ export default function Home() {
       <main>
         <HeroLaundry />
         <StatsBar />
-        <WhyLaundry />
-        <Strengths />
-        <AdPreview />
-        <LoopVisual />
-        <DayScenario />
-        <UseCases />
-        <PricingLaundry />
-        <Comparison />
-        <TrustReport />
-        <LaunchTimeline />
-        <SimulatorTeaser />
-        <OtherServices />
-        <Docs />
-        <LeadForm />
-        <Faq />
-        <Cta />
+        {/* 画面外のセクションはレイアウト計算を後回しにする（content-visibility） */}
+        <div className="[content-visibility:auto] [contain-intrinsic-size:auto_900px]">
+          <WhyLaundry />
+        </div>
+        <div className="[content-visibility:auto] [contain-intrinsic-size:auto_900px]">
+          <Strengths />
+        </div>
+        <div className="[content-visibility:auto] [contain-intrinsic-size:auto_900px]">
+          <AdPreview />
+        </div>
+        <div className="[content-visibility:auto] [contain-intrinsic-size:auto_900px]">
+          <LoopVisual />
+        </div>
+        <div className="[content-visibility:auto] [contain-intrinsic-size:auto_900px]">
+          <DayScenario />
+        </div>
+        <div className="[content-visibility:auto] [contain-intrinsic-size:auto_900px]">
+          <UseCases />
+        </div>
+        <div className="[content-visibility:auto] [contain-intrinsic-size:auto_900px]">
+          <PricingLaundry />
+        </div>
+        <div className="[content-visibility:auto] [contain-intrinsic-size:auto_900px]">
+          <Comparison />
+        </div>
+        <div className="[content-visibility:auto] [contain-intrinsic-size:auto_900px]">
+          <TrustReport />
+        </div>
+        <div className="[content-visibility:auto] [contain-intrinsic-size:auto_900px]">
+          <LaunchTimeline />
+        </div>
+        <div className="[content-visibility:auto] [contain-intrinsic-size:auto_900px]">
+          <SimulatorTeaser />
+        </div>
+        <div className="[content-visibility:auto] [contain-intrinsic-size:auto_900px]">
+          <OtherServices />
+        </div>
+        <div className="[content-visibility:auto] [contain-intrinsic-size:auto_900px]">
+          <Docs />
+        </div>
+        <div className="[content-visibility:auto] [contain-intrinsic-size:auto_900px]">
+          <LeadForm />
+        </div>
+        <div className="[content-visibility:auto] [contain-intrinsic-size:auto_900px]">
+          <Faq />
+        </div>
+        <div className="[content-visibility:auto] [contain-intrinsic-size:auto_900px]">
+          <Cta />
+        </div>
       </main>
       <Footer />
       <StickyCta />

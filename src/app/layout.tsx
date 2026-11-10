@@ -9,14 +9,14 @@ import { ScrollProgress } from "@/components/site/scroll-progress";
 const notoSansJP = Noto_Sans_JP({
   variable: "--font-sans",
   subsets: ["latin"],
-  weight: ["400", "500", "700", "900"],
+  weight: ["400", "700", "900"],
   display: "swap",
 });
 
 const lexend = Lexend({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
+  weight: ["600", "700", "800"],
   display: "swap",
 });
 
@@ -24,7 +24,7 @@ const lexend = Lexend({
 const notoSerifJP = Noto_Serif_JP({
   variable: "--font-mincho",
   subsets: ["latin"],
-  weight: ["500", "600", "700", "900"],
+  weight: ["600", "700"],
   display: "swap",
 });
 

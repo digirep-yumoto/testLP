@@ -36,7 +36,7 @@ export function Header() {
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-4 sm:px-6">
         <a href="/" className="flex items-center" aria-label="DigiRep ホーム">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/logo.webp" alt="DigiRep（デジレップ）" width={143} height={48} className="h-11 w-auto sm:h-12" />
+          <img src="/images/logo.webp" alt="DigiRep（デジレップ）" width={143} height={48} className="h-11 w-auto shrink-0 sm:h-12" />
         </a>
 
         <nav className="ml-auto hidden items-center gap-5 lg:flex">
