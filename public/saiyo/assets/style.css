@@ -912,6 +912,7 @@ footer .sis{display:inline-block;margin-top:10px;font-size:13px}
 .vc{position:relative}
 .vc .vtag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin:0 0 10px;background:#fff}
 .vc .vq{display:none}
+.vc.isv{border:2px solid var(--acc)}.vc.isv .vtag{background:var(--acc);color:#fff;border-color:var(--acc)}.vc.isv p{font-size:15.5px;color:var(--ink)}
 .casenote{background:var(--bg);border-left:4px solid var(--acc);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13.5px;color:#3a4358;margin:0 0 22px;max-width:820px}
 
 /* --- 6. 採用ページ3点チェック（打合せなし・A4 1枚） --- */
