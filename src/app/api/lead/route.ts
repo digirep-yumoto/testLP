@@ -32,7 +32,8 @@ function leadCsv(p: Record<string, string>, diag: string): string {
   const from = (p.message.match(/送信元ページ：([^\n]+)/)?.[1] || "").trim();
   const rest = p.message.replace(/送信元ページ：[^\n]*\n?/, "").replace(/\n/g, " ／ ").replace(/\s*／\s*$/, "").trim();
   const memo = [`受付 ${p.at.slice(0, 16).replace("T", " ")}`, p.purpose, target && `採用したい人：${target}`, type && `診断タイプ：${type}`, lay && `中身${lay[1]}／見え方${lay[2]}／動かし方${lay[3]}`, leak && `離脱：${leak}`, from && `送信元 ${from}`, rest].filter(Boolean).join("　");
-  const row = [p.company, p.tel, pick(/業種：([^／\n]+)/).replace(/の平均$/, ""), "", "", p.name, p.email, "", "HP問い合わせ", "", memo];
+  const urlIn = (p.message.match(/URL：\s*(https?:\/\/[^\s／]+)/)?.[1] || "").trim();
+  const row = [p.company, p.tel, pick(/業種：([^／\n]+)/).replace(/の平均$/, ""), "", "", p.name === "ご担当者" ? "" : p.name, p.email, urlIn, "HP問い合わせ", "", memo];
   const q = (v: string) => `"${String(v ?? "").replace(/"/g, '""')}"`;
   return "\uFEFF" + [cols, row].map((r) => r.map(q).join(",")).join("\r\n") + "\r\n";
 }
@@ -216,12 +217,12 @@ export async function POST(request: Request) {
         `<div style="background:#fff5ee;border-radius:10px;padding:16px 18px;margin:0 0 20px;"><p style="margin:0 0 10px;font-weight:700;color:#e8622c;">無料の採用診断（Web30分）でお渡しするもの</p>` +
         `<p style="margin:0 0 6px;">① 御社の求人票・採用ページを見て、<strong>改善点を3つ</strong></p>` +
         `<p style="margin:0 0 6px;">② 御社の<strong>採用キャッチコピー案を1つ</strong></p>` +
-        `<p style="margin:0;">③ 採用の顔・新卒ダイレクトが<strong>向いているかどうか</strong>（向いていなければ、そうお伝えします）</p></div>` +
+        `<p style="margin:0;">③ 採用の顔・新卒ダイレクトの<strong>どちらが合うか</strong>（合わない場合は、率直にそうお伝えします）</p></div>` +
         `<div style="border-left:4px solid #e8622c;padding:2px 0 2px 14px;margin:0 0 22px;"><p style="margin:0 0 8px;font-weight:700;">当日までにあると早いもの</p>` +
         `<p style="margin:0 0 4px;">・いまの求人票（URLまたは原稿）</p><p style="margin:0 0 4px;">・採用ページ・会社ホームページのURL</p><p style="margin:0;">・直近1年の応募数・採用数（分かる範囲で）</p></div>` +
         `<p style="margin:0 0 10px;font-weight:700;">先に見ておきたい方へ</p>` +
         `<p style="margin:0 0 5px;">📄 <a href="${saiyoSite}/service" style="color:#e8622c;">採用の顔（採用コンテンツ一式・88万円〜）</a></p>` +
-        `<p style="margin:0 0 5px;">🎓 <a href="${saiyoSite}/service/direct" style="color:#e8622c;">新卒ダイレクト（内定承諾を人数で保証）</a></p>` +
+        `<p style="margin:0 0 5px;">🎓 <a href="${saiyoSite}/service/direct" style="color:#e8622c;">新卒ダイレクト（入社を人数で保証）</a></p>` +
         `<p style="margin:0 0 5px;">⭐ <a href="${saiyoSite}/diagnosis/check" style="color:#e8622c;">かんたん採用スター診断（無料・約5分）</a></p>` +
         `<hr style="border:none;border-top:1px solid #e5e9f0;margin:22px 0 14px;">` +
         `<p style="margin:0;font-size:12px;color:#8a98ad;">デジレップ株式会社 採用支援事業｜〒352-0003 埼玉県新座市畑中1-13-16｜TEL 080-5527-1689（平日9:00〜19:00）<br>本メールにご返信いただければ担当が確認いたします。</p>` +
@@ -229,9 +230,32 @@ export async function POST(request: Request) {
       const saiyoText =
         `${company ? company + "　" : ""}${name} 様\n\n` +
         `お申込み・お問い合わせをありがとうございます。\n担当の湯本より1営業日以内に、ご希望の日時の確認のご連絡を差し上げます。\n\n` +
-        `【無料の採用診断（Web30分）でお渡しするもの】\n① 求人票・採用ページの改善点3つ\n② 採用キャッチコピー案1つ\n③ 採用の顔・新卒ダイレクトが向いているかどうか\n\n` +
+        `【無料の採用診断（Web30分）でお渡しするもの】\n① 求人票・採用ページの改善点3つ\n② 採用キャッチコピー案1つ\n③ 採用の顔・新卒ダイレクトのどちらが合うか\n\n` +
         `【当日までにあると早いもの】\n・いまの求人票（URLまたは原稿）\n・採用ページ・会社ホームページのURL\n・直近1年の応募数・採用数（分かる範囲で）\n\n` +
         `▼ 採用の顔\n${saiyoSite}/service\n▼ 新卒ダイレクト\n${saiyoSite}/service/direct\n▼ かんたん採用スター診断（無料）\n${saiyoSite}/diagnosis/check\n\n` +
+        `── デジレップ株式会社 採用支援事業\n〒352-0003 埼玉県新座市畑中1-13-16｜TEL 080-5527-1689\n本メールにご返信いただければ担当が確認いたします。`;
+      // 「採用ページ3点チェック」（打合せなしで A4 1枚をお送りする）のお申込み
+      const isCheck3 = isSaiyo && purpose.includes("3点チェック");
+      const check3Html =
+        `<div style="font-family:-apple-system,'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;max-width:600px;margin:0 auto;color:#1c2333;line-height:1.75;">` +
+        `<div style="background:#0f1f3d;padding:20px 24px;border-radius:12px 12px 0 0;"><span style="color:#fff;font-size:18px;font-weight:800;">採用の顔・新卒ダイレクト</span><span style="color:#ffb48f;font-size:12px;margin-left:10px;">デジレップ株式会社 採用支援事業</span></div>` +
+        `<div style="border:1px solid #e5e9f0;border-top:none;border-radius:0 0 12px 12px;padding:24px;">` +
+        `<p style="margin:0 0 14px;">${greet}</p>` +
+        `<p style="margin:0 0 16px;">「採用ページ3点チェック」のお申込みをありがとうございます。担当の湯本が御社の採用ページ（求人票）を応募者の目線で拝見し、<strong>3営業日以内</strong>に、このメールアドレス宛てにお送りします。</p>` +
+        `<div style="background:#fff5ee;border-radius:10px;padding:16px 18px;margin:0 0 20px;"><p style="margin:0 0 10px;font-weight:700;color:#e8622c;">お送りするもの（A4 1枚・無料）</p>` +
+        `<p style="margin:0 0 6px;">① 応募の前に離れてしまう原因になっている点を<strong>3つ</strong></p>` +
+        `<p style="margin:0 0 6px;">② それぞれの<strong>直し方</strong>（いまある材料で、費用をかけずにできるもの）</p>` +
+        `<p style="margin:0;">③ 良い点（そのまま残すべきところ）</p></div>` +
+        `<p style="margin:0 0 16px;">お打合せやお電話は不要です。お読みいただいて、直すお手伝いが要るときだけ、このメールにご返信ください。</p>` +
+        `<p style="margin:0 0 5px;">採用ページのURLを入れ忘れた場合は、このメールにご返信のうえお知らせください。</p>` +
+        `<hr style="border:none;border-top:1px solid #e5e9f0;margin:22px 0 14px;">` +
+        `<p style="margin:0;font-size:12px;color:#8a98ad;">デジレップ株式会社 採用支援事業｜〒352-0003 埼玉県新座市畑中1-13-16｜TEL 080-5527-1689（平日9:00〜19:00）<br>本メールにご返信いただければ担当が確認いたします。</p>` +
+        `</div></div>`;
+      const check3Text =
+        `${company ? company + "　" : ""}${name} 様\n\n` +
+        `「採用ページ3点チェック」のお申込みをありがとうございます。\n担当の湯本が御社の採用ページ（求人票）を応募者の目線で拝見し、3営業日以内に、このメールアドレス宛てにお送りします。\n\n` +
+        `【お送りするもの（A4 1枚・無料）】\n① 応募の前に離れてしまう原因になっている点を3つ\n② それぞれの直し方（いまある材料で、費用をかけずにできるもの）\n③ 良い点（そのまま残すべきところ）\n\n` +
+        `お打合せやお電話は不要です。直すお手伝いが要るときだけ、このメールにご返信ください。\n\n` +
         `── デジレップ株式会社 採用支援事業\n〒352-0003 埼玉県新座市畑中1-13-16｜TEL 080-5527-1689\n本メールにご返信いただければ担当が確認いたします。`;
       // かんたん採用スター診断の結果の控え（回答の生データは除く）を、自動返信に差し込む
       const diagCopy = diag.replace(/\n回答：[\s\S]*$/, "").trim();
@@ -248,9 +272,9 @@ export async function POST(request: Request) {
           from: process.env.LEAD_FROM_EMAIL || "DigiRep <onboarding@resend.dev>",
           to: [email],
           reply_to: to,
-          subject: isSaiyo ? (diagCopy ? "【採用の顔】かんたん診断の結果（控え）と、詳しい診断のご案内" : "【採用の顔】お申込みありがとうございます｜無料採用診断のご案内") : isPackage ? "【デジレップ】ミーティングのご希望ありがとうございます" : "【DigiRep】お問い合わせありがとうございます｜資料と“次の一歩”のご案内",
-          html: isSaiyo ? saiyoHtml2 : isPackage ? pkgHtml : html,
-          text: isSaiyo ? saiyoText2 : isPackage ? pkgText : text,
+          subject: isCheck3 ? "【採用の顔】採用ページ3点チェックを承りました（3営業日以内にお送りします）" : isSaiyo ? (diagCopy ? "【採用の顔】かんたん診断の結果（控え）と、詳しい診断のご案内" : "【採用の顔】お申込みありがとうございます｜無料採用診断のご案内") : isPackage ? "【デジレップ】ミーティングのご希望ありがとうございます" : "【DigiRep】お問い合わせありがとうございます｜資料と“次の一歩”のご案内",
+          html: isCheck3 ? check3Html : isSaiyo ? saiyoHtml2 : isPackage ? pkgHtml : html,
+          text: isCheck3 ? check3Text : isSaiyo ? saiyoText2 : isPackage ? pkgText : text,
         }),
       });
     } catch {

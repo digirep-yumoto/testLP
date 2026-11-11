@@ -848,3 +848,117 @@ footer .sis{display:inline-block;margin-top:10px;font-size:13px}
 .phero.dr h1{white-space:nowrap;font-size:clamp(30px,3.4vw,46px)}
 .phero .hpic.dr{width:min(640px,46vw)}
 .drstats .ibox{display:flex!important;align-items:center;justify-content:center}
+
+/* ===== 第7弾（2026-11-11）：スマホ表示の修復・表の横スクロール・トップの短縮・3点チェック・細部の仕上げ。
+   必ず最後に読み込む（digirep.css の「メディアクエリなしの上書き」が、スマホ用の指定を打ち消していたのを戻す）。 ===== */
+
+/* --- 1. トップのヒーロー：1020px 以下は1列（digirep.css の .hero2 .w{1fr 1.15fr} がスマホでも効いていた） --- */
+@media(max-width:1020px){
+ .hero2 .w{grid-template-columns:1fr;gap:10px}
+ .hero2 .hboard{margin:18px 0 0;max-width:640px}
+ .hero2 h1{font-size:clamp(30px,6.4vw,46px)}
+}
+.hero2 .facts{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:16px 26px}
+.hero2 .sublink{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font-size:14.5px;font-weight:700;color:var(--ink);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px}
+.hero2 .sublink:hover{color:var(--acc)}
+.hero2 .sublink small{font-weight:500;color:var(--mut);font-size:12.5px}
+@media(max-width:640px){
+ .hero2{padding-top:92px}
+ .hero2 h1{font-size:clamp(29px,8.6vw,38px);line-height:1.38}
+ .hero2 h1 .sv{display:block;font-size:10.5px;letter-spacing:.18em;margin-bottom:10px;line-height:1.6}
+ .hero2 p.s{font-size:15.5px;margin-bottom:22px}
+ .hero2 .cta{flex-direction:column;align-items:stretch;gap:10px}
+ .hero2 .facts{grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:26px}
+ .hero2 .facts div{padding-left:10px}.hero2 .facts b{font-size:21px}.hero2 .facts b small{font-size:11px}.hero2 .facts span{font-size:11px;line-height:1.5;display:block}
+ .hero2 .hboard .lab{font-size:9.5px;text-align:center}
+ .hero2 .sublink{display:block;font-size:13.5px;margin-top:14px;border-bottom:0;text-decoration:underline;text-underline-offset:4px;line-height:1.7}.hero2 .sublink small{display:inline;margin-left:4px}
+}
+
+/* --- 2. 下層ページのヒーロー：既定のロゴマークはスマホでは出さない／図は横幅いっぱい --- */
+.phero .pic.dflt svg{width:210px;height:210px;display:block}
+@media(max-width:760px){
+ .phero .pic.dflt{display:none}
+ .phero .hpic,.phero .hpic.dr,.phero .hpic.il{width:100%;margin-top:18px}
+ .phero.dr h1{white-space:normal;font-size:clamp(30px,8vw,38px)}
+ .phero.dr p{font-size:16.5px;line-height:1.85}
+}
+
+/* --- 3. 4列以上の表は、スマホでは横にスクロール（1文字ずつ縦に折れていた） --- */
+.tblx{position:relative;min-width:0;contain:inline-size}
+.dgrid>*,.dcmp,.two>*,.lay>*,.cost>*,.concept>*,.pil>*,.contact>*{min-width:0}
+@media(max-width:760px){
+ .tblx{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -18px;padding:0 18px 6px;scrollbar-width:thin}
+ .tblx>table{min-width:640px}
+ .tblx.w3>table{min-width:520px}
+ .tblx th,.tblx td{word-break:normal;overflow-wrap:normal}
+ .tblx::before{content:"表は横にスクロールできます →";display:block;font-size:11.5px;color:var(--mut);margin:0 0 6px;letter-spacing:.02em}
+}
+
+/* --- 4. スマホでは、カードの並びを横スクロールにして縦の長さを減らす --- */
+.swipe-hint{display:none}
+@media(max-width:640px){
+ .hs{display:flex!important;grid-template-columns:none!important;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;gap:12px;margin:0 -18px;padding:4px 18px 14px;scrollbar-width:none}
+ .hs::-webkit-scrollbar{display:none}
+ .hs>*{flex:0 0 84%;scroll-snap-align:center;min-width:0}
+ .hs.narrow>*{flex-basis:66%}
+ .hs>.rv{opacity:1;transform:none}
+ .swipe-hint{display:flex;align-items:center;justify-content:center;gap:8px;font-size:12px;color:var(--mut);margin:2px 0 0}
+ .swipe-hint::before,.swipe-hint::after{content:"";width:22px;height:1px;background:var(--line)}
+ .sec{padding:60px 0}
+ .pcard{padding:22px 18px}
+}
+
+/* --- 5. モデルケース（旧：お客様の声）。想定の例であることを、見出しとカードの両方で示す --- */
+.vc{position:relative}
+.vc .vtag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin:0 0 10px;background:#fff}
+.vc .vq{display:none}
+.casenote{background:var(--bg);border-left:4px solid var(--acc);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13.5px;color:#3a4358;margin:0 0 22px;max-width:820px}
+
+/* --- 6. 採用ページ3点チェック（打合せなし・A4 1枚） --- */
+.c3{background:linear-gradient(135deg,#0f1f3d 0%,#1b2f57 100%);color:#fff;border-radius:28px;padding:44px;display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center;position:relative;overflow:hidden}
+.c3::after{content:"";position:absolute;right:-120px;top:-120px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(232,98,44,.35),transparent 70%);pointer-events:none}
+.c3>*{position:relative;z-index:1}
+.c3 .tag{color:#ffb48f}.c3 .tag::before{background:#ffb48f}
+.c3 h2{color:#fff;margin:0 0 12px;font-size:clamp(24px,3vw,34px)}
+.c3 h2 em{color:#ffb48f}
+.c3 p{color:#dbe2f2;margin:0 0 16px;font-size:15.5px}
+.c3 ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.c3 li{display:grid;grid-template-columns:26px 1fr;gap:8px;font-size:15px;color:#fff;align-items:start}
+.c3 li svg{width:20px;height:20px;color:#ffb48f;margin-top:4px}
+.c3 form{background:#fff;border-radius:20px;padding:26px 24px;color:var(--tx);display:grid;gap:12px;margin:0}
+.c3 form label{display:block;font-size:13px;font-weight:700;color:var(--ink);margin:0 0 4px}
+.c3 form label i{font-style:normal;background:var(--acc);color:#fff;font-size:10.5px;border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:1px}
+.c3 form label u{text-decoration:none;color:var(--mut);font-weight:500;font-size:12px;margin-left:6px}
+.c3 form input{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font:inherit;font-size:16px;background:#f8f9fb;box-sizing:border-box}
+.c3 form input:focus{outline:2px solid var(--acc);outline-offset:1px;background:#fff}
+.c3 form .btn{width:100%;margin-top:4px}
+.c3 form .fine{font-size:12px;color:var(--mut);margin:0;text-align:center;line-height:1.7}
+.c3 form .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.c3 .c3err{display:none;font-size:13.5px;font-weight:700;margin:0}
+.c3 .c3done{display:none;background:#fff;border-radius:20px;padding:30px 26px;color:var(--tx);text-align:center}
+.c3 .c3done b{display:block;font-size:19px;color:var(--ink);margin-bottom:8px;font-family:var(--serif)}
+.c3 .c3done p{color:#3a4358;margin:0;font-size:14.5px}
+.c3 .sample{margin-top:18px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:14px 16px;font-size:13px;color:#dbe2f2;line-height:1.75}
+.c3 .sample b{display:block;color:#fff;font-size:13px;margin-bottom:4px;letter-spacing:.04em}
+@media(max-width:900px){.c3{grid-template-columns:1fr;padding:30px 20px;gap:24px;border-radius:22px}}
+.c3page{padding-top:8px}
+.c3steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+.c3steps div{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px}
+.c3steps b{display:block;color:var(--ink);font-size:16px;margin:8px 0 4px}
+.c3steps small{font-family:var(--en);color:var(--acc);font-weight:600;letter-spacing:.2em;font-size:11.5px}
+.c3steps p{margin:0;font-size:14px;color:#3a4358;line-height:1.75}
+@media(max-width:760px){.c3steps{grid-template-columns:1fr}}
+
+/* --- 7. 細部 --- */
+.svc .th .n{z-index:3}
+.dark .mk{background:none;box-shadow:inset 0 -.2em 0 rgba(232,98,44,.9)}
+.fix{padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));box-shadow:0 -6px 20px rgba(15,31,61,.08)}
+.fix a.c{border:2px solid var(--ink);color:var(--ink);flex:1}
+@media(max-width:640px){body{padding-bottom:72px}footer{padding-bottom:20px}}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--acc);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:#fff;padding:10px 16px;z-index:100;border-radius:0 0 10px 0;text-decoration:none;font-weight:700}
+.skip:focus{left:0}
+.newsmini{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;font-size:14.5px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;margin:0}
+.newsmini time{font-family:var(--en);color:var(--mut);font-size:13px}
+.newsmini a{color:var(--ink);font-weight:700}
+.newsmini .all{margin-left:auto;font-size:13px;font-weight:500;color:var(--mut)}
