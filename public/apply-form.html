@@ -806,5 +806,96 @@ $('goods').addEventListener('input',renderRec);
 renderMediaPick(); renderTermPick(); toggleFields(); compute();
 </script>
 
+<!-- 2026-11-11：送信内容を当社へ通知する（/api/apply）。届いたときだけ「受け付けました」を表示する。 -->
+<script>
+(function(){
+  var form=document.getElementById('form');
+  if(!form || typeof gatherData!=='function') return;
+  var orig=form.onsubmit, btn=document.getElementById('submitBtn'), sending=false;
+  var online=/^https?:$/.test(location.protocol);
+  var TEL='080-5527-1689';
+
+  function yenS(n){ return (typeof n==='number'&&isFinite(n)) ? '¥'+Math.round(n).toLocaleString('ja-JP') : ''; }
+  function row(k,v){ return (v===undefined||v===null||v===''||v===false) ? '' : k+': '+v+'\n'; }
+  function flat(o,prefix,skip){
+    var s='';
+    Object.keys(o||{}).forEach(function(k){
+      if(skip && skip.indexOf(k)>=0) return;
+      var v=o[k];
+      if(v && typeof v==='object'){ s+=flat(v,prefix+k+'.',null); }
+      else { s+=row(prefix+k,v); }
+    });
+    return s;
+  }
+  function build(d){
+    var isStore=!!d.store, c=d.contact||{}, o=d.order||{}, s='';
+    if(isStore){
+      var st=d.store||{}, cp=d.campaign||{}, bk=d.bank||{};
+      s+='【加盟店お申込み】\n';
+      s+=row('適用プラン',cp.label)+row('業態',st.storeType)+row('月間来店者数',st.visitors)+row('所在地',st.addr);
+      s+=row('代表者',st.rep)+row('法人番号',st.corpNo)+row('設置台数',o.units)+row('費用合計（税別）',yenS(o.total));
+      s+=row('設置希望月',o.startMonth)+row('ご要望・メモ',o.memo);
+      s+=row('振込先口座',(bk.bank||bk.acctNo)?'入力あり（添付のJSONに記載）':'未入力');
+      return {kind:'store',company:st.company||'',name:c.pic||'',email:c.email||'',tel:c.tel||'',
+        summary:s+'\n―― 入力内容（全項目・口座情報を除く）――\n'+flat(d,'',['bank']),data:d};
+    }
+    var a=d.advertiser||{}, b=d.billing||{};
+    s+='【広告主お申込み】\n';
+    s+=row('媒体',o.mediaName)+row('契約期間',o.termLabel)+row('月額（割引後・税別）',yenS(o.monthlyAfter))+row('合計（税別）',yenS(o.total));
+    s+=row('配信希望月',o.startMonth)+row('商材・サービス',o.goods)+row('エリア',o.area)+row('エリアの詳細',o.areaDetail)+row('指定店舗',o.spot);
+    s+=row('業種',a.industry)+row('所在地',a.addr)+row('代表者',a.rep)+row('法人番号',a.corpNo)+row('ご紹介者',a.referrer);
+    s+=row('請求先',b.name)+row('請求先メール',b.email)+row('ご要望・メモ',o.memo);
+    return {kind:'advertiser',company:a.company||'',name:c.pic||'',email:c.email||'',tel:c.tel||'',
+      summary:s+'\n―― 入力内容（全項目）――\n'+flat(d,'',null),data:d};
+  }
+  function errBox(msg){
+    var el=document.getElementById('sendErr');
+    if(!el){
+      el=document.createElement('div'); el.id='sendErr'; el.setAttribute('role','alert');
+      el.style.cssText='margin-top:12px;padding:12px 14px;border:1.5px solid #dc2626;background:#fef2f2;color:#991b1b;border-radius:12px;font-size:13.5px;line-height:1.7;';
+      if(btn && btn.parentNode) btn.parentNode.insertBefore(el,btn.nextSibling); else form.appendChild(el);
+    }
+    if(!msg){ el.style.display='none'; el.textContent=''; return; }
+    el.style.display='block';
+    el.innerHTML='';
+    el.appendChild(document.createTextNode(msg+' 解決しない場合は、お電話（'+TEL+'）または'));
+    var a=document.createElement('a'); a.href='/#contact'; a.textContent='お問い合わせフォーム'; a.style.cssText='color:#991b1b;font-weight:700;text-decoration:underline;';
+    el.appendChild(a); el.appendChild(document.createTextNode('からご連絡ください。入力内容はこの画面に残っています。'));
+    el.scrollIntoView({block:'center',behavior:'smooth'});
+  }
+  function afterDone(sent){
+    var pay=document.getElementById('payBtn'); if(pay) pay.style.display='none';
+    var g=document.querySelector('#doneCard a[href$="設置ガイド.html"]'); if(g && g.parentNode) g.parentNode.style.display='none';
+    var note=document.getElementById('payNote');
+    if(note){
+      note.textContent = sent
+        ? 'ご入力のメールアドレスに、受付の確認メールをお送りしました。届かない場合は、お手数ですが '+TEL+' までご連絡ください。正式なお見積り・お手続きは、担当よりご案内します。'
+        : 'この画面は控え用のファイルです。入力内容は当社へ送信されていません。お申込みは、ホームページのフォームからお願いします。';
+    }
+  }
+  form.onsubmit=function(e){
+    e.preventDefault();
+    if(sending) return;
+    if(typeof validate==='function' && !validate()){ if(orig) orig.call(form,e); return; }
+    if(!online){ if(orig) orig.call(form,e); afterDone(false); return; }
+    var payload;
+    try{ payload=build(gatherData()); }catch(err){ errBox('入力内容を読み取れませんでした。'); return; }
+    var label=btn?btn.textContent:'';
+    sending=true; errBox('');
+    if(btn){ btn.disabled=true; btn.textContent='送信中…'; }
+    fetch('/api/apply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+      .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){ return {ok:r.ok && j && j.ok===true, j:j||{}}; }); })
+      .then(function(res){
+        sending=false; if(btn){ btn.disabled=false; btn.textContent=label; }
+        if(res.ok){ if(orig) orig.call(form,e); afterDone(true); }
+        else { errBox(res.j.error || '送信できませんでした。時間をおいて、もう一度お試しください。'); }
+      })
+      .catch(function(){
+        sending=false; if(btn){ btn.disabled=false; btn.textContent=label; }
+        errBox('送信できませんでした。通信状況をご確認のうえ、もう一度お試しください。');
+      });
+  };
+})();
+</script>
 </body>
 </html>
