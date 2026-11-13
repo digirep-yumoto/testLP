@@ -15,7 +15,7 @@ export const company = {
   representative: "湯本 達也",
   address: "埼玉県新座市畑中1-13-16",
   tel: "080-5527-1689",
-  email: "digirep.yumoto@gmail.com",
+  email: "yumoto@digirep.work",
   // 本番は apex(digirep.work) → www へ308リダイレクトされるため、
   // canonical / sitemap / robots / JSON-LD はすべて www を正とする。
   url: "https://www.digirep.work/",

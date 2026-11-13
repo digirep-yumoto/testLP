@@ -2,7 +2,7 @@
 // Formspree 等に切り替える場合は、このURLを差し替えてください。空にすると、訪問者のメールソフトが開く方式になります。
 // 送信先：digirep.work（同じサーバー）の /api/lead。メール通知と自動返信はサーバー側で行う。失敗時はメールソフトを開く。
 var FORM_ENDPOINT='/api/lead';
-var TO='digirep.yumoto@gmail.com';
+var TO='yumoto@digirep.work';
 (function(){
  var y=document.getElementById('y');if(y)y.textContent=new Date().getFullYear();
  // 流入元（?ref= / utm_source など）を、最初に着いたときに覚えておく。お申込みのメモに入れて、どの経路が効いたかを分かるようにする

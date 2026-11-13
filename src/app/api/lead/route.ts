@@ -92,6 +92,8 @@ export async function POST(request: Request) {
 
   const resendKey = process.env.RESEND_API_KEY;
   const to = process.env.LEAD_TO_EMAIL || "digirep.yumoto@gmail.com";
+  // お客様への自動返信の「返信先」。お客様がそのまま返信すると、会社アドレスに届く（当社への通知の宛先 to は変えない）
+  const replyTo = process.env.LEAD_REPLY_TO || "yumoto@digirep.work";
   if (resendKey && to) {
     try {
       const res = await fetch("https://api.resend.com/emails", {
@@ -271,7 +273,7 @@ export async function POST(request: Request) {
         body: JSON.stringify({
           from: process.env.LEAD_FROM_EMAIL || "DigiRep <onboarding@resend.dev>",
           to: [email],
-          reply_to: to,
+          reply_to: replyTo,
           subject: isCheck3 ? "【採用の顔】採用ページ3点チェックを承りました（3営業日以内にお送りします）" : isSaiyo ? (diagCopy ? "【採用の顔】かんたん診断の結果（控え）と、詳しい診断のご案内" : "【採用の顔】お申込みありがとうございます｜無料採用診断のご案内") : isPackage ? "【デジレップ】ミーティングのご希望ありがとうございます" : "【DigiRep】お問い合わせありがとうございます｜資料と“次の一歩”のご案内",
           html: isCheck3 ? check3Html : isSaiyo ? saiyoHtml2 : isPackage ? pkgHtml : html,
           text: isCheck3 ? check3Text : isSaiyo ? saiyoText2 : isPackage ? pkgText : text,

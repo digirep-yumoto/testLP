@@ -88,6 +88,8 @@ export async function POST(request: Request) {
   const kindLabel = kind === "advertiser" ? "広告主" : "加盟店";
   const resendKey = process.env.RESEND_API_KEY;
   const to = process.env.LEAD_TO_EMAIL || "digirep.yumoto@gmail.com";
+  // お客様への自動返信の「返信先」。お客様がそのまま返信すると、会社アドレスに届く（当社への通知の宛先 to は変えない）
+  const replyTo = process.env.LEAD_REPLY_TO || "yumoto@digirep.work";
   const from = process.env.LEAD_FROM_EMAIL || "DigiRep <onboarding@resend.dev>";
 
   if (!resendKey) {
@@ -161,7 +163,7 @@ export async function POST(request: Request) {
         body: JSON.stringify({
           from,
           to: [email],
-          reply_to: to,
+          reply_to: replyTo,
           subject: "【デジレップ】お申込みを受け付けました",
           html,
           text,

@@ -15,7 +15,7 @@ export const survey = {
   organizer: "デジレップ株式会社", // アンケートの実施・事務局
   sponsor: "株式会社CMerTV", // 景品の提供
   partner: "ブルースカイランドリー",
-  contact: "digirep.yumoto@gmail.com",
+  contact: "yumoto@digirep.work",
 } as const;
 
 export type Q = {
