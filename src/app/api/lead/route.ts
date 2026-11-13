@@ -225,7 +225,7 @@ export async function POST(request: Request) {
         `<p style="margin:0 0 5px;">🎓 <a href="${saiyoSite}/service/direct" style="color:#e8622c;">新卒ダイレクト（入社を人数で保証）</a></p>` +
         `<p style="margin:0 0 5px;">⭐ <a href="${saiyoSite}/diagnosis/check" style="color:#e8622c;">かんたん採用スター診断（無料・約5分）</a></p>` +
         `<hr style="border:none;border-top:1px solid #e5e9f0;margin:22px 0 14px;">` +
-        `<p style="margin:0;font-size:12px;color:#8a98ad;">デジレップ株式会社 採用支援事業｜〒352-0003 埼玉県新座市畑中1-13-16｜TEL 080-5527-1689（平日9:00〜19:00）<br>本メールにご返信いただければ担当が確認いたします。</p>` +
+        `<p style="margin:0;font-size:12px;color:#8a98ad;">デジレップ株式会社 採用支援事業｜〒352-0012 埼玉県新座市畑中1-13-16｜TEL 080-5527-1689（平日9:00〜19:00）<br>本メールにご返信いただければ担当が確認いたします。</p>` +
         `</div></div>`;
       const saiyoText =
         `${company ? company + "　" : ""}${name} 様\n\n` +
@@ -233,7 +233,7 @@ export async function POST(request: Request) {
         `【無料の採用診断（Web30分）でお渡しするもの】\n① 求人票・採用ページの改善点3つ\n② 採用キャッチコピー案1つ\n③ 採用の顔・新卒ダイレクトのどちらが合うか\n\n` +
         `【当日までにあると早いもの】\n・いまの求人票（URLまたは原稿）\n・採用ページ・会社ホームページのURL\n・直近1年の応募数・採用数（分かる範囲で）\n\n` +
         `▼ 採用の顔\n${saiyoSite}/service\n▼ 新卒ダイレクト\n${saiyoSite}/service/direct\n▼ かんたん採用スター診断（無料）\n${saiyoSite}/diagnosis/check\n\n` +
-        `── デジレップ株式会社 採用支援事業\n〒352-0003 埼玉県新座市畑中1-13-16｜TEL 080-5527-1689\n本メールにご返信いただければ担当が確認いたします。`;
+        `── デジレップ株式会社 採用支援事業\n〒352-0012 埼玉県新座市畑中1-13-16｜TEL 080-5527-1689\n本メールにご返信いただければ担当が確認いたします。`;
       // 「採用ページ3点チェック」（打合せなしで A4 1枚をお送りする）のお申込み
       const isCheck3 = isSaiyo && purpose.includes("3点チェック");
       const check3Html =
@@ -249,14 +249,14 @@ export async function POST(request: Request) {
         `<p style="margin:0 0 16px;">お打合せやお電話は不要です。お読みいただいて、直すお手伝いが要るときだけ、このメールにご返信ください。</p>` +
         `<p style="margin:0 0 5px;">採用ページのURLを入れ忘れた場合は、このメールにご返信のうえお知らせください。</p>` +
         `<hr style="border:none;border-top:1px solid #e5e9f0;margin:22px 0 14px;">` +
-        `<p style="margin:0;font-size:12px;color:#8a98ad;">デジレップ株式会社 採用支援事業｜〒352-0003 埼玉県新座市畑中1-13-16｜TEL 080-5527-1689（平日9:00〜19:00）<br>本メールにご返信いただければ担当が確認いたします。</p>` +
+        `<p style="margin:0;font-size:12px;color:#8a98ad;">デジレップ株式会社 採用支援事業｜〒352-0012 埼玉県新座市畑中1-13-16｜TEL 080-5527-1689（平日9:00〜19:00）<br>本メールにご返信いただければ担当が確認いたします。</p>` +
         `</div></div>`;
       const check3Text =
         `${company ? company + "　" : ""}${name} 様\n\n` +
         `「採用ページ3点チェック」のお申込みをありがとうございます。\n担当の湯本が御社の採用ページ（求人票）を応募者の目線で拝見し、3営業日以内に、このメールアドレス宛てにお送りします。\n\n` +
         `【お送りするもの（A4 1枚・無料）】\n① 応募の前に離れてしまう原因になっている点を3つ\n② それぞれの直し方（いまある材料で、費用をかけずにできるもの）\n③ 良い点（そのまま残すべきところ）\n\n` +
         `お打合せやお電話は不要です。直すお手伝いが要るときだけ、このメールにご返信ください。\n\n` +
-        `── デジレップ株式会社 採用支援事業\n〒352-0003 埼玉県新座市畑中1-13-16｜TEL 080-5527-1689\n本メールにご返信いただければ担当が確認いたします。`;
+        `── デジレップ株式会社 採用支援事業\n〒352-0012 埼玉県新座市畑中1-13-16｜TEL 080-5527-1689\n本メールにご返信いただければ担当が確認いたします。`;
       // かんたん採用スター診断の結果の控え（回答の生データは除く）を、自動返信に差し込む
       const diagCopy = diag.replace(/\n回答：[\s\S]*$/, "").trim();
       const diagHtml = diagCopy
