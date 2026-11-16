@@ -259,6 +259,29 @@ export async function POST(request: Request) {
         `【お送りするもの（A4 1枚・無料）】\n① 応募の前に離れてしまう原因になっている点を3つ\n② それぞれの直し方（いまある材料で、費用をかけずにできるもの）\n③ 良い点（そのまま残すべきところ）\n\n` +
         `お打合せやお電話は不要です。直すお手伝いが要るときだけ、このメールにご返信ください。\n\n` +
         `── デジレップ株式会社 採用支援事業\n〒352-0012 埼玉県新座市畑中1-13-16｜TEL 080-5527-1689\n本メールにご返信いただければ担当が確認いたします。`;
+      // 「新卒ダイレクト 人数確認」（打合せなしで、人数のお約束ができるかを1枚でお返しする）のお申込み
+      const isDrCheck = isSaiyo && purpose.includes("人数確認");
+      const drHead = `<div style="font-family:-apple-system,'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;max-width:600px;margin:0 auto;color:#1c2333;line-height:1.75;"><div style="background:#0f1f3d;padding:20px 24px;border-radius:12px 12px 0 0;"><span style="color:#fff;font-size:18px;font-weight:800;">採用の顔 新卒ダイレクト</span><span style="color:#ffb48f;font-size:12px;margin-left:10px;">デジレップ株式会社 採用支援事業</span></div><div style="border:1px solid #e5e9f0;border-top:none;border-radius:0 0 12px 12px;padding:24px;">`;
+      const drCheckHtml =
+        drHead +
+        `<p style="margin:0 0 14px;">${greet}</p>` +
+        `<p style="margin:0 0 16px;">「新卒ダイレクト」の人数確認のお申込みをありがとうございます。担当の湯本が、御社の募集職種と勤務地で入社の人数をお約束できるかどうかを確認し、<strong>3営業日以内</strong>に、このメールアドレス宛てに1枚でお送りします。</p>` +
+        `<div style="background:#fff5ee;border-radius:10px;padding:16px 18px;margin:0 0 20px;"><p style="margin:0 0 10px;font-weight:700;color:#e8622c;">お送りするもの（1枚・無料）</p>` +
+        `<p style="margin:0 0 6px;">① お約束できる人数（3名／5名）と、対象になる職種・勤務地</p>` +
+        `<p style="margin:0 0 6px;">② 動き出しの時期の目安</p>` +
+        `<p style="margin:0;">③ 合わない場合は、その理由と、別の進め方</p></div>` +
+        `<p style="margin:0 0 16px;">「新卒ダイレクト」は、ダイレクトリクルーティングのように学生へ直接声をかけ、紹介のように面談の設定から入社前のフォローまで代行する、ハイブリッド型の新卒採用です。年額固定で、入社3名または5名をお約束し、届かなければ達成まで無料で継続します。</p>` +
+        `<p style="margin:0 0 5px;">職種や勤務地を入れ忘れた場合、来年度の採用人数のご計画がある場合は、このメールにご返信のうえお知らせください。お打合せやお電話は不要です。</p>` +
+        `<p style="margin:14px 0 0;"><a href="${saiyoSite}/service/direct" style="color:#e8622c;font-weight:700;">▶ 新卒ダイレクトのページ（3つの方法の比べ方）</a></p>` +
+        `<hr style="border:none;border-top:1px solid #e5e9f0;margin:22px 0 14px;">` +
+        `<p style="margin:0;font-size:12px;color:#8a98ad;">デジレップ株式会社 採用支援事業｜〒352-0012 埼玉県新座市畑中1-13-16｜TEL 080-5527-1689（平日9:00〜19:00）<br>本メールにご返信いただければ担当が確認いたします。</p>` +
+        `</div></div>`;
+      const drCheckText =
+        `${company ? company + "　" : ""}${name} 様\n\n` +
+        `「新卒ダイレクト」の人数確認のお申込みをありがとうございます。\n担当の湯本が、御社の募集職種と勤務地で入社の人数をお約束できるかどうかを確認し、3営業日以内に、このメールアドレス宛てに1枚でお送りします。\n\n` +
+        `【お送りするもの（1枚・無料）】\n① お約束できる人数（3名／5名）と、対象になる職種・勤務地\n② 動き出しの時期の目安\n③ 合わない場合は、その理由と、別の進め方\n\n` +
+        `職種や勤務地を入れ忘れた場合は、このメールにご返信のうえお知らせください。お打合せやお電話は不要です。\n\n▼ 新卒ダイレクト\n${saiyoSite}/service/direct\n\n` +
+        `── デジレップ株式会社 採用支援事業\n〒352-0012 埼玉県新座市畑中1-13-16｜TEL 080-5527-1689\n本メールにご返信いただければ担当が確認いたします。`;
       // かんたん採用スター診断の結果の控え（回答の生データは除く）を、自動返信に差し込む
       const diagCopy = diag.replace(/\n回答：[\s\S]*$/, "").trim();
       const diagHtml = diagCopy
@@ -274,9 +297,9 @@ export async function POST(request: Request) {
           from: process.env.LEAD_FROM_EMAIL || "DigiRep <onboarding@resend.dev>",
           to: [email],
           reply_to: replyTo,
-          subject: isCheck3 ? "【採用の顔】採用ページ3点チェックを承りました（3営業日以内にお送りします）" : isSaiyo ? (diagCopy ? "【採用の顔】かんたん診断の結果（控え）と、詳しい診断のご案内" : "【採用の顔】お申込みありがとうございます｜無料採用診断のご案内") : isPackage ? "【デジレップ】ミーティングのご希望ありがとうございます" : "【DigiRep】お問い合わせありがとうございます｜資料と“次の一歩”のご案内",
-          html: isCheck3 ? check3Html : isSaiyo ? saiyoHtml2 : isPackage ? pkgHtml : html,
-          text: isCheck3 ? check3Text : isSaiyo ? saiyoText2 : isPackage ? pkgText : text,
+          subject: isDrCheck ? "【新卒ダイレクト】人数確認のお申込みを承りました（3営業日以内にお送りします）" : isCheck3 ? "【採用の顔】採用ページ3点チェックを承りました（3営業日以内にお送りします）" : isSaiyo ? (diagCopy ? "【採用の顔】かんたん診断の結果（控え）と、詳しい診断のご案内" : "【採用の顔】お申込みありがとうございます｜無料採用診断のご案内") : isPackage ? "【デジレップ】ミーティングのご希望ありがとうございます" : "【DigiRep】お問い合わせありがとうございます｜資料と“次の一歩”のご案内",
+          html: isDrCheck ? drCheckHtml : isCheck3 ? check3Html : isSaiyo ? saiyoHtml2 : isPackage ? pkgHtml : html,
+          text: isDrCheck ? drCheckText : isCheck3 ? check3Text : isSaiyo ? saiyoText2 : isPackage ? pkgText : text,
         }),
       });
     } catch {

@@ -25,6 +25,20 @@ var TO='yumoto@digirep.work';
    .then(function(r){if(!r.ok)throw 0;c3.style.display='none';document.getElementById('c3done').style.display='block';try{if(window.gtag)gtag('event','generate_lead',{event_category:'saiyo_check3',event_label:location.pathname,value:1})}catch(e){}})
    .catch(function(){b.disabled=false;b.textContent='3点チェックを受け取る（無料）';location.href='mailto:'+TO+'?subject='+encodeURIComponent('【採用ページ3点チェックのお申込み】'+co)+'&body='+encodeURIComponent('会社名：'+co+'\nお名前：'+nm+'\nメール：'+ml+'\n採用ページ・求人票のURL：'+ur);ce.textContent='メールソフトが開きます。そのまま送信してください。開かない場合は、お電話（080-5527-1689）でご連絡ください。';ce.style.display='block';ce.style.color='#128a5a'});
  })}
+ // 新卒ダイレクト：人数のお約束ができるかの確認（会社名とメールだけ）
+ var drf=document.getElementById('drf');
+ if(drf){var de=document.getElementById('drerr');drf.addEventListener('submit',function(e){e.preventDefault();de.style.display='none';
+  var d=new FormData(drf);function bad(t,id){de.textContent=t;de.style.display='block';de.style.color='#c8372d';document.getElementById(id).focus()}
+  if(d.get('_honey')){drf.style.display='none';document.getElementById('drdone').style.display='block';return}
+  var co=(d.get('会社名')||'').trim(),ml=(d.get('email')||'').trim(),jb=(d.get('職種')||'').trim(),pl=(d.get('勤務地')||'').trim(),nm=(d.get('お名前')||'').trim();
+  if(!co){bad('会社名をご入力ください。','drco');return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ml)){bad('メールアドレスの形式をご確認ください。','drml');return}
+  var b=drf.querySelector('button');b.disabled=true;b.textContent='送信中…';
+  var body={purpose:'採用支援（新卒ダイレクト 人数確認のお申込み）',company:co,name:nm||'ご担当者',email:ml,tel:'',media:'新卒ダイレクト',diag:'',hp:'',ts:window.__t0,message:'募集したい職種：'+(jb||'（未記入）')+'\n勤務地：'+(pl||'（未記入）')+'\n送信元ページ：'+location.pathname+srcLine()};
+  fetch(FORM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(body)})
+   .then(function(r){if(!r.ok)throw 0;drf.style.display='none';document.getElementById('drdone').style.display='block';try{if(window.gtag)gtag('event','generate_lead',{event_category:'saiyo_drcheck',event_label:location.pathname,value:1})}catch(e){}})
+   .catch(function(){b.disabled=false;b.textContent='人数のお約束ができるか、確認する（無料）';location.href='mailto:'+TO+'?subject='+encodeURIComponent('【新卒ダイレクト 人数確認のお申込み】'+co)+'&body='+encodeURIComponent('会社名：'+co+'\nお名前：'+nm+'\nメール：'+ml+'\n募集したい職種：'+jb+'\n勤務地：'+pl);de.textContent='メールソフトが開きます。そのまま送信してください。開かない場合は、お電話（080-5527-1689）でご連絡ください。';de.style.display='block';de.style.color='#128a5a'});
+ })}
  // モバイルメニュー
  var mb=document.querySelector('.mbtn'),mn=document.getElementById('mnav');
  if(mb&&mn){mb.addEventListener('click',function(){var on=mn.classList.toggle('on');mb.setAttribute('aria-expanded',on);mb.setAttribute('aria-label',on?'メニューを閉じる':'メニューを開く');document.body.style.overflow=on?'hidden':''});
