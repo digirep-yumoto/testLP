@@ -88,6 +88,8 @@ const nextConfig: NextConfig = {
     const saiyoHost = [{ type: "host" as const, value: SAIYO_HOST }];
     return {
       beforeFiles: [
+        // 会社ごとの計測リンク（営業管理システムの「関心リスト」）: /l/コード?to=行き先 → 記録して、行き先のページへ
+        { source: "/l/:code([a-z0-9]{5,12})", has: saiyoHost, destination: "/api/go?c=:code" },
         { source: "/", has: saiyoHost, destination: "/saiyo/index.html" },
         { source: "/:file(robots\\.txt|sitemap\\.xml|404\\.html)", has: saiyoHost, destination: "/saiyo/:file" },
         { source: "/:dir(assets|img|download)/:rest*", has: saiyoHost, destination: "/saiyo/:dir/:rest*" },
