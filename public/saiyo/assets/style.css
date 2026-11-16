@@ -986,3 +986,17 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
  .isteps b,.isteps p{grid-column:2}
  .isteps b{margin:2px 0 4px}
 }
+
+/* --- 9. 新卒ダイレクト：ハイブリッド型の打ち出し（2026-11-16） --- */
+.phero .hyc{display:block;font-family:var(--serif);font-size:clamp(23px,2.5vw,33px);font-weight:700;line-height:1.5;color:var(--ink);letter-spacing:.01em}
+.phero .hyl{display:block;margin-top:12px;font-size:15px;font-weight:700;letter-spacing:.03em;color:var(--acc);line-height:1.6}
+.phero.dr h1{font-size:clamp(22px,2.2vw,28px);letter-spacing:.08em;margin-bottom:14px}
+@media(max-width:760px){.phero.dr h1{font-size:20px}.phero .hyc{font-size:25px}}
+.dt.hyb thead th small{display:block;font-weight:500;font-size:11.5px;opacity:.85;line-height:1.4}
+.dt.hyb thead th.me{background:var(--acc);color:#fff}
+.dt.hyb{table-layout:fixed}.dt.hyb thead th{white-space:normal;line-height:1.45;vertical-align:middle}
+.dt.hyb thead th:nth-child(1),.dt.hyb tbody th{width:21%;white-space:normal}.dt.hyb thead th:nth-child(2){width:28%}.dt.hyb thead th:nth-child(3){width:22%}.dt.hyb thead th:nth-child(4){width:29%}
+.dt.hyb td{width:auto}
+.dthird{margin:0 0 12px;font-size:15px;color:#3a4358;line-height:1.7}
+.dthird b{display:block;font-family:var(--serif);font-size:19px;color:var(--ink);margin-bottom:2px}
+@media(max-width:760px){.tblx>table.hyb{min-width:620px}}
