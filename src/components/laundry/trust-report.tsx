@@ -30,7 +30,7 @@ export function TrustReport() {
                   <tr><td className="px-4 py-3 font-medium text-ink">配信店舗数・配信回数</td><td className="px-4 py-3 text-ink-soft">月・店舗別</td><td className="px-4 py-3"><span className="rounded bg-brand/10 px-2 py-0.5 text-xs font-bold text-brand-dark">実測</span></td></tr>
                   <tr><td className="px-4 py-3 font-medium text-ink">来店者数（曜日・時間帯）</td><td className="px-4 py-3 text-ink-soft">月・店舗別</td><td className="px-4 py-3"><span className="rounded bg-brand/10 px-2 py-0.5 text-xs font-bold text-brand-dark">運営会社データ</span></td></tr>
                   <tr><td className="px-4 py-3 font-medium text-ink">想定視認者数</td><td className="px-4 py-3 text-ink-soft">月</td><td className="px-4 py-3"><span className="rounded bg-muted px-2 py-0.5 text-xs font-bold text-ink-soft">推計（来店×55%）</span></td></tr>
-                  <tr><td className="px-4 py-3 font-medium text-ink">QR読み取り数（任意）</td><td className="px-4 py-3 text-ink-soft">日・店舗別</td><td className="px-4 py-3"><span className="rounded bg-brand/10 px-2 py-0.5 text-xs font-bold text-brand-dark">実測</span></td></tr>
+                  <tr><td className="px-4 py-3 font-medium text-ink">精算機ヨコのQRの表示数・読み取り数</td><td className="px-4 py-3 text-ink-soft">月・店舗別</td><td className="px-4 py-3"><span className="rounded bg-brand/10 px-2 py-0.5 text-xs font-bold text-brand-dark">実測</span></td></tr>
                 </tbody>
               </table>
             </div>

@@ -214,7 +214,7 @@ export default function SimulatorPage() {
               <div>
                 <dt className="text-sm font-bold text-ink">含まれない費用</dt>
                 <dd className="mt-1 text-sm leading-relaxed text-ink-soft">
-                  動画（CM素材）制作・LP制作・サンプリング等の付帯費用は含みません。これらもワンストップで承っていますので、必要な場合はご相談ください。
+                  動画（CM素材）制作・LP制作・サンプリング・店頭QRセット（コインランドリー・1店あたり月3,000円）等の付帯費用は含みません。これらもワンストップで承っていますので、必要な場合はご相談ください。
                 </dd>
               </div>
               <div>
