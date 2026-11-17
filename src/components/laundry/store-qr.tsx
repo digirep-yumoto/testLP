@@ -3,29 +3,29 @@ import { SectionHeading } from "@/components/site/section-heading";
 import { Reveal } from "@/components/site/reveal";
 
 /**
- * 店頭QR（2026-11-17 追加）。
- * 標準＝おトク情報QR（精算機ヨコの常設QRスタンド→店舗別「おトク情報」ページ・追加料金なし）
- * オプション＝店頭QRセット（精算機ヨコに広告主だけの紙・1店あたり月3,000円 税別・1店2社まで）
- * 件数・効果は約束しない。スタンドは設置が済んだ店舗から順次。
+ * 店頭のオプション（2026-11-17 改定）。
+ * ① 店頭QRセット＝広告主のA4チラシ1枚（QRつき）を、精算機ヨコに配信期間中掲示。1店あたり月3,000円（税別）・1店2社まで。
+ * ② 店頭サンプリング＝試供品・クーポン券などを店内に置く（置き型）。1店あたり月5,000円〜（税別）＋配布物の実費。
+ * 件数・効果は約束しない。実施できる店舗に限りがある（対象の店舗はお見積り時に案内）。
  */
 const steps = [
   { icon: MonitorPlay, n: "1", h: "モニターで知らせる", b: "店内の55インチモニターで、15秒・30秒の映像を音声つきで配信します。" },
-  { icon: QrCode, n: "2", h: "精算機ヨコで読み取る", b: "お会計は、必ず精算機の前で。すぐヨコのQRを、スマホのカメラで読み取ります。" },
+  { icon: QrCode, n: "2", h: "精算機ヨコで読み取る", b: "お会計は、必ず精算機の前で。すぐヨコに貼った御社のチラシのQRを、スマホのカメラで読み取ります。" },
   { icon: Smartphone, n: "3", h: "スマホに届く", b: "クーポン・ご予約・お申込みのページへ。読み取りの数は、店舗ごとに月ごとにご報告します。" },
 ];
 
-const standard = [
-  "精算機ヨコに、常設のQRスタンドを1つ設置",
-  "QRの先は、その店の「おトク情報」ページ",
-  "広告主さまごとに1枠（画像・見出し・リンク先。クーポンも可）",
-  "内容の入れ替えは月1回まで。表示数とタップ数をご報告",
+const qrSet = [
+  "精算機ヨコに、御社のA4チラシを1枚掲示",
+  "配信期間中ずっと掲示（10店以上・1ヶ月から）",
+  "QRの発行・印刷・店舗への手配は当社で行います",
+  "御社専用のQRで、店舗ごとの読み取り数を月ごとにご報告",
 ];
 
-const option = [
-  "精算機ヨコに、御社だけの紙を設置",
-  "A4の掲示1枚＋持ち帰り用の紙（1店あたり月100枚まで）",
-  "御社専用のQRを発行。店舗ごとの読み取り数をご報告",
-  "10店以上・2ヶ月以上から。お申込みは掲示開始月の前月10日まで",
+const sampling = [
+  "試供品・クーポン券・持ち帰り用チラシを店内に設置",
+  "「ご自由にお取りください」の置き型（10店以上）",
+  "配布物は御社でご用意。数量・対象の店舗は事前に確認",
+  "設置の写真と、配った数をご報告",
 ];
 
 export function StoreQr() {
@@ -35,7 +35,7 @@ export function StoreQr() {
         <SectionHeading
           eyebrow="Store QR"
           title="モニターで知らせて、精算機ヨコのQRで受け取る"
-          lead="映像で気づいてもらい、お会計のときにスマホで読み取ってもらう。コインランドリーへの来店を、御社への来店・お申込みにつなげます。"
+          lead="映像で気づいてもらい、お会計のときにスマホで読み取ってもらう。全員が立ち止まる精算機のヨコに、御社のチラシを配信期間中ずっと掲示します。"
         />
 
         <Reveal className="mt-12 grid gap-4 md:grid-cols-3">
@@ -53,34 +53,34 @@ export function StoreQr() {
         </Reveal>
 
         <div className="mt-8 grid gap-5 md:grid-cols-2">
-          <div className="rounded-3xl border border-brand/30 bg-card p-6 shadow-sm sm:p-8">
-            <span className="rounded-full bg-brand/10 px-3 py-1 text-[11px] font-black text-brand-dark">標準｜全広告主さま</span>
-            <h3 className="mt-3 text-2xl font-extrabold text-ink">おトク情報QR</h3>
-            <p className="mt-2 flex items-end gap-2">
-              <span className="font-display text-3xl font-extrabold tracking-tight text-brand">追加料金なし</span>
-              <span className="pb-1 text-xs font-bold text-ink-soft">配信料に含みます</span>
-            </p>
-            <ul className="mt-5 grid gap-2.5 text-sm text-ink-soft">
-              {standard.map((t) => (
-                <li key={t} className="flex gap-2"><Check className="mt-0.5 size-4 shrink-0 text-brand" />{t}</li>
-              ))}
-            </ul>
-          </div>
           <div className="rounded-3xl border border-sun bg-card p-6 shadow-lg shadow-sun/10 ring-2 ring-sun/20 sm:p-8">
-            <span className="rounded-full bg-sun px-3 py-1 text-[11px] font-black text-ink">オプション｜1店2社まで・先着順</span>
+            <span className="rounded-full bg-sun px-3 py-1 text-[11px] font-black text-ink">オプション①｜1店2社まで・先着順</span>
             <h3 className="mt-3 text-2xl font-extrabold text-ink">店頭QRセット</h3>
             <p className="mt-2 flex items-end gap-2">
               <span className="font-display text-3xl font-extrabold tracking-tight text-ink">¥3,000</span>
               <span className="pb-1 text-xs font-bold text-ink-soft">/店・月（税別）</span>
             </p>
             <ul className="mt-5 grid gap-2.5 text-sm text-ink-soft">
-              {option.map((t) => (
+              {qrSet.map((t) => (
                 <li key={t} className="flex gap-2"><Check className="mt-0.5 size-4 shrink-0 text-sun" />{t}</li>
               ))}
             </ul>
             <p className="mt-5 rounded-xl bg-paper px-3.5 py-2.5 text-xs font-bold text-ink-soft ring-1 ring-border">
               例：スポット10店・15秒・1ヶ月 → 配信料 90,000円 ＋ 店頭QRセット 30,000円 ＝ 120,000円
             </p>
+          </div>
+          <div className="rounded-3xl border border-brand/30 bg-card p-6 shadow-sm sm:p-8">
+            <span className="rounded-full bg-brand/10 px-3 py-1 text-[11px] font-black text-brand-dark">オプション②｜置き型のサンプリング</span>
+            <h3 className="mt-3 text-2xl font-extrabold text-ink">店頭サンプリング</h3>
+            <p className="mt-2 flex items-end gap-2">
+              <span className="font-display text-3xl font-extrabold tracking-tight text-brand">¥5,000〜</span>
+              <span className="pb-1 text-xs font-bold text-ink-soft">/店・月（税別）＋配布物の実費</span>
+            </p>
+            <ul className="mt-5 grid gap-2.5 text-sm text-ink-soft">
+              {sampling.map((t) => (
+                <li key={t} className="flex gap-2"><Check className="mt-0.5 size-4 shrink-0 text-brand" />{t}</li>
+              ))}
+            </ul>
           </div>
         </div>
 
@@ -98,7 +98,7 @@ export function StoreQr() {
         <p className="mt-4 flex gap-2 text-xs leading-relaxed text-ink-soft">
           <Info className="mt-0.5 size-3.5 shrink-0" />
           <span>
-            精算機ヨコのQRスタンドは、設置が済んだ店舗から順次ご利用いただけます。対象の店舗はお見積り時にご案内します。店頭QRセットの印刷物は広告主さまにご用意いただきます（当社で手配する場合は実費。デザイン制作は別途お見積り）。店頭QRセットは継続割引の対象外です。読み取りの件数や効果をお約束するものではありません。数値は当社のご利用者アンケート（2026年10〜11月・中間集計・n=93）より。
+            店頭QRセット・店頭サンプリングは、実施できる店舗に限りがあります。対象の店舗はお見積り時にご案内します。どちらも、モニター広告（配信）のお申込みが前提で、継続割引の対象外です。チラシのデータ（A4たて）は広告主さまにご用意いただきます（当社で制作する場合は別途お見積り）。読み取りの件数や効果をお約束するものではありません。掲載・配布物には審査があります。数値は当社のご利用者アンケート（2026年10〜11月・中間集計・n=93）より。
           </span>
         </p>
       </div>
