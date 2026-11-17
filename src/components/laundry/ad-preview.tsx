@@ -5,6 +5,7 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import { SectionHeading } from "@/components/site/section-heading";
 import { LaundryScene, type AdSample } from "./laundry-scene";
 import { cn } from "@/lib/utils";
+import { LAUNDRY_REACH_PER_STORE, LAUNDRY_VIEW_RATE } from "@/lib/simulator";
 
 type Industry = {
   key: string;
@@ -17,8 +18,8 @@ type Industry = {
   note: string;
 };
 
-// 想定視認者＝1店の月間来店 約1,124人 × 視認率55% ≒ 618人
-const VIEW_PER_STORE = 618;
+// 想定視認者＝1店の月間来店 約1,060人（43万人÷406店）× 視認率55% ≒ 約580人。シミュレーターと同じ定数を使う。
+const VIEW_PER_STORE = Math.round(LAUNDRY_REACH_PER_STORE * LAUNDRY_VIEW_RATE);
 
 const industries: Industry[] = [
   { key: "fmcg", label: "日用品・食品メーカー", ad: { brand: "御社の新商品", headline: "ふんわり香る、毎日の洗濯に。", sub: "併設スーパーで本日発売", color: "#0a7fa0", accent: "#38bdf8", cta: "店頭でチェック" }, goal: "新商品の認知を、買い物に来ている人に。", plan: "全国一括パック", stores: 406, unit: 6300, note: "全国39都道府県で一斉に。併設の商業施設で、その日のうちに購買につながる導線。" },
@@ -108,7 +109,7 @@ export function AdPreview() {
               </a>
             </div>
             <p className="mt-3 text-[11px] leading-relaxed text-ink-soft">
-              ※ 月額は1店舗単価×店舗数を万円単位に切り上げた目安。想定視認者数は1店あたり月間来店約1,124人×視認率55%で算出した推計値で、効果を保証するものではありません。広告の表示内容はイメージです。
+              ※ 月額は1店舗単価×店舗数を万円単位に切り上げた目安。想定視認者数は1店あたり月間来店約1,060人×視認率55%で算出した推計値で、効果を保証するものではありません。広告の表示内容はイメージです。
             </p>
           </div>
         </div>

@@ -8,6 +8,7 @@ import { MediaSection } from "@/components/site/media-section";
 import { Proof } from "@/components/site/proof";
 import { StoreLogos } from "@/components/site/store-logos";
 import { ChainNetwork } from "@/components/site/chain-network";
+import { StoreQr } from "@/components/laundry/store-qr";
 import { mediaList, company, ogImage } from "@/lib/site-data";
 
 const siteUrl = company.url.replace(/\/$/, "");
@@ -66,6 +67,7 @@ export default async function MediaPage({
         </div>
 
         <MediaSection media={m} index={0} />
+        {m.key === "laundry" && <StoreQr />}
         {m.key === "toilet" && (
           <>
             <Proof />

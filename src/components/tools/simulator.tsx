@@ -317,7 +317,7 @@ export function Simulator() {
                         </button>
                       ))}
                     </div>
-                    <p className="mt-1.5 text-xs text-muted-foreground">30秒は15秒の1.5倍。</p>
+                    <p className="mt-1.5 text-xs text-muted-foreground">30秒は15秒の約1.5倍。</p>
                   </div>
 
                   {input.pkg === "national" ? (

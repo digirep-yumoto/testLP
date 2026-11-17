@@ -42,7 +42,7 @@ export function HeroLaundry() {
 
           <p className="dr-in mt-6 max-w-xl text-pretty text-base leading-[1.95] text-ink-soft sm:text-lg" style={{ animationDelay: "170ms" }}>
             全国約400店のコインランドリー店内TVで流れる、55インチ・音声つきの動画広告。
-            利用者の約7割が30〜50代の女性。スマホを見ながら待つ時間に、1店舗 月8,800円から届けられます。
+            利用者の約7割が女性、30〜50代が中心。同じ人が何度も立ち寄る場所で、1店舗 月8,800円から届けられます。
           </p>
 
           <div className="dr-in mt-8 flex flex-col gap-3 sm:flex-row sm:items-center" style={{ animationDelay: "250ms" }}>

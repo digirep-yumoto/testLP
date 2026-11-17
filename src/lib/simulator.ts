@@ -18,12 +18,12 @@ export const TOILET_BOOTH_RATE = 0.78;
 /** 視認率 90%（個室・強制視聴）— site-data toilet.stats / proof */
 export const TOILET_VIEW_RATE = 0.9;
 
-/** ランドリー全店（約400店）。月間延べ利用 約43万人（運営会社の店舗データ・2026年6月時点 430,307人）— site-data laundry.stats */
-export const LAUNDRY_TOTAL_STORES = 400;
+/** ランドリー全店（406店。資料・契約書の計算例と同じ店舗数）。月間延べ利用 約43万人（運営会社の店舗データ・2026年6月時点 430,307人）— site-data laundry.stats */
+export const LAUNDRY_TOTAL_STORES = 406;
 export const LAUNDRY_TOTAL_VISITS = 430_000;
 /** 想定視認率 55%（1利用あたり、画面を見る人の割合。社内の統一値） */
 export const LAUNDRY_VIEW_RATE = 0.55;
-/** 1店あたりの月間来店者（延べ）約1,075人 */
+/** 1店あたりの月間来店者（延べ）約1,060人（43万人÷406店） */
 export const LAUNDRY_REACH_PER_STORE = Math.round(LAUNDRY_TOTAL_VISITS / LAUNDRY_TOTAL_STORES);
 /** 1回の利用での接触 最低2回（投入時・引取時）— site-data laundry.stats */
 export const LAUNDRY_CONTACTS_PER_VISIT = 2;
@@ -188,7 +188,7 @@ export const defaultInput: SimInput = {
 export const laundryPackages = [
   { id: "spot" as const, label: "スポットパック", note: "店舗指定・最小10店〜（お試し）", min: 10 },
   { id: "area" as const, label: "エリアパック", note: "エリア内の全店をまとめ買い（人気）", min: 1 },
-  { id: "national" as const, label: "全国一括パック", note: `全店（約${LAUNDRY_TOTAL_STORES}店）を一括配信（基準）`, min: 1 },
+  { id: "national" as const, label: "全国一括パック", note: `全店（${LAUNDRY_TOTAL_STORES}店）を一括配信（基準）`, min: 1 },
 ];
 
 const yen = (n: number) => `¥${Math.round(n).toLocaleString("ja-JP")}`;

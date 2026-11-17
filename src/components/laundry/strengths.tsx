@@ -21,7 +21,7 @@ export function Strengths() {
         <div className="mx-auto max-w-3xl text-center">
           <p className="mb-3 font-display text-sm font-semibold tracking-[0.18em] text-sky-300 uppercase">Why BlueSky LAUNDRY TV</p>
           <h2 className="text-balance text-[1.95rem] font-bold leading-[1.38] sm:text-[2.6rem] sm:leading-[1.25]">
-            コインランドリー店内サイネージで、<br className="hidden sm:block" />選ばれる6つの理由
+            コインランドリー店内サイネージで、<br className="hidden sm:block" />6つの特長
           </h2>
           <p className="mt-4 text-pretty text-base leading-[1.95] text-white/75 sm:text-lg">
             「確実に見られる場所」で、「ブレない層」に、「繰り返し」届く。それを全国規模で、数字つきで提供できる媒体は多くありません。

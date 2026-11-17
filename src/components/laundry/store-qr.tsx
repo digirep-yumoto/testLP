@@ -38,7 +38,19 @@ export function StoreQr() {
           lead="映像で気づいてもらい、お会計のときにスマホで読み取ってもらう。全員が立ち止まる精算機のヨコに、御社のチラシを配信期間中ずっと掲示します。"
         />
 
-        <Reveal className="mt-12 grid gap-4 md:grid-cols-3">
+        {/* 流れの図（文字が小さくなるため、タブレット以上の幅でだけ見せる。スマホは下の3ステップで伝える） */}
+        <Reveal className="mt-10 hidden overflow-hidden rounded-3xl border border-border bg-white shadow-sm md:block">
+          <img
+            src="/images/store-qr-flow.svg"
+            alt="店内モニターの広告で知らせ、精算機ヨコに貼った御社のチラシのQRをスマホで読み取って、御社のページへ進む流れの図"
+            width={950}
+            height={290}
+            loading="lazy"
+            className="block h-auto w-full"
+          />
+        </Reveal>
+
+        <Reveal className="mt-12 grid gap-4 md:mt-5 md:grid-cols-3">
           {steps.map((s, i) => (
             <div key={s.n} className="relative rounded-2xl border border-border bg-card p-6 shadow-sm">
               <div className="flex items-center gap-3">
