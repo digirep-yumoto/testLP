@@ -60,7 +60,7 @@ export default async function MediaPage({
           <nav className="mx-auto flex max-w-6xl items-center gap-1.5 px-4 text-xs text-muted-foreground sm:px-6">
             <Link href="/" className="hover:text-brand">ホーム</Link>
             <span>/</span>
-            <Link href="/#services" className="hover:text-brand">媒体</Link>
+            <Link href="/service" className="hover:text-brand">サービス</Link>
             <span>/</span>
             <span className="text-ink-soft">{m.name}</span>
           </nav>
@@ -93,9 +93,9 @@ export default async function MediaPage({
                 </a>
               </div>
               <div className="mt-6">
-                <Link href="/#services" className="inline-flex items-center gap-1.5 text-sm font-bold text-brand">
+                <Link href="/service" className="inline-flex items-center gap-1.5 text-sm font-bold text-brand">
                   <ArrowLeft className="size-4" />
-                  媒体一覧へ戻る
+                  サービス一覧へ戻る
                 </Link>
               </div>
             </div>

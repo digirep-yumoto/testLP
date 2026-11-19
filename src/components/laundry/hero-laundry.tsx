@@ -41,7 +41,7 @@ export function HeroLaundry() {
           </h1>
 
           <p className="dr-in mt-6 max-w-xl text-pretty text-base leading-[1.95] text-ink-soft sm:text-lg" style={{ animationDelay: "170ms" }}>
-            全国約400店のコインランドリー店内TVで流れる、55インチ・音声つきの動画広告。
+            全国約400店のコインランドリーの店内モニターで流れる、55インチ・音声つきの動画広告。
             利用者の約7割が女性、30〜50代が中心。同じ人が何度も立ち寄る場所で、1店舗 月8,800円から届けられます。
           </p>
 
@@ -76,8 +76,19 @@ export function HeroLaundry() {
         <div className="relative mx-auto w-full max-w-xl pt-6 lg:max-w-none">
           <div className="dr-float relative">
             <div className="dr-sheen relative overflow-hidden rounded-[1.6rem] border-[6px] border-ink bg-ink shadow-2xl shadow-brand/25">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/laundry-media-new.webp" srcSet="/images/laundry-media-new-800.webp 800w, /images/laundry-media-new.webp 1368w" sizes="(min-width: 1024px) 560px, calc(100vw - 32px)" alt="コインランドリー店内の55インチモニターで広告が流れているイメージ" width={1368} height={768} className="aspect-[16/10] w-full object-cover" loading="eager" fetchPriority="high" />
+              {/* モニターに流れる広告の見本（写真は使わず、画面そのものを描く） */}
+              <div role="img" aria-label="店内の55インチモニターに、御社の広告が流れている見本。「今週のお得情報を、洗濯のたびに。くわしくは精算機ヨコのQRから」" className="relative aspect-[16/10] w-full overflow-hidden bg-gradient-to-br from-[#12a3c9] to-[#075f7a]">
+                <div aria-hidden className="absolute -right-12 -top-12 size-56 rounded-full bg-white/10" />
+                <div aria-hidden className="absolute right-20 top-32 size-20 rounded-full bg-white/10" />
+                <div aria-hidden className="absolute -bottom-16 left-1/3 size-48 rounded-full bg-white/[0.06]" />
+                <div className="absolute inset-0 flex flex-col justify-center px-7 pb-12 sm:px-10">
+                  <span className="w-fit rounded-full bg-sun px-3 py-1 text-xs font-black text-ink">御社の広告</span>
+                  <p className="mt-4 text-[1.65rem] font-extrabold leading-snug text-white sm:text-4xl sm:leading-snug">
+                    今週のお得情報を、<br />洗濯のたびに。
+                  </p>
+                  <p className="mt-4 w-fit rounded-lg bg-ink/70 px-3 py-1.5 text-[13px] font-bold text-white sm:text-sm">くわしくは 精算機ヨコのQRから →</p>
+                </div>
+              </div>
               {/* 画面下部のラベルと進行バー */}
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/80 to-transparent px-4 pb-3 pt-10">
                 <div className="flex items-center justify-between gap-3 text-[11px] font-bold text-white/90">
@@ -101,7 +112,7 @@ export function HeroLaundry() {
           </div>
           <div className="absolute -top-2 right-6 hidden items-center gap-2 rounded-full bg-ink px-3.5 py-1.5 text-xs font-bold text-white shadow-md sm:inline-flex">
             <Crown className="size-3.5 text-sun" />
-            国内最大級の統一配信網・約400店
+            全国約400店の統一配信網
           </div>
         </div>
       </div>

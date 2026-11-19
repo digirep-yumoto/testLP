@@ -4,9 +4,9 @@ import { Reveal } from "@/components/site/reveal";
 
 const items = [
   { icon: BarChart3, h: "配信は実測でレポート", b: "配信店舗数・配信回数は配信ログの実測値。来店者数は曜日別・時間帯別にお渡しします。視聴者数は来店者数に基づく推計として区別して示します。" },
-  { icon: ShieldCheck, h: "足りなければ、延長で補填", b: "配信店舗数・配信回数が予定の90%を下回った月は、不足分に応じて掲載期間を延長します（契約書に明記）。" },
-  { icon: FileCheck, h: "掲載基準で、媒体の環境を守る", b: "女性・ファミリー層が接する空間のため、消費者金融・ギャンブル・出会い系・風俗・コンプレックス系は掲載しません。だから御社の広告が“良い隣人”に囲まれます。" },
-  { icon: Handshake, h: "運営会社と業務提携して運営", b: "店舗網を運営する会社と業務提携契約を結び、当社が媒体運営・配信・レポートを一元管理。広告の販売は当社と提携代理店が行います。" },
+  { icon: ShieldCheck, h: "足りなければ、延長などで補います", b: "配信店舗数・配信回数が予定の90%を下回った月は、掲載期間の延長などで補います（天災・停電などの不可抗力による場合を除きます）。契約書に定めています。" },
+  { icon: FileCheck, h: "掲載基準で、媒体の環境を守る", b: "女性・ファミリー層が接する空間のため、たばこ・ギャンブル・消費者金融・アダルト／風俗・出会い系などの広告は掲載しません。外見や体の悩みをあおる表現も使えません。だから御社の広告が“良い隣人”に囲まれます。" },
+  { icon: Handshake, h: "運営会社と提携して運営", b: "店舗網の運営会社と提携し、当社が媒体運営・配信・レポートを一元管理。広告の販売は当社と提携代理店が行います。" },
 ];
 
 export function TrustReport() {
@@ -19,7 +19,7 @@ export function TrustReport() {
               align="left"
               eyebrow="Measurement & Trust"
               title="「見られたはず」で終わらせない"
-              lead="屋外広告のような推定値ではなく、配信の実測と来店データで効果を確かめられます。数字は、実測と推計を分けてお渡しします。"
+              lead="配信の実測と来店データで、届いた量を確かめられます。数字は、実測と推計を分けてお渡しします。"
             />
             <div className="mt-8 overflow-hidden rounded-2xl border border-border shadow-sm">
               <table className="w-full text-sm">
@@ -29,7 +29,7 @@ export function TrustReport() {
                 <tbody className="divide-y divide-border bg-card">
                   <tr><td className="px-4 py-3 font-medium text-ink">配信店舗数・配信回数</td><td className="px-4 py-3 text-ink-soft">月・店舗別</td><td className="px-4 py-3"><span className="rounded bg-brand/10 px-2 py-0.5 text-xs font-bold text-brand-dark">実測</span></td></tr>
                   <tr><td className="px-4 py-3 font-medium text-ink">来店者数（曜日・時間帯）</td><td className="px-4 py-3 text-ink-soft">月・店舗別</td><td className="px-4 py-3"><span className="rounded bg-brand/10 px-2 py-0.5 text-xs font-bold text-brand-dark">運営会社データ</span></td></tr>
-                  <tr><td className="px-4 py-3 font-medium text-ink">想定視認者数</td><td className="px-4 py-3 text-ink-soft">月</td><td className="px-4 py-3"><span className="rounded bg-muted px-2 py-0.5 text-xs font-bold text-ink-soft">推計（来店×55%）</span></td></tr>
+                  <tr><td className="px-4 py-3 font-medium text-ink">想定視認者数（延べ）</td><td className="px-4 py-3 text-ink-soft">月</td><td className="px-4 py-3"><span className="rounded bg-muted px-2 py-0.5 text-xs font-bold text-ink-soft">推計（来店×55%）</span></td></tr>
                   <tr><td className="px-4 py-3 font-medium text-ink">店頭QRセット（精算機ヨコのチラシ）のQR読み取り数</td><td className="px-4 py-3 text-ink-soft">月・店舗別</td><td className="px-4 py-3"><span className="rounded bg-brand/10 px-2 py-0.5 text-xs font-bold text-brand-dark">実測</span></td></tr>
                 </tbody>
               </table>

@@ -23,8 +23,8 @@ export const LAUNDRY_TOTAL_STORES = 406;
 export const LAUNDRY_TOTAL_VISITS = 430_000;
 /** 想定視認率 55%（1利用あたり、画面を見る人の割合。社内の統一値） */
 export const LAUNDRY_VIEW_RATE = 0.55;
-/** 1店あたりの月間来店者（延べ）約1,060人（43万人÷406店） */
-export const LAUNDRY_REACH_PER_STORE = Math.round(LAUNDRY_TOTAL_VISITS / LAUNDRY_TOTAL_STORES);
+/** 1店あたりの月間来店者（延べ）約1,060人（43万人÷406店＝1,059人を、資料と同じ「約1,060人」にそろえた固定値） */
+export const LAUNDRY_REACH_PER_STORE = 1060;
 /** 1回の利用での接触 最低2回（投入時・引取時）— site-data laundry.stats */
 export const LAUNDRY_CONTACTS_PER_VISIT = 2;
 
@@ -54,14 +54,14 @@ export const industries: Industry[] = [
     label: "AGA・育毛・メンズ美容",
     rec: "toilet",
     why: "人前で検索・相談しづらい商材。1対1の個室で、じっくり検討される数分間に届きます。",
-    note: "コインランドリーは女性・ファミリー層が接する公共空間のため、コンプレックス系商材は掲載対象外です。",
+    note: "コインランドリーは女性・ファミリー層が接する公共空間のため、外見や体の悩みをあおる表現は使えません（表現の審査があります）。",
   },
   {
     id: "beauty",
     label: "美容医療・クリニック・脱毛",
     rec: "toilet",
     why: "デリケートな悩みほど、周囲の目がない個室が効きます。QRでそのまま無料カウンセリング予約へ。",
-    note: "コインランドリーは美容整形・エステ等のコンプレックス系が掲載対象外です。",
+    note: "コインランドリーでは、外見や体の悩みをあおる表現は使えません（表現の審査があります）。",
   },
   {
     id: "matching",
@@ -116,7 +116,7 @@ export const industries: Industry[] = [
     id: "insurance",
     label: "保険・金融サービス",
     rec: "laundry",
-    why: "30〜50代ファミリー層が中心。ライフイベントに近い層へ、待ち時間にじっくり届きます。",
+    why: "30〜50代のファミリー層が中心。ライフイベントに近い層へ、来店のたびに繰り返し届きます。",
   },
   {
     id: "education",
@@ -187,7 +187,7 @@ export const defaultInput: SimInput = {
 
 export const laundryPackages = [
   { id: "spot" as const, label: "スポットパック", note: "店舗指定・最小10店〜（お試し）", min: 10 },
-  { id: "area" as const, label: "エリアパック", note: "エリア内の全店をまとめ買い（人気）", min: 1 },
+  { id: "area" as const, label: "エリアパック", note: "エリア内の全店をまとめ買い", min: 1 },
   { id: "national" as const, label: "全国一括パック", note: `全店（${LAUNDRY_TOTAL_STORES}店）を一括配信（基準）`, min: 1 },
 ];
 
@@ -336,7 +336,7 @@ export function buildPlanOptions(base: SimInput): PlanOption[] {
     {
       key: "recommended" as const,
       label: "推奨",
-      badge: "いちばん選ばれる",
+      badge: "おすすめ",
       reason: "3ヶ月継続で▲10%。認知は反復で積み上がるため、最低3ヶ月をおすすめしています。",
       input: withStores({ ...base, months: 3 }, clamp(cur)),
     },
@@ -464,7 +464,7 @@ export function resultToText(
     `掲載期間: ${r.months}ヶ月`,
     r.media === "toilet"
       ? `想定視聴機会: ${num(r.reachPerMonth)}回/月`
-      : `想定リーチ: ${num(r.reachPerMonth)}人/月`,
+      : `想定視認者数（延べ）: ${num(r.reachPerMonth)}人/月`,
     `想定接触回数: ${num(r.contactsPerMonth)}回/月（期間合計 ${num(r.contactsTotal)}回）`,
     `月額: ${yen(r.monthlyExclTax)}（税別）`,
     `期間合計: ${yen(r.subtotalExclTax)}（税別）／ ${yen(r.totalInclTax)}（税込）`,

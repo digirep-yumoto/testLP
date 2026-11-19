@@ -19,7 +19,7 @@ const rows: { k: string; v: string }[] = [
   { k: "お支払い方法", v: "銀行振込（請求書払い）。" },
   { k: "支払時期", v: "ご契約後に発行する請求書に記載の期日まで。" },
   { k: "サービス提供時期", v: "入稿・審査完了後、所定の配信開始日より提供します（媒体・プランにより異なります）。" },
-  { k: "キャンセル・返品", v: "役務の性質上、受領確認後のキャンセル・返金は原則承っておりません。詳細は契約書・申込条件に従います。" },
+  { k: "キャンセル・返品", v: "お申込みの確定後は、キャンセル・掲載期間の途中での終了を承っておりません。詳細は契約書・申込条件に従います。" },
 ];
 
 export default function TokushohoPage() {
@@ -41,9 +41,7 @@ export default function TokushohoPage() {
             </dl>
           </div>
 
-          <p className="mt-6 rounded-xl bg-paper px-4 py-3 text-xs text-muted-foreground">
-            ※ 本表記は雛形です。実際の受付時間・キャンセル規定・価格表示等を貴社の運用に合わせて確定し、公開前に専門家のご確認をおすすめします。
-          </p>
+          <p className="mt-6 text-xs text-muted-foreground">最終改定：2026年11月19日</p>
         </article>
       </main>
       <Footer />

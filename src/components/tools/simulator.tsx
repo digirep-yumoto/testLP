@@ -31,7 +31,7 @@ const mediaMeta: Record<SimMedia, { name: string; tag: string; sub: string }> = 
   laundry: {
     name: "コインランドリーサイネージ",
     tag: "FREQUENCY ｜ 質より量と頻度",
-    sub: "同一ターゲットに“超・高頻度”で刷り込む",
+    sub: "同じ層に、来店のたびに繰り返し届く",
   },
 };
 
@@ -372,7 +372,7 @@ export function Simulator() {
               ))}
             </div>
             <p className="mt-2 text-xs text-muted-foreground">
-              4ヶ月以上の長期出稿・複数店舗のボリューム調整は個別にご相談ください。
+              4ヶ月以上も継続割引は▲10%です（このシミュレーターは3ヶ月まで試算できます）。
             </p>
           </Card>
         </div>

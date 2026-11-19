@@ -9,8 +9,8 @@ const beats = [
   { time: "10:05", title: "来店・お支払い・投入", body: "毛布と1週間分の洗濯物。精算機でお支払いをして、洗濯機を回す。壁の55インチから御社の広告（1回目）。精算機ヨコのチラシのQRにも気づく。", icon: "qr" },
   { time: "10:12", title: "洗濯のあいだ", body: "約6割の方は、いったん店を離れます。店内で待つ方には、音声つきの4分ロールが繰り返し届きます。", icon: "wait" },
   { time: "10:40", title: "併設スーパーへ", body: "乾燥の間に買い物。さっき見た新商品が棚にある。手に取る。", icon: "shop" },
-  { time: "11:05", title: "戻って取り出す・たたむ", body: "取り出してたたむ5分。御社の広告（2回目以降）。音声があるので、手を動かしながらでも耳に入る。", icon: "basket" },
-  { time: "翌週", title: "また来店", body: "月2〜3回の来店で、同じ広告に繰り返し出会う。名前を覚えている。", icon: "repeat" },
+  { time: "11:05", title: "戻って取り出す・たたむ", body: "取り出してたたむ数分。御社の広告（2回目以降）。音声があるので、手を動かしながらでも耳に入る。", icon: "basket" },
+  { time: "翌週", title: "また来店", body: "半数以上が、週1回以上来店。同じ広告に繰り返し出会う。名前を覚えている。", icon: "repeat" },
 ];
 
 function BeatIcon({ k }: { k: string }) {
@@ -37,7 +37,7 @@ export function DayScenario() {
         <SectionHeading
           eyebrow="A Day With Your Ad"
           title="利用者の“ある日”。御社の広告は、こう届きます"
-          lead="30〜50代の主婦層が中心。毛布や大物を洗いに、月2〜3回。1回の利用で「入れるとき」と「取り出すとき」の2回以上、画面の前に立ちます。"
+          lead="利用者の約7割が女性、30〜50代が中心。半数以上が週1回以上来店し、1回の利用で「入れるとき」と「取り出すとき」の2回以上、画面の前に立ちます。"
         />
         <Reveal className="mt-14">
           <ol className="relative grid gap-4 md:grid-cols-5">
@@ -56,7 +56,7 @@ export function DayScenario() {
           </ol>
         </Reveal>
         <p className="mx-auto mt-6 max-w-3xl text-center text-xs leading-relaxed text-ink-soft">
-          ※ 利用の流れは一例です。来店頻度・性別年代は運営会社の店舗データ、接触回数は利用の流れからの想定です。
+          ※ 利用の流れは一例です。性別年代は運営会社の店舗データ、来店の頻度と「約6割」は利用者アンケート（2026年10〜11月・中間集計・n=93）、接触回数は利用の流れからの想定です。
         </p>
       </div>
     </section>

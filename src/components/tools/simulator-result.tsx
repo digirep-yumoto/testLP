@@ -9,14 +9,12 @@ import {
   Link2,
   Loader2,
   Printer,
-  Quote,
   Send,
   ShieldCheck,
   Target,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { accent } from "@/components/site/accent";
-import { voices } from "@/lib/site-data";
 import {
   defaultRates,
   estimateOutcome,
@@ -41,7 +39,6 @@ const num = (n: number) => Math.round(n).toLocaleString("ja-JP");
 export function ResultPanel({
   result,
   input,
-  industryId,
   industryLabel,
   objectiveLabel,
   shareUrl,
@@ -65,13 +62,6 @@ export function ResultPanel({
   const est = useMemo(() => estimateOutcome(r, rates), [r, rates]);
   const text = resultToText(input, r, industryLabel, objectiveLabel, { est, rates });
 
-  // 業種に近い活用イメージ（想定シナリオ）を1件だけ添える
-  const voice = useMemo(() => {
-    const pool = voices.filter((v) => v.accent === r.media);
-    if (pool.length === 0) return null;
-    const seed = industryId.split("").reduce((s, c) => s + c.charCodeAt(0), 0);
-    return pool[seed % pool.length];
-  }, [r.media, industryId]);
 
   async function copy(kind: "text" | "url") {
     // 計測はクリップボードの成否に依存させない（権限拒否でも操作意図は記録する）
@@ -113,10 +103,10 @@ export function ResultPanel({
       {/* --- 到達の内訳 --- */}
       <div className="grid gap-px bg-border sm:grid-cols-2">
         <Metric
-          label={r.media === "toilet" ? "想定視聴機会 / 月" : "想定リーチ / 月"}
+          label={r.media === "toilet" ? "想定視聴機会 / 月" : "想定視認者数（延べ） / 月"}
           value={num(r.reachPerMonth)}
           unit={r.media === "toilet" ? "回" : "人"}
-          hint={r.media === "toilet" ? "個室に入った人の想定数" : "配信店舗の月間来店者"}
+          hint={r.media === "toilet" ? "個室に入った人の想定数" : "来店者 約1,060人×55%×店舗数"}
         />
         <Metric
           label={r.media === "toilet" ? "想定視認回数 / 月" : "想定接触回数 / 月"}
@@ -157,7 +147,7 @@ export function ResultPanel({
 
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <RateField
-            label="反応率（QR・指名検索など）"
+            label={r.media === "toilet" ? "反応率（QR・指名検索など）" : "反応率（指名検索・来店など）"}
             value={rates.response}
             min={0.1}
             max={5}
@@ -185,20 +175,6 @@ export function ResultPanel({
         </p>
       </div>
 
-      {/* --- 想定シナリオ（社会的証明） --- */}
-      {voice && (
-        <div className="border-t border-border px-6 py-5">
-          <Quote className="size-4 text-brand/50" />
-          <p className="mt-1.5 text-[13px] leading-relaxed text-ink-soft">{voice.quote}</p>
-          <p className="mt-2 text-xs font-bold text-ink">
-            {voice.cat}
-            <span className="ml-2 font-normal text-muted-foreground">{voice.metric}</span>
-          </p>
-          <p className="mt-1.5 text-[10px] text-muted-foreground">
-            ※ サービス特性に基づく想定シナリオであり、実際の導入事例ではありません。
-          </p>
-        </div>
-      )}
 
       {/* --- 内訳 --- */}
       <details className="group border-t border-border px-6 py-4">
@@ -215,7 +191,7 @@ export function ResultPanel({
           ))}
         </dl>
         <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground">
-          出典：自社調査（n=1,000）および各媒体の広告主向け資料。料金は公開料金表に基づく概算で、動画制作・LP制作等の付帯費用は含みません。
+          出典：{r.media === "toilet" ? "自社調査（n=1,000）および広告主向け資料" : "運営会社の店舗データと広告主向け資料（想定視認率55%は当社の想定値）"}。料金は公開料金表に基づく概算で、動画制作・LP制作等の付帯費用は含みません。
         </p>
       </details>
 

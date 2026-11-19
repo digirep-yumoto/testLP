@@ -69,7 +69,7 @@ export function Hero() {
           >
             全国約400店の
             <br />
-            コインランドリー店内TVで、
+            コインランドリーの店内モニターで、
             <br />
             <span className="bg-gradient-to-r from-sky-300 to-brand bg-clip-text text-transparent">
               “確実に見られる”広告
@@ -160,13 +160,13 @@ export function Hero() {
             <div className="relative overflow-hidden rounded-[1.4rem] border border-white/15 shadow-2xl">
               <Carousel
                 images={[
-                  "/images/laundry-media-new.webp",
+                  "/images/laundry-screen.webp",
                   "/images/laundry-front.webp",
-                  "/images/laundry-media-new3.webp",
+                  "/images/laundry-interior.webp",
                   "/images/toilet-vanity.webp",
                 ]}
                 captions={[
-                  "コインランドリーサイネージ｜55インチ・音声つきで待ち時間に届く",
+                  "コインランドリーサイネージ｜55インチ・音声つきで、来店のたびに届く",
                   "コインランドリーサイネージ｜商業施設併設・全国約400店",
                   "コインランドリーサイネージ｜同じ人に、来店のたびに",
                   "個室トイレサイネージ｜1対1で“濃く”届ける（設置店舗から順次）",

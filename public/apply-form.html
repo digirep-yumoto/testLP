@@ -133,7 +133,7 @@
   .calc-note{ background:var(--paper2); border-radius:var(--r-sm); padding:11px 13px; font-size:12px; color:var(--ink-soft); margin-top:13px; line-height:1.6; }
   .calc-note b{ color:var(--brand-d); }
 
-  /* モーダル（契約書/見積プレビュー） */
+  /* モーダル（見積プレビュー） */
   .modal-bg{ display:none; position:fixed; inset:0; background:rgba(16,24,44,.55); z-index:50; align-items:flex-start; justify-content:center; padding:34px 16px; overflow-y:auto; }
   .modal-bg.open{ display:flex; }
   .modal{ background:#fff; border-radius:var(--r); max-width:780px; width:100%; box-shadow:var(--shadow); }
@@ -143,7 +143,7 @@
   .modal-b{ padding:22px; }
   .modal-f{ padding:14px 22px; border-top:1px solid var(--line); display:flex; gap:10px; justify-content:flex-end; }
 
-  /* ドキュメント（契約書/見積） */
+  /* ドキュメント（見積） */
   .doc{ font-size:12.5px; color:var(--ink); line-height:1.8; }
   .doc h2{ text-align:center; font-size:18px; margin-bottom:6px; }
   .doc .doc-meta{ text-align:right; font-size:11.5px; color:var(--ink-soft); margin-bottom:14px; }
@@ -188,11 +188,12 @@
 <div class="hero">
   <div class="hero-in">
     <h1>サイネージ広告 お申込み</h1>
-    <p>飲食店の個室トイレをはじめとした滞在型サイネージへの広告出稿のお申込みです。媒体・掲載期間・配信規模をお選びいただくと、お申込み金額がその場で計算されます。</p>
+    <p>全国約400店のコインランドリーの店内モニター広告（BlueSky LAUNDRY TV）と、飲食店の個室トイレサイネージへの広告出稿のお申込みです。媒体・掲載期間・配信規模をお選びいただくと、お申込み金額がその場で計算されます。</p>
     <div class="pills">
-      <span class="pill">🚻 個室トイレ｜1対1・強制視聴</span>
+      <span class="pill">🧺 コインランドリー｜10店・1ヶ月から</span>
+      <span class="pill">🚻 個室トイレ｜1対1の個室</span>
       <span class="pill">📅 1〜3ヶ月プラン</span>
-      <span class="pill">📄 契約書・見積をその場で確認</span>
+      <span class="pill">📄 見積をその場で確認</span>
     </div>
   </div>
 </div>
@@ -219,7 +220,7 @@
         </div>
 
         <div class="field">
-          <label>掲載期間プラン<span class="req">必須</span><span class="hint">長期ほど月額がおトクになります</span></label>
+          <label>掲載期間プラン<span class="req">必須</span><span class="hint">長期ほど月額がお得になります</span></label>
           <div class="term-pick" id="termPick"></div>
         </div>
 
@@ -253,14 +254,14 @@
               <option value="area">エリアパック（15秒¥7,600／30秒¥11,300・店月）</option>
               <option value="national">全国一括パック（15秒¥6,300／30秒¥9,500・店月）</option>
             </select></div>
-            <div class="field"><label>放映尺<span class="req">必須</span><span class="hint">30秒は1.5倍</span></label><select id="secL">
+            <div class="field"><label>放映尺<span class="req">必須</span><span class="hint">30秒は約1.5倍</span></label><select id="secL">
               <option value="15" selected>15秒（基本料金）</option>
-              <option value="30">30秒（15秒の1.5倍）</option>
+              <option value="30">30秒（15秒の約1.5倍）</option>
             </select></div>
           </div>
           <div class="row">
             <div class="field"><label>配信店舗数<span class="req">必須</span></label><div class="with-sfx"><input type="number" id="storesL" min="1" value="20"><span class="sfx">店</span></div></div>
-            <div class="field" id="fieldSpotL"><label>希望スポット<span class="hint">配信したい店舗・商業施設・エリア名</span></label><input type="text" id="spotL" placeholder="例：カインズ○○店 / 世田谷区周辺"></div>
+            <div class="field" id="fieldSpotL"><label>希望スポット<span class="hint">配信したい店舗・商業施設・エリア名</span></label><input type="text" id="spotL" placeholder="例：○○店 / 世田谷区周辺"></div>
             <div class="field" id="fieldAreaL" style="display:none;"><label>希望エリア<span class="hint">配信したい地域</span></label><select id="areaL">
               <option value="" selected>選択してください</option>
               <option>北海道</option><option>東北</option><option>関東</option><option>中部・北陸</option><option>近畿</option><option>中国</option><option>四国</option><option>九州・沖縄</option>
@@ -268,17 +269,29 @@
           </div>
           <div class="field" id="fieldAreaDetailL" style="display:none;"><label>エリア詳細<span class="opt">任意</span><span class="hint">都道府県・市区町村など</span></label><input type="text" id="areaDetailL" placeholder="例：東京都・神奈川県 / 大阪市内 など"></div>
           <div class="row">
-            <div class="field"><label>付帯メニュー<span class="hint">LP・動画・X連携の有無</span></label><select id="addonL">
+            <div class="field"><label>店頭QRセット<span class="opt">任意</span><span class="hint">精算機ヨコに御社のA4チラシを掲示｜1店あたり月¥3,000</span></label><select id="qrsetL">
+              <option value="" selected>つけない</option>
+              <option value="1">つける</option>
+            </select></div>
+            <div class="field" id="fieldQrStoresL" style="display:none;"><label>店頭QRセットの店舗数<span class="hint">10店以上・配信店舗数まで</span></label><div class="with-sfx"><input type="number" id="qrStoresL" min="10" value="20"><span class="sfx">店</span></div></div>
+          </div>
+          <div class="row">
+            <div class="field"><label>店頭サンプリング<span class="opt">任意</span><span class="hint">試供品などを店内に置く｜別途お見積り（1店あたり月¥5,000〜）</span></label><select id="samplingL">
+              <option value="" selected>希望しない</option>
+              <option value="1">希望する（別途お見積り）</option>
+            </select></div>
+            <div class="field"><label>そのほかの付帯メニュー<span class="opt">任意</span><span class="hint">動画・LPの制作、X連携投稿など</span></label><select id="addonL">
               <option value="" selected>なし</option>
-              <option value="1">あり（LP・動画・X連携）</option>
+              <option value="1">相談したい（別途お見積り）</option>
             </select></div>
           </div>
-          <div class="calc-note">🧺 コインランドリーは<b>月額固定パッケージ（従量課金は廃止）</b>です。月額＝パッケージ単価×配信店舗数（全店合計は万円単位に切上げ）。15秒 スポット¥8,800／エリア¥7,600／全国¥6,300（1店・月・税別）、<b>30秒は1.5倍</b>。想定配信回数＝17時間×15回×30日×店舗数（30秒は2枠占有で半分）。配信回数・リーチは入力に連動して自動計算します。</div>
+          <div class="calc-note" id="qrNoteL" style="display:none;"></div>
+          <div class="calc-note">🧺 コインランドリーは<b>月額固定パッケージ（従量課金なし）</b>です。月額＝パッケージ単価×配信店舗数（全店合計〈割引前〉は万円単位に切り上げ）。15秒 スポット¥8,800／エリア¥7,600／全国¥6,300（1店・月・税別）、<b>30秒は約1.5倍</b>。継続割引は2ヶ月▲5%・3ヶ月以上▲10%。<b>店頭QRセット</b>は1店あたり月¥3,000（10店以上・1店2社まで・先着順。継続割引と切り上げの対象外）。配信店舗数は、お申込み時の店舗リストで確定します。想定配信回数＝17時間×15回×30日×店舗数、想定視認者数＝1店あたりの月間来店者 約1,060人×55%×店舗数（どちらも想定値です）。</div>
         </div>
 
         <div class="field">
           <label>配信したい商材・サービス<span class="opt">任意</span><span class="hint">推奨ターゲットの判定に使います</span></label>
-          <input type="text" id="goods" placeholder="例：AGA / 育毛 / マッチングアプリ / 美容医療 など">
+          <input type="text" id="goods" placeholder="例：日用品 / 学習塾 / リフォーム / 求人 など">
         </div>
         <div id="recBox"></div>
 
@@ -334,15 +347,16 @@
         <div class="sec-head"><div class="sec-num">5</div><div><h2>ご確認・同意</h2><p>お申込み条件と各種ポリシー</p></div></div>
         <div class="terms-box" id="termsBox">
           <h4>広告掲載に関する申込条件</h4>
-          本申込は、DigiRepサイネージ・ネットワークへの広告出稿に関する申込です。広告枠は媒体規定の尺（個室トイレは30秒）で配信し、サイネージ全体のループ構成は媒体社にて設定します。
-          <h4>掲載期間・更新・解約</h4>
-          掲載期間は選択されたプラン（1ヶ月／2ヶ月／3ヶ月）を基本とし、2ヶ月・3ヶ月の継続プランには、どちらの媒体も月額の継続割引（2ヶ月▲5%／3ヶ月▲10%）が適用されます。コインランドリー媒体の配信開始日は、掲載枠の空き状況と入稿スケジュールにより、お申込み後にご案内します。掲載終了の申告がない場合は、申込内容と同条件で更新される場合があります。途中解約の場合は、残期間の取扱いを別途協議します。
+          本申込は、DigiRepのサイネージ広告（コインランドリーの店内モニター広告「BlueSky LAUNDRY TV」・個室トイレサイネージ）への広告出稿に関する申込です。正式な契約書（広告掲載基本契約書・個別申込書）は、内容の確認後に担当からお送りします。本フォームの送信だけでは、契約は成立しません。
+          <h4>掲載期間・キャンセル</h4>
+          掲載期間は選択されたプラン（1ヶ月／2ヶ月／3ヶ月）を基本とし、継続割引（2ヶ月▲5%／3ヶ月以上▲10%）が適用されます。配信開始日は、掲載枠の空き状況と入稿スケジュールにより、お申込み後にご案内します。お申込みの確定後は、キャンセル・掲載期間の途中での終了を承っておりません。
           <h4>料金・お支払い</h4>
-          個室トイレ媒体の広告掲載費は、基本料金（店舗の月間来客数に応じた1面あたりの月額：Sプラン¥5,000／Mプラン¥7,000／Lプラン¥9,000／XLプラン¥12,000・税別・2026年11月改定）と、配信実績に応じた成果報酬（視聴1回×10円、QR読み取り1件×500円、予約・問い合わせ1件×2,000円／5,000円／10,000円）の合計です。本フォームの金額は基本料金のみで、成果報酬は月末締めで翌月に実績に基づきご請求します。月額上限（基本料金＋成果報酬）をご指定いただけ、上限到達後は成果の計上を止めて配信を継続します。基本料金は長期プランの割引（2ヶ月5%／3ヶ月10%）の対象です。
+          コインランドリー媒体は月額固定のパッケージ料金です（1店単価×配信店舗数。全店合計〈割引前〉を万円単位に切り上げ）。配信店舗数は、お申込み時の店舗リストで確定します。店頭QRセット（1店あたり月3,000円）・店頭サンプリング（1店あたり月5,000円〜＋配布物の実費）は、継続割引と切り上げの対象外で、実施できる店舗に限りがあります。お支払いは請求書・銀行振込です。先払い（掲載期間の全額を一括）または後払い（月ごと）を、お申込み時に当社からご案内します。<br>
+          個室トイレ媒体の広告掲載費は、基本料金（店舗の月間来客数に応じた1面あたりの月額：Sプラン¥5,000／Mプラン¥7,000／Lプラン¥9,000／XLプラン¥12,000・税別・2026年11月改定）と、配信実績に応じた成果報酬（視聴1回×10円、QR読み取り1件×500円、予約・問い合わせ1件×2,000円／5,000円／10,000円）の合計です。本フォームの金額は基本料金のみで、成果報酬は月末締めで翌月に実績に基づきご請求します。月額上限（基本料金＋成果報酬）をご指定いただけ、上限到達後は成果の計上を止めて配信を継続します。
           <h4>クリエイティブ・審査</h4>
-          入稿動画は媒体規定（MP4・1920×1080・個室トイレは30秒・最大100MB 等）に従います。広告内容は所定の審査があり、ギャンブル・アダルト・占い・情報商材・武器・政治関連など、媒体が不適切と判断するものは掲載をお断りします。
+          入稿動画は媒体規定（MP4・1920×1080。コインランドリーは15秒／30秒、個室トイレは30秒）に従い、配信開始の7営業日前までにご入稿いただきます。広告内容には所定の審査があり、たばこ・ギャンブル・消費者金融・アダルト／風俗・出会い系・宗教／政治・連鎖販売／情報商材・設置店舗の事業と競合するものなど、媒体が不適切と判断するものは掲載をお断りします。外見や体の悩みをあおる表現も使えません。
           <h4>レポート・効果</h4>
-          配信実績（視聴数・QR読み取り数・予約／問い合わせ数など）を毎月、店舗別の明細でご報告します。視聴数は端末の赤外線センサー、QR読み取り数・予約数は専用のQRコード・予約URLの記録に基づく実数です。効果・成果を保証するものではなく、成果報酬は実績に応じた対価です。
+          コインランドリーは、配信店舗数・配信回数（配信ログの実測）と来店者数を毎月ご報告します。配信店舗数・配信回数が予定の90%を下回った月は、掲載期間の延長などで補います（天災・停電などの不可抗力による場合を除きます）。店頭QRセットは、店舗ごとの読み取り数を毎月ご報告します。月の半分を超えて掲示できなかった店舗は、掲示期間の延長で補い、延長できないときは、その店舗・その月分をご請求しません（チラシのデータの遅れなど、御社のご都合による場合を除きます）。個室トイレは、視聴数（端末の赤外線センサー）・QR読み取り数・予約／問い合わせ数を毎月、店舗別の明細でご報告します。いずれも、効果・成果を保証するものではありません。
           <h4>準拠法・管轄</h4>
           本申込に関する準拠法は日本法とし、紛争は東京地方裁判所を第一審の専属的合意管轄裁判所とします。
         </div>
@@ -367,13 +381,12 @@
 
           <div class="btn-row">
             <button type="button" class="btn btn-soft" id="quoteBtn" style="flex:1;">見積書を見る</button>
-            <button type="button" class="btn btn-soft" id="contractBtn" style="flex:1;">契約書を見る</button>
           </div>
           <button type="submit" class="btn btn-primary" id="submitBtn" style="margin-top:10px;">まずはこの内容で相談する</button>
           <div style="margin-top:6px;font-size:11px;color:var(--ink-faint);line-height:1.6;text-align:center;">
             正式なお申込みではありません。「このくらいの予算感で検討中」のご相談としてお気軽にどうぞ。<br>担当より内容確認のうえ、ご提案・お見積りをご案内します。
           </div>
-          <div class="side-foot">表示金額はシミュレーションの目安です。お申込み後、担当より内容確認のうえ、ご提案・お見積り・お支払い（請求書）のご案内をお送りします。</div>
+          <div class="side-foot">表示金額はシミュレーションの目安です。正式な契約書（広告掲載基本契約書・個別申込書）とお見積り・お支払い（請求書）のご案内は、内容の確認後に担当からお送りします。</div>
         </div>
       </div>
     </div>
@@ -387,7 +400,6 @@
     <p id="doneMsg"></p>
     <div class="btn-row" style="justify-content:center;">
       <button type="button" class="btn btn-ghost" id="quoteBtn2">見積書を見る</button>
-      <button type="button" class="btn btn-ghost" id="contractBtn2">契約書を見る</button>
       <button type="button" class="btn btn-ghost" id="dlJsonBtn">申込データ(JSON)を保存</button>
     </div>
     <div class="info-line" id="payNote" style="margin-top:14px;"></div>
@@ -422,11 +434,10 @@ const TOILET_TIERS = [
 ];
 const TOILET_PERF = { view:10, qr:500, booking:[2000,5000,10000] };
 function toiletTierOf(visitors){ const v=Number(visitors)||0; return TOILET_TIERS.find(t=>v<=t.max)||TOILET_TIERS[TOILET_TIERS.length-1]; }
-const AGENCY_RATE = 0.20, STORE_RATE = 0; // 店舗には成果報酬を全額渡す（基本料金は分配しない）
 
 const MEDIA = {
-  toilet:  { key:'toilet',  name:'個室トイレ', icon:'🚻', ds:'1対1・強制視聴', color:'#2f6df0' },
-  laundry: { key:'laundry', name:'コインランドリー', icon:'🧺', ds:'滞在中に反復視聴', color:'#0fa3a3' },
+  toilet:  { key:'toilet',  name:'個室トイレ', icon:'🚻', ds:'1対1の個室で届く', color:'#2f6df0' },
+  laundry: { key:'laundry', name:'コインランドリー', icon:'🧺', ds:'来店のたびに繰り返し', color:'#0fa3a3' },
   hotel:   { key:'hotel',   name:'ホテルフロント', icon:'🏨', ds:'出張・インバウンド', color:'#caa14a', soon:true },
 };
 /* コインランドリー：月額固定パッケージ（2026年改定・従量課金は廃止）
@@ -434,17 +445,17 @@ const MEDIA = {
      スポットパック 15秒¥8,800/30秒¥13,200（最小10店〜）
      エリアパック  15秒¥7,600/30秒¥11,300
      全国一括パック 15秒¥6,300/30秒¥9,500
-   収益配分（FC個別還元は廃止→GIB集約）：CMerTV50% / GIB10%（付帯あり15%）/ デジレップ40%（付帯あり35%）
-   参考指標：想定配信回数 = 17時間×15回/時×30日×店舗数（30秒は半分）／想定リーチ = 月間利用人数×視認55%×店舗数。 */
-const LAUNDRY_AGENCY_RATE = 0.50;  // 代理店報酬（固定）
-const LAUNDRY_VIEW_RATE = 0.55;    // 想定視認率（社内統一値・参考指標）
-/* 配信回数：1店・月 = 17時間 × 15回/時 × 30日 = 7,650回（15秒スロット）。30秒は2枠占有で半分。 */
+   参考指標：想定配信回数 = 17時間×15回/時×30日×店舗数／想定視認者数 = 1店あたりの月間来店者×視認55%×店舗数。 */
+const LAUNDRY_VIEW_RATE = 0.55;    // 想定視認率（参考指標）
+/* 配信回数：1店・月 = 17時間 × 15回/時 × 30日 = 7,650回（15秒・30秒とも、1回のロールで1回流れる）。 */
 const LAUNDRY_HOURS = 17, LAUNDRY_PLAYS_PER_HOUR = 15, LAUNDRY_DAYS = 30;
 const LAUNDRY_PLAYS_PER_STORE_15 = LAUNDRY_HOURS * LAUNDRY_PLAYS_PER_HOUR * LAUNDRY_DAYS; // 7,650
 /* パッケージ単価（1店・月・税別）。15秒=unit／30秒=unit30（百円丸め確定値）。
-   全国基準＋スポット+40%・エリア+20%、30秒は15秒×1.5。 */
-/* 1店あたり月間利用人数は入力欄を廃止し、平均値で参考リーチを算出 */
-const LAUNDRY_AVG_VISITORS = 1124;
+   30秒は15秒の約1.5倍（料金表の金額による）。 */
+/* 1店あたりの月間来店者（延べ）約1,060人（月間延べ約43万人÷406店）。想定視認者数の計算に使う */
+const LAUNDRY_AVG_VISITORS = 1060;
+const LAUNDRY_QRSET_UNIT = 3000;   // 店頭QRセット：1店あたり月額（税別）。継続割引・切り上げの対象外
+const LAUNDRY_QRSET_MIN = 10;      // 店頭QRセットは10店以上
 const LAUNDRY_PACKAGES = {
   spot:     { key:'spot',     label:'スポットパック',   unit:8800, unit30:13200, min:10 },
   area:     { key:'area',     label:'エリアパック',     unit:7600, unit30:11300, min:1  },
@@ -453,24 +464,24 @@ const LAUNDRY_PACKAGES = {
 function laundryPackageOf(k){ return LAUNDRY_PACKAGES[k] || LAUNDRY_PACKAGES.spot; }
 const LAUNDRY_SEC_MULT = { '15':1.0, '30':1.5 };
 function laundrySecMultOf(sec){ return LAUNDRY_SEC_MULT[String(sec||'15')] || 1.0; }
-/* 想定リーチ（来店者ベース・参考）＝ 月間利用人数 × 視認55% */
+/* 想定視認者数（来店者ベース・参考）＝ 月間来店者 × 視認55% */
 function laundryImpressionsPerStore(visitors){ return (Number(visitors)||0) * LAUNDRY_VIEW_RATE; }
-/* 想定配信回数（1店・月）：15秒=7,650回、30秒=半分 */
-function laundryPlaysPerStore(sec){ return String(sec||'15')==='30' ? Math.round(LAUNDRY_PLAYS_PER_STORE_15/2) : LAUNDRY_PLAYS_PER_STORE_15; }
+/* 想定配信回数（1店・月）：15秒・30秒とも 7,650回 */
+function laundryPlaysPerStore(sec){ return LAUNDRY_PLAYS_PER_STORE_15; }
 /* 1店あたり月額：15秒=unit／30秒=unit30 */
 function laundryRevenuePerStore(pkg, sec){ const p=laundryPackageOf(pkg); return String(sec||'15')==='30' ? p.unit30 : p.unit; }
-/* 全店合計（万円切り上げ）：広告主請求ベースの見栄え調整 */
+/* 全店合計（割引前）を万円単位に切り上げる */
 function laundryTotalRevenue(pkg, sec, stores){ return Math.ceil(laundryRevenuePerStore(pkg,sec)*(stores||0)/10000)*10000; }
 const TERM_PLANS = [
   { key:'m1', label:'1ヶ月プラン', months:1, discount:0.00, tag:'お試し', ds:'まず単月で効果を検証' },
-  { key:'m2', label:'2ヶ月プラン', months:2, discount:0.05, tag:'人気',   ds:'2ヶ月継続で月額5%OFF' },
+  { key:'m2', label:'2ヶ月プラン', months:2, discount:0.05, tag:'継続割引', ds:'2ヶ月継続で月額5%OFF' },
   { key:'m3', label:'3ヶ月プラン', months:3, discount:0.10, tag:'おすすめ', ds:'3ヶ月継続で月額10%OFF' },
 ];
 
 /* 推奨ターゲット（商材→媒体/業界のゆるい判定） */
 const GENRE_GOODS = {
-  toilet: 'AGA 育毛 メンズ美容 マッチングアプリ 医療クリニック 健康 サプリ 金融 美容医療 脱毛 化粧品 転職 新卒採用 債務整理 サブスク コンプレックス',
-  laundry:'消費財 健康商材 食品宅配 ミールキット 保険 学習塾 教育 通信 地域サービス コスメ',
+  toilet: 'AGA 育毛 メンズ美容 マッチングアプリ 医療クリニック 健康 サプリ 金融 美容医療 脱毛 化粧品 転職 新卒採用 債務整理 サブスク',
+  laundry:'日用品 消費財 食品 食品宅配 ミールキット 保険 学習塾 教育 通信 地域サービス リフォーム 住宅 求人 クリニック スーパー ドラッグストア',
   hotel:  'ビジネス 決済 金融 家電 ガジェット 観光 レジャー 語学 高級ブランド 会員サービス 消費財',
 };
 const INDUSTRY_MAP = [
@@ -514,6 +525,7 @@ function toggleLaundryArea(){
   show('fieldSpotL', pkg === 'spot');
   show('fieldAreaL', pkg === 'area');
   show('fieldAreaDetailL', pkg === 'area');
+  show('fieldQrStoresL', !!($('qrsetL') && $('qrsetL').value));
 }
 function toggleFields(){
   const isLaundry = state.media==='laundry';
@@ -527,24 +539,27 @@ function toggleFields(){
 function termOf(k){ return TERM_PLANS.find(t=>t.key===k)||TERM_PLANS[0]; }
 function calc(){
   const term = termOf(state.term);
-  let monthlyRev=0, views=0, detail={}, agencyRate=AGENCY_RATE, storeRate=STORE_RATE;
+  let monthlyRev=0, views=0, detail={}, qrMonthly=0;
   if(state.media==='laundry'){
     const stores = Math.max(1, +$('storesL').value||0);
     const visitors = LAUNDRY_AVG_VISITORS;
     const pkg = ($('pkgL')&&$('pkgL').value) || 'spot';
     const sec = ($('secL')&&$('secL').value) || '15';
     const addon = !!($('addonL')&&$('addonL').value);
-    const viewPerStore = laundryImpressionsPerStore(visitors);             // 参考：1店の想定リーチ（来店×視認55%）
+    const viewPerStore = laundryImpressionsPerStore(visitors);             // 参考：1店の想定視認者数（来店×視認55%）
     const perStore = laundryRevenuePerStore(pkg, sec);                     // 1店あたり月額（百円丸め確定値）
     const pk = laundryPackageOf(pkg);
     monthlyRev = laundryTotalRevenue(pkg, sec, stores);                    // 全店合計を万円切り上げ（広告主請求ベース）
-    views = viewPerStore * stores;                                         // 想定リーチ（全店）
+    views = viewPerStore * stores;                                         // 想定視認者数（全店）
     const playsTotal = laundryPlaysPerStore(sec) * stores;                 // 想定配信回数（全店）
     const playUnit = playsTotal>0 ? monthlyRev/playsTotal : 0;             // 想定配信単価
-    const reachUnit = views>0 ? monthlyRev/views : 0;                      // 想定リーチ単価
-    agencyRate = LAUNDRY_AGENCY_RATE;  // 代理店50%（固定）
-    storeRate = 0;                     // FC個別還元なし（GIB集約）
-    detail = { type:'laundry', stores, visitors, viewPerStore, perStore, pkg, pkgLabel:pk.label, sec, addon, packageBased:true, playsTotal, playUnit, reachTotal:Math.round(views), reachUnit };
+    // 店頭QRセット（10店以上・配信店舗数まで。継続割引と切り上げの対象外）
+    const qrWant = !!($('qrsetL')&&$('qrsetL').value);
+    const qrOk = qrWant && stores >= LAUNDRY_QRSET_MIN;
+    const qrStores = qrOk ? Math.min(stores, Math.max(LAUNDRY_QRSET_MIN, Math.floor(+$('qrStoresL').value||stores))) : 0;
+    qrMonthly = qrStores * LAUNDRY_QRSET_UNIT;
+    const sampling = !!($('samplingL')&&$('samplingL').value);
+    detail = { type:'laundry', stores, visitors, viewPerStore, perStore, pkg, pkgLabel:pk.label, sec, addon, packageBased:true, playsTotal, playUnit, reachTotal:Math.round(views), qrWant, qrStores, qrMonthly, sampling };
   } else {
     const stores = Math.max(1, +$('stores').value||0);
     const booths = Math.max(1, +($('booths')?.value)||1);
@@ -556,20 +571,13 @@ function calc(){
     views = viewPerStore * stores;
     detail = { type:'toilet', stores, booths, visitors, viewPerStore, tier:tier.key, tierLabel:tier.label, perStore };
   }
-  const isLaundry = state.media==='laundry';
-  // 継続割引（2ヶ月▲5%／3ヶ月▲10%）は両媒体に適用する。
-  // ※ 以前はランドリーを除外していたが、広告主資料の公開例・サイト表示・
-  //   src/lib/pricing.ts（サーバー権威の計算）はいずれも割引適用が前提のため統一。
+  // 継続割引（2ヶ月▲5%／3ヶ月以上▲10%）は両媒体の月額に適用する（店頭QRセットは対象外）。
   const effDiscount = term.discount;
   const monthlyAfter = Math.round(monthlyRev * (1 - effDiscount));
-  const total = monthlyAfter * term.months;
-  // ランドリー：FC個別還元なし（GIB集約・基本10%/付帯あり15%）。その他：月額×店舗還元率。
-  const gibRate = isLaundry ? (detail.addon ? 0.15 : 0.10) : 0;
-  const gibIncome = Math.round(monthlyAfter * gibRate) * term.months;
-  const storeIncome = isLaundry ? 0 : Math.round(monthlyAfter * storeRate) * term.months;
-  const agencyPay = Math.round(monthlyAfter * agencyRate) * term.months;
-  const net = total - storeIncome - agencyPay - gibIncome;
-  return { term, monthlyRev, monthlyAfter, total, views:views*term.months, monthlyViews:views, storeIncome, gibIncome, gibRate, agencyPay, net, detail, agencyRate, storeRate, effDiscount };
+  const adTotal = monthlyAfter * term.months;       // 配信料（基本料金）の期間合計
+  const qrTotal = qrMonthly * term.months;          // 店頭QRセットの期間合計
+  const total = adTotal + qrTotal;
+  return { term, monthlyRev, monthlyAfter, adTotal, qrTotal, total, views:views*term.months, monthlyViews:views, detail, effDiscount };
 }
 
 /* ============ サイドバー描画 ============ */
@@ -588,16 +596,31 @@ function compute(){
     rows += `<div class="side-row"><span class="k">成果報酬（別途・実績）</span><span class="v">視聴10円／QR500円／予約2,000円〜</span></div>`;
   } else if(r.detail.type==='laundry'){
     rows += `<div class="side-row"><span class="k">配信プラン</span><span class="v">${r.detail.pkgLabel}</span></div>`;
-    rows += `<div class="side-row"><span class="k">放映尺</span><span class="v">${r.detail.sec}秒${r.detail.sec==='30'?'（×1.5）':''}</span></div>`;
+    rows += `<div class="side-row"><span class="k">放映尺</span><span class="v">${r.detail.sec}秒${r.detail.sec==='30'?'（約1.5倍）':''}</span></div>`;
     rows += `<div class="side-row"><span class="k">配信店舗数</span><span class="v">${num(r.detail.stores)} 店</span></div>`;
     rows += `<div class="side-row"><span class="k">1店あたり月額</span><span class="v">${yen(r.detail.perStore)}</span></div>`;
     rows += `<div class="side-row"><span class="k">想定配信回数</span><span class="v">${num(r.detail.playsTotal)} 回/月</span></div>`;
     rows += `<div class="side-row"><span class="k">想定配信単価</span><span class="v">¥${r.detail.playUnit.toFixed(2)}/回</span></div>`;
-    rows += `<div class="side-row"><span class="k">想定リーチ数</span><span class="v">${num(r.detail.reachTotal)} 人/月</span></div>`;
-    rows += `<div class="side-row"><span class="k">想定リーチ単価</span><span class="v">¥${r.detail.reachUnit.toFixed(1)}/人</span></div>`;
-    rows += `<div class="side-row"><span class="k">GIB還元</span><span class="v">${r.detail.addon?'15%（付帯）':'10%（基本）'}</span></div>`;
+    rows += `<div class="side-row"><span class="k">想定視認者数（延べ）</span><span class="v">${num(r.detail.reachTotal)} 人/月</span></div>`;
   }
-  rows += `<div class="side-row"><span class="k">月額${r.effDiscount>0?'（割引後）':(r.detail.packageBased?'（パッケージ）':'')}</span><span class="v">${yen(r.monthlyAfter)}</span></div>`;
+  rows += `<div class="side-row"><span class="k">${r.detail.type==='laundry'?'配信料の月額':'月額'}${r.effDiscount>0?'（割引後）':(r.detail.packageBased?'（パッケージ）':'')}</span><span class="v">${yen(r.monthlyAfter)}</span></div>`;
+  if(r.detail.type==='laundry'){
+    if(r.detail.qrStores>0){
+      rows += `<div class="side-row"><span class="k">配信料（${r.term.months}ヶ月）</span><span class="v">${yen(r.adTotal)}</span></div>`;
+      rows += `<div class="side-row"><span class="k">店頭QRセット（${num(r.detail.qrStores)}店×¥3,000×${r.term.months}ヶ月）</span><span class="v">${yen(r.qrTotal)}</span></div>`;
+    }
+    if(r.detail.sampling) rows += `<div class="side-row"><span class="k">店頭サンプリング</span><span class="v">別途お見積り</span></div>`;
+    if(r.detail.addon) rows += `<div class="side-row"><span class="k">そのほかの付帯メニュー</span><span class="v">別途お見積り</span></div>`;
+    const qn = $('qrNoteL');
+    if(qn){
+      if(r.detail.qrWant && r.detail.qrStores===0){ qn.style.display=''; qn.textContent='店頭QRセットは、配信店舗数が10店以上のときにお申込みいただけます。'; }
+      else if(r.detail.qrStores>0){ qn.style.display=''; qn.textContent='店頭QRセット：'+num(r.detail.qrStores)+'店に掲示します（10店以上・配信店舗数まで）。実施できる店舗に限りがあるため、対象の店舗はお見積り時にご案内します。お申込みとチラシのデータは、掲示を始める月の前月10日までにお願いします。'; }
+      else { qn.style.display='none'; qn.textContent=''; }
+    }
+  }
+  $('sideFoot').textContent = r.detail.type==='laundry'
+    ? '※ 月額固定のパッケージ料金です（従量課金なし）。店頭サンプリング・動画制作などの費用は含みません。配信店舗数は、お申込み時の店舗リストで確定します。想定配信回数・想定視認者数は想定値です。'
+    : '※ 表示は基本料金のみ。成果報酬（視聴10円／QR500円／予約2,000円〜）は実績に応じて翌月にご請求します。視聴数の目安は来客数×54.6%の想定値です。';
   $('sideRows').innerHTML = rows;
   $('sideTotal').textContent = yen(r.total);
   return r;
@@ -617,8 +640,8 @@ function renderRec(){
   // 業界
   const inds = []; kws.forEach(k=>INDUSTRY_MAP.forEach(im=>{ if(im.kw.some(w=>k.includes(w)||w.includes(k))&&!inds.includes(im.key)) inds.push(im.key); }));
   const audience = state.media==='toilet'
-    ? '個室での1対1・強制視聴。デリケート/コンプレックス商材も自分ごと化されやすい層に届きます。'
-    : state.media==='laundry' ? '女性約7割・30〜50代中心の生活者へ、洗濯・乾燥の待ち時間に音声つき大画面で届きます（1回の利用で投入時・引取時の2回以上接触）。'
+    ? '個室での1対1の接触。人に相談しづらい商材も、自分ごととして見てもらいやすい環境です。'
+    : state.media==='laundry' ? '利用者の約7割が女性、30〜50代が中心。音声つきの大画面で、来店のたびに届きます（1回の利用で、入れるとき・取り出すときの2回以上）。'
     : '出張ビジネス層・インバウンドに、滞在接点でブランディングできます。';
   box.innerHTML = `<div class="calc-note">
     <b>🎯 推奨ターゲット判定：</b>入力された商材から、
@@ -628,7 +651,7 @@ function renderRec(){
   </div>`;
 }
 
-/* ============ 書類生成（見積・契約） ============ */
+/* ============ 書類生成（見積） ============ */
 function gatherData(){
   const r = calc(); const m = MEDIA[state.media];
   return {
@@ -651,8 +674,7 @@ function gatherData(){
       spot: ($('spotL') ? $('spotL').value.trim() : ''),
       area: ($('areaL') ? $('areaL').value : ''),
       areaDetail: ($('areaDetailL') ? $('areaDetailL').value.trim() : ''),
-      detail:r.detail, monthlyAfter:r.monthlyAfter, total:r.total, monthlyViews:r.monthlyViews, totalViews:r.views,
-      storeIncome:r.storeIncome, agencyPay:r.agencyPay, net:r.net,
+      detail:r.detail, monthlyAfter:r.monthlyAfter, adTotal:r.adTotal, qrTotal:r.qrTotal, total:r.total, monthlyViews:r.monthlyViews, totalViews:r.views,
     }
   };
 }
@@ -671,15 +693,16 @@ function quoteHtml(d){
   } else if(o.detail.type==='laundry'){
     detailRows = `
       <tr><th>配信プラン</th><td>${o.detail.pkgLabel}</td></tr>
-      <tr><th>放映尺</th><td>${o.detail.sec}秒${o.detail.sec==='30'?'（15秒の1.5倍）':'（基本尺）'}</td></tr>
+      <tr><th>放映尺</th><td>${o.detail.sec}秒${o.detail.sec==='30'?'（15秒の約1.5倍）':'（基本尺）'}</td></tr>
       <tr><th>配信店舗数</th><td>${num(o.detail.stores)} 店</td></tr>
       <tr><th>1店あたり月額</th><td>${yen(o.detail.perStore)}（税別）</td></tr>
-      <tr><th>算定式</th><td>パッケージ単価 × 配信店舗数（月額固定・従量課金なし／全店合計〈割引前〉は万円単位に切上げ）${o.discount>0?`／さらに継続割引 ${Math.round(o.discount*100)}%`:''}</td></tr>
-      <tr><th>付帯メニュー</th><td>${o.detail.addon?'あり（LP・動画・X連携）':'なし'}</td></tr>
-      <tr><th>想定配信回数</th><td>約${num(o.detail.playsTotal)} 回/月（17時間×15回×30日×店舗数${o.detail.sec==='30'?'÷2':''}）</td></tr>
+      <tr><th>算定式</th><td>パッケージ単価 × 配信店舗数（月額固定・従量課金なし／全店合計〈割引前〉は万円単位に切り上げ）${o.discount>0?`／さらに継続割引 ${Math.round(o.discount*100)}%`:''}</td></tr>
+      <tr><th>店頭QRセット</th><td>${o.detail.qrStores>0?`${num(o.detail.qrStores)} 店 × ¥3,000 × ${o.months}ヶ月 ＝ ${yen(o.qrTotal)}（税別。継続割引・切り上げの対象外）`:'なし'}</td></tr>
+      <tr><th>店頭サンプリング</th><td>${o.detail.sampling?'希望する（別途お見積り。1店あたり月¥5,000〜＋配布物の実費）':'なし'}</td></tr>
+      <tr><th>そのほかの付帯メニュー</th><td>${o.detail.addon?'相談したい（動画・LPの制作、X連携投稿など。別途お見積り）':'なし'}</td></tr>
+      <tr><th>想定配信回数</th><td>約${num(o.detail.playsTotal)} 回/月（17時間×15回×30日×店舗数）</td></tr>
       <tr><th>想定配信単価</th><td>約¥${o.detail.playUnit.toFixed(2)}/回</td></tr>
-      <tr><th>想定リーチ数</th><td>約${num(o.detail.reachTotal)} 人/月（月間利用人数×視認55%×店舗数）</td></tr>
-      <tr><th>想定リーチ単価</th><td>約¥${o.detail.reachUnit.toFixed(1)}/人</td></tr>`;
+      <tr><th>想定視認者数（延べ）</th><td>約${num(o.detail.reachTotal)} 人/月（1店あたりの月間来店者 約1,060人×視認55%×店舗数）</td></tr>`;
   }
   return `<div class="doc">
     <h2>御 見 積 書</h2>
@@ -691,47 +714,18 @@ function quoteHtml(d){
       <tr><th>配信メディア</th><td>${o.mediaName}</td></tr>
       <tr><th>掲載期間</th><td>${o.termLabel}（${o.months}ヶ月）${(!o.detail.fixedRebate&&o.discount>0)?`／月額${Math.round(o.discount*100)}%OFF適用`:''}</td></tr>
       ${detailRows}
-      <tr><th>月額${o.detail.fixedRebate?'（従量・税別）':'（割引後・税別）'}</th><td>${yen(o.monthlyAfter)}</td></tr>
+      <tr><th>${o.detail.type==='laundry'?'配信料の月額':'月額'}（割引後・税別）</th><td>${yen(o.monthlyAfter)}</td></tr>
+      ${(o.detail.type==='laundry'&&o.detail.qrStores>0)?`<tr><th>配信料（${o.months}ヶ月・税別）</th><td>${yen(o.adTotal)}</td></tr><tr><th>店頭QRセット（${o.months}ヶ月・税別）</th><td>${yen(o.qrTotal)}</td></tr>`:''}
       <tr><th>掲載期間合計（税別）</th><td>${yen(o.total)}</td></tr>
       <tr><th>消費税（10%）</th><td>${yen(tax)}</td></tr>
       <tr class="doc-total"><td>合計金額（税込）</td><td>${yen(o.total+tax)}</td></tr>
     </table>
     <div class="doc-sec">備考</div>
     <p>${o.memo? o.memo.replace(/</g,'&lt;') : '—'}</p>
-    <p style="font-size:11px;color:#8a98ad;">※ ${o.detail.type==='laundry'?'コインランドリーは月額固定パッケージ（従量課金なし）です。広告主請求額は全店合計を万円単位に切り上げています。想定配信回数・リーチは前提に基づく想定値です':'視聴数は「来客数×70%×78%」で算定した想定値です'}。実績により変動します。表示金額は税別です。</p>
+    <p style="font-size:11px;color:#8a98ad;">※ ${o.detail.type==='laundry'?'コインランドリーは月額固定パッケージ（従量課金なし）です。配信料は、全店合計（割引前）を万円単位に切り上げています。店頭QRセットは、継続割引と切り上げの対象外です。配信店舗数は、お申込み時の店舗リストで確定します。想定配信回数・想定視認者数は前提に基づく想定値です':'視聴数は「来客数×70%×78%」で算定した想定値です'}。実績により変動します。表示金額は税別です。</p>
     <div class="sign">
-      <div class="box">発行：DigiRep株式会社<br>担当：＿＿＿＿＿＿</div>
+      <div class="box">発行：デジレップ株式会社<br>担当：＿＿＿＿＿＿</div>
       <div class="box">御社ご確認印：</div>
-    </div>
-  </div>`;
-}
-function contractHtml(d){
-  const o=d.order; const today=new Date().toLocaleDateString('ja-JP');
-  return `<div class="doc">
-    <h2>広 告 掲 載 契 約 書</h2>
-    <div class="doc-meta">契約日：${today}</div>
-    <p>広告主（以下「甲」）<b>${d.advertiser.company||'（会社名）'}</b> と DigiRep株式会社（以下「乙」）は、サイネージ広告の掲載に関し、以下のとおり契約を締結する。</p>
-    <div class="doc-sec">第1条（掲載内容）</div>
-    <table>
-      <tr><th>配信メディア</th><td>${o.mediaName}</td></tr>
-      <tr><th>掲載期間</th><td>${o.termLabel}（${o.months}ヶ月）</td></tr>
-      <tr><th>配信規模</th><td>${o.detail.type==='toilet'?`${num(o.detail.stores)}店（${o.detail.tier}プラン）`:`${num(o.detail.stores)}店`}</td></tr>
-      <tr><th>基本料金（税別）</th><td>${yen(o.total)}（月額 ${yen(o.monthlyAfter)} × ${o.months}ヶ月）</td></tr>
-      ${o.detail.type==='toilet'?'<tr><th>成果報酬（税別）</th><td>視聴1回×10円、QR読み取り1件×500円、予約・問い合わせ1件×2,000円／5,000円／10,000円（別紙の区分による）。月末締め・翌月に実績に基づき請求。月額上限：別紙のとおり</td></tr>':''}
-    </table>
-    <div class="doc-sec">第2条（料金・支払い）</div>
-    <p>甲は乙に対し、前条の基本料金を乙の定める方法（Stripeによる電子決済等）により支払う。成果報酬は、乙が月末締めで翌月に店舗別の明細とともに請求し、甲は請求書発行月の翌月末日までに支払う。表示金額は税別とし、別途消費税を申し受ける。</p>
-    <div class="doc-sec">第3条（クリエイティブ・審査）</div>
-    <p>甲は乙の入稿規定に従い広告素材を入稿する。乙は所定の審査を行い、媒体が不適切と判断する内容（ギャンブル・アダルト・占い・情報商材・武器・政治関連等）は掲載を拒否できる。</p>
-    <div class="doc-sec">第4条（レポート・非保証）</div>
-    <p>乙は、配信実績（視聴数・二次元コード読み取り数・予約／問い合わせ数）を毎月、店舗別の明細で甲へ報告する。視聴数は端末の赤外線センサー、二次元コード読み取り数及び予約・問い合わせ数は乙が発行する専用の二次元コード及びURLの記録に基づく実数とする。明細に対する異議は受領後10営業日以内に申し出るものとし、期間内に申出がないときは確定する。乙は広告の効果・成果を保証せず、成果報酬は実績に応じた対価である。</p>
-    <div class="doc-sec">第5条（更新・解約）</div>
-    <p>掲載終了の申告がない場合、本契約は同条件で更新されることがある。途中解約時の残期間の取扱いは甲乙協議のうえ定める。</p>
-    <div class="doc-sec">第6条（準拠法・管轄）</div>
-    <p>本契約は日本法に準拠し、紛争は東京地方裁判所を第一審の専属的合意管轄裁判所とする。</p>
-    <div class="sign">
-      <div class="box">甲（広告主）：${d.advertiser.company||'＿＿＿＿＿＿'}<br>　<br>印 ＿＿＿＿</div>
-      <div class="box">乙：DigiRep株式会社<br>　<br>印 ＿＿＿＿</div>
     </div>
   </div>`;
 }
@@ -774,7 +768,7 @@ $('form').onsubmit=e=>{
   $('form').style.display='none';
   $('doneCard').classList.add('show');
   $('doneMsg').innerHTML = `${lastData.advertiser.company} 様、お申込みありがとうございます。<br>担当より1営業日以内に、ご提案・お見積り・お支払いのご案内をご連絡します。<br><span style="font-size:12px;color:#8a98ad;">参考金額（シミュレーション・税別）：<b>${yen(lastData.order.total)}</b> ／ ${lastData.order.termLabel}</span>`;
-  $('payNote').innerHTML='※ 表示金額はシミュレーションの目安です。正式なお見積り・お支払い方法（請求書等）は担当よりご案内します。';
+  $('payNote').innerHTML='※ 表示金額はシミュレーションの目安です。正式な契約書（広告掲載基本契約書・個別申込書）・お見積り・お支払い方法（請求書）は、担当よりご案内します。';
   window.scrollTo({top:0,behavior:'smooth'});
   toast('お申込みを受け付けました','ok');
 };
@@ -782,9 +776,7 @@ $('form').onsubmit=e=>{
 /* 書類ボタン */
 function ensureDataForDoc(){ return lastData || gatherData(); }
 $('quoteBtn').onclick=()=>openModal('御見積書', quoteHtml(ensureDataForDoc()));
-$('contractBtn').onclick=()=>openModal('広告掲載契約書', contractHtml(ensureDataForDoc()));
 $('quoteBtn2').onclick=()=>openModal('御見積書', quoteHtml(ensureDataForDoc()));
-$('contractBtn2').onclick=()=>openModal('広告掲載契約書', contractHtml(ensureDataForDoc()));
 $('dlJsonBtn').onclick=()=>{
   const d=ensureDataForDoc();
   const blob=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});
@@ -798,8 +790,9 @@ let toastT;
 function toast(msg,type){ const t=$('toast'); t.textContent=msg; t.className='toast show'+(type==='ok'?' ok':''); clearTimeout(toastT); toastT=setTimeout(()=>t.className='toast',2600); }
 
 /* ============ 入力監視 ============ */
-['stores','booths','visitors','storesL','pkgL','addonL','secL','spotL','areaL','areaDetailL'].forEach(id=>{ const el=$(id); if(el) el.addEventListener('input',compute); el && el.addEventListener('change',compute); });
+['stores','booths','visitors','storesL','pkgL','addonL','secL','spotL','areaL','areaDetailL','qrsetL','qrStoresL','samplingL'].forEach(id=>{ const el=$(id); if(el) el.addEventListener('input',compute); el && el.addEventListener('change',compute); });
 if($('pkgL')) $('pkgL').addEventListener('change', toggleLaundryArea);
+if($('qrsetL')) $('qrsetL').addEventListener('change', function(){ if($('qrsetL').value && $('qrStoresL')) $('qrStoresL').value = Math.max(10, +$('storesL').value||10); toggleLaundryArea(); compute(); });
 $('goods').addEventListener('input',renderRec);
 
 /* ============ 初期化 ============ */
@@ -841,7 +834,13 @@ renderMediaPick(); renderTermPick(); toggleFields(); compute();
     }
     var a=d.advertiser||{}, b=d.billing||{};
     s+='【広告主お申込み】\n';
+    var dt=o.detail||{};
     s+=row('媒体',o.mediaName)+row('契約期間',o.termLabel)+row('月額（割引後・税別）',yenS(o.monthlyAfter))+row('合計（税別）',yenS(o.total));
+    if(dt.type==='laundry'){
+      s+=row('配信プラン',dt.pkgLabel)+row('放映尺',dt.sec?dt.sec+'秒':'')+row('配信店舗数',dt.stores?dt.stores+'店':'');
+      s+=row('店頭QRセット',dt.qrStores>0?(dt.qrStores+'店（期間合計 '+yenS(o.qrTotal)+'・税別）'):(dt.qrWant?'希望あり（配信が10店未満のため未計上）':''));
+      s+=row('店頭サンプリング',dt.sampling?'希望する（別途お見積り）':'')+row('そのほかの付帯メニュー',dt.addon?'相談したい（別途お見積り）':'');
+    }
     s+=row('配信希望月',o.startMonth)+row('商材・サービス',o.goods)+row('エリア',o.area)+row('エリアの詳細',o.areaDetail)+row('指定店舗',o.spot);
     s+=row('業種',a.industry)+row('所在地',a.addr)+row('代表者',a.rep)+row('法人番号',a.corpNo)+row('ご紹介者',a.referrer);
     s+=row('請求先',b.name)+row('請求先メール',b.email)+row('ご要望・メモ',o.memo);

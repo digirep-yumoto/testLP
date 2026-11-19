@@ -6,7 +6,7 @@ import { Footer } from "@/components/site/footer";
 import { LeadForm } from "@/components/site/lead-form";
 import { SectionHeading } from "@/components/site/section-heading";
 import { Reveal } from "@/components/site/reveal";
-import { company, ogImage } from "@/lib/site-data";
+import { company } from "@/lib/site-data";
 import { LaundryScene } from "@/components/laundry/laundry-scene";
 import { BubbleField } from "@/components/laundry/bubble-field";
 
@@ -24,17 +24,17 @@ export const metadata: Metadata = {
     url: `${siteUrl}/laundry-partner`,
     siteName: company.brand,
     locale: "ja_JP",
-    images: [ogImage],
+    images: [{ url: "/og-partner.png", width: 1200, height: 630, alt: "コインランドリー運営会社さまへ｜店内のモニターを、御社の収入と販促の場に" }],
   },
 };
 
 const merits = [
   { icon: Megaphone, title: "広告は当社が取ってきます", body: "広告の販売は当社と提携する広告代理店が行います。御社に営業の手間はありません。入った広告の掲載料をもとに、毎月お支払いします。" },
   { icon: Wrench, title: "端末・配信・保守は当社負担", body: "店内にすでにあるモニターに、配信用の小型端末を当社が無償で取り付けます。配信管理・保守・月次レポートも当社が行い、店舗さまに必要なのは電源とインターネット回線だけです。" },
-  { icon: Coins, title: "掲載料の一部を毎月お支払い", body: "広告掲載料の10〜15%を、月末締め・翌月末に明細つきでお支払いします（直販15%／代理店経由10%・付帯メニューあり＋5%）。約束の金額ではなく、入った広告が基準です。" },
+  { icon: Coins, title: "掲載料の一部を毎月お支払い", body: "広告掲載料の10〜15%を、月末締め・翌月末に明細つきでお支払いします（直販15%／提携代理店経由10%。店頭のオプションを行った店舗・月の分は20%／15%）。約束の金額ではなく、入った広告が基準です。" },
   { icon: MonitorPlay, title: "空き枠は自社告知に無料", body: "4分ロールのうち1枠を御社の告知に無料で開放。キャンペーン・会員（LINE）募集・求人・新店案内などに使えます。" },
-  { icon: ShieldCheck, title: "掲載基準と判断権", body: "消費者金融・ギャンブル・出会い系・風俗・コンプレックス系は掲載しません。御社にも掲載可否の判断権があります。音量は店舗ごとに調整でき、時間帯でミュートもできます。" },
-  { icon: FileText, title: "契約は分かりやすく", body: "業務提携契約（初回2年・以後1年更新・3か月前の通知で解約可）。終了時も配信中の広告は掲載期間の満了まで継続し、月次の売上明細（広告主名・期間・金額・入金状況・配分額）を共有します。" },
+  { icon: ShieldCheck, title: "掲載基準と判断権", body: "たばこ・ギャンブル・消費者金融・アダルト／風俗・出会い系・宗教／政治・連鎖販売／情報商材・御社と競合する事業の広告は掲載しません。外見や体の悩みをあおる表現も使えません。御社にも掲載可否の判断権があります。音量は店舗ごとに調整でき、時間帯でミュートもできます。" },
+  { icon: FileText, title: "契約は分かりやすく", body: "業務提携契約（初回2年・以後1年更新・3ヶ月前の通知で解約可）。終了時も配信中の広告は掲載期間の満了まで継続し、月次の売上明細（広告主名・期間・金額・入金状況・配分額）を共有します。" },
 ];
 
 const steps = [
@@ -93,9 +93,6 @@ export default function LaundryPartnerPage() {
                   30分のオンライン説明を申し込む
                   <ArrowRight className="size-5" />
                 </a>
-                <a href="/media/laundry" className="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-white px-6 py-4 text-base font-semibold text-ink transition-colors hover:border-brand hover:text-brand">
-                  広告主向けの媒体ページを見る
-                </a>
               </div>
               <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
                 ※ 対象は、店内にモニター（テレビ・業務用ディスプレイ）がある店舗さまです。分配額は入った広告の掲載料が基準で、金額をお約束するものではありません。
@@ -139,11 +136,11 @@ export default function LaundryPartnerPage() {
                   {[
                     ["設置", "店内の既設モニターを使用。配信端末は当社が無償で取り付け・保守"],
                     ["店舗側の負担", "電源とインターネット回線（店舗Wi-Fi）。工事が必要な場合は事前協議"],
-                    ["分配", "広告掲載料の15%（当社直販）／10%（代理店経由）。付帯メニューがある案件は＋5%。月末締め・翌月末払い・明細つき"],
+                    ["分配", "広告掲載料の15%（当社直販）／10%（提携代理店経由）。店頭のオプション（店頭QRセット・店頭サンプリング）を行った店舗・月の分は20%／15%。月末締め・翌月末払い・明細つき"],
                     ["自社枠", "4分ロールのうち1枠を御社の告知に無料開放（キャンペーン・会員募集・求人・新店案内）"],
                     ["店頭のオプション", "広告主が希望した場合に、A4チラシ1枚を精算機ヨコに掲示（店頭QRセット・1店2社まで）、または試供品などを設置（店頭サンプリング）。印刷・発送は当社。これらの売上は御社と折半"],
-                    ["掲載基準", "消費者金融・ギャンブル・出会い系・風俗・コンプレックス系は掲載しない。御社にも掲載可否の判断権"],
-                    ["契約", "業務提携契約（初回2年・以後1年更新・3か月前通知で解約可）。終了時も配信中の広告は掲載期間満了まで継続"],
+                    ["掲載基準", "たばこ・ギャンブル・消費者金融・アダルト／風俗・出会い系・宗教／政治・連鎖販売／情報商材・御社と競合する事業は掲載しない。外見や体の悩みをあおる表現も不可。御社にも掲載可否の判断権"],
+                    ["契約", "業務提携契約（初回2年・以後1年更新・3ヶ月前通知で解約可）。終了時も配信中の広告は掲載期間満了まで継続"],
                     ["報告", "月次の売上明細（広告主名・期間・金額・入金状況・配分額）を翌月15日までに共有"],
                   ].map(([k, v]) => (
                     <tr key={k} className="border-t border-border first:border-t-0">

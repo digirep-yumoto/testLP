@@ -65,7 +65,13 @@ export default function PrivacyPage() {
               </p>
             </section>
             <section>
-              <h2 className="text-lg font-bold text-ink">8. お問い合わせ窓口</h2>
+              <h2 className="text-lg font-bold text-ink">8. 計測用の二次元コード（QR）について</h2>
+              <p className="mt-2">
+                当社が発行する計測用の二次元コードを読み取ったときは、読み取りの日時・店舗・回数・端末の種類など、個人を特定しない情報を記録し、広告主への報告と統計に使います。
+              </p>
+            </section>
+            <section>
+              <h2 className="text-lg font-bold text-ink">9. お問い合わせ窓口</h2>
               <p className="mt-2">
                 {company.name}
                 <br />
@@ -76,9 +82,7 @@ export default function PrivacyPage() {
                 電話：{company.tel}
               </p>
             </section>
-            <p className="rounded-xl bg-paper px-4 py-3 text-xs text-muted-foreground">
-              ※ 本ポリシーは雛形です。公開前に内容を貴社の実運用に合わせ、必要に応じて専門家（弁護士等）のご確認をおすすめします。制定日・改定日を明記してください。
-            </p>
+            <p className="text-xs text-muted-foreground">最終改定：2026年11月19日</p>
           </div>
         </article>
       </main>

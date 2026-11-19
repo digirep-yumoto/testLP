@@ -35,7 +35,7 @@ export function LoopVisual() {
                   <span className="shrink-0 text-xs font-bold text-ink-soft">{x.s}</span>
                 </li>
               ))}
-              <li className="px-4 pt-1 text-xs font-bold text-brand">→ 以降くり返し（営業時間中ずっと）</li>
+              <li className="px-4 pt-1 text-xs font-bold text-brand">→ 以降、繰り返し（営業時間中ずっと）</li>
             </ol>
           </Reveal>
 
@@ -45,7 +45,7 @@ export function LoopVisual() {
               { icon: Volume2, h: "音声あり が標準", b: "視界と耳の両方に届くので、見過ごされにくい。音量は店舗ごとに調整し、時間帯でミュートもできます。" },
               { icon: Clapperboard, h: "15秒／30秒を選ぶだけ", b: "伝えたい情報量で尺を選択。30秒は15秒の約1.5倍の料金です。" },
               { icon: Repeat, h: "1店あたり月 約7,650回の配信", b: "営業時間17時間・1時間15回・30日の代表値。配信店舗数と配信回数は配信ログで実測し、月次でレポートします。" },
-              { icon: FileVideo, h: "動画がなくても始められる", b: "静止画＋音声（ナレーション）から制作できます。入稿はMP4・1920×1080、配信開始の7営業日前まで。" },
+              { icon: FileVideo, h: "動画がなくても始められる", b: "静止画＋音声（ナレーション）の15秒素材を当社で制作できます（1本30,000円〜）。入稿はMP4・1920×1080、配信開始の7営業日前まで。" },
             ].map((x) => (
               <div key={x.h} className="flex gap-4 rounded-2xl border border-border bg-card p-5 shadow-sm">
                 <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-brand/10 text-brand"><x.icon className="size-5" /></span>

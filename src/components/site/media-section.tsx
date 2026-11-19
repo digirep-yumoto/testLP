@@ -38,9 +38,9 @@ export function MediaSection({ media, index }: { media: Media; index: number }) 
               )}
             </div>
 
-            <h2 className="mt-5 text-[1.8rem] font-bold leading-[1.35] tracking-[-0.01em] text-ink sm:text-4xl">
+            <h1 className="mt-5 text-[1.8rem] font-bold leading-[1.35] tracking-[-0.01em] text-ink sm:text-4xl">
               {media.name}
-            </h2>
+            </h1>
             {/* 軸コピー（質/頻度） */}
             <p className={cn("mt-3 text-2xl font-black tracking-tight sm:text-3xl", a.text)}>
               {media.axis.head}
@@ -81,7 +81,7 @@ export function MediaSection({ media, index }: { media: Media; index: number }) 
               />
               <div className="pointer-events-none absolute left-4 top-4 z-10 inline-flex items-center gap-1.5 rounded-full bg-ink/75 px-3 py-1.5 text-xs font-bold text-white backdrop-blur">
                 <MediaIcon kind={media.key} className="size-3.5" />
-                実際の設置イメージ
+                設置イメージ
               </div>
             </div>
           </Reveal>

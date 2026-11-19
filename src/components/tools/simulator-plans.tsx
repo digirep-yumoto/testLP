@@ -120,7 +120,7 @@ export function PlanOptions({
       </div>
 
       <p className="mt-4 text-[11px] leading-relaxed text-muted-foreground">
-        ※ 継続割引は2ヶ月▲5%・3ヶ月▲10%。4ヶ月以上の長期出稿や、複数媒体の組み合わせは個別にご相談ください。
+        ※ 継続割引は2ヶ月▲5%・3ヶ月以上▲10%（4ヶ月以上も10%です。このシミュレーターは3ヶ月まで試算できます）。複数媒体の組み合わせは個別にご相談ください。
       </p>
     </section>
   );

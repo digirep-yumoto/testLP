@@ -68,14 +68,14 @@ const nextConfig: NextConfig = {
       // 旧サイトの実URL（確認済み）
       { source: "/advertising", destination: "/", permanent: true },
       { source: "/advertising/:path*", destination: "/", permanent: true },
-      { source: "/signage", destination: "/#store", permanent: true },
-      { source: "/signage/:path*", destination: "/#store", permanent: true },
+      { source: "/signage", destination: "/store", permanent: true },
+      { source: "/signage/:path*", destination: "/store", permanent: true },
       { source: "/download", destination: "/#docs", permanent: true },
       { source: "/download/:path*", destination: "/#docs", permanent: true },
       { source: "/application", destination: "/apply-form.html", permanent: true },
       { source: "/application/:path*", destination: "/apply-form.html", permanent: true },
-      { source: "/advertising-chain", destination: "/#chains", permanent: true },
-      { source: "/advertising-chain/:path*", destination: "/#chains", permanent: true },
+      { source: "/advertising-chain", destination: "/media/toilet#chains", permanent: true },
+      { source: "/advertising-chain/:path*", destination: "/media/toilet#chains", permanent: true },
       // 予備（推測）
       { source: "/contact", destination: "/#request", permanent: true },
       { source: "/privacy-policy", destination: "/privacy", permanent: true },

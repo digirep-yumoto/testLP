@@ -6,22 +6,25 @@ const reasons = [
   {
     icon: Clock,
     img: "/images/laundry-inuse.webp",
+    alt: "コインランドリーの店内で、モニターの前で洗濯物を扱う利用者のイメージ",
     title: "手は洗濯物、目と耳は空いている",
     body: "洗濯物を入れるとき、取り出してたたむとき。手を動かしているあいだ、目と耳は空いています。55インチ・音声つきなので、スマホを見ていても耳に届きます。",
     tag: "立ち寄るたびに",
   },
   {
     icon: Repeat,
-    img: "/images/laundry-media-new3-800.webp",
+    img: "/images/laundry-interior.webp",
+    alt: "コインランドリーの店内。洗濯機と乾燥機が並ぶ",
     title: "同じ人に、来店のたびに",
-    body: "利用者は月2〜3回来店し、1回の利用で洗濯物を入れるとき・取り出すときの2回以上、画面の前に立ちます。固定客が多く、同じ広告が繰り返し届くので記憶に残ります。",
+    body: "利用者の半数以上が、週1回以上来店します（利用者アンケート）。1回の利用で、洗濯物を入れるとき・取り出すときの2回以上、画面の前に立ちます。同じ広告が繰り返し届くので、記憶に残ります。",
     tag: "反復接触",
   },
   {
     icon: Store,
     img: "/images/laundry-storefront-640.webp",
+    alt: "商業施設の敷地内にあるコインランドリーの外観",
     title: "商業施設併設・全国統一の配信網",
-    body: "カインズ・イオンタウン・マックスバリュ等に併設する全国約400店を、1つのメディアとして一括配信・一括レポート。商圏を絞っても、全国一斉でも配信できます。",
+    body: "商業施設（ホームセンター・スーパーなど）に併設する全国約400店を、1つのメディアとして一括配信・一括レポート。商圏を絞っても、全国一斉でも配信できます。",
     tag: "全国約400店",
   },
 ];
@@ -32,7 +35,7 @@ export function WhyLaundry() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Why Laundry"
-          title="なぜ、コインランドリーの店内TVなのか"
+          title="なぜ、コインランドリーの店内モニターなのか"
           lead="数で勝負する媒体ではありません。「どの層に、何度、しっかり見られるか」で選ばれる媒体です。"
         />
         <Reveal className="mt-14 grid gap-6 md:grid-cols-3">
@@ -40,7 +43,7 @@ export function WhyLaundry() {
             <article key={r.title} className="group overflow-hidden rounded-3xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
               <div className="relative h-48 overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={r.img} alt="" loading="lazy" width={800} height={534} className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.05]" />
+                <img src={r.img} alt={r.alt} loading="lazy" width={800} height={534} className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.05]" />
                 <span className="absolute left-4 top-4 rounded-full bg-brand px-3 py-1 text-[11px] font-bold text-white shadow">{r.tag}</span>
               </div>
               <div className="p-6">
@@ -54,7 +57,7 @@ export function WhyLaundry() {
           ))}
         </Reveal>
         <p className="mx-auto mt-6 max-w-3xl text-center text-xs leading-relaxed text-ink-soft">
-          ※ 来店者数・性別年代は運営会社の店舗データ（2026年6月時点）。接触回数は利用の流れからの想定値です。
+          ※ 来店者数・性別年代は運営会社の店舗データ（2026年6月時点）。来店の頻度は利用者アンケート（2026年10〜11月・中間集計・n=93）。接触回数は利用の流れからの想定値です。
         </p>
       </div>
     </section>
