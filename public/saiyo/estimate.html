@@ -112,13 +112,15 @@
     <label for="plan">サービス・プラン</label><select id="plan"></select>
     <div id="rowM"><label for="months">採用運用顧問の月数（最低3ヶ月）</label><input id="months" type="number" value="3" min="3" max="24"></div>
     <div id="rowP" class="echk"><label><input id="prepay" type="checkbox"> 一括前払い（5%割引）</label></div>
-    <div id="rowD" class="echk"><label><input id="diag" type="checkbox" checked> 無料の採用診断を申し込む（紹介価格を適用）</label></div>
+    <div id="rowD" class="echk"><label><input id="diag" type="checkbox" checked> 無料の採用診断を申し込む（紹介価格の対象になります）</label></div>
+    <div id="rowG" class="echk"><label><input type="radio" name="gift" id="giftA" value="a" checked> 紹介価格（定価からのお値引き）</label><label><input type="radio" name="gift" id="giftB" value="b"> 定価のまま「新卒の受け皿パック」（35万円相当）を無償で付ける（紹介特典）</label></div>
+    <div id="rowO"><label>オプション（新卒ダイレクトと一緒に。当社が提供・ご請求）</label><div class="echk" id="opts"></div></div>
     <div class="esum" id="sum"></div>
     <button class="btn" type="submit">見積書と申込書を発行する</button>
     <p id="eerr" role="alert" style="color:#c8372d;font-size:14px;margin:10px 0 0;display:none"></p>
     <p class="pp">ご入力いただいた内容は、お見積りの作成とご連絡にのみ使用します。発行と同時に当社へも通知され、1営業日以内にご連絡いたします。しつこい営業はいたしません。</p>
    </form></div>
-   <div><div class="card"><h3>できること</h3><ul class="lst"><li><b>正式な書式の見積書</b><span>営業管理システムで発行するものと同じ書式。番号（W-）と日付、有効期限つき</span></li><li><b>申込書も同時に</b><span>内容を確認し、ご署名いただいてPDFでご返送いただければ、そのままお申込みになります</span></li><li><b>PDFで保存</b><span>書類の右上「印刷／PDFとして保存」から。社内の稟議にそのままお使いください</span></li></ul><p class="note">※正式なお申込みの前に、当社から改めて正式番号（Q-）のお見積書をお送りします。<br>※新卒ダイレクトの紹介価格は、無料の採用診断をお申込みの場合に適用します。ご契約とご請求は運営パートナーの株式会社UNTIMINALです。<br>※印刷費・サーバー費・遠方交通費などの実費は含みません。</p></div></div>
+   <div><div class="card"><h3>できること</h3><ul class="lst"><li><b>正式な書式の見積書</b><span>営業管理システムで発行するものと同じ書式。番号（W-）と日付、有効期限つき</span></li><li><b>申込書も同時に</b><span>内容を確認し、ご署名いただいてPDFでご返送いただければ、そのままお申込みになります</span></li><li><b>PDFで保存</b><span>書類の右上「印刷／PDFとして保存」から。社内の稟議にそのままお使いください</span></li></ul><p class="note">※正式なお申込みの前に、当社から改めて正式番号（Q-）のお見積書をお送りします。<br>※新卒ダイレクトの紹介価格は、無料の採用診断をお申込みの場合に適用します（お値引きの代わりに、受け皿パックを無償で付ける紹介特典も選べます）。新卒ダイレクト本体のご契約とご請求は運営パートナーの株式会社UNTIMINAL、オプションは当社です。<br>※印刷費・サーバー費・遠方交通費などの実費は含みません。</p></div></div>
   </div></section>
   <section class="sec alt" id="out" style="display:none"><div class="w"><span class="tag">YOUR ESTIMATE</span><h2>お見積書 <span id="eno" style="font-size:.6em;color:var(--mut)"></span></h2><p class="lead">右上の「印刷／PDFとして保存」でPDFにできます。内容の変更は、上のフォームで条件を変えてもう一度発行してください。</p>
    <iframe id="est" class="docf" title="お見積書"></iframe>

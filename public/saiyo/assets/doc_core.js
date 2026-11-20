@@ -21,6 +21,18 @@ const PL = {
   dr_p: { n: '採用の顔 新卒ダイレクト プレミアム（入社5名保証・年間）', price: 3600000, list: 3900000, days: 0, free: 0, noadv: 1, items: ['採用計画の立案・人物像の設計', '学生プールの構築とスカウト（全国213大学との接点）', '起業経験・顕著な実績を持つ学生の紹介', '面談設定・魅力訴求・選考フォローの代行', '入社導線の設計（内定後フォロー・育成プログラム）', '入社5名の保証（達成まで無料で継続・翌年持ち越し可／入社後3か月以内の退職はその人数を達成に数えず無料で継続）', '当社による月次の進捗共有・3ヶ月レビュー'], deliv: [['採用計画書・人物像', 'PDF'], ['月次レポート（プール・スカウト・面談・承諾）', 'PDF／メール'], ['内定承諾の確認', '承諾書の写し']], pay: '年額一括（税別）。ご契約とご請求は運営パートナーの株式会社UNTIMINAL、お申込み・お見積り・月次の進捗共有は当社' },
   prem: { n: '「採用の顔」プレミア', price: 2000000, days: 45, free: 3, items: ['スタンダードの全内容', '個別お見積りの内容（別紙）'] }
 };
+/* 新卒ダイレクトに付ける当社のオプション。dr_data.js の opts と同じ内容（料金を変えるときは両方を直し、check_opts.py で照合する）。
+   with＝新卒ダイレクトと同時にお申込みの場合の料金（「採用の顔」の制作費から10万円割引）。hold＝社外に出さない（HPの見積りに出さない） */
+const OPT = {
+  deck: { n: '新卒向け 会社説明資料', p: 200000, days: 15, items: ['面談・説明会で学生に見せるスライド15〜20枚（仕事の中身・1日の流れ・先輩・育ち方・数字）', 'ヒアリング（Web60分）・修正2回', '納品：PDF・編集用データ'] },
+  iv: { n: '面接官トレーニング', p: 150000, days: 15, items: ['面接・面談を担当する社員向けの研修 2時間×1回（Web可・10名まで）', '人物像に合わせた質問と見極めの基準、志望度を上げる話し方', '評価シート'] },
+  ready: { n: '受け入れ準備セット', p: 100000, days: 10, items: ['配属先向けの受け入れの手引き（初日〜1か月）', '最初の90日の育成計画表（Excel）'] },
+  pack: { n: '新卒の受け皿パック', p: 350000, days: 20, set: ['deck', 'iv', 'ready'], items: ['新卒向け 会社説明資料（スライド15〜20枚・PDFと編集用データ・修正2回）', '面接官トレーニング（2時間×1回・Web可・10名まで／評価シート）', '受け入れ準備セット（受け入れの手引き・90日の育成計画表）'] },
+  lp: { n: '採用ページ（採用LP単体）', p: 300000, with: 200000, kao: 1, days: 10, items: ['採用キャッチコピー（3案から決定）', '採用ページ（1ページ）の制作と公開設定'] },
+  light: { n: '「採用の顔」ライト（一式）', p: 880000, with: 780000, kao: 1, days: 15, items: ['採用キャッチコピー（3案から決定）・採用ロゴ', '採用ページ（1ページ）の制作と公開設定', '採用PR動画 30秒 1本（ご提供素材で制作）', '採用パンフレット A4・4ページ（印刷用データ）', '名刺デザイン（表・裏、印刷用データ）', '採用運用顧問 1ヶ月'] },
+  follow: { n: '内定者フォロー（6か月）', p: 180000, days: 0, hold: 1, items: ['月1回の会社からの便りの文面（6回分）', '内定者懇親会の企画書', '入社前の課題'] }
+};
+PL.dro = { n: '新卒ダイレクトのオプション（追加のお申込み）', price: 0, days: 0, free: 0, noadv: 1, opOnly: 1, items: [] };
 const BIZ0 = { name: 'デジレップ株式会社', rep: '湯本 達也', zip: '352-0012', addr: '埼玉県新座市畑中1-13-16', tel: '080-5527-1689', mail: 'yumoto@digirep.work', reg: 'T8010501052465', bank: 'ドコモＳＭＴＢネット銀行', branch: '法人第一支店', kind: '普通', acct: '2501546', holder: 'デジレップ株式会社', payDays: 7 };
 const CSS = `
 @page{size:A4;margin:0}
@@ -46,12 +58,12 @@ td.n,th.n{text-align:right;white-space:nowrap}td.k{background:#f6f7fa;width:32mm
 .ln{border-bottom:1px solid #b0b7c6;height:8mm}
 .sm{font-size:8.3pt;color:#4a5368;line-height:1.55}
 .tm{columns:2;column-gap:7mm;font-size:8pt;line-height:1.55}.tm p{margin:0 0 1.6mm;break-inside:avoid}.tm b{color:#0f1f3d}
-.sg{display:grid;grid-template-columns:1fr 1fr;gap:6mm;margin-top:4mm}.tight{font-size:9.2pt;line-height:1.5}.tight h2{margin:3mm 0 1.5mm}.tight p{margin:0 0 1.2mm}.tight .sg>div{min-height:24mm}.tight td{padding:1.2mm 2.5mm}.tight .ln{height:6.5mm}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:6mm;margin-top:4mm}.tight{font-size:9.2pt;line-height:1.5}.tight h2{margin:3mm 0 1.5mm}.tight p{margin:0 0 1.2mm}.tight .sg>div{min-height:24mm}.dense{font-size:8.8pt;line-height:1.45}.dense td,.dense th{padding:1mm 2.2mm}.dense .sm{font-size:7.8pt;line-height:1.45}.dense h1{margin-bottom:3mm}.dense .hd{margin-bottom:2mm}.dense .meta{margin-bottom:1.5mm}.dense .fr{font-size:8.4pt;line-height:1.5}.dense .tot{padding:2mm 4mm;margin:2mm 0}.dense h3{margin:2.2mm 0 .8mm}.dense p{margin:0 0 1mm}.tight .tot{padding:2mm 4mm;margin:2mm 0}.tight h3{margin:2.2mm 0 .8mm}.tight .meta{margin-bottom:1.5mm}.tight h1{margin-bottom:3mm}.tight td{padding:1.2mm 2.5mm}.tight .ln{height:6.5mm}
 .sg>div{border:1px solid #c9cfdb;border-radius:1.5mm;padding:3mm 4mm;min-height:36mm;font-size:9.2pt}
 .ck{display:inline-block;width:3.6mm;height:3.6mm;border:1px solid #1c2333;margin-right:1.5mm;vertical-align:-0.6mm;text-align:center;line-height:3.4mm;font-size:8pt}
 .q{margin-bottom:1.5mm;break-inside:avoid}.q b{display:block;font-size:9.6pt}.q small{color:#5d667a;font-size:8.2pt}
 .ans{border:1px solid #c9cfdb;border-radius:1mm;min-height:8mm;padding:1.2mm 2.5mm;margin-top:.8mm;white-space:pre-wrap}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:1mm 6mm}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1mm 6mm}.c2{columns:2;column-gap:6mm}.c2 br{display:none}.c2 span.li{display:block;break-inside:avoid}
 .ft{position:absolute;left:16mm;right:16mm;bottom:7mm;font-size:7.6pt;color:#7a8296;display:flex;justify-content:space-between}
 .pbtn{position:fixed;right:14px;top:14px;z-index:9;border:0;background:#e8622c;color:#fff;font-weight:700;border-radius:10px;padding:10px 18px;cursor:pointer;font-size:14px}
 `;
@@ -59,27 +71,54 @@ const wrap = (title, pages) => `<!DOCTYPE html><html lang="ja"><head><meta chars
 const biz = o => Object.assign({}, BIZ0, o.biz || {});
 const from = (B, seal) => `<div class="fr"><b>${esc(B.name)}</b><br>代表　${esc(B.rep)}<br>${B.zip ? '〒' + esc(B.zip) + '　' : ''}${esc(B.addr)}<br>TEL ${esc(B.tel)}<br>${esc(B.mail)}${B.reg ? '<br>登録番号 ' + esc(B.reg) : B.hp ? '' : '<br>登録番号 ' + BL(34)}</div>`;
 const head = (o, title, noLabel) => { const c = o.client || {}; return `<h1>${title}</h1><div class="meta">${noLabel || 'No.'} ${o.no ? esc(o.no) : BL(26)}　／　${jd(o.date)}</div><div class="hd"><div><div class="to">${c.name ? esc(c.name) : BL(70)}　御中</div>${c.person ? `<div>${esc(c.person)} 様</div>` : ''}</div>${from(biz(o))}</div>`; };
-function calc(o) { const d = o.deal || {}, P = PL[d.plan] || PL.std, m = P.monthly ? (+d.months || 3) : 0, base = d.plan === 'adv' ? 0 : (d.amount != null && d.amount !== '' && !P.monthly ? +d.amount : P.price), adv = (P.monthly || 0) * m, off = d.prepay && base && !P.list ? Math.round(base * .05) : 0, disc = P.list && base ? P.list - base : 0, sub = base + adv - off, tax = Math.round(sub * .1); return { P, m, base, adv, off, disc, sub, tax, total: sub + tax, half: Math.round(base / 2) }; }
-const rows = (o, K) => `<table><tr><th>内容</th><th class="n" style="width:20mm">数量</th><th class="n" style="width:34mm">金額（税別）</th></tr>
- ${K.base ? `<tr><td><b>${K.P.n.replace(' ＋ 採用運用顧問', '')}</b><div class="sm">${K.P.items.filter(i => !/^採用運用顧問（/.test(i)).map(i => '・' + i).join('<br>')}</div></td><td class="n">${K.P.list ? '年間' : '一式'}</td><td class="n">${yen(K.disc ? K.P.list : K.base)}</td></tr>` : ''}
+function calc(o) { const d = o.deal || {}, P = PL[d.plan] || PL.std, dr = !!P.list, gift = dr && !!d.gift, m = P.monthly ? (+d.months || 3) : 0, base = d.plan === 'adv' || P.opOnly ? 0 : gift ? P.list : (d.amount != null && d.amount !== '' && !P.monthly ? +d.amount : P.price), adv = (P.monthly || 0) * m, off = d.prepay && base && !P.list ? Math.round(base * .05) : 0, disc = P.list && base ? P.list - base : 0, sub = base + adv - off, tax = Math.round(sub * .1);
+  // 当社オプション：パックを選んだら中身の単品は外す。紹介特典のパックは0円で先頭に置く
+  const ks = (d.opts || []).filter((k, i, a) => OPT[k] && a.indexOf(k) === i && !(gift && k === 'pack')), has = ks.filter(k => !((ks.includes('pack') || gift) && OPT.pack.set.includes(k)));
+  const ops = has.map(k => { const X = OPT[k], price = dr && X.with ? X.with : X.p; return { k, X, list: X.p, price, off: X.p - price, gift: 0 }; });
+  if (gift) ops.unshift({ k: 'pack', X: OPT.pack, list: OPT.pack.p, price: 0, off: OPT.pack.p, gift: 1 });
+  const opSub = ops.reduce((a, x) => a + x.price, 0), opTax = Math.round(opSub * .1);
+  return { P, m, base, adv, off, disc, sub, tax, total: sub + tax, half: Math.round(base / 2), dr, gift, ops, opSub, opTax, opTotal: opSub + opTax, all: sub + tax + opSub + opTax }; }
+const rows = (o, K) => (K.base || K.adv ? `${K.dr && K.ops.length ? '<h3>新卒ダイレクト（ご契約・ご請求：運営パートナー 株式会社UNTIMINAL）</h3>' : ''}<table><tr><th>内容</th><th class="n" style="width:20mm">数量</th><th class="n" style="width:34mm">金額（税別）</th></tr>
+ ${K.base ? `<tr><td><b>${K.P.n.replace(' ＋ 採用運用顧問', '')}</b><div class="sm${K.dr ? ' c2' : ''}">${K.P.items.filter(i => !/^採用運用顧問（/.test(i)).map(i => K.dr ? '<span class="li">・' + i + '</span>' : '・' + i).join('<br>')}</div></td><td class="n">${K.P.list ? '年間' : '一式'}</td><td class="n">${yen(K.disc ? K.P.list : K.base)}</td></tr>` : ''}
  ${K.disc ? `<tr><td>紹介価格の適用（無料採用診断・採用の顔のお客様・ご紹介）</td><td class="n"></td><td class="n">−${yen(K.disc)}</td></tr>` : ''}
  ${K.adv ? `<tr><td><b>${K.P.price ? '採用運用顧問' : (K.P.mn || '採用運用顧問')}</b><div class="sm">${(K.P.price ? PL.adv.items : K.P.items).map(i => '・' + i).join('<br>')}</div></td><td class="n">${K.m}ヶ月</td><td class="n">${yen(K.adv)}</td></tr>` : ''}
  ${K.off ? `<tr><td>一括前払い割引（5%）</td><td class="n"></td><td class="n">−${yen(K.off)}</td></tr>` : ''}
- <tr><td colspan="2" class="n">小計（10%対象）</td><td class="n">${yen(K.sub)}</td></tr><tr><td colspan="2" class="n">消費税（10%）</td><td class="n">${yen(K.tax)}</td></tr><tr><td colspan="2" class="n"><b>合計（税込）</b></td><td class="n"><b>${yen(K.total)}</b></td></tr></table>`;
+ ${K.dr && K.ops.length ? `<tr><td colspan="2" class="n">小計（10%対象）${yen(K.sub)}　消費税（10%）${yen(K.tax)}　<b>合計（税込）</b></td><td class="n"><b>${yen(K.total)}</b></td></tr>` : `<tr><td colspan="2" class="n">小計（10%対象）</td><td class="n">${yen(K.sub)}</td></tr><tr><td colspan="2" class="n">消費税（10%）</td><td class="n">${yen(K.tax)}</td></tr><tr><td colspan="2" class="n"><b>合計（税込）</b></td><td class="n"><b>${yen(K.total)}</b></td></tr>`}</table>` : '') + opRows(K);
+const opRows = K => !K.ops.length ? '' : `<h3>デジレップのオプション（ご契約・ご請求：デジレップ株式会社）</h3><table><tr><th>内容</th><th class="n" style="width:20mm">数量</th><th class="n" style="width:34mm">金額（税別）</th></tr>
+ ${K.ops.map(x => `<tr><td><b>${esc(x.X.n)}</b>${x.gift ? '（紹介特典）' : ''}<div class="sm">${K.dr ? x.X.items.map(esc).join('／') : x.X.items.map(i => '・' + esc(i)).join('<br>')}</div></td><td class="n">一式</td><td class="n">${yen(x.list)}</td></tr>${x.off ? `<tr><td>${x.gift ? '紹介特典（新卒ダイレクト本体のご契約が条件。紹介価格との併用はできません）' : '新卒ダイレクトと同時のお申込みの割引'}</td><td class="n"></td><td class="n">−${yen(x.off)}</td></tr>` : ''}`).join('')}
+ ${K.dr ? `<tr><td colspan="2" class="n">小計（10%対象）${yen(K.opSub)}　消費税（10%）${yen(K.opTax)}　<b>合計（税込）</b></td><td class="n"><b>${yen(K.opTotal)}</b></td></tr>` : `<tr><td colspan="2" class="n">小計（10%対象）</td><td class="n">${yen(K.opSub)}</td></tr><tr><td colspan="2" class="n">消費税（10%）</td><td class="n">${yen(K.opTax)}</td></tr><tr><td colspan="2" class="n"><b>合計（税込）</b></td><td class="n"><b>${yen(K.opTotal)}</b></td></tr>`}</table>`;
+const opPay = '着手金 50%（ご契約時）／残金 50%（納品日、研修は実施日にご請求）';
+const opDays = K => K.ops.filter(x => x.X.days).map(x => esc(x.X.n) + '：' + x.X.days + '営業日').join('　');
 const bank = B => B.bank ? `${esc(B.bank)}　${esc(B.branch)}　${esc(B.kind)}　${esc(B.acct)}　${esc(B.holder)}` : B.hp ? 'お申込み後にご案内します' : `${BL(28)}銀行　${BL(22)}支店　普通・当座　${BL(24)}　名義 ${BL(34)}`;
 
 /* ---------- 見積書 ---------- */
-function estimate(o) { const K = calc(o), d = o.deal || {};
-  return wrap('御見積書_' + ((o.client || {}).name || ''), [`${head(o, '御見積書')}<p>下記のとおり、お見積り申し上げます。</p><div class="tot"><span>お見積り金額（税込）</span><b>${yen(K.total)}</b></div>
- <table style="margin-bottom:3mm"><tr><td class="k">件名</td><td>${K.P.n}</td></tr><tr><td class="k">納期</td><td>${K.P.days ? '着手金のご入金確認から ' + K.P.days + '営業日（ご確認にかかる日数を除く）' : 'ご契約の翌月から開始'}</td></tr><tr><td class="k">お支払い条件</td><td>${K.base ? (d.prepay ? 'ご契約時に全額（一括前払い割引を適用）' : '着手金 50%（ご契約時）／残金 50%（納品日にご請求、' + biz(o).payDays + '日以内）') : ''}${K.adv ? (K.base ? '<br>' : '') + '顧問料：毎月1日に当月分をご請求（前払い）' : ''}</td></tr><tr><td class="k">有効期限</td><td>発行日から1ヶ月</td></tr></table>${rows(o, K)}
- <h3>備考</h3><div class="sm">・企画、制作、修正2回、データ納品までを含みます。<br>・印刷費、採用ページのサーバー・ドメイン費用、撮影に伴う遠方交通費は、別途実費を申し受けます。<br>${K.P.free ? '・採用運用顧問は' + K.P.free + 'ヶ月分を含みます。付帯期間の終了後は月額' + yen(100000) + '（税別）で月単位の自動継続となり、前月末までのご連絡でいつでも解約いただけます。<br>' : ''}・採用人数や応募数を保証するものではありません。${d.note ? '<br>・' + esc(d.note) : ''}</div>`]); }
+function estimate(o) { const K = calc(o), d = o.deal || {}, B = biz(o), opN = K.ops.length;
+  const name = K.P.opOnly ? '新卒ダイレクトのオプション' : K.P.n + (opN ? ' ＋ 当社オプション' : '');
+  const box = opN && K.total ? `<div class="tot" style="display:block"><div style="display:flex;justify-content:space-between;align-items:baseline"><span>お見積り総額（税込）</span><b>${yen(K.all)}</b></div><div class="sm" style="margin-top:1mm">内訳：${K.dr ? '新卒ダイレクト' : esc(K.P.n)} ${yen(K.total)}（${K.dr ? '運営パートナーからご請求' : '当社からご請求'}）　＋　当社オプション ${yen(K.opTotal)}（当社からご請求）</div></div>` : `<div class="tot"><span>お見積り金額（税込）</span><b>${yen(opN ? K.opTotal : K.total)}</b></div>`;
+  const days = (K.base || K.adv ? (K.P.days ? '着手金のご入金確認から ' + K.P.days + '営業日（ご確認にかかる日数を除く）' : 'ご契約の翌月から開始') : '') + (opN ? (K.base || K.adv ? '<br>' : '') + 'オプション：着手金のご入金確認から ' + opDays(K) + '（ご確認にかかる日数を除く。研修は日程をご相談）' : '');
+  const pay = (K.dr ? (opN ? '新卒ダイレクト：年額一括（税別）。ご契約とご請求は運営パートナーの株式会社UNTIMINAL' : esc(K.P.pay)) : K.base ? (d.prepay ? 'ご契約時に全額（一括前払い割引を適用）' : '着手金 50%（ご契約時）／残金 50%（納品日にご請求、' + B.payDays + '日以内）') : '') + (K.adv ? (K.base ? '<br>' : '') + '顧問料：毎月1日に当月分をご請求（前払い）' : '') + (opN && K.opSub ? ((K.base || K.adv) ? '<br>' : '') + 'オプション：' + opPay + '（' + B.payDays + '日以内）' : '');
+  const notes = K.dr || K.P.opOnly ? [
+    K.dr ? 'プランの人数（' + (/3名/.test(K.P.n) ? '3名' : '5名') + '）の入社をお約束し、届かない場合は達成まで無料で支援を継続します（入社後3か月以内の退職は、達成に数えません）。' : '',
+    K.disc ? '紹介価格は、無料の採用診断を受けた会社・「採用の顔」のお客様・ご紹介の会社に適用します。代わりに、定価のまま「新卒の受け皿パック」（35万円相当）を無償で付ける紹介特典もお選びいただけます（併用不可）。' : '',
+    K.gift ? '紹介特典の「新卒の受け皿パック」は、新卒ダイレクト本体のご契約が条件です（紹介価格との併用不可）。' : '',
+    opN ? 'オプションは当社が提供・ご請求します。オプションの有無で、入社人数のお約束の条件は変わりません。制作物の修正は2回まで。サーバー・印刷・遠方交通費などの実費は別途。' : '',
+    d.note ? esc(d.note) : ''].filter(Boolean)
+    : ['企画、制作、修正2回、データ納品までを含みます。', '印刷費、採用ページのサーバー・ドメイン費用、撮影に伴う遠方交通費は、別途実費を申し受けます。', K.P.free ? '採用運用顧問は' + K.P.free + 'ヶ月分を含みます。付帯期間の終了後は月額' + yen(100000) + '（税別）で月単位の自動継続となり、前月末までのご連絡でいつでも解約いただけます。' : '', '採用人数や応募数を保証するものではありません。', d.note ? esc(d.note) : ''].filter(Boolean);
+  const nb = `<h3>備考</h3><div class="sm">${notes.map(t => '・' + t).join('<br>')}</div>`;
+  if (K.dr && opN) return wrap('御見積書_' + ((o.client || {}).name || ''), [`<div class="dense">${head(o, '御見積書')}<p>下記のとおり、お見積り申し上げます。</p>${box}
+ <table style="margin-bottom:3mm"><tr><td class="k">件名</td><td>${name}</td></tr><tr><td class="k">有効期限</td><td>発行日から1ヶ月</td></tr></table>${rows(o, K)}<p class="sm" style="text-align:right;margin:1mm 0 0">納期・お支払い条件・備考・ご契約とお支払いの流れは、次のページをご覧ください。</p></div>`,
+  `<h2>備考</h2><div style="font-size:9.4pt;line-height:1.75">${notes.map(t => '・' + t).join('<br>')}</div>
+ <h2>ご契約とお支払いの流れ</h2><table><tr><th style="width:30%"></th><th>新卒ダイレクト（本体）</th><th>当社オプション</th></tr><tr><td class="k">ご契約・ご請求</td><td>運営パートナー 株式会社UNTIMINAL</td><td>デジレップ株式会社</td></tr><tr><td class="k">お支払い</td><td>年額一括（税別）</td><td>${opPay}</td></tr><tr><td class="k">開始・納期</td><td>ご契約の翌月から開始（12ヶ月の設計図）</td><td>着手金のご入金確認から ${opDays(K)}</td></tr><tr><td class="k">お申込み</td><td colspan="2">お申込書（当社）1枚で、本体とオプションを同時にお申し込みいただけます。オプションの条件は、お申込書に付けた約款（第12条）のとおりです。</td></tr></table>`]);
+  return wrap('御見積書_' + ((o.client || {}).name || ''), [`${head(o, '御見積書')}<p>下記のとおり、お見積り申し上げます。</p>${box}
+ <table style="margin-bottom:3mm"><tr><td class="k">件名</td><td>${name}</td></tr><tr><td class="k">納期</td><td>${days}</td></tr><tr><td class="k">お支払い条件</td><td>${pay}</td></tr><tr><td class="k">有効期限</td><td>発行日から1ヶ月</td></tr></table>${rows(o, K)}
+ ${nb}`]); }
 
 /* ---------- 申込書（兼 契約条件） ---------- */
 const TERMS = [
- ['第1条（目的）', '本約款は、お客様（以下「甲」）が デジレップ株式会社（以下「乙」）に申し込む採用ブランディングサービス「採用の顔」および採用運用顧問（以下「本サービス」）の条件を定めます。申込書に本約款と異なる定めがある場合は、申込書を優先します。'],
+ ['第1条（目的）', '本約款は、お客様（以下「甲」）が デジレップ株式会社（以下「乙」）に申し込む採用ブランディングサービス「採用の顔」、採用運用顧問、および「新卒ダイレクト」に付けて乙が提供するオプション（以下あわせて「本サービス」）の条件を定めます。申込書に本約款と異なる定めがある場合は、申込書を優先します。'],
  ['第2条（契約の成立）', '本契約は、甲が申込書を乙に提出し、乙がこれを承諾したときに成立します。'],
  ['第3条（業務の内容と納期）', '業務の内容・納品物・納期は申込書のとおりとします。納期は着手金の入金確認日から起算し、甲の確認・素材提供に要した日数は含みません。'],
- ['第4条（料金と支払い）', '甲は、申込書記載の料金を、契約時に着手金として50%、納品日に残金50%を、請求書記載の期日までに乙の指定口座へ支払います。振込手数料は甲の負担とします。乙は、着手金の入金を確認したのちに制作を開始します。'],
+ ['第4条（料金と支払い）', '甲は、申込書記載の料金を、契約時に着手金として50%、納品日（研修は実施日）に残金50%を、請求書記載の期日までに乙の指定口座へ支払います。振込手数料は甲の負担とします。乙は、着手金の入金を確認したのちに制作を開始します。'],
  ['第5条（実費）', '印刷費、サーバー・ドメイン費用、遠方への交通費・宿泊費など、申込書に含まれない費用は、事前に甲の了承を得たうえで、実費を別途請求します。'],
  ['第6条（甲の協力）', '甲は、ヒアリングへの対応、素材の提供、制作物の確認を、乙の依頼から7日以内を目安に行います。甲の対応の遅れにより生じた納期の遅延について、乙は責任を負いません。'],
  ['第7条（修正）', '修正は、各制作物につき2回までを料金に含みます。3回目以降、または決定済みの方向性を変更する修正は、別途お見積りのうえ対応します。'],
@@ -87,25 +126,27 @@ const TERMS = [
  ['第9条（権利の帰属）', '納品物の著作権は、残金の支払い完了をもって、乙から甲に譲渡されます（第三者が権利を有する素材・書体・音楽等を除く）。乙は、著作者人格権を行使しません。乙は、甲の事前の承諾を得たうえで、納品物を制作実績として紹介できるものとします。'],
  ['第10条（素材と出演者）', '甲が提供する写真・文章・ロゴ等は、甲が正当な権利を有するものとします。制作物に登場する従業員等については、甲が本人から掲載の同意を得るものとし、乙は同意書の雛形を提供します。'],
  ['第11条（採用運用顧問）', '顧問の内容は、月2回のWeb面談、求人票の添削、採用ページの更新、SNS投稿素材の提供、月次レポートとします。付帯期間の終了後は、月単位で自動的に継続します。顧問料は、毎月1日に当月分を請求します。甲は、前月末日までに通知することで、翌月以降を解約できます。'],
- ['第12条（中途解約）', '甲の都合により制作の途中で解約する場合、甲は、解約時点までの作業に相当する料金（着手金を下限とします）と、発生済みの実費を支払います。'],
- ['第13条（成果の非保証）', '乙は、本サービスにより、応募数・採用人数その他の特定の成果が得られることを保証しません。'],
- ['第14条（再委託）', '乙は、撮影・印刷等の業務の一部を、乙の責任において第三者に委託できます。'],
- ['第15条（秘密保持・個人情報）', '甲および乙は、本契約に関して知り得た相手方の秘密情報および個人情報を、本契約の目的以外に使用せず、第三者に開示しません。'],
- ['第16条（責任の範囲）', '乙が甲に対して負う損害賠償の額は、乙の故意または重大な過失による場合を除き、甲が乙に支払った料金の額を上限とします。'],
- ['第17条（反社会的勢力の排除）', '甲および乙は、自らが反社会的勢力に該当しないこと、およびこれと関係を有しないことを表明し、違反があった場合、相手方は催告なく本契約を解除できます。'],
- ['第18条（協議・管轄）', '本約款に定めのない事項は、甲乙が誠実に協議して解決します。本契約に関する紛争は、東京地方裁判所を第一審の専属的合意管轄裁判所とします。']];
+ ['第12条（新卒ダイレクトのオプション）', '（1）新卒ダイレクトに付けるオプション（新卒向け会社説明資料・面接官トレーニング・受け入れ準備セット・新卒の受け皿パック等）は乙が提供し、料金は乙が甲に請求します。新卒ダイレクト本体の契約・請求・保証の条件は、運営パートナーとの契約によります。（2）オプションの有無は、新卒ダイレクトの内容および入社人数の保証の条件に影響しません。（3）紹介特典として無償で提供する新卒の受け皿パックは、新卒ダイレクト本体の契約の成立を条件とし、本体の契約が成立しない場合または開始前に解約された場合は提供しません。（4）研修は1回2時間・10名までを基本とし、日程は甲乙が協議して決めます。甲の都合による日程の変更は、実施日の7営業日前までに通知するものとし、実施日の3営業日前以降の甲の都合による中止は、料金の全額を申し受けます。'],
+ ['第13条（中途解約）', '甲の都合により制作の途中で解約する場合、甲は、解約時点までの作業に相当する料金（着手金を下限とします）と、発生済みの実費を支払います。'],
+ ['第14条（成果の非保証）', '乙は、本サービスにより、応募数・採用人数その他の特定の成果が得られることを保証しません。'],
+ ['第15条（再委託）', '乙は、撮影・印刷等の業務の一部を、乙の責任において第三者に委託できます。'],
+ ['第16条（秘密保持・個人情報）', '甲および乙は、本契約に関して知り得た相手方の秘密情報および個人情報を、本契約の目的以外に使用せず、第三者に開示しません。'],
+ ['第17条（責任の範囲）', '乙が甲に対して負う損害賠償の額は、乙の故意または重大な過失による場合を除き、甲が乙に支払った料金の額を上限とします。'],
+ ['第18条（反社会的勢力の排除）', '甲および乙は、自らが反社会的勢力に該当しないこと、およびこれと関係を有しないことを表明し、違反があった場合、相手方は催告なく本契約を解除できます。'],
+ ['第19条（協議・管轄）', '本約款に定めのない事項は、甲乙が誠実に協議して解決します。本契約に関する紛争は、東京地方裁判所を第一審の専属的合意管轄裁判所とします。']];
 function order(o) { const K = calc(o), d = o.deal || {}, c = o.client || {}, B = biz(o);
   return wrap('お申込書_' + (c.name || ''), [`<div class="tight"><h1>お 申 込 書</h1><div class="meta">No. ${o.no ? esc(o.no) : BL(26)}　／　お申込日 ${jd(o.date)}</div>
  <div class="hd" style="margin-bottom:1mm"><div><div class="to">${esc(B.name)}　御中</div>次ページの約款に同意のうえ、下記のとおり申し込みます。</div><div><div class="sm"><b>受託者（乙）</b></div>${from(B)}</div></div>
- <h2>お申込みの内容</h2><table><tr><td class="k">プラン</td><td><b>${K.P.n}</b></td></tr><tr><td class="k">内容</td><td class="sm" style="font-size:9pt;color:#1c2333">${K.P.items.map(i => '・' + i).join('<br>')}</td></tr>
- <tr><td class="k">料金</td><td>${K.base ? `制作費 <b>${yen(K.base - K.off)}</b>（税別）${K.off ? '　※一括前払い割引5%を適用' : ''}<br>` : ''}${K.adv ? `顧問料 月額 <b>${yen(K.P.monthly)}</b>（税別）× ${K.m}ヶ月（最低契約期間）<br>` : ''}合計 ${yen(K.sub)}（税別）／ <b>${yen(K.total)}</b>（税込）</td></tr>
- <tr><td class="k">納期</td><td>${K.P.days ? '着手金のご入金確認日から ' + K.P.days + '営業日（ご確認にかかる日数を除く）' : '―'}</td></tr>
- <tr><td class="k">お支払い</td><td>${K.P.pay ? esc(K.P.pay) + '<br>お振込先：' + bank(B) : ''}${K.P.pay ? '' : K.base ? (d.prepay ? 'ご契約時に全額' : `着手金 ${yen(Math.round((K.base) * 1.1 / 2))}（税込・ご契約時）／残金 ${yen(Math.round(K.base * 1.1) - Math.round(K.base * 1.1 / 2))}（税込・納品日にご請求）`) : ''}${K.adv ? (K.base ? '<br>' : '') + '顧問料は、毎月1日に当月分をご請求' : ''}${K.P.pay ? '' : '<br>お振込先：' + bank(B)}</td></tr>
- <tr><td class="k">${(K.P.mn || '採用運用顧問').split('（')[0]}</td><td>${K.P.noadv ? '含みません（採用運用顧問のご契約中は、本ツールの改修を無料で行います）' : K.P.free ? `納品後 ${K.P.free}ヶ月は料金に含みます。その後は月額 ${yen(100000)}（税別）で月単位の自動継続。<br><span class="ck"></span>自動継続を希望する　<span class="ck"></span>付帯期間で終了する（継続しない）` : K.adv ? '開始月：' + (d.start ? esc(d.start) : BL(24)) + '　最低' + K.m + 'ヶ月、以降は月単位の自動継続' : '含みません（ご希望の場合は別途お申込み）'}</td></tr>
+ <h2>お申込みの内容</h2><table>${K.P.opOnly ? '' : `<tr><td class="k">プラン</td><td><b>${K.P.n}</b></td></tr><tr><td class="k">内容</td><td class="sm${K.dr ? ' c2' : ''}" style="font-size:${K.dr ? '8.4pt' : '9pt'};color:#1c2333">${K.P.items.map(i => K.dr ? '<span class="li">・' + i + '</span>' : '・' + i).join('<br>')}</td></tr>`}
+ ${K.P.opOnly ? '' : `<tr><td class="k">料金</td><td>${K.base ? `${K.dr ? '年額' : '制作費'} <b>${yen(K.base - K.off)}</b>（税別）${K.off ? '　※一括前払い割引5%を適用' : ''}${K.disc ? '　※紹介価格を適用（定価 ' + yen(K.P.list) + '）' : K.gift ? '　※定価（紹介特典を選択）' : ''}<br>` : ''}${K.adv ? `顧問料 月額 <b>${yen(K.P.monthly)}</b>（税別）× ${K.m}ヶ月（最低契約期間）<br>` : ''}合計 ${yen(K.sub)}（税別）／ <b>${yen(K.total)}</b>（税込）</td></tr>`}
+ ${K.ops.length ? `<tr><td class="k">当社オプション</td><td>${K.ops.map(x => `${x.gift ? '<b>【紹介特典】</b>' : ''}${esc(x.X.n)}　${x.price ? yen(x.price) + '（税別）' + (x.off ? '　※同時お申込みの割引後' : '') : '0円（' + yen(x.list) + '相当）'}`).join('<br>')}<br>合計 ${yen(K.opSub)}（税別）／ <b>${yen(K.opTotal)}</b>（税込）<br><span class="sm">ご契約・ご請求：デジレップ株式会社（約款 第12条）／納期：着手金のご入金確認から ${opDays(K)}（研修は日程をご相談）／お支払い：${opPay}／お振込先：${bank(B)}</span></td></tr>` : ''}
+ ${K.P.opOnly ? '' : `<tr><td class="k">納期</td><td>${K.P.days ? '着手金のご入金確認日から ' + K.P.days + '営業日（ご確認にかかる日数を除く）' : K.dr ? 'ご契約の翌月から開始' : '―'}</td></tr>
+ <tr><td class="k">お支払い</td><td>${K.P.pay ? esc(K.P.pay) : ''}${K.P.pay ? '' : K.base ? (d.prepay ? 'ご契約時に全額' : `着手金 ${yen(Math.round((K.base) * 1.1 / 2))}（税込・ご契約時）／残金 ${yen(Math.round(K.base * 1.1) - Math.round(K.base * 1.1 / 2))}（税込・納品日にご請求）`) : ''}${K.adv ? (K.base ? '<br>' : '') + '顧問料は、毎月1日に当月分をご請求' : ''}${K.P.pay ? '' : '<br>お振込先：' + bank(B)}</td></tr>
+ <tr><td class="k">${(K.P.mn || '採用運用顧問').split('（')[0]}</td><td>${K.dr ? '含みません（ご希望の場合は別途お申込み）' : K.P.noadv ? '含みません（採用運用顧問のご契約中は、本ツールの改修を無料で行います）' : K.P.free ? `納品後 ${K.P.free}ヶ月は料金に含みます。その後は月額 ${yen(100000)}（税別）で月単位の自動継続。<br><span class="ck"></span>自動継続を希望する　<span class="ck"></span>付帯期間で終了する（継続しない）` : K.adv ? '開始月：' + (d.start ? esc(d.start) : BL(24)) + '　最低' + K.m + 'ヶ月、以降は月単位の自動継続' : '含みません（ご希望の場合は別途お申込み）'}</td></tr>`}
  <tr><td class="k">特記事項</td><td>${tx(d.note, 120)}</td></tr></table>
  <h2>お申込者（甲）</h2><table><tr><td class="k">会社名</td><td>${tx(c.name, 90)}</td></tr><tr><td class="k">所在地</td><td>${tx(c.addr || c.pref, 110)}</td></tr><tr><td class="k">代表者名</td><td>${BL(60)}　　　　　　　　　　　印</td></tr><tr><td class="k">ご担当者名</td><td>${tx(c.person, 50)}　　${c.role ? esc(c.role) : ''}</td></tr><tr><td class="k">電話／メール</td><td>${tx(c.tel, 40)}　／　${tx(c.mail, 60)}</td></tr><tr><td class="k">請求書の送付先</td><td><span class="ck"></span>上記メール　<span class="ck"></span>別のメール（${BL(60)}）　<span class="ck"></span>郵送</td></tr></table>
- <p class="sm" style="margin-top:3mm">・着手金のご入金を確認したのちに、制作を開始します。　・ヒアリングシートを、お申込みと同時にお渡しします。　・本書は、PDFでの取り交わしを基本とします。</p></div>`,
-  `<h1 style="font-size:14pt;letter-spacing:.1em">「採用の顔」サービス約款</h1><div class="tm">${TERMS.map(t => `<p><b>${t[0]}</b>　${t[1]}</p>`).join('')}</div><p class="sm" style="margin-top:4mm;text-align:right">制定：${jd(o.termsDate || '2026-10-06')}　${esc(B.name)}</p>`]); }
+ <p class="sm" style="margin-top:3mm">${K.dr ? '・新卒ダイレクト本体の契約・請求・保証の条件は、運営パートナーとのご契約書によります。　' : ''}${K.dr && !K.ops.length ? '' : '・着手金のご入金を確認したのちに、制作を開始します。　・ヒアリングシートを、お申込みと同時にお渡しします。　'}・本書は、PDFでの取り交わしを基本とします。</p></div>`,
+  `<h1 style="font-size:14pt;letter-spacing:.1em">「採用の顔」サービス約款</h1><div class="tm">${TERMS.map(t => `<p><b>${t[0]}</b>　${t[1]}</p>`).join('')}</div><p class="sm" style="margin-top:4mm;text-align:right">制定：${jd('2026-10-06')}　改定：${jd(o.termsDate || '2026-11-20')}　${esc(B.name)}</p>`]); }
 
 /* ---------- 請求書（適格請求書の記載事項に対応） ---------- */
 function invoice(o) { const B = biz(o), v = o.inv || {}, sub = +v.amount || 0, tax = Math.round(sub * .1), due = v.payBy || '';
@@ -173,7 +214,7 @@ function report(o) { const c = o.client || {}, r = o.rep || {}, OPS = o.ops || [
  <h2>5. 次回の面談</h2><p>日時：${tx(r.nextDate, 50)}　　議題：${tx(r.agenda, 70)}</p>
  <p class="sm">数字は、御社からのご報告と、採用ページのアクセス解析にもとづきます。応募数や採用人数を保証するものではありません。</p>`]); }
 
-const DocCore = { PL, BIZ0, HQ, HQS, TERMS, calc, estimate, order, invoice, delivery, consent, hearing, report };
+const DocCore = { PL, OPT, BIZ0, HQ, HQS, TERMS, calc, estimate, order, invoice, delivery, consent, hearing, report };
 root.DocCore = DocCore;
 if (typeof module !== 'undefined' && module.exports) module.exports = DocCore;
 })(typeof window !== 'undefined' ? window : globalThis);
