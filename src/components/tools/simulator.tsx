@@ -58,12 +58,17 @@ export function Simulator() {
     if (q.get("media") === "laundry") {
       const pkg = q.get("pkg");
       const stores = Math.floor(Number(q.get("stores")));
+      // 「業種別の活用イメージ」からは、期間（months=3）と業種（ind=insurance など）もついてくる
+      const months = Number(q.get("months"));
+      const ind = q.get("ind");
       setInput((p) => ({
         ...p,
         media: "laundry",
         pkg: pkg === "spot" || pkg === "area" || pkg === "national" ? pkg : p.pkg,
         laundryStores: Number.isFinite(stores) && stores > 0 ? stores : p.laundryStores,
+        months: months === 1 || months === 2 || months === 3 ? months : p.months,
       }));
+      if (ind && industries.some((x) => x.id === ind)) setIndustryId(ind);
       setTouchedMedia(true);
     }
   }, []);

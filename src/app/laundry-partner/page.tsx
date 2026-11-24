@@ -101,7 +101,7 @@ export default function LaundryPartnerPage() {
             <Reveal className="relative">
               <div aria-hidden className="absolute -inset-5 rounded-[2rem] bg-gradient-to-br from-brand/20 to-sky-200/40 opacity-70 blur-2xl" />
               <div className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-xl">
-                <LaundryScene ad={{ brand: "御社の店舗（自社告知枠・無料）", headline: "LINE友だち登録で 洗剤1回無料", sub: "御社のキャンペーン・求人・新店案内を、空き枠で", color: "#0a7fa0", accent: "#38bdf8", cta: "QRで登録" }} className="block w-full" />
+                <LaundryScene ad={{ brand: "御社の店舗（自社告知枠・無料）", headline: "LINE友だち登録で 洗剤1回無料", sub: "キャンペーン・求人・新店のご案内に", color: "#0a7fa0", accent: "#38bdf8", cta: "QRで登録" }} className="block w-full" />
                 <div className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 text-xs font-bold text-ink shadow">御社の店内モニターのイメージ</div>
               </div>
             </Reveal>

@@ -7,6 +7,7 @@ import { AdPreview } from "@/components/laundry/ad-preview";
 import { DayScenario } from "@/components/laundry/day-scenario";
 import { LoopVisual } from "@/components/laundry/loop-visual";
 import { UseCases } from "@/components/laundry/use-cases";
+import { ModelCases } from "@/components/laundry/model-cases";
 import { PricingLaundry } from "@/components/laundry/pricing-laundry";
 import { StoreQr } from "@/components/laundry/store-qr";
 import { Comparison } from "@/components/site/comparison";
@@ -23,7 +24,7 @@ import { StickyCta } from "@/components/site/sticky-cta";
 
 /**
  * トップページ＝コインランドリーサイネージ広告（主力）の広告主向けページ。
- * 構成：ヒーロー → 数字 → なぜランドリーか → 配信イメージ → 向いている商材 → 料金 → 店頭QR → 他媒体との違い
+ * 構成：ヒーロー → 数字 → なぜランドリーか → 配信イメージ → 向いている商材 → 業種別の活用イメージ → 料金 → 店頭QR → 他媒体との違い
  *       → 実測・信頼 → 配信開始スケジュールと申込の流れ → シミュレーター → その他のサービス → 資料 → 問い合わせ → FAQ
  * 店舗オーナー向け（個室トイレ設置・パッケージ）は /store へ分離。
  */
@@ -40,6 +41,7 @@ export default function Home() {
         <LoopVisual />
         <DayScenario />
         <UseCases />
+        <ModelCases />
         <PricingLaundry />
         <StoreQr />
         <Comparison />

@@ -11,7 +11,25 @@ export type AdSample = {
   cta: string;
 };
 
+/** 文字の幅の目安（全角＝1、半角＝0.6）。見出しがモニターからはみ出さないように使う。 */
+function textUnits(s: string) {
+  return [...s].reduce((a, c) => a + (c.charCodeAt(0) < 128 ? 0.6 : 1), 0);
+}
+
 export function LaundryScene({ ad, className = "" }: { ad: AdSample; className?: string }) {
+  // 見出しが長いときは「、」か空白で2行に分け、それでも入らなければ文字を小さくする（画面の幅は約176）。
+  const comma = ad.headline.indexOf("、");
+  const space = ad.headline.search(/[ 　]/);
+  const long = textUnits(ad.headline) > 10.3;
+  const inside = (i: number) => i > 0 && i < ad.headline.length - 1;
+  const lines =
+    long && inside(comma) ? [ad.headline.slice(0, comma + 1), ad.headline.slice(comma + 1)]
+    : long && inside(space) ? [ad.headline.slice(0, space), ad.headline.slice(space + 1)]
+    : [ad.headline];
+  const two = lines.length === 2;
+  const headSize = Math.min(two ? 15 : 17, 176 / Math.max(...lines.map(textUnits)));
+  // 補足の1行は、右下のQRに重ならない幅（約140）に収める。小さくなりすぎないよう下限を置く（長い文は呼び出し側で短くする）。
+  const subSize = Math.max(8, Math.min(10.5, 140 / textUnits(ad.sub)));
   return (
     <svg viewBox="0 0 640 400" role="img" aria-label={`コインランドリー店内のモニターに${ad.brand}の広告が流れているイメージ`} className={className}>
       <defs>
@@ -59,9 +77,11 @@ export function LaundryScene({ ad, className = "" }: { ad: AdSample; className?:
       <g clipPath="url(#ls-clip)">
         <circle cx="400" cy="60" r="46" fill="#ffffff" opacity="0.12" />
         <circle cx="240" cy="150" r="60" fill="#ffffff" opacity="0.1" />
-        <text x="236" y="76" fontSize="11" fontWeight="700" fill="#ffffff" opacity="0.9">{ad.brand}</text>
-        <text x="236" y="102" fontSize="17" fontWeight="800" fill="#ffffff">{ad.headline}</text>
-        <text x="236" y="122" fontSize="10.5" fill="#ffffff" opacity="0.92">{ad.sub}</text>
+        <text x="236" y={two ? 69 : 76} fontSize="11" fontWeight="700" fill="#ffffff" opacity="0.9">{ad.brand}</text>
+        {lines.map((l, i) => (
+          <text key={i} x="236" y={two ? 88 + i * 18 : 102} fontSize={headSize} fontWeight="800" fill="#ffffff">{l}</text>
+        ))}
+        <text x="236" y={two ? 123 : 122} fontSize={subSize} fill="#ffffff" opacity="0.92">{ad.sub}</text>
         <rect x="236" y="131" width="92" height="18" rx="9" fill="#ffffff" />
         <text x="282" y="143.5" fontSize="9.5" fontWeight="800" fill={ad.color} textAnchor="middle">{ad.cta}</text>
         {/* QRコード風 */}
