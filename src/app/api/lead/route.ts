@@ -172,6 +172,47 @@ export async function POST(request: Request) {
 ` +
         `── デジレップ株式会社｜埼玉県新座市畑中1-13-16
 本メールにご返信いただければ担当が確認いたします。`;
+      // 「選ばれる理由」は媒体で変える。視認率90%は個室トイレの数字なので、コインランドリーの問い合わせには出さない。
+      // コインランドリー側の文言は、ホームページに載せている表記に合わせている。
+      const reasons: [string, string][] = isLaundry
+        ? [
+            ["店内の55インチ・音声つきモニター", "洗濯物を入れるとき・取り出すときに、来店のたびに目に入ります"],
+            ["配信の実績を毎月レポート", "配信した店舗数と配信回数を、配信ログで実測してお知らせします"],
+            ["始めやすい", "動画がなくても、静止画＋音声から始められます。2ヶ月・3ヶ月の継続で割引があります"],
+          ]
+        : [
+            ["視認率90%", "1対1・強制視聴に近い環境で“ちゃんと見られる”"],
+            ["QRで効果を可視化", "視聴→予約/DL/来店まで数値で追える"],
+            ["始めやすい", "単店・短期＋動画制作込みでスモールスタート可"],
+          ];
+
+      // 店内モニターの告知から来た「少ない店舗数での掲載の相談」（/laundry-local）への返信。
+      // 相手は地元の小さな事業者なので、全国の店舗数や枠の話はせず、次に何が届くかだけを伝える。
+      const isLocal = purpose.startsWith("ランドリー広告：少ない店舗数");
+      const ngLine = "たばこ・ギャンブル・消費者金融・アダルト／風俗・出会い系・宗教／政治・連鎖販売／情報商材・コインランドリーと競合する事業の広告は掲載できません。外見や体の悩みをあおる表現も使えません。";
+      const localHtml =
+        `<div style="font-family:-apple-system,'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;max-width:600px;margin:0 auto;color:#16243d;line-height:1.75;">` +
+        `<div style="background:#0f172a;padding:20px 24px;border-radius:12px 12px 0 0;"><span style="color:#fff;font-size:18px;font-weight:800;">DigiRep（デジレップ）</span><span style="color:#9fb0cc;font-size:12px;display:block;margin-top:3px;">コインランドリーの店内モニター広告</span></div>` +
+        `<div style="border:1px solid #e5e9f0;border-top:none;border-radius:0 0 12px 12px;padding:24px;">` +
+        `<p style="margin:0 0 14px;">${greet}</p>` +
+        `<p style="margin:0 0 16px;">コインランドリーの店内モニターへの広告のご相談をありがとうございます。内容を確認し、担当の湯本より、ご希望に合う店舗と料金のご案内をメールでお送りします。</p>` +
+        `<div style="background:#f4f8fc;border-radius:10px;padding:16px 18px;margin:0 0 20px;"><p style="margin:0 0 10px;font-weight:700;color:#0478bd;">ご案内でお伝えすること</p>` +
+        `<p style="margin:0 0 6px;">① ご希望の店舗・エリアで、広告を出せる店舗</p>` +
+        `<p style="margin:0 0 6px;">② 料金と、掲載の期間</p>` +
+        `<p style="margin:0;">③ 広告の画面の用意のしかた（写真と文章から作る場合／動画をお持ちの場合）</p></div>` +
+        `<p style="margin:0 0 16px;">ご案内をご覧になってから、出すかどうかをお決めいただけます。出したい店舗や業種を入れ忘れた場合、ほかにご質問がある場合は、このメールにご返信ください。</p>` +
+        `<p style="margin:0 0 10px;font-size:13px;color:#5b6b80;">${ngLine}</p>` +
+        `<hr style="border:none;border-top:1px solid #e5e9f0;margin:22px 0 14px;">` +
+        `<p style="margin:0;font-size:12px;color:#8a98ad;">DigiRep（デジレップ株式会社）｜埼玉県新座市畑中1-13-16<br>本メールにご返信いただければ担当が確認いたします。</p>` +
+        `</div></div>`;
+      const localText =
+        `${company ? company + "　" : ""}${name} 様\n\n` +
+        `コインランドリーの店内モニターへの広告のご相談をありがとうございます。\n内容を確認し、担当の湯本より、ご希望に合う店舗と料金のご案内をメールでお送りします。\n\n` +
+        `【ご案内でお伝えすること】\n① ご希望の店舗・エリアで、広告を出せる店舗\n② 料金と、掲載の期間\n③ 広告の画面の用意のしかた（写真と文章から作る場合／動画をお持ちの場合）\n\n` +
+        `ご案内をご覧になってから、出すかどうかをお決めいただけます。\n出したい店舗や業種を入れ忘れた場合、ほかにご質問がある場合は、このメールにご返信ください。\n\n` +
+        `※${ngLine}\n\n` +
+        `── DigiRep（デジレップ株式会社）\n埼玉県新座市畑中1-13-16\n本メールにご返信いただければ担当が確認いたします。`;
+
       const html =
         `<div style="font-family:-apple-system,'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;max-width:600px;margin:0 auto;color:#16243d;line-height:1.75;">` +
         `<div style="background:#0f172a;padding:20px 24px;border-radius:12px 12px 0 0;"><span style="color:#fff;font-size:18px;font-weight:800;">DigiRep（デジレップ）</span><span style="color:#9fb0cc;font-size:12px;display:block;margin-top:3px;">確実に見られるサイネージ広告メディア</span></div>` +
@@ -180,9 +221,9 @@ export async function POST(request: Request) {
         `<p style="margin:0 0 16px;">この度は DigiRep にお問い合わせいただき、誠にありがとうございます。内容を確認のうえ、担当より<strong>1営業日以内</strong>にご連絡いたします。</p>` +
         `<p style="margin:0 0 20px;">${mediaLine}</p>` +
         `<div style="background:#f4f8fc;border-radius:10px;padding:16px 18px;margin:0 0 20px;"><p style="margin:0 0 10px;font-weight:700;color:#0478bd;">DigiRepが選ばれる3つの理由</p>` +
-        `<p style="margin:0 0 6px;">① <strong>視認率90%</strong>｜1対1・強制視聴に近い環境で“ちゃんと見られる”</p>` +
-        `<p style="margin:0 0 6px;">② <strong>QRで効果を可視化</strong>｜視聴→予約/DL/来店まで数値で追える</p>` +
-        `<p style="margin:0;">③ <strong>始めやすい</strong>｜単店・短期＋動画制作込みでスモールスタート可</p></div>` +
+        `<p style="margin:0 0 6px;">① <strong>${reasons[0][0]}</strong>｜${reasons[0][1]}</p>` +
+        `<p style="margin:0 0 6px;">② <strong>${reasons[1][0]}</strong>｜${reasons[1][1]}</p>` +
+        `<p style="margin:0;">③ <strong>${reasons[2][0]}</strong>｜${reasons[2][1]}</p></div>` +
         `<div style="border-left:4px solid #0478bd;padding:2px 0 2px 14px;margin:0 0 22px;"><p style="margin:0 0 8px;font-weight:700;">ミーティングでわかること</p>` +
         `<p style="margin:0 0 4px;">・御社の商圏・ターゲットに合わせた<strong>配信イメージ</strong></p>` +
         `<p style="margin:0 0 4px;">・<strong>概算お見積り</strong>と、最適な媒体（トイレ/ランドリー）診断</p>` +
@@ -201,9 +242,9 @@ export async function POST(request: Request) {
         `内容を確認のうえ、担当より1営業日以内にご連絡いたします。\n\n` +
         `${mediaLine}\n\n` +
         `【DigiRepが選ばれる3つの理由】\n` +
-        `① 視認率90%（1対1・強制視聴に近い環境）\n` +
-        `② QRで効果を可視化（視聴→予約/DL/来店を数値化）\n` +
-        `③ 単店・短期＋制作込みで始めやすい\n\n` +
+        `① ${reasons[0][0]}（${reasons[0][1]}）\n` +
+        `② ${reasons[1][0]}（${reasons[1][1]}）\n` +
+        `③ ${reasons[2][0]}（${reasons[2][1]}）\n\n` +
         `【ミーティングでわかること】\n` +
         `・御社の商圏に合わせた配信イメージ\n・概算お見積りと最適媒体の診断\n・効果レポートの実例\n\n` +
         `▼ ${ctaLabel}\n${ctaHref}\n\n` +
@@ -297,9 +338,9 @@ export async function POST(request: Request) {
           from: process.env.LEAD_FROM_EMAIL || "DigiRep <onboarding@resend.dev>",
           to: [email],
           reply_to: replyTo,
-          subject: isDrCheck ? "【新卒ダイレクト】人数確認のお申込みを承りました（3営業日以内にお送りします）" : isCheck3 ? "【採用の顔】採用ページ3点チェックを承りました（3営業日以内にお送りします）" : isSaiyo ? (diagCopy ? "【採用の顔】かんたん診断の結果（控え）と、詳しい診断のご案内" : "【採用の顔】お申込みありがとうございます｜無料採用診断のご案内") : isPackage ? "【デジレップ】ミーティングのご希望ありがとうございます" : "【DigiRep】お問い合わせありがとうございます｜資料と“次の一歩”のご案内",
-          html: isDrCheck ? drCheckHtml : isCheck3 ? check3Html : isSaiyo ? saiyoHtml2 : isPackage ? pkgHtml : html,
-          text: isDrCheck ? drCheckText : isCheck3 ? check3Text : isSaiyo ? saiyoText2 : isPackage ? pkgText : text,
+          subject: isDrCheck ? "【新卒ダイレクト】人数確認のお申込みを承りました（3営業日以内にお送りします）" : isCheck3 ? "【採用の顔】採用ページ3点チェックを承りました（3営業日以内にお送りします）" : isSaiyo ? (diagCopy ? "【採用の顔】かんたん診断の結果（控え）と、詳しい診断のご案内" : "【採用の顔】お申込みありがとうございます｜無料採用診断のご案内") : isPackage ? "【デジレップ】ミーティングのご希望ありがとうございます" : isLocal ? "【DigiRep】ご相談ありがとうございます｜店舗と料金のご案内をお送りします" : "【DigiRep】お問い合わせありがとうございます｜資料と“次の一歩”のご案内",
+          html: isDrCheck ? drCheckHtml : isCheck3 ? check3Html : isSaiyo ? saiyoHtml2 : isPackage ? pkgHtml : isLocal ? localHtml : html,
+          text: isDrCheck ? drCheckText : isCheck3 ? check3Text : isSaiyo ? saiyoText2 : isPackage ? pkgText : isLocal ? localText : text,
         }),
       });
     } catch {
