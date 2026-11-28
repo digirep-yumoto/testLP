@@ -44,7 +44,7 @@ export function LocalAdForm({ source }: { source: string }) {
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ purpose: "ランドリー広告：少ない店舗数での掲載の相談", media: "laundry", company: f.company, name: f.name, email: f.email, tel: f.tel, message, hp: f.hp }),
+        body: JSON.stringify({ purpose: "ランドリー広告：少ない店舗数での掲載の相談", media: "コインランドリーサイネージ", company: f.company, name: f.name, email: f.email, tel: f.tel, message, hp: f.hp }),
       });
       const j = await res.json();
       if (!res.ok) throw new Error(j.error || "送信に失敗しました。");
